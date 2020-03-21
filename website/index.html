@@ -18,19 +18,7 @@
 		<!-- Header -->
 			<header id="header">
 				<a class="logo" href="index.html">ImmuneHeroes</a>
-				<nav>
-					<a href="#menu">Menu</a>
-				</nav>
 			</header>
-
-		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="elements.html">Elements</a></li>
-					<li><a href="generic.html">Generic</a></li>
-				</ul>
-			</nav>
 
 		<!-- Banner -->
 			<section id="banner">
@@ -47,13 +35,14 @@
 				<div class="inner">
 					<header class="special">
 						<h2>Die Vision</h2>
-						<p>Um den Zusammenbruch des Gesundheitssystems zu verhindern gilt es die zwischenmenschlichen Interaktionen so umfangend wie möglich zu reduzieren. Nicht jeder Kontakt kann allerdings vermieden werden. Was wäre wenn alle Kassierer*innen, Lieferbot*innen und Rezeptionist*innen immun gegen COVID-19 wären? Dies wollen wir erreichen. Wie? Indem wir sie durch bestätigt Immune ersetzten. Hilf uns dabei.</p>
+						<p>Um den Zusammenbruch des Gesundheitssystems zu verhindern gilt es die zwischenmenschlichen Interaktionen so umfangend wie möglich zu reduzieren. Nicht jeder Kontakt kann allerdings vermieden werden. Was wäre wenn (fast) alle noch im öffentlichen Raum tätigen Menschen immun gegen COVID-19 wären? Dies wollen wir erreichen. Wie? Indem wir sie durch bestätigt Immune ersetzten. Hilf uns dabei.</p>
+						<p>Auf dieser Website vernetzen sich Immune mit Stakeholdern des öffentlichen Lebens. Also mit Krankenhausleitungen, Direktor*innen ehrenamtlicher Organisationen, Supermarktleitungen und vielen mehr. Wenn jede Tätigkeit die leicht durch Ungelernte ausgeführt werden kann durch Immune ausgeführt wird, schützen wir unsere Alten und Schwachen.</p>
 					</header>
 					<div class="highlights">
 						<section>
 							<div class="content">
 								<header>
-									<a href="#formular_held" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+									<a href="#cta"><img src="images/superhero.png" alt="hero" width="100" /></a>
 									<h3>Ich möchte ein ImmuneHero werden</h3>
 								</header>
 							</div>
@@ -61,7 +50,7 @@
 						<section>
 							<div class="content">
 								<header>
-									<a href="#formular_anfrage" class="icon fa-floppy-o"><span class="label">Icon</span></a>
+									<a href="#cta_2"><img src="images/broadcast.png" alt="hero" width="100" /></a>
 									<h3>Ich brauche einen ImmuneHero</h3>
 								</header>
 							</div>
@@ -74,7 +63,7 @@
 			<section id="cta" class="wrapper">
 				<div class="inner">
 					<h2>Ich bin COVID-19 immun. Was erwartet mich wenn ich mich anmelde?</h2>
-					<p>Bei Deiner Anmeldung fragen wir Dich ein paar Fragen bezüglich deiner Ausbildung, wo in Deutschland Du verfügbar wärst und wie wir Dich erreichen können. Dann hörst Du schon bald wo Du überall gebraucht wirst.</p>
+					<p>Bei Deiner Anmeldung fragen wir Dich wo in Deutschland Du verfügbar wärst und wie wir Dich erreichen können. Dann hörst Du schon bald wo Du überall gebraucht wirst.</p>
 				</div>
 			</section>
 			
@@ -83,7 +72,8 @@
 				<div class="inner">
 					<header class="special">
 						<h2>Werde ImmuneHero</h2>
-						<form action="/addImmuneHero" id="person" method="get">
+						<form action="generic.html" id="person" method="get">
+							
 							<label for="vorname">Vorname</label> 
 							<input type="text" name="preName" id="vorname" maxlength="30">
 						 
@@ -95,46 +85,86 @@
 							
 							<label for="email">E-Mail</label>  
 							<input type="text" name="emailAddress" id="email" maxlength="100">
+							
+							<label for="sonstiges">Sonstiges über Dich (Ausbildung, Interessen, usw...)</label> 
+							<textarea name="extras" id="extras" placeholder="Ich helfe gerne in folgeneden Bereichen: ..." rows="6"></textarea>
+							
+							<p>Wir schicken dir e-Mails sobald jemand in deiner Region Hilfe braucht.</p>
+							
+							<div class="col-12">
+								<select name="category" id="category">
+									<option value="">- So oft möchte ich informiert werden -</option>
+									<option value="alpha">Für jede neue Anfrage</option>
+									<option value="beta">Tägliche Zusammenfassung</option>
+									<option value="gamma">Wöchentliche Zusammenfassung</option>
+								</select>
+							</div>
+							
+							<div class="box">
+								<p>Ihre hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet, Sie mit Personen in Kontakt zu bringen, die sich auf dieser Seite als Helfer registriert haben. Rechtsgrundlage der Verarbeitung ist Art. 6 Abs. 1 lit. b DSGVO. Ihre angegebenen Daten werden den Helfern in Ihrem erweitertem Postleitzahlgebiet über diese Seite offengelegt. Ihre Daten werden nur für den Zeitraum, der zur Erfüllung des Zwecks der Vermittlung von Hilfesuchenden und Helfern erforderlich ist, von uns verarbeitet, und danach gelöscht.</p>
+							</div>
 
-							<button type="submit">Eingaben absenden</button>
+							<button class="button primary large" type="submit">Eingaben absenden</button>
+
 						</form>
 					</header>
+				</div>
+			</section>
+			
+		<!-- CTA2 -->
+			<section id="cta" class="wrapper">
+				<div class="inner">
+					<h2>Ich brauche Unterstützung durch Immune. Wie geht es weiter?</h2>
+					<p>Bei Deiner Anmeldung fragen wir Dich wo in Deutschland Du Hilfe brauchst, Du schreibst einen kurzen Text was für Arbeit ansteht und wie wir Dich erreichen können. Dann melden sich schon bald Immune bei Dir.</p>
 				</div>
 			</section>
 		
 		<!-- Formular2 -->
 			<section id="formular_anfrage" class="wrapper">
-				<div class="inner">
-					<header class="special">
-						<h2>Frage eine*n ImmuneHero an</h2>
-						<form action="senden.html" id="person">
-							<label for="vorname">Vorname</label> 
-							<input type="text" name="vorname" id="vorname" maxlength="30">
-						 
-							<label for="nachnname">Nachname</label>  
-							<input type="text" name="nachnname" id="nachname" maxlength="40">
-							
-							<label for="org">Organisation</label>  
-							<input type="text" name="org" id="org" maxlength="40">
-							
-							<label for="postl">Postleitzahl</label>  
-							<input type="text" name="postl" id="postl" maxlength="40">
-							
-							<label for="zweck">Dafür brauche ich eine*n ImmuneHero</label>  
-							<input type="search" rows = "10" name="zweck" id="zweck" maxlength="400">
-							
-							<label for="email">E-Mail</label>  
-							<input type="text" name="email" id="email" maxlength="100">
+			<div class="inner">
+				<header class="special">
+					<h2>Frage ImmuneHeroes an</h2>
+					<form action="generic.html" id="person">
+						<h3>Ansprechpartner</h3>
+						<label for="vorname">Vorname</label> 
+						<input type="text" name="preName" id="vorname" maxlength="30">
+					 
+						<label for="nachnname">Nachname</label>  
+						<input type="text" name="lastName" id="nachname" maxlength="40">
+						
+						<label for="email">E-Mail</label>  
+						<input type="text" name="emailAddress" id="email" maxlength="100">
+						
+						<label for="postl">Telefon</label>  
+						<input type="text" name="phoneNumber" id="phoneNumber" maxlength="40">
+						
+						<h3>Wo wird Hilfe gebraucht?</h3>
+						
+						<label for="org">Organisation</label>  
+						<input type="text" name="organisation" id="org" maxlength="40">
+						
+						<label for="postl">Straße, Hausnummer</label>  
+						<input type="text" name="address" id="address" maxlength="100">
+						
+						<label for="postl">Postleitzahl</label>  
+						<input type="text" name="zipCode" id="postl" maxlength="40">
+						
+						<label for="postl">Stadt</label>  
+						<input type="text" name="city" id="city" maxlength="40">
+						
+						<h3>Was gibt es zu tun?</h3>
+						  
+						<textarea name="extras" id="text" placeholder="Ich brauche Hilfe in folgeneden Bereichen: ..." rows="6"></textarea> 
+						
+						<div class="box">
+							<p>Ihre hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet, Sie mit Personen in Kontakt zu bringen, die sich auf dieser Seite als Helfer registriert haben. Rechtsgrundlage der Verarbeitung ist Art. 6 Abs. 1 lit. b DSGVO. Ihre angegebenen Daten werden den Helfern in Ihrem erweitertem Postleitzahlgebiet über diese Seite offengelegt. Ihre Daten werden nur für den Zeitraum, der zur Erfüllung des Zwecks der Vermittlung von Hilfesuchenden und Helfern erforderlich ist, von uns verarbeitet, und danach gelöscht.</p>
+						</div>
 
-							<button type="submit">Eingaben absenden</button>
-						</form>
-						
-						
-						
-						
-					</header>
-				</div>
-			</section>
+						<button class="button primary large" type="submit">Eingaben absenden</button>
+					</form>
+				</header>
+			</div>
+			</section>								
 
 	<!-- Testimonials -->
 			<section class="wrapper">
@@ -192,8 +222,8 @@
 				<div class="inner">
 					<div class="content">
 						<section>
-							<h3>Ziel dieses Projekts</h3>
-							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing. Lorem ipsum dolor vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing sed feugiat eu faucibus. Integer ac sed amet praesent. Nunc lacinia ante nunc ac gravida.</p>
+							<h3>Ich bin nicht immun, wie kann ich sonst helfen?</h3>
+							<p>Bitte teile diese Website mit Freunden, Familie, Kollegen und Nachbarn. Je mehr Immune wir mit offenen Stellen vernetzen können desto weniger Infektionen wird es geben.</p>
 						</section>
 						<section>
 							<h4>#WirVsVirus</h4>
@@ -205,15 +235,16 @@
 						<section>
 							<h4>Follow us</h4>
 							<ul class="plain">
-								<li><a href="#"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+								<li><a href="https://twitter.com/LeonMachler"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
 								<li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
 								<li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
-								<li><a href="#"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+								<li><a href="https://github.com/jomapp/immuneheroes"><i class="icon fa-github">&nbsp;</i>Github</a></li>
 							</ul>
 						</section>
 					</div>
 					<div class="copyright">
 						&copy; Pictures <a href="https://unsplash.co">Unsplash</a>, Video <a href="https://coverr.co">Coverr</a>.
+						<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 					</div>
 				</div>
 			</footer>
