@@ -66,6 +66,8 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database
         }
       });
       return res.send(successList);
+    } else {
+      return;
     }
   });
 
@@ -88,6 +90,8 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateImmuneHero = functions.database.
         });
         return res.send(successList)
       });
+    } else {
+      return;
     }
   });
 
