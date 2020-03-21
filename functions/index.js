@@ -48,9 +48,10 @@ exports.getStakeHoldersInZipCodeRangeAsHtmlTable = functions.https.onRequest(asy
 });
 
 //Automatic Email
-exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}/zipCode')
-  .onCreate(async (newSnapShot, context) => {
-    const searchZipCode = parseInt(newSnapShot.val().zipCode)
+exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}')
+  .onCreate(async (newStakeHolderSnapshot, context) => {
+    const searchZipCode = parseInt(newStakeHolderSnapshot.val().zipCode)
+    const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
     if (numberStakeHolder >= 0) {
       const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
       var successList = "";
@@ -72,25 +73,16 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database
   });
 
 //Automatic Email
-exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}/zipCode')
-  .onCreate(async (newSnapShot, context) => {
-    const searchZipCode = parseInt(newSnapShot.val().zipCode)
+exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}')
+  .onCreate(async (newImmuneHeroSnapShot, context) => {
+    const searchZipCode = parseInt(newImmuneHeroSnapShot.val().zipCode)
+    console.log("Number: " + searchZipCode)
     const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
+    console.log("Number:" + numberStakeHolder)
     if (numberStakeHolder >= 0) {
-      return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
-        var successList = "";
-        snapshot.forEach(childSnapshot => {
-          const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
-          const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
-          const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
-          if (success) {
-            successList += "Email successfully sent to" + immuneHero.key + "\n"
-          } else {
-            successList += "Email not sent to" + immuneHero.key + "\n"
-          }
-        });
-        return res.send(successList)
-      });
+      const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+      const immuneHero = getImmuneHeroFromSnapshot(newImmuneHeroSnapShot)
+      return sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable) 
     } else {
       return null;
     }
@@ -99,12 +91,15 @@ exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroes
 exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req, res) => {
   const searchZipCode = parseInt(req.query.searchZipCode)
   const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
+  console.log("Number:" + numberStakeHolder)
   if (numberStakeHolder >= 0) {
+    console.log("Ja")
     return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
       var successList = "";
       snapshot.forEach(childSnapshot => {
         const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
         const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
+        console.log(immuneHero.emailAddress)
         const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
         if (success) {
           successList += "Email successfully sent to" + immuneHero.key + "\n"
