@@ -50,17 +50,18 @@ exports.getStakeHoldersInZipCodeRangeAsHtmlTable = functions.https.onRequest(asy
 exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req, res) => {
   const searchZipCode = parseInt(req.query.searchZipCode)
   return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
+    var successList
     snapshot.forEach(childSnapshot => {
       const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode)
       const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
       const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
       if (success) {
-        return res.append("Email successfully sent to" + immuneHero.key)
+        successList += "Email successfully sent to" + immuneHero.key + "\n"
       } else {
-        return res.append("Email not sent to" + immuneHero.key)
+        successList += "Email not sent to" + immuneHero.key + "\n"
       }
     });
-    return res.send()
+    return res.send(successList)
   });
 });
 
