@@ -55,9 +55,9 @@ exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req,
       const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
       const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
       if (success) {
-        return res.append("Email successfully sent to" + immuneHero.key +"")
+        return res.append("Email successfully sent to" + immuneHero.key)
       } else {
-        return res.append("Email not sent to" + immuneHero.key +"")
+        return res.append("Email not sent to" + immuneHero.key)
       }
     });
     return res.send()
