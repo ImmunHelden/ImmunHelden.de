@@ -48,10 +48,11 @@ exports.getStakeHoldersInZipCodeRangeAsHtmlTable = functions.https.onRequest(asy
 });
 
 //Automatic Email
-exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}/zipCode')
-  .onCreate(async (newSnapShot, context) => {
-    if ((await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren >= 0) {
-      const searchZipCode = parseInt(newSnapShot.val())
+exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}')
+  .onCreate(async (newStakeHolderSnapshot, context) => {
+    const searchZipCode = parseInt(newStakeHolderSnapshot.val().zipCode)
+    const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
+    if (numberStakeHolder >= 0) {
       const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
       var successList = "";
       snapshot.forEach(childSnapshot => {
@@ -67,42 +68,38 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database
       });
       return res.send(successList);
     } else {
-      return;
+      return null;
     }
   });
 
 //Automatic Email
-exports.notifyImmuneHeroesInZipCodeRangeOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}/zipCode')
-  .onCreate(async (newSnapShot, context) => {
-    if ((await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren >= 0) {
-      const searchZipCode = parseInt(newSnapShot.val())
-      return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
-        var successList = "";
-        snapshot.forEach(childSnapshot => {
-          const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
-          const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
-          const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
-          if (success) {
-            successList += "Email successfully sent to" + immuneHero.key + "\n"
-          } else {
-            successList += "Email not sent to" + immuneHero.key + "\n"
-          }
-        });
-        return res.send(successList)
-      });
+exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}')
+  .onCreate(async (newImmuneHeroSnapShot, context) => {
+    const searchZipCode = parseInt(newImmuneHeroSnapShot.val().zipCode)
+    console.log("Number: " + searchZipCode)
+    const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
+    console.log("Number:" + numberStakeHolder)
+    if (numberStakeHolder >= 0) {
+      const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+      const immuneHero = getImmuneHeroFromSnapshot(newImmuneHeroSnapShot)
+      return sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable) 
     } else {
-      return;
+      return null;
     }
   });
 
 exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req, res) => {
   const searchZipCode = parseInt(req.query.searchZipCode)
-  if ((await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren >= 0) {
+  const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
+  console.log("Number:" + numberStakeHolder)
+  if (numberStakeHolder >= 0) {
+    console.log("Ja")
     return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
       var successList = "";
       snapshot.forEach(childSnapshot => {
         const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
         const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
+        console.log(immuneHero.emailAddress)
         const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
         if (success) {
           successList += "Email successfully sent to" + immuneHero.key + "\n"
@@ -113,7 +110,7 @@ exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req,
       return res.send(successList)
     });
   } else {
-    return;
+    return null;
   }
 });
 
