@@ -50,27 +50,50 @@ exports.getStakeHoldersInZipCodeRangeAsHtmlTable = functions.https.onRequest(asy
 //Automatic Email
 exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}/zipCode')
   .onCreate(async (newSnapShot, context) => {
-    const searchZipCode = parseInt(newSnapShot.val())
-    const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
-    var successList = "";
-    snapshot.forEach(childSnapshot => {
-      const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
-      const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
-      const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable);
-      if (success) {
-        successList += "Email successfully sent to" + immuneHero.key + "\n";
-      }
-      else {
-        successList += "Email not sent to" + immuneHero.key + "\n";
-      }
-    });
-    return res.send(successList);
+    if ((await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren >= 0) {
+      const searchZipCode = parseInt(newSnapShot.val())
+      const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
+      var successList = "";
+      snapshot.forEach(childSnapshot => {
+        const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+        const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
+        const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable);
+        if (success) {
+          successList += "Email successfully sent to" + immuneHero.key + "\n";
+        }
+        else {
+          successList += "Email not sent to" + immuneHero.key + "\n";
+        }
+      });
+      return res.send(successList);
+    }
   });
 
 //Automatic Email
 exports.notifyImmuneHeroesInZipCodeRangeOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}/zipCode')
   .onCreate(async (newSnapShot, context) => {
-    const searchZipCode = parseInt(newSnapShot.val())
+    if ((await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren >= 0) {
+      const searchZipCode = parseInt(newSnapShot.val())
+      return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
+        var successList = "";
+        snapshot.forEach(childSnapshot => {
+          const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+          const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
+          const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
+          if (success) {
+            successList += "Email successfully sent to" + immuneHero.key + "\n"
+          } else {
+            successList += "Email not sent to" + immuneHero.key + "\n"
+          }
+        });
+        return res.send(successList)
+      });
+    }
+  });
+
+exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req, res) => {
+  const searchZipCode = parseInt(req.query.searchZipCode)
+  if ((await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren >= 0) {
     return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
       var successList = "";
       snapshot.forEach(childSnapshot => {
@@ -85,24 +108,9 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateImmuneHero = functions.database.
       });
       return res.send(successList)
     });
-  });
-
-exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req, res) => {
-  const searchZipCode = parseInt(req.query.searchZipCode)
-  return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
-    var successList = "";
-    snapshot.forEach(childSnapshot => {
-      const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
-      const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
-      const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
-      if (success) {
-        successList += "Email successfully sent to" + immuneHero.key + "\n"
-      } else {
-        successList += "Email not sent to" + immuneHero.key + "\n"
-      }
-    });
-    return res.send(successList)
-  });
+  } else {
+    return;
+  }
 });
 
 async function createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode) {
