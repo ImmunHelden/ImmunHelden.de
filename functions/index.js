@@ -13,7 +13,7 @@ exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
   const emailAddress = req.query.emailAddress
   const zipCode = parseInt(req.query.zipCode)
   const result = await admin.database().ref(immuneHeroesTable).push({ preName: preName, lastName: lastName, emailAddress: emailAddress, zipCode: zipCode });
-  res.json(result.toJSON()).send();
+  res.redirect('../generic.html');
 });
 
 exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
@@ -27,7 +27,7 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   const zipCode = parseInt(req.query.zipCode)
   const city = req.query.city
   const result = await admin.database().ref(stakeHoldersTable).push({ preName: preName, lastName: lastName, organisation: organisation, text: text, emailAddress: emailAddress, phoneNumber: phoneNumber, address: address, zipCode: zipCode, city: city });
-  res.json(result.toJSON()).send();
+  res.redirect('../generic.html');
 });
 
 exports.getImmuneHeroesInZipCodeRangeAsJson = functions.https.onRequest(async (req, res) => {
