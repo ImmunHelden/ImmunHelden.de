@@ -49,8 +49,8 @@ exports.getStakeHoldersInZipCodeRangeAsHtmlTable = functions.https.onRequest(asy
 
 //Automatic Email
 exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}/zipCode')
-  .onCreate(async (snapshot, context) => {
-    const searchZipCode = parseInt(snapshot.val())
+  .onCreate(async (newSnapShot, context) => {
+    const searchZipCode = parseInt(newSnapShot.val())
     const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
     var successList = "";
     snapshot.forEach(childSnapshot => {
@@ -69,8 +69,8 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database
 
 //Automatic Email
 exports.notifyImmuneHeroesInZipCodeRangeOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}/zipCode')
-  .onCreate(async (snapshot, context) => {
-    const searchZipCode = parseInt(snapshot.val())
+  .onCreate(async (newSnapShot, context) => {
+    const searchZipCode = parseInt(newSnapShot.val())
     return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
       var successList = "";
       snapshot.forEach(childSnapshot => {
