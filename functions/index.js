@@ -47,12 +47,52 @@ exports.getStakeHoldersInZipCodeRangeAsHtmlTable = functions.https.onRequest(asy
   return res.send(wrapStakeHoldersHtmlTableInBody(await createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode)));
 });
 
+//Automatic Email
+exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}/zipCode')
+  .onCreate(async (snapshot, context) => {
+    const searchZipCode = parseInt(snapshot.val())
+    const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
+    var successList = "";
+    snapshot.forEach(childSnapshot => {
+      const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+      const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
+      const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable);
+      if (success) {
+        successList += "Email successfully sent to" + immuneHero.key + "\n";
+      }
+      else {
+        successList += "Email not sent to" + immuneHero.key + "\n";
+      }
+    });
+    return res.send(successList);
+  });
+
+//Automatic Email
+exports.notifyImmuneHeroesInZipCodeRangeOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}/zipCode')
+  .onCreate(async (snapshot, context) => {
+    const searchZipCode = parseInt(snapshot.val())
+    return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
+      var successList = "";
+      snapshot.forEach(childSnapshot => {
+        const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+        const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
+        const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
+        if (success) {
+          successList += "Email successfully sent to" + immuneHero.key + "\n"
+        } else {
+          successList += "Email not sent to" + immuneHero.key + "\n"
+        }
+      });
+      return res.send(successList)
+    });
+  });
+
 exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req, res) => {
   const searchZipCode = parseInt(req.query.searchZipCode)
   return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
-    var successList
+    var successList = "";
     snapshot.forEach(childSnapshot => {
-      const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode)
+      const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
       const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
       const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
       if (success) {
@@ -107,40 +147,40 @@ function createStakeHoldersHtmlTable(stakeHoldersList) {
   return table;
 }
 
-function wrapStakeHoldersHtmlTableInBody(stakeHoldersHtmlTable){
+function wrapStakeHoldersHtmlTableInBody(stakeHoldersHtmlTable) {
   var body = "<!doctype html>"
-  body +=    "<html>"
-  body +=    "<title>ImmuneHeroes</title>"
-  body +=    "</head>"
-  body +=    "<h3>Diese Personen/Organisationen benötigen deine Hilfe:</h3>"
-  body +=    stakeHoldersHtmlTable
-  body +=    "</body>"
-  body +=    "</html>"
+  body += "<html>"
+  body += "<title>ImmuneHeroes</title>"
+  body += "</head>"
+  body += "<h3>Diese Personen/Organisationen benötigen deine Hilfe:</h3>"
+  body += stakeHoldersHtmlTable
+  body += "</body>"
+  body += "</html>"
   return body;
 }
 
-function wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, stakeHoldersHtmlTable){
+function wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, stakeHoldersHtmlTable) {
   var body = "<!doctype html>"
-  body +=    "<html>"
-  body +=    "<title>ImmuneHeroes</title>"
-  body +=    "</head>"
-  body +=    "<h3>Hey " + immuneHero.preName + ",</h3>"
-  body +=    "<p>danke, dass du mit dabei bist!</p>"
-  body +=    "<h4>Diese Personen/Organisationen benötigen gerade deine Hilfe:</h4>"
-  body +=    stakeHoldersHtmlTable
-  body +=    "<p>Bitte melde dich direkt bei Ihnen!</p>"
-  body +=    "<p>Dein ImmuneHeroes Team</p>"
-  body +=    "</body>"
-  body +=    "</html>"
+  body += "<html>"
+  body += "<title>ImmuneHeroes</title>"
+  body += "</head>"
+  body += "<h3>Hey " + immuneHero.preName + ",</h3>"
+  body += "<p>danke, dass Du mit dabei bist!</p>"
+  body += "<h4>Diese Personen/Organisationen benötigen gerade deine Hilfe:</h4>"
+  body += stakeHoldersHtmlTable
+  body += "<p>Bitte melde dich direkt bei Ihnen!</p>"
+  body += "<p>Dein ImmuneHeroes Team</p>"
+  body += "</body>"
+  body += "</html>"
   return body;
 }
 
 function getStakeHolderFromSnapshot(snapshot) {
-  return stakeHolder = { key: snapshot.val().key, preName: snapshot.val().preName, lastName: snapshot.val().lastName, organisation: snapshot.val().organisation, emailAddress: snapshot.val().emailAddress, phoneNumber: snapshot.val().phoneNumber, text: snapshot.val().text, address: snapshot.val().address, zipCode: snapshot.val().zipCode, city: snapshot.val().city }
+  return stakeHolder = { key: snapshot.key, preName: snapshot.val().preName, lastName: snapshot.val().lastName, organisation: snapshot.val().organisation, emailAddress: snapshot.val().emailAddress, phoneNumber: snapshot.val().phoneNumber, text: snapshot.val().text, address: snapshot.val().address, zipCode: snapshot.val().zipCode, city: snapshot.val().city }
 }
 
 function getImmuneHeroFromSnapshot(snapshot) {
-  return immuneHero = { key: snapshot.val().key, preName: snapshot.val().preName, lastName: snapshot.val().lastName, emailAddress: snapshot.val().emailAddress, zipCode: snapshot.val().zipCode }
+  return immuneHero = { key: snapshot.key, preName: snapshot.val().preName, lastName: snapshot.val().lastName, emailAddress: snapshot.val().emailAddress, zipCode: snapshot.val().zipCode }
 }
 
 function getImmuneHeroesInZipCodeRange(searchZipCode) {
@@ -174,7 +214,7 @@ async function sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable) {
     to: immuneHero.emailAddress
   };
   mailOptions.subject = 'Hey ImmuneHero: Wir brauchen dich!';
-  mailOptions.text = 'Hey ' + immuneHero.preName +',\n\nWir brauchen deine Unterstützung!\n\nDein ImmuneHeroes Team';
-  mailOptions.body = wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, stakeHoldersHtmlTable);
+  mailOptions.text = 'Hey ' + immuneHero.preName + ',\n\nWir brauchen deine Unterstützung!\n\nDein ImmuneHeroes Team';
+  mailOptions.html = wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, await stakeHoldersHtmlTable);
   return await mailTransport.sendMail(mailOptions);
 }
