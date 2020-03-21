@@ -52,7 +52,7 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database
   .onCreate(async (newStakeHolderSnapshot, context) => {
     const searchZipCode = parseInt(newStakeHolderSnapshot.val().zipCode)
     const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
-    if (numberStakeHolder >= 0) {
+    if (numberStakeHolder > 0) {
       const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
       var successList = "";
       snapshot.forEach(childSnapshot => {
@@ -79,7 +79,7 @@ exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroes
     console.log("Number: " + searchZipCode)
     const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
     console.log("Number:" + numberStakeHolder)
-    if (numberStakeHolder >= 0) {
+    if (numberStakeHolder > 0) {
       const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
       const immuneHero = getImmuneHeroFromSnapshot(newImmuneHeroSnapShot)
       return sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable) 
@@ -92,7 +92,7 @@ exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req,
   const searchZipCode = parseInt(req.query.searchZipCode)
   const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
   console.log("Number:" + numberStakeHolder)
-  if (numberStakeHolder >= 0) {
+  if (numberStakeHolder > 0) {
     console.log("Ja")
     return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
       var successList = "";
