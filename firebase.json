@@ -12,10 +12,14 @@
       "**/node_modules/**"
     ],
     "rewrites": [
-	  {
-		"source": "/addImmuneHero",
+      {
+        "source": "/addImmuneHero",
         "function": "addImmuneHero"
-	  },
+      },
+      {
+        "source": "/addStakeHolder",
+        "function": "addStakeHolder"
+      },
       {
         "source": "**",
         "destination": "/index.html"
