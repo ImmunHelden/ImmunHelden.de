@@ -1994,6 +1994,7 @@ ul.icons {
     position: absolute;
     right: 50%;
     width: auto; }
+    /*
   #banner:before {
     -moz-transition: opacity 3s ease;
     -webkit-transition: opacity 3s ease;
@@ -2025,6 +2026,7 @@ ul.icons {
     webkit-linear-gradientidth: 100%;
     width: 100%;
     z-index: 1; }
+  */
   #banner.small {
     height: 30vh !important;
     min-height: 30vh; }
