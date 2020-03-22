@@ -19,28 +19,7 @@
 
 		<style>
 			#banner {
-				background: #333;
-			}
-			#banner a {
-				color: #666;
-			}
-			#banner #osm-map {
-				width: 100%;
-				max-width: 100%;
-				overflow: visible;
-			}
-			#banner #osm-map-shadow {
-				/*background: linear-gradient(rgba(27, 69, 206, 0.25), rgba(206, 27, 40, 0.25));*/
 				background-image: linear-gradient(rgba(27, 69, 206, 0.25), rgba(206, 27, 40, 0.25)), url(images/cta01.jpg);
-				background-size: cover;
-				position: absolute;
-				z-index: 9999;
-				width: 100%;
-				max-width: 100%;
-			}
-			#banner .heading {
-				position: absolute;
-				z-index: 9999;
 			}
 			#banner h1 {
 				color: #fff;
@@ -49,6 +28,16 @@
 			}
 			#banner p {
 				color: #fff;
+			}
+			#osm-map {
+				height: 45rem;
+				width: 100%;
+				max-width: 100%;
+				overflow: hidden;
+			}
+			#osm-map p.text {
+				margin: 0;
+				margin-bottom: 0.75em;
 			}
 		</style>
 	</head>
@@ -61,11 +50,6 @@
 
 		<!-- Banner -->
 			<section id="banner">
-				<div id="osm-map" class="inner" style="height: 100%;">
-					<div id="osm-map-shadow" class="inner" style="height: 100%;">
-						<a href="map.html" target="_blank" style="display: block; height: 100%;"></a>
-					</div>
-				</div>
 				<div class="heading">
 					<h1>ImmuneHeroes</h1>
 					<br>
@@ -73,6 +57,158 @@
 					</p>
 				</div>
 			</section>
+
+		<!-- Vision -->
+			<section class="wrapper">
+				<div class="inner">
+					<header class="special">
+						<h2>Die Vision</h2>
+
+						<p style="text-align: justify;">Von Covid-19 genesene Menschen und damit immune Helfer:innen dorthin zu vermitteln, wo sie am dringendsten gebraucht werden. Wir wollen alle im System entstehenden Lücken so schnell wie möglich mit Immunen füllen.</p>
+
+						<p style="text-align: justify;">Was wäre, wenn viele notwendige Dienstleistungen von Personen übernommen werden könnten, die immun gegen das neuartige Coronavirus sind, weil sie die COVID-19-Erkrankung schon hinter sich haben? Mit unserer Website, die hilfesuchende Personen oder Organisationen mit immunen Hilfskräften verbindet, kannst Du dazu beitragen! In Zeiten, in denen Medizinstudierende zur Mithilfe in Krankenhäusern aufgerufen werden, die Großeltern im Altersheim nicht besucht werden können und es für viele Menschen riskant ist, im Supermarkt einzukaufen, sind die Einsatzmöglichkeiten von immunen Engagierten riesig! <b><br><br>Darum an alle ImmuneHeroes da draußen: Vernetzt Euch hier mit Krankenhausleitungen, Direktor:innen ehrenamtlicher Organisationen, Supermarktleitungen, Senior:innen und vielen mehr! <br><br> Und an alle, die Hilfe gebrauchen können: Holt sie Euch!  <br><br></b> Wenn möglichst viele Tätigkeiten durch ImmuneHeroes ausgeführt werden, verlangsamen wir die Virusausbreitung und schützen diejenigen, für die eine Erkrankung besonders gefährlich wäre.</p>
+
+					</header>
+					<div class="highlights">
+						<section>
+							<div class="content">
+								<header>
+									<a href="#cta"><img src="images/superhero.png" alt="hero" width="100" /></a>
+									<h3>Ich möchte ein ImmuneHero werden</h3>
+								</header>
+							</div>
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#cta2"><img src="images/broadcast.png" alt="hero" width="100" /></a>
+									<h3>Ich brauche einen ImmuneHero</h3>
+								</header>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+
+		<!-- CTA -->
+			<section id="cta" class="wrapper">
+				<div class="inner">
+					<h2>Ich bin COVID-19 immun.</br>Was erwartet mich wenn ich mich anmelde?</h2>
+					<p>Bei Deiner Anmeldung fragen wir Dich wo in Deutschland Du verfügbar wärst und wie wir Dich erreichen können.</br>Dann hörst Du schon bald von uns wo Du überall gebraucht wirst.</p>
+				</div>
+			</section>
+
+		<!-- Formular -->
+			<section id="formular_held" class="wrapper">
+				<div class="inner">
+					<header class="special">
+						<h2>Werde ImmuneHero</h2>
+						<form action="/addImmuneHero" id="person" method="GET">
+
+							<label for="vorname">Vorname *</label>
+							<input type="text" name="preName" id="vorname" maxlength="30" required>
+
+							<label for="nachnname">Nachname *</label>
+							<input type="text" name="lastName" id="nachname" maxlength="40" required>
+
+							<label for="postl">Postleitzahl *</label>
+							<input type="number" name="zipCode" id="postl" minlength="5" maxlength="5" min="00000" max="99999" required>
+
+							<label for="email">E-Mail *</label>
+							<input type="email" name="emailAddress" id="email" maxlength="100" required>
+
+							<p>Wir schicken dir e-Mails sobald jemand in deiner Region Hilfe braucht.</p>
+
+							<div class="col-12">
+								<select name="category" id="category" required>
+									<option value="">- So oft möchte ich informiert werden - *</option>
+									<option value="direct">Für jede neue Anfrage</option>
+									<option value="daily">Tägliche Zusammenfassung</option>
+									<option value="weekly">Wöchentliche Zusammenfassung</option>
+								</select>
+							</div>
+
+							<div class="box">
+								<p>Ihre hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet, Sie mit Personen in Kontakt zu bringen, die über diese Seite Hilfe anfordern. Rechtsgrundlage der Verarbeitung ist Art. 6 Abs. 1 lit. b DSGVO. Ihre Daten werden nur für den Zeitraum, der zur Erfüllung des Zwecks der Vermittlung von Hilfesuchenden und Helfern erforderlich ist, von uns verarbeitet, und danach gelöscht.</p>
+							</div>
+
+							<button class="button primary large" type="submit">Eingaben absenden</button>
+
+						</form>
+					</header>
+				</div>
+			</section>
+
+		<!-- CTA2 -->
+			<section id="cta2" class="wrapper">
+				<div class="inner">
+					<h2>Ich brauche Unterstützung durch Immune.</br>Wie geht es weiter?</h2>
+					<p>Superhelden gibt es nicht? Jeder denkt nur an sich? Stimmt nicht! Hier findest Du Deine immunen Superhelden. <br><br>
+					ImmuneHeroes können bei vielen gesellschaftlich wichtigen Aufgaben unterstützen - sei es im Gesundheitsweisen, im Einzelhandel oder in der Pflege.
+					Bei Deiner Anmeldung fragen wir Dich, wo in Deutschland Du Hilfe brauchst. Du beschreibst in einem kurzen Text, welche Arbeit ansteht, in welchem systemrelevanten Bereich oder Ehrenamt und wie wir Dich erreichen können. Dann melden sich schon bald ImmuneHeroes bei Dir.
+
+					<br><br>Über eine etwaige Vergütung stimmst Du Dich direkt mit dem ImmuneHero ab.</p>
+				</div>
+			</section>
+
+		<!-- Formular2 -->
+			<section id="formular_anfrage" class="wrapper">
+			<div class="inner">
+				<header class="special">
+					<h2>Frage ImmuneHeroes an</h2>
+					<form action="/addStakeHolder" id="person" method="GET">
+						<h3>Ansprechpartner</h3>
+						<label for="vorname">Vorname *</label>
+						<input type="text" name="preName" id="vorname" maxlength="30" required>
+
+						<label for="nachnname">Nachname *</label>
+						<input type="text" name="lastName" id="nachname" maxlength="40" required>
+
+						<label for="email">E-Mail *</label>
+						<input type="email" name="emailAddress" id="email" maxlength="100" required>
+
+						<label for="telefon">Telefon *</label>
+						<input type="text" name="phoneNumber" id="phoneNumber" maxlength="40" required>
+
+						<h3>Wo wird Hilfe gebraucht?</h3>
+
+						<label for="org">Organisation *</label>
+						<input type="text" name="organisation" id="org" maxlength="40" required>
+
+						<label for="postl">Straße, Hausnummer *</label>
+						<input type="text" name="address" id="address" maxlength="100" required>
+
+						<label for="postl">Postleitzahl *</label>
+						<input type="number" name="zipCode" id="postl" maxlength="40" required>
+
+						<label for="postl">Stadt *</label>
+						<input type="text" name="city" id="city" maxlength="40" required>
+
+						<h3>Was gibt es zu tun? *</h3>
+
+						<textarea name="text" id="text" placeholder="Ich brauche Hilfe in folgeneden Bereichen..." rows="6" required></textarea>
+
+						<div class="box">
+							<p>Ihre hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet, Sie mit Personen in Kontakt zu bringen, die sich auf dieser Seite als Helfer registriert haben. Rechtsgrundlage der Verarbeitung ist Art. 6 Abs. 1 lit. b DSGVO. Ihre angegebenen Daten werden den Helfern über diese Seite offengelegt. Ihre Daten werden nur für den Zeitraum, der zur Erfüllung des Zwecks der Vermittlung von Hilfesuchenden und Helfern erforderlich ist, von uns verarbeitet, und danach gelöscht.</p>
+						</div>
+
+						<button class="button primary large" type="submit">Eingaben absenden</button>
+					</form>
+				</header>
+			</div>
+			</section>
+
+	<!-- Map -->
+		<section class="wrapper" style="padding: 0;">
+			<div class="inner">
+				<header class="special">
+					<h2>Was kann ich tun?</h2>
+					<a href="map.html">Hier geht's zur interaktiven Karte</a>
+					<br><br>
+					<div id="osm-map"></div>
+				</header>
+			</div>
+		</section>
 
 		<script>
 			if (!String.prototype.format) {
@@ -131,8 +267,8 @@
 			}
 
 			let map = new L.map('osm-map', {
-				center: [51.75, 11],
-				zoom: 7,
+				center: [51, 10],
+				zoom: 6,
 				zoomControl: false,
 				dragging: false,
 				doubleClickZoom: false,
@@ -141,7 +277,7 @@
 
 			createBaseLayer().addTo(map);
 
-			function addStakeholderMarker(json) {
+			function addStakeholderMarker(json, retry) {
 				// TODO: So far, country is hardcoded.
 				resolveLatLng([json.address, json.zipCode, json.city, "Germany"])
 					.then(latlng => {
@@ -149,8 +285,15 @@
 					})
 					.catch(err => {
 						// TODO: Every other attempt returns a "Error: rate limited" (429).
-						// We may have to pay for the geocoding service..
-						console.error(err);
+						// Retry again with a delay. We may have to pay for the geocoding
+						// service in order to avoid it.
+						if (retry > 0) {
+							const delay = Math.round(Math.random() * 5000);
+							console.log(err + " (will try again in {0}ms)".format(delay));
+							setTimeout(() => addStakeholderMarker(json, retry - 1), delay);
+						} else {
+							console.error(err + " (eventually failed)");
+						}
 					});
 			}
 
@@ -164,153 +307,14 @@
 				return html;
 			}
 
-			loadJson("/getAllStakeHoldersAsJson").then(stakeholdersJSON => {
+			loadJson("https://immuneheroes-35036.firebaseapp.com/getAllStakeHoldersAsJson").then(stakeholdersJSON => {
 				console.log(stakeholdersJSON);
+				const retryMax = 10;
 				for (const key in stakeholdersJSON) {
-					addStakeholderMarker(stakeholdersJSON[key]);
+					addStakeholderMarker(stakeholdersJSON[key], retryMax);
 				}
 			});
 		</script>
-
-		<!-- Vision -->
-			<section class="wrapper">
-				<div class="inner">
-					<header class="special">
-						<h2>Die Vision</h2>
-						
-						<p style="text-align: justify;">Von Covid-19 genesene Menschen und damit immune Helfer:innen dorthin zu vermitteln, wo sie am dringendsten gebraucht werden. Wir wollen alle im System entstehenden Lücken so schnell wie möglich mit Immunen füllen.</p>
-
-						<p style="text-align: justify;">Was wäre, wenn viele notwendige Dienstleistungen von Personen übernommen werden könnten, die immun gegen das neuartige Coronavirus sind, weil sie die COVID-19-Erkrankung schon hinter sich haben? Mit unserer Website, die hilfesuchende Personen oder Organisationen mit immunen Hilfskräften verbindet, kannst Du dazu beitragen! In Zeiten, in denen Medizinstudierende zur Mithilfe in Krankenhäusern aufgerufen werden, die Großeltern im Altersheim nicht besucht werden können und es für viele Menschen riskant ist, im Supermarkt einzukaufen, sind die Einsatzmöglichkeiten von immunen Engagierten riesig! <b><br><br>Darum an alle ImmuneHeroes da draußen: Vernetzt Euch hier mit Krankenhausleitungen, Direktor:innen ehrenamtlicher Organisationen, Supermarktleitungen, Senior:innen und vielen mehr! <br><br> Und an alle, die Hilfe gebrauchen können: Holt sie Euch!  <br><br></b> Wenn möglichst viele Tätigkeiten durch ImmuneHeroes ausgeführt werden, verlangsamen wir die Virusausbreitung und schützen diejenigen, für die eine Erkrankung besonders gefährlich wäre.</p>
-						
-					</header>
-					<div class="highlights">
-						<section>
-							<div class="content">
-								<header>
-									<a href="#cta"><img src="images/superhero.png" alt="hero" width="100" /></a>
-									<h3>Ich möchte ein ImmuneHero werden</h3>
-								</header>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<header>
-									<a href="#cta2"><img src="images/broadcast.png" alt="hero" width="100" /></a>
-									<h3>Ich brauche einen ImmuneHero</h3>
-								</header>
-							</div>
-						</section>
-					</div>
-				</div>
-			</section>
-
-		<!-- CTA -->
-			<section id="cta" class="wrapper">
-				<div class="inner">
-					<h2>Ich bin COVID-19 immun.</br>Was erwartet mich wenn ich mich anmelde?</h2>
-					<p>Bei Deiner Anmeldung fragen wir Dich wo in Deutschland Du verfügbar wärst und wie wir Dich erreichen können.</br>Dann hörst Du schon bald von uns wo Du überall gebraucht wirst.</p>
-				</div>
-			</section>
-			
-		<!-- Formular -->
-			<section id="formular_held" class="wrapper">
-				<div class="inner">
-					<header class="special">
-						<h2>Werde ImmuneHero</h2>
-						<form action="/addImmuneHero" id="person" method="GET">
-							
-							<label for="vorname">Vorname *</label> 
-							<input type="text" name="preName" id="vorname" maxlength="30" required>
-						 
-							<label for="nachnname">Nachname *</label>  
-							<input type="text" name="lastName" id="nachname" maxlength="40" required>
-							
-							<label for="postl">Postleitzahl *</label>  
-							<input type="number" name="zipCode" id="postl" minlength="5" maxlength="5" min="00000" max="99999" required>
-							
-							<label for="email">E-Mail *</label>  
-							<input type="email" name="emailAddress" id="email" maxlength="100" required>
-														
-							<p>Wir schicken dir e-Mails sobald jemand in deiner Region Hilfe braucht.</p>
-							
-							<div class="col-12">
-								<select name="category" id="category" required>
-									<option value="">- So oft möchte ich informiert werden - *</option>
-									<option value="direct">Für jede neue Anfrage</option>
-									<option value="daily">Tägliche Zusammenfassung</option>
-									<option value="weekly">Wöchentliche Zusammenfassung</option>
-								</select>
-							</div>
-							
-							<div class="box">
-								<p>Ihre hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet, Sie mit Personen in Kontakt zu bringen, die über diese Seite Hilfe anfordern. Rechtsgrundlage der Verarbeitung ist Art. 6 Abs. 1 lit. b DSGVO. Ihre Daten werden nur für den Zeitraum, der zur Erfüllung des Zwecks der Vermittlung von Hilfesuchenden und Helfern erforderlich ist, von uns verarbeitet, und danach gelöscht.</p>
-							</div>
-
-							<button class="button primary large" type="submit">Eingaben absenden</button>
-
-						</form>
-					</header>
-				</div>
-			</section>
-			
-		<!-- CTA2 -->
-			<section id="cta2" class="wrapper">
-				<div class="inner">
-					<h2>Ich brauche Unterstützung durch Immune.</br>Wie geht es weiter?</h2>
-					<p>Superhelden gibt es nicht? Jeder denkt nur an sich? Stimmt nicht! Hier findest Du Deine immunen Superhelden. <br><br>
-					ImmuneHeroes können bei vielen gesellschaftlich wichtigen Aufgaben unterstützen - sei es im Gesundheitsweisen, im Einzelhandel oder in der Pflege.
-					Bei Deiner Anmeldung fragen wir Dich, wo in Deutschland Du Hilfe brauchst. Du beschreibst in einem kurzen Text, welche Arbeit ansteht, in welchem systemrelevanten Bereich oder Ehrenamt und wie wir Dich erreichen können. Dann melden sich schon bald ImmuneHeroes bei Dir.
-
-					<br><br>Über eine etwaige Vergütung stimmst Du Dich direkt mit dem ImmuneHero ab.</p>
-				</div>
-			</section>
-		
-		<!-- Formular2 -->
-			<section id="formular_anfrage" class="wrapper">
-			<div class="inner">
-				<header class="special">
-					<h2>Frage ImmuneHeroes an</h2>
-					<form action="/addStakeHolder" id="person" method="GET">
-						<h3>Ansprechpartner</h3>
-						<label for="vorname">Vorname *</label> 
-						<input type="text" name="preName" id="vorname" maxlength="30" required>
-					 
-						<label for="nachnname">Nachname *</label>  
-						<input type="text" name="lastName" id="nachname" maxlength="40" required>
-						
-						<label for="email">E-Mail *</label>  
-						<input type="email" name="emailAddress" id="email" maxlength="100" required>
-						
-						<label for="telefon">Telefon *</label>  
-						<input type="text" name="phoneNumber" id="phoneNumber" maxlength="40" required>
-						
-						<h3>Wo wird Hilfe gebraucht?</h3>
-						
-						<label for="org">Organisation *</label>  
-						<input type="text" name="organisation" id="org" maxlength="40" required>
-						
-						<label for="postl">Straße, Hausnummer *</label>  
-						<input type="text" name="address" id="address" maxlength="100" required>
-						
-						<label for="postl">Postleitzahl *</label>  
-						<input type="number" name="zipCode" id="postl" maxlength="40" required>
-						
-						<label for="postl">Stadt *</label>  
-						<input type="text" name="city" id="city" maxlength="40" required>
-						
-						<h3>Was gibt es zu tun? *</h3>
-						  
-						<textarea name="text" id="text" placeholder="Ich brauche Hilfe in folgeneden Bereichen..." rows="6" required></textarea> 
-						
-						<div class="box">
-							<p>Ihre hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet, Sie mit Personen in Kontakt zu bringen, die sich auf dieser Seite als Helfer registriert haben. Rechtsgrundlage der Verarbeitung ist Art. 6 Abs. 1 lit. b DSGVO. Ihre angegebenen Daten werden den Helfern über diese Seite offengelegt. Ihre Daten werden nur für den Zeitraum, der zur Erfüllung des Zwecks der Vermittlung von Hilfesuchenden und Helfern erforderlich ist, von uns verarbeitet, und danach gelöscht.</p>
-						</div>
-
-						<button class="button primary large" type="submit">Eingaben absenden</button>
-					</form>
-				</header>
-			</div>
-			</section>								
 
 	<!-- Testimonials -->
 			<section class="wrapper">
@@ -361,7 +365,7 @@
 					</div>
 				</div>
 			</section>
-		
+
 
 		<!-- Footer -->
 			<footer id="footer">
