@@ -25,6 +25,10 @@
         "function": "getStakeHoldersInZipCodeRangeAsJson"
       },
       {
+        "source": "/getAllStakeHoldersAsJson",
+        "function": "getAllStakeHoldersAsJson"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
