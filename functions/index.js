@@ -12,7 +12,8 @@ exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
   const lastName = req.query.lastName
   const emailAddress = req.query.emailAddress
   const zipCode = parseInt(req.query.zipCode)
-  const result = await admin.database().ref(immuneHeroesTable).push({ preName: preName, lastName: lastName, emailAddress: emailAddress, zipCode: zipCode });
+  const emailCategory = req.query.emailCategory
+  const result = await admin.database().ref(immuneHeroesTable).push({ preName: preName, lastName: lastName, emailAddress: emailAddress, zipCode: zipCode, emailCategory: emailCategory });
   res.redirect('../generic.html');
 });
 
@@ -41,43 +42,69 @@ exports.getAllStakeHoldersAsJson = functions.https.onRequest(async (req, res) =>
   res.json(result.toJSON()).send();
 });
 
-
-
 exports.getStakeHoldersInZipCodeRangeAsJson = functions.https.onRequest(async (req, res) => {
   const searchZipCode = parseInt(req.query.searchZipCode)
   const result = await getStakeHoldersInZipCodeRange(searchZipCode)
   res.json(result.toJSON()).send();
 });
 
-exports.getStakeHoldersInZipCodeRangeAsHtmlTable = functions.https.onRequest(async (req, res) => {
-  const searchZipCode = parseInt(req.query.searchZipCode)
-  return res.send(wrapStakeHoldersHtmlTableInBody(await createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode)));
-});
+//exports.getStakeHoldersInZipCodeRangeAsHtmlTable = functions.https.onRequest(async (req, res) => {
+//  const searchZipCode = parseInt(req.query.searchZipCode)
+//  return res.send(wrapStakeHoldersHtmlTableInBody(await createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode)));
+//});
 
-//Automatic Email
-exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}')
-  .onCreate(async (newStakeHolderSnapshot, context) => {
-    const searchZipCode = parseInt(newStakeHolderSnapshot.val().zipCode)
-    const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
-    if (numberStakeHolder > 0) {
-      const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
-      var successList = "";
-      snapshot.forEach(childSnapshot => {
-        const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
-        const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
-        const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable);
-        if (success) {
-          successList += "Email successfully sent to" + immuneHero.key + "\n";
-        }
-        else {
-          successList += "Email not sent to" + immuneHero.key + "\n";
-        }
-      });
-      return res.send(successList);
-    } else {
-      return null;
-    }
+//daily
+exports.scheduledDailyEmailNotificationDaily = functions.pubsub.schedule('every day 16:00')
+  .timeZone('Europe/Berlin')
+  .onRun((context) => {
+    const snapshot = await getAllImmuneHeroesWithEmailCategory("daily")
+    snapshot.forEach(childSnapshot => {
+      const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
+      notifyImmuneHero(immuneHero)
+    })
+    return null;
   });
+
+//weekly
+exports.scheduledDailyEmailNotificationWeekly = functions.pubsub.schedule('every monday 09:00')
+  .timeZone('Europe/Berlin')
+  .onRun((context) => {
+    const snapshot = await getAllImmuneHeroesWithEmailCategory("weekly")
+    snapshot.forEach(childSnapshot => {
+      const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
+      notifyImmuneHero(immuneHero)
+    })
+    return null;
+  });
+
+//Automatic Email Http Request
+// exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}')
+//   .onCreate(async (newStakeHolderSnapshot, context) => {
+//     const searchZipCode = parseInt(newStakeHolderSnapshot.val().zipCode)
+//     const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
+//     if (numberStakeHolder > 0) {
+//       const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
+//       var successList = "";
+//       snapshot.forEach(childSnapshot => {
+//         const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+//         const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
+//         if (immuneHero.emailCategory == "direct") {
+//           const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable);
+//           if (success) {
+//             successList += "Email successfully sent to" + immuneHero.key + "\n";
+//           }
+//           else {
+//             successList += "Email not sent to" + immuneHero.key + "\n";
+//           }
+//         } else {
+//           return null;
+//         }
+//       });
+//       return res.send(successList);
+//     } else {
+//       return null;
+//     }
+//   });
 
 //Automatic Email
 exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}')
@@ -89,7 +116,7 @@ exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroes
     if (numberStakeHolder > 0) {
       const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
       const immuneHero = getImmuneHeroFromSnapshot(newImmuneHeroSnapShot)
-      return sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable) 
+      return sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
     } else {
       return null;
     }
@@ -120,6 +147,19 @@ exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req,
     return null;
   }
 });
+
+async function notifyImmuneHero(immuneHero) {
+  const searchZipCode = immuneHero.zipCode
+  console.log("Number: " + searchZipCode)
+  const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
+  console.log("Number:" + numberStakeHolder)
+  if (numberStakeHolder > 0) {
+    const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+    return sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
+  } else {
+    return null;
+  }
+}
 
 async function createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode) {
   const stakeHoldersList = await getStakeHoldersInZipCodeRange(searchZipCode)
@@ -200,7 +240,11 @@ function getAllStakeHolders() {
 }
 
 function getImmuneHeroFromSnapshot(snapshot) {
-  return immuneHero = { key: snapshot.key, preName: snapshot.val().preName, lastName: snapshot.val().lastName, emailAddress: snapshot.val().emailAddress, zipCode: snapshot.val().zipCode }
+  return immuneHero = { key: snapshot.key, preName: snapshot.val().preName, lastName: snapshot.val().lastName, emailAddress: snapshot.val().emailAddress, zipCode: snapshot.val().zipCode, emailCategory: snapshot.val().emailCategory }
+}
+
+function getAllImmuneHeroesWithEmailCategory(emailCategory) {
+  return admin.database().ref(immuneHeroesTable).orderByChild("emailCategory").equalTo(emailCategory).once('value')
 }
 
 function getImmuneHeroesInZipCodeRange(searchZipCode) {
