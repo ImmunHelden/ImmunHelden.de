@@ -307,7 +307,7 @@
 				return html;
 			}
 
-			loadJson("https://immuneheroes-35036.firebaseapp.com/getAllStakeHoldersAsJson").then(stakeholdersJSON => {
+			loadJson("/getAllStakeHoldersAsJson").then(stakeholdersJSON => {
 				console.log(stakeholdersJSON);
 				const retryMax = 10;
 				for (const key in stakeholdersJSON) {
