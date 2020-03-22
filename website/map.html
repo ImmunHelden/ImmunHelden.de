@@ -107,7 +107,7 @@
       }
     }
 
-    function addStakeholderMarker(json) {
+    function addStakeholderMarker(json, retry) {
       // TODO: So far, country is hardcoded.
       resolveLatLng([json.address, json.zipCode, json.city, "Germany"])
         .then(latlng => {
@@ -115,8 +115,15 @@
         })
         .catch(err => {
           // TODO: Every other attempt returns a "Error: rate limited" (429).
-          // We may have to pay for the geocoding service..
-          console.error(err);
+          // Retry again with a delay. We may have to pay for the geocoding
+          // service in order to avoid it.
+          if (retry > 0) {
+            const delay = Math.round(Math.random() * 5000);
+            console.log(err + " (will try again in {0}ms)".format(delay));
+            setTimeout(() => addStakeholderMarker(json, retry - 1), delay);
+          } else {
+            console.error(err + " (eventually failed)");
+          }
         });
     }
 
@@ -132,11 +139,12 @@
 
     const params = parseUrlParams(window.location.href);
     const stakeholdersQuery = getStakeHoldersQueryUrl(params);
+    const retryMax = 10;
 
     loadJson(stakeholdersQuery).then(stakeholdersJSON => {
       console.log(stakeholdersJSON);
       for (const key in stakeholdersJSON) {
-        addStakeholderMarker(stakeholdersJSON[key]);
+        addStakeholderMarker(stakeholdersJSON[key], retryMax);
       }
     });
 
