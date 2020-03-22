@@ -1,2 +1,2 @@
 # immuneheroes
-Connecting recovered #covid-19 cases with people in need.
+Connecting recovered #covid-19 cases with people in need: https://immuneheroes.de/
