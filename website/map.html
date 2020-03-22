@@ -99,6 +99,14 @@
 
     createBaseLayer().addTo(map);
 
+    function getStakeHoldersQueryUrl(params) {
+      if (params.hasOwnProperty("zipCode")) {
+        return "/getStakeHoldersInZipCodeRangeAsJson?searchZipCode=" + params.zipCode;
+      } else {
+        return "/getAllStakeHoldersAsJson"
+      }
+    }
+
     function addStakeholderMarker(json) {
       // TODO: So far, country is hardcoded.
       resolveLatLng([json.address, json.zipCode, json.city, "Germany"])
@@ -123,10 +131,9 @@
     }
 
     const params = parseUrlParams(window.location.href);
-    const zipCode = params.hasOwnProperty("zipCode") ? params.zipCode : 12000;
+    const stakeholdersQuery = getStakeHoldersQueryUrl(params);
 
-    const stakeholdersQueryBase = "/getStakeHoldersInZipCodeRangeAsJson?searchZipCode=";
-    loadJson(stakeholdersQueryBase + zipCode).then(stakeholdersJSON => {
+    loadJson(stakeholdersQuery).then(stakeholdersJSON => {
       console.log(stakeholdersJSON);
       for (const key in stakeholdersJSON) {
         addStakeholderMarker(stakeholdersJSON[key]);
