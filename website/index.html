@@ -12,6 +12,11 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.3/leaflet.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
 		<style>
 			#banner {
 				background: #333;
@@ -66,10 +71,6 @@
 				</div>
 			</section>
 
-
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.3/leaflet.js"></script>
-
 		<script>
 			if (!String.prototype.format) {
 				String.prototype.format = function() {
@@ -94,9 +95,41 @@
 				);
 			}
 
+			function loadJson(fileUrl) {
+				return new Promise(function(resolve, reject) {
+					$.ajax({ url: fileUrl })
+						.fail(() => reject("Error querying " + fileUrl))
+						.done(content => {
+							resolve((typeof content === 'string') ? JSON.parse(content) : content);
+						});
+				});
+			}
+
+			function resolveLatLng(addressAtoms) {
+				const urlBase = "https://eu1.locationiq.com/v1/search.php?key=pk.861b8037ac48a2b23d05c90e89658064&format=json&q=";
+				const urlRequest = urlBase + addressAtoms.join(',');
+				return new Promise(function(resolve, reject) {
+					$.ajax({ url: urlRequest })
+						.fail(() => reject("Error querying " + urlRequest))
+						.done(content => {
+							const matches = (typeof content === "string") ? JSON.parse(content) : content;
+							if (!matches.hasOwnProperty("length") || matches.length == 0) {
+								reject("Invalid response from " + urlRequest + ": " + matches);
+								return;
+							}
+							const bestMatch = matches[0];
+							if (!bestMatch.hasOwnProperty("lat") || !bestMatch.hasOwnProperty("lon")) {
+								reject("Invalid response from " + urlRequest + ":" + bestMatch);
+								return;
+							}
+							resolve(L.latLng(parseFloat(bestMatch.lat), parseFloat(bestMatch.lon)));
+						});
+				});
+			}
+
 			let map = new L.map('osm-map', {
-				center: [50, 9],
-				zoom: 6,
+				center: [51.75, 11],
+				zoom: 7,
 				zoomControl: false,
 				dragging: false,
 				doubleClickZoom: false,
@@ -104,6 +137,38 @@
 			});
 
 			createBaseLayer().addTo(map);
+
+			function addStakeholderMarker(json) {
+				// TODO: So far, country is hardcoded.
+				resolveLatLng([json.address, json.zipCode, json.city, "Germany"])
+					.then(latlng => {
+						L.marker(latlng).bindPopup(getPopupContent(json)).addTo(map);
+					})
+					.catch(err => {
+						// TODO: Every other attempt returns a "Error: rate limited" (429).
+						// We may have to pay for the geocoding service..
+						console.error(err);
+					});
+			}
+
+			function getPopupContent(json) {
+				let html = "";
+				html += "<b>Was kann ich tun?</b><p class=\"text\">{0}</p>".format(json.text);
+				html += "<b>Absender</b><p class=\"text\">{0} {1}, {2}</p>".format(
+									json.preName, json.lastName, json.organisation);
+				html += "✉ <a href=\"mailto:{0}\">Email</a><br>".format(json.emailAddress);
+				html += "☎ <a href=\"tel:{0}\">Telefon</a>".format(json.phoneNumber);
+				return html;
+			}
+
+			const zipCode = 12000;
+			const stakeholdersQueryBase = "https://us-central1-immuneheroes-35036.cloudfunctions.net/getStakeHoldersInZipCodeRangeAsJson?searchZipCode=";
+			loadJson(stakeholdersQueryBase + zipCode).then(stakeholdersJSON => {
+				console.log(stakeholdersJSON);
+				for (const key in stakeholdersJSON) {
+					addStakeholderMarker(stakeholdersJSON[key]);
+				}
+			});
 		</script>
 
 		<!-- Vision -->
