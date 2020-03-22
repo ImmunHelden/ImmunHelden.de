@@ -13,7 +13,7 @@ exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
   const emailAddress = req.query.emailAddress
   const zipCode = parseInt(req.query.zipCode)
   const emailCategory = req.query.emailCategory
-  const result = await admin.database().ref(immuneHeroesTable).push({ preName: preName, lastName: lastName, emailAddress: emailAddress, zipCode: zipCode, emailCategory: emailCategory });
+  const result = await admin.database().ref(immuneHeroesTable).push({ preName: preName, lastName: lastName, emailAddress: emailAddress, zipCode: zipCode, emailCategory: emailCategory});
   res.redirect('../generic.html');
 });
 
@@ -31,11 +31,11 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   res.redirect('../generic.html');
 });
 
-exports.getImmuneHeroesInZipCodeRangeAsJson = functions.https.onRequest(async (req, res) => {
-  const searchZipCode = parseInt(req.query.searchZipCode)
-  const result = await getImmuneHeroesInZipCodeRange(searchZipCode)
-  res.json(result.toJSON()).send();
-});
+// exports.getImmuneHeroesInZipCodeRangeAsJson = functions.https.onRequest(async (req, res) => {
+//   const searchZipCode = parseInt(req.query.searchZipCode)
+//   const result = await getImmuneHeroesInZipCodeRange(searchZipCode)
+//   res.json(result.toJSON()).send();
+// });
 
 exports.getAllStakeHoldersAsJson = functions.https.onRequest(async (req, res) => {
   const result = await getAllStakeHolders()
@@ -54,57 +54,56 @@ exports.getStakeHoldersInZipCodeRangeAsJson = functions.https.onRequest(async (r
 //});
 
 //daily
-exports.scheduledDailyEmailNotificationDaily = functions.pubsub.schedule('every day 16:00')
-  .timeZone('Europe/Berlin')
-  .onRun((context) => {
-    const snapshot = await getAllImmuneHeroesWithEmailCategory("daily")
-    snapshot.forEach(childSnapshot => {
-      const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
-      notifyImmuneHero(immuneHero)
-    })
-    return null;
-  });
-
-//weekly
-exports.scheduledDailyEmailNotificationWeekly = functions.pubsub.schedule('every monday 09:00')
-  .timeZone('Europe/Berlin')
-  .onRun((context) => {
-    const snapshot = await getAllImmuneHeroesWithEmailCategory("weekly")
-    snapshot.forEach(childSnapshot => {
-      const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
-      notifyImmuneHero(immuneHero)
-    })
-    return null;
-  });
-
-//Automatic Email Http Request
-// exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}')
-//   .onCreate(async (newStakeHolderSnapshot, context) => {
-//     const searchZipCode = parseInt(newStakeHolderSnapshot.val().zipCode)
-//     const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
-//     if (numberStakeHolder > 0) {
-//       const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
-//       var successList = "";
-//       snapshot.forEach(childSnapshot => {
-//         const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
-//         const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
-//         if (immuneHero.emailCategory == "direct") {
-//           const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable);
-//           if (success) {
-//             successList += "Email successfully sent to" + immuneHero.key + "\n";
-//           }
-//           else {
-//             successList += "Email not sent to" + immuneHero.key + "\n";
-//           }
-//         } else {
-//           return null;
-//         }
-//       });
-//       return res.send(successList);
-//     } else {
-//       return null;
-//     }
+// exports.scheduledDailyEmailNotificationDaily = functions.pubsub.schedule('every day 16:00')
+//   .timeZone('Europe/Berlin')
+//   .onRun(async (context) => {
+//     const snapshot = await getAllImmuneHeroesWithEmailCategory("daily");
+//     snapshot.forEach(childSnapshot => {
+//       const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
+//       notifyImmuneHero(immuneHero)
+//     })
+//     return null;
 //   });
+
+// //weekly
+// exports.scheduledDailyEmailNotificationWeekly = functions.pubsub.schedule('every monday 09:00')
+//   .timeZone('Europe/Berlin')
+//   .onRun(async (context) => {
+//     const snapshot = await getAllImmuneHeroesWithEmailCategory("weekly");
+//     snapshot.forEach(childSnapshot => {
+//       const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
+//       notifyImmuneHero(immuneHero)
+//     })
+//     return null;
+//   });
+
+exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database.ref(stakeHoldersTable + '/{pushId}')
+  .onCreate(async (newStakeHolderSnapshot, context) => {
+    const searchZipCode = parseInt(newStakeHolderSnapshot.val().zipCode)
+    const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
+    if (numberStakeHolder > 0) {
+      const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
+      var successList = "";
+      snapshot.forEach(childSnapshot => {
+        const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+        const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
+        if (immuneHero.emailCategory == "direct") {
+          const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable);
+          if (success) {
+            successList += "Email successfully sent to" + immuneHero.key + "\n";
+          }
+          else {
+            successList += "Email not sent to" + immuneHero.key + "\n";
+          }
+        } else {
+          return null;
+        }
+      });
+      return res.send(successList);
+    } else {
+      return null;
+    }
+  });
 
 //Automatic Email
 exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}')
@@ -122,31 +121,32 @@ exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroes
     }
   });
 
-exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req, res) => {
-  const searchZipCode = parseInt(req.query.searchZipCode)
-  const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
-  console.log("Number:" + numberStakeHolder)
-  if (numberStakeHolder > 0) {
-    console.log("Ja")
-    return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
-      var successList = "";
-      snapshot.forEach(childSnapshot => {
-        const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
-        const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
-        console.log(immuneHero.emailAddress)
-        const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
-        if (success) {
-          successList += "Email successfully sent to" + immuneHero.key + "\n"
-        } else {
-          successList += "Email not sent to" + immuneHero.key + "\n"
-        }
-      });
-      return res.send(successList)
-    });
-  } else {
-    return null;
-  }
-});
+// Automatic Email Http Request
+// exports.notifyImmuneHeroesInZipCodeRange = functions.https.onRequest(async (req, res) => {
+//   const searchZipCode = parseInt(req.query.searchZipCode)
+//   const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
+//   console.log("Number:" + numberStakeHolder)
+//   if (numberStakeHolder > 0) {
+//     console.log("Ja")
+//     return getImmuneHeroesInZipCodeRange(searchZipCode).then(snapshot => {
+//       var successList = "";
+//       snapshot.forEach(childSnapshot => {
+//         const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
+//         const immuneHero = getImmuneHeroFromSnapshot(childSnapshot)
+//         console.log(immuneHero.emailAddress)
+//         const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable)
+//         if (success) {
+//           successList += "Email successfully sent to" + immuneHero.key + "\n"
+//         } else {
+//           successList += "Email not sent to" + immuneHero.key + "\n"
+//         }
+//       });
+//       return res.send(successList)
+//     });
+//   } else {
+//     return null;
+//   }
+// });
 
 async function notifyImmuneHero(immuneHero) {
   const searchZipCode = immuneHero.zipCode
