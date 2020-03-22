@@ -189,7 +189,7 @@
 						<section>
 							<div class="content">
 								<header>
-									<a href="#cta_2"><img src="images/broadcast.png" alt="hero" width="100" /></a>
+									<a href="#cta2"><img src="images/broadcast.png" alt="hero" width="100" /></a>
 									<h3>Ich brauche einen ImmuneHero</h3>
 								</header>
 							</div>
@@ -213,26 +213,23 @@
 						<h2>Werde ImmuneHero</h2>
 						<form action="/addImmuneHero" id="person" method="GET">
 							
-							<label for="vorname">Vorname</label> 
-							<input type="text" name="preName" id="vorname" maxlength="30">
+							<label for="vorname">Vorname *</label> 
+							<input type="text" name="preName" id="vorname" maxlength="30" required>
 						 
-							<label for="nachnname">Nachname</label>  
-							<input type="text" name="lastName" id="nachname" maxlength="40">
+							<label for="nachnname">Nachname *</label>  
+							<input type="text" name="lastName" id="nachname" maxlength="40" required>
 							
-							<label for="postl">Postleitzahl</label>  
-							<input type="text" name="zipCode" id="postl" maxlength="40">
+							<label for="postl">Postleitzahl *</label>  
+							<input type="number" name="zipCode" id="postl" minlength="5" maxlength="5" min="00000" max="99999" required>
 							
-							<label for="email">E-Mail</label>  
-							<input type="text" name="emailAddress" id="email" maxlength="100">
-							
-							<label for="sonstiges">Sonstiges über Dich (Ausbildung, Interessen, usw...)</label> 
-							<textarea name="extras" id="extras" placeholder="Ich helfe gerne in folgeneden Bereichen..." rows="6"></textarea>
-							
+							<label for="email">E-Mail *</label>  
+							<input type="text" name="emailAddress" id="email" maxlength="100" required>
+														
 							<p>Wir schicken dir e-Mails sobald jemand in deiner Region Hilfe braucht.</p>
 							
 							<div class="col-12">
-								<select name="category" id="category">
-									<option value="">- So oft möchte ich informiert werden -</option>
+								<select name="category" id="category" required>
+									<option value="">- So oft möchte ich informiert werden - *</option>
 									<option value="alpha">Für jede neue Anfrage</option>
 									<option value="beta">Tägliche Zusammenfassung</option>
 									<option value="gamma">Wöchentliche Zusammenfassung</option>
@@ -251,7 +248,7 @@
 			</section>
 			
 		<!-- CTA2 -->
-			<section id="cta" class="wrapper">
+			<section id="cta2" class="wrapper">
 				<div class="inner">
 					<h2>Ich brauche Unterstützung durch Immune. Wie geht es weiter?</h2>
 					<p>Bei Deiner Anmeldung fragen wir Dich wo in Deutschland Du Hilfe brauchst, Du schreibst einen kurzen Text was für Arbeit ansteht und wie wir Dich erreichen können. Dann melden sich schon bald Immune bei Dir.</p>
@@ -265,35 +262,35 @@
 					<h2>Frage ImmuneHeroes an</h2>
 					<form action="/addStakeHolder" id="person" method="GET">
 						<h3>Ansprechpartner</h3>
-						<label for="vorname">Vorname</label> 
-						<input type="text" name="preName" id="vorname" maxlength="30">
+						<label for="vorname">Vorname *</label> 
+						<input type="text" name="preName" id="vorname" maxlength="30" required>
 					 
-						<label for="nachnname">Nachname</label>  
-						<input type="text" name="lastName" id="nachname" maxlength="40">
+						<label for="nachnname">Nachname *</label>  
+						<input type="text" name="lastName" id="nachname" maxlength="40" required>
 						
-						<label for="email">E-Mail</label>  
-						<input type="text" name="emailAddress" id="email" maxlength="100">
+						<label for="email">E-Mail *</label>  
+						<input type="text" name="emailAddress" id="email" maxlength="100" required>
 						
-						<label for="postl">Telefon</label>  
-						<input type="text" name="phoneNumber" id="phoneNumber" maxlength="40">
+						<label for="postl">Telefon *</label>  
+						<input type="text" name="phoneNumber" id="phoneNumber" maxlength="40" required>
 						
 						<h3>Wo wird Hilfe gebraucht?</h3>
 						
-						<label for="org">Organisation</label>  
-						<input type="text" name="organisation" id="org" maxlength="40">
+						<label for="org">Organisation *</label>  
+						<input type="text" name="organisation" id="org" maxlength="40" required>
 						
-						<label for="postl">Straße, Hausnummer</label>  
-						<input type="text" name="address" id="address" maxlength="100">
+						<label for="postl">Straße, Hausnummer *</label>  
+						<input type="text" name="address" id="address" maxlength="100" required>
 						
-						<label for="postl">Postleitzahl</label>  
-						<input type="text" name="zipCode" id="postl" maxlength="40">
+						<label for="postl">Postleitzahl *</label>  
+						<input type="text" name="zipCode" id="postl" maxlength="40" required>
 						
-						<label for="postl">Stadt</label>  
-						<input type="text" name="city" id="city" maxlength="40">
+						<label for="postl">Stadt *</label>  
+						<input type="text" name="city" id="city" maxlength="40" required>
 						
-						<h3>Was gibt es zu tun?</h3>
+						<h3>Was gibt es zu tun? *</h3>
 						  
-						<textarea name="text" id="text" placeholder="Ich brauche Hilfe in folgeneden Bereichen: ..." rows="6"></textarea> 
+						<textarea name="text" id="text" placeholder="Ich brauche Hilfe in folgeneden Bereichen..." rows="6" required></textarea> 
 						
 						<div class="box">
 							<p>Ihre hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet, Sie mit Personen in Kontakt zu bringen, die sich auf dieser Seite als Helfer registriert haben. Rechtsgrundlage der Verarbeitung ist Art. 6 Abs. 1 lit. b DSGVO. Ihre angegebenen Daten werden den Helfern in Ihrem erweitertem Postleitzahlgebiet über diese Seite offengelegt. Ihre Daten werden nur für den Zeitraum, der zur Erfüllung des Zwecks der Vermittlung von Hilfesuchenden und Helfern erforderlich ist, von uns verarbeitet, und danach gelöscht.</p>
