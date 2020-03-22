@@ -161,9 +161,7 @@
 				return html;
 			}
 
-			const zipCode = 12000;
-			const stakeholdersQueryBase = "/getStakeHoldersInZipCodeRangeAsJson?searchZipCode=";
-			loadJson(stakeholdersQueryBase + zipCode).then(stakeholdersJSON => {
+			loadJson("/getAllStakeHoldersAsJson").then(stakeholdersJSON => {
 				console.log(stakeholdersJSON);
 				for (const key in stakeholdersJSON) {
 					addStakeholderMarker(stakeholdersJSON[key]);
