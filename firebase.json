@@ -21,6 +21,10 @@
         "function": "addStakeHolder"
       },
       {
+        "source": "/getStakeHoldersInZipCodeRangeAsJson",
+        "function": "getStakeHoldersInZipCodeRangeAsJson"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

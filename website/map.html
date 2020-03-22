@@ -125,7 +125,7 @@
     const params = parseUrlParams(window.location.href);
     const zipCode = params.hasOwnProperty("zipCode") ? params.zipCode : 12000;
 
-    const stakeholdersQueryBase = "https://us-central1-immuneheroes-35036.cloudfunctions.net/getStakeHoldersInZipCodeRangeAsJson?searchZipCode=";
+    const stakeholdersQueryBase = "/getStakeHoldersInZipCodeRangeAsJson?searchZipCode=";
     loadJson(stakeholdersQueryBase + zipCode).then(stakeholdersJSON => {
       console.log(stakeholdersJSON);
       for (const key in stakeholdersJSON) {
@@ -133,7 +133,7 @@
       }
     });
 
-    const immuneHeroesQueryBase = "https://us-central1-immuneheroes-35036.cloudfunctions.net/getImmuneHeroesInZipCodeRangeAsJson?searchZipCode=";
+    const immuneHeroesQueryBase = "/getImmuneHeroesInZipCodeRangeAsJson?searchZipCode=";
     // TODO: How to map the zipcode areas on the map??
   </script>
 </body>
