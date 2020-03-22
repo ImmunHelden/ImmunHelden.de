@@ -36,6 +36,13 @@ exports.getImmuneHeroesInZipCodeRangeAsJson = functions.https.onRequest(async (r
   res.json(result.toJSON()).send();
 });
 
+exports.getAllStakeHoldersAsJson = functions.https.onRequest(async (req, res) => {
+  const result = await getAllStakeHolders()
+  res.json(result.toJSON()).send();
+});
+
+
+
 exports.getStakeHoldersInZipCodeRangeAsJson = functions.https.onRequest(async (req, res) => {
   const searchZipCode = parseInt(req.query.searchZipCode)
   const result = await getStakeHoldersInZipCodeRange(searchZipCode)
@@ -186,6 +193,10 @@ function wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, st
 
 function getStakeHolderFromSnapshot(snapshot) {
   return stakeHolder = { key: snapshot.key, preName: snapshot.val().preName, lastName: snapshot.val().lastName, organisation: snapshot.val().organisation, emailAddress: snapshot.val().emailAddress, phoneNumber: snapshot.val().phoneNumber, text: snapshot.val().text, address: snapshot.val().address, zipCode: snapshot.val().zipCode, city: snapshot.val().city }
+}
+
+function getAllStakeHolders() {
+  return admin.database().ref(stakeHoldersTable).once('value')
 }
 
 function getImmuneHeroFromSnapshot(snapshot) {
