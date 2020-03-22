@@ -83,23 +83,14 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database
     const numberStakeHolder = (await getStakeHoldersInZipCodeRange(searchZipCode)).numChildren()
     if (numberStakeHolder > 0) {
       const snapshot = await getImmuneHeroesInZipCodeRange(searchZipCode);
-      var successList = "";
       snapshot.forEach(childSnapshot => {
         const stakeHoldersHtmlTable = createStakeHoldersInZipCodeRangeHtmlTable(searchZipCode);
         const immuneHero = getImmuneHeroFromSnapshot(childSnapshot);
-        if (immuneHero.emailCategory == "direct") {
+        if (immuneHero.emailCategory === "direct") {
           const success = sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable);
-          if (success) {
-            successList += "Email successfully sent to" + immuneHero.key + "\n";
-          }
-          else {
-            successList += "Email not sent to" + immuneHero.key + "\n";
-          }
-        } else {
-          return null;
         }
       });
-      return res.send(successList);
+      return null;
     } else {
       return null;
     }
@@ -268,7 +259,7 @@ let mailTransport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'immune.heroes@gmail.com',
-    pass: 'WIRWSWIRUS20'
+    pass: ''
   }
 });
 
