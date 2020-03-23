@@ -17,9 +17,31 @@
       width: 100%;
       height: 100%;
     }
-    p.text {
+    p.popup-stakeholders p {
       margin-top: 0;
       margin-bottom: 0.75em;
+    }
+    p.popup-immuneheroes b {
+      font-size: 1.5rem;
+      color: #d3303b;
+    }
+    p.popup-immuneheroes img {
+      height: 1.2rem;
+      width: auto;
+    }
+    div.popup-clinic img {
+      height: 2rem;
+      float: left;
+    }
+    div.popup-clinic div {
+      padding-left: 2.5rem;
+      padding-bottom: 0.5rem;
+    }
+    .nuts-polygon {
+      fill: #479325;
+      stroke: #479325;
+      stroke-width: 2px;
+      fill-opacity: 0.25;
     }
   </style>
 </head>
@@ -69,25 +91,34 @@
       });
     }
 
-    function resolveLatLng(addressAtoms) {
-      const urlBase = "https://eu1.locationiq.com/v1/search.php?key=pk.861b8037ac48a2b23d05c90e89658064&format=json&q=";
-      const urlRequest = urlBase + addressAtoms.join(',');
+    function requestLatLng(addressAtoms, attempts, initialDelay) {
+      // TODO: This may happen on the server to protect the LocationIQ token.
+      const token = "pk.861b8037ac48a2b23d05c90e89658064";
+      const templateUrl = "https://eu1.locationiq.com/v1/search.php?key={0}&format=json&q={1}";
+      const requestUrl = templateUrl.format(token, addressAtoms.join(','));
       return new Promise(function(resolve, reject) {
-        $.ajax({ url: urlRequest })
-          .fail(() => reject("Error querying " + urlRequest))
-          .done(content => {
-            const matches = (typeof content === "string") ? JSON.parse(content) : content;
-            if (!matches.hasOwnProperty("length") || matches.length == 0) {
-              reject("Invalid response from " + urlRequest + ": " + matches);
-              return;
-            }
-            const bestMatch = matches[0];
-            if (!bestMatch.hasOwnProperty("lat") || !bestMatch.hasOwnProperty("lon")) {
-              reject("Invalid response from " + urlRequest + ":" + bestMatch);
-              return;
-            }
-            resolve(L.latLng(parseFloat(bestMatch.lat), parseFloat(bestMatch.lon)));
-          });
+        const doRequest = (attemptsRemaining, delay) => {
+          // When exceeding the rate limit of our free LocationIQ account,
+          // requests will fail (429). Woraround it by applying an initial delay
+          // and retry if necessary. We may have to pay for the geocoding
+          // service in order to avoid that.
+          setTimeout(() => {
+            $.ajax({ url: requestUrl })
+              .done(response => resolve(response))
+              .fail(err => {
+                if (err.status == 429 && attemptsRemaining > 0) {
+                  // Retry is a fallback. Wait between 5 and 10 seconds.
+                  const retryDelay = Math.round(Math.random() * 5000 + 5000);
+                  doRequest(attemptsRemaining - 1, retryDelay);
+                } else {
+                  console.error("Failed to resolve coordinates for address after",
+                                attempts, "attemps: ", err);
+                  reject();
+                }
+              });
+          }, delay);
+        };
+        doRequest(attempts, initialDelay);
       });
     }
 
@@ -100,56 +131,130 @@
     createBaseLayer().addTo(map);
 
     function getStakeHoldersQueryUrl(params) {
-      if (params.hasOwnProperty("zipCode")) {
-        return "/getStakeHoldersInZipCodeRangeAsJson?searchZipCode=" + params.zipCode;
-      } else {
-        return "/getAllStakeHoldersAsJson"
+      if (params.hasOwnProperty("local")) {
+        // Special case for frontend development on local machine. Only works
+        // with CORS disabled: https://stackoverflow.com/questions/3102819
+        return "https://immuneheroes-35036.firebaseapp.com/getAllStakeHoldersAsJson";
       }
+      // Default for production.
+      return "/getAllStakeHoldersAsJson";
     }
 
-    function addStakeholderMarker(json, retry) {
-      // TODO: So far, country is hardcoded.
-      resolveLatLng([json.address, json.zipCode, json.city, "Germany"])
-        .then(latlng => {
-          L.marker(latlng).bindPopup(getPopupContent(json)).addTo(map);
-        })
-        .catch(err => {
-          // TODO: Every other attempt returns a "Error: rate limited" (429).
-          // Retry again with a delay. We may have to pay for the geocoding
-          // service in order to avoid it.
-          if (retry > 0) {
-            const delay = Math.round(Math.random() * 5000);
-            console.log(err + " (will try again in {0}ms)".format(delay));
-            setTimeout(() => addStakeholderMarker(json, retry - 1), delay);
-          } else {
-            console.error(err + " (eventually failed)");
-          }
-        });
+    function createStakeholderMarker(json, attempts, initialDelay) {
+      return new Promise(function(resolve, reject) {
+        const country = "Germany";
+        requestLatLng([json.address, json.zipCode, json.city, country], attempts, initialDelay).then(
+          response => {
+            const matches = (typeof response === "string") ? JSON.parse(response) : response;
+            if (!matches.hasOwnProperty("length") || matches.length == 0 ||
+                !matches[0].hasOwnProperty("lat") || !matches[0].hasOwnProperty("lon")) {
+              console.error("Invalid response from " + urlRequest + ":" + response);
+              reject();
+              return;
+            }
+
+            resolve(L.marker(L.latLng(
+                parseFloat(matches[0].lat), parseFloat(matches[0].lon))));
+          },
+          err => { /* Logged already. */ });
+      });
     }
 
-    function getPopupContent(json) {
+    function createStakeholderPopupContent(json) {
       let html = "";
-      html += "<b>Was kann ich tun?</b><p class=\"text\">{0}</p>".format(json.text);
-      html += "<b>Absender</b><p class=\"text\">{0} {1}, {2}</p>".format(
+      html += "<p class=\"popup-stakeholders\">";
+      html += "<b>Was kann ich tun?</b><p>{0}</p>".format(json.text);
+      html += "<b>Absender</b><p>{0} {1}, {2}</p>".format(
                 json.preName, json.lastName, json.organisation);
       html += "✉ <a href=\"mailto:{0}\">Email</a><br>".format(json.emailAddress);
       html += "☎ <a href=\"tel:{0}\">Telefon</a>".format(json.phoneNumber);
+      html += "</p>";
       return html;
     }
 
-    const params = parseUrlParams(window.location.href);
-    const stakeholdersQuery = getStakeHoldersQueryUrl(params);
-    const retryMax = 10;
+    function createClinicPopupContent(json) {
+      let html = "";
+      html += "<div class=\"popup-clinic\">";
+      html += "<img src=\"images/clinic.png\" alt=\"clinic\" /> ";
+      html += "<div>";
+      html += "<b>{0}</b><br>{1}".format(json.name, json.address);
+      html += "</div>";
+      html += "✉ <a href=\"{0}\">Webseite</a> ".format(json.website);
+      html += "☎ <a href=\"tel:{0}\">Telefon</a>".format(json.phoneNumber);
+      html += "</div>";
+      return html;
+    }
 
+    const clinicIcon = new L.Icon({
+      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
+    });
+
+    function addClinicMarker(json) {
+      L.marker(json.latlng, {
+        icon: clinicIcon
+      }).bindPopup(createClinicPopupContent(json)).addTo(map);
+    }
+
+    function addNutsPolygon(json) {
+      L.polygon(json.shape, {className: 'nuts-polygon'})
+        .bindPopup(createImmuneHeroesNutsPopupContent(json)).addTo(map);
+    }
+
+    function createImmuneHeroesNutsPopupContent(json) {
+      let html = "";
+      html += "<p class=\"popup-immuneheroes\">";
+      html += "<img src=\"images/superhero.png\" alt=\"hero\" /> ";
+      html += "<b>" + json.users + "</b>";
+      html += "</p>";
+      return html;
+    }
+
+
+    const params = parseUrlParams(window.location.href);
+
+    const retryMax = 2;
+    const rateLimit = 500; // Delay between requests in ms.
+    const stakeholdersQuery = getStakeHoldersQueryUrl(params);
     loadJson(stakeholdersQuery).then(stakeholdersJSON => {
       console.log(stakeholdersJSON);
+      let delay = 0;
       for (const key in stakeholdersJSON) {
-        addStakeholderMarker(stakeholdersJSON[key], retryMax);
+        const entry = stakeholdersJSON[key];
+        delay += rateLimit;
+        createStakeholderMarker(entry, retryMax, delay).then(marker => {
+          marker.bindPopup(createStakeholderPopupContent(entry)).addTo(map);
+        });
       }
     });
 
-    const immuneHeroesQueryBase = "/getImmuneHeroesInZipCodeRangeAsJson?searchZipCode=";
-    // TODO: How to map the zipcode areas on the map??
+    // Quick demo.
+    addNutsPolygon({
+      "shape": [
+        [ 52.544235500000013, 13.610827500000028 ],
+        [ 52.474166998999976, 13.66698 ],
+        [ 52.377882998000018, 13.699738 ],
+        [ 52.376247001000024, 13.420984998999984 ],
+        [ 52.399599500000022, 13.31212 ],
+        [ 52.394275498000013, 13.165898 ],
+        [ 52.50182150099999, 13.153695500000026 ],
+        [ 52.598900500000013, 13.164263 ],
+        [ 52.648194498, 13.39854 ],
+        [ 52.544235500000013, 13.610827500000028 ]
+      ],
+      "users": 42
+    });
+
+    addClinicMarker({
+      latlng: L.latLng(52.526417, 13.376720),
+      name: "Charité",
+      address: "Charitépl. 1, 10117 Berlin",
+      website: "charite.de",
+      phoneNumber: "030 45050"
+    });
+
   </script>
 </body>
 </html>
