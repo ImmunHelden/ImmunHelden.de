@@ -17,9 +17,23 @@
       width: 100%;
       height: 100%;
     }
-    p.text {
+    p.popup-stakeholders p {
       margin-top: 0;
       margin-bottom: 0.75em;
+    }
+    p.popup-immuneheroes b {
+      font-size: 1.5rem;
+      color: #d3303b;
+    }
+    p.popup-immuneheroes img {
+      height: 1.2rem;
+      width: auto;
+    }
+    .nuts-polygon {
+      fill: #479325;
+      stroke: #479325;
+      stroke-width: 2px;
+      fill-opacity: 0.25;
     }
   </style>
 </head>
@@ -138,15 +152,32 @@
       });
     }
 
-    function getPopupContent(json) {
+    function createStakeholderPopupContent(json) {
       let html = "";
-      html += "<b>Was kann ich tun?</b><p class=\"text\">{0}</p>".format(json.text);
-      html += "<b>Absender</b><p class=\"text\">{0} {1}, {2}</p>".format(
+      html += "<p class=\"popup-stakeholders\">";
+      html += "<b>Was kann ich tun?</b><p>{0}</p>".format(json.text);
+      html += "<b>Absender</b><p>{0} {1}, {2}</p>".format(
                 json.preName, json.lastName, json.organisation);
       html += "✉ <a href=\"mailto:{0}\">Email</a><br>".format(json.emailAddress);
       html += "☎ <a href=\"tel:{0}\">Telefon</a>".format(json.phoneNumber);
+      html += "</p>";
       return html;
     }
+
+    function addNutsPolygon(json) {
+      L.polygon(json.shape, {className: 'nuts-polygon'})
+        .bindPopup(createImmuneHeroesNutsPopupContent(json)).addTo(map);
+    }
+
+    function createImmuneHeroesNutsPopupContent(json) {
+      let html = "";
+      html += "<p class=\"popup-immuneheroes\">";
+      html += "<img src=\"images/superhero.png\" alt=\"hero\" /> ";
+      html += "<b>" + json.users + "</b>";
+      html += "</p>";
+      return html;
+    }
+
 
     const params = parseUrlParams(window.location.href);
 
@@ -160,13 +191,28 @@
         const entry = stakeholdersJSON[key];
         delay += rateLimit;
         createStakeholderMarker(entry, retryMax, delay).then(marker => {
-          marker.bindPopup(getPopupContent(entry)).addTo(map);
+          marker.bindPopup(createStakeholderPopupContent(entry)).addTo(map);
         });
       }
     });
 
-    const immuneHeroesQueryBase = "/getImmuneHeroesInZipCodeRangeAsJson?searchZipCode=";
-    // TODO: How to map the zipcode areas on the map??
+    // Quick demo.
+    addNutsPolygon({
+      "shape": [
+        [ 52.544235500000013, 13.610827500000028 ],
+        [ 52.474166998999976, 13.66698 ],
+        [ 52.377882998000018, 13.699738 ],
+        [ 52.376247001000024, 13.420984998999984 ],
+        [ 52.399599500000022, 13.31212 ],
+        [ 52.394275498000013, 13.165898 ],
+        [ 52.50182150099999, 13.153695500000026 ],
+        [ 52.598900500000013, 13.164263 ],
+        [ 52.648194498, 13.39854 ],
+        [ 52.544235500000013, 13.610827500000028 ]
+      ],
+      "users": 42
+    });
+
   </script>
 </body>
 </html>
