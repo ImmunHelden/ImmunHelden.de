@@ -199,7 +199,10 @@
     }
 
     function addNutsPolygon(json) {
-      L.polygon(json.shape, {className: 'nuts-polygon'})
+      // Invert all coordinates. GeoJson encodes shapes as [lng, lat].
+      const latlngs = json.shape.map(lnglat => [lnglat[1], lnglat[0]]);
+
+      L.polygon(latlngs, {className: 'nuts-polygon'})
         .bindPopup(createImmuneHeroesNutsPopupContent(json)).addTo(map);
     }
 
@@ -230,21 +233,23 @@
       }
     });
 
-    // Quick demo.
-    addNutsPolygon({
-      "shape": [
-        [ 52.544235500000013, 13.610827500000028 ],
-        [ 52.474166998999976, 13.66698 ],
-        [ 52.377882998000018, 13.699738 ],
-        [ 52.376247001000024, 13.420984998999984 ],
-        [ 52.399599500000022, 13.31212 ],
-        [ 52.394275498000013, 13.165898 ],
-        [ 52.50182150099999, 13.153695500000026 ],
-        [ 52.598900500000013, 13.164263 ],
-        [ 52.648194498, 13.39854 ],
-        [ 52.544235500000013, 13.610827500000028 ]
-      ],
-      "users": 42
+
+    function getImmuneHeroesQueryUrl(params) {
+      if (params.hasOwnProperty("local")) {
+        // Special case for frontend development on local machine. Only works
+        // with CORS disabled: https://stackoverflow.com/questions/3102819
+        return "https://us-central1-immuneheroes-35036.cloudfunctions.net/getAllImmuneHeroesNutsAsJson";
+      }
+      // Default for production.
+      return "/getAllImmuneHeroesNutsAsJson";
+    }
+
+    const immuneHeroesQuery = getImmuneHeroesQueryUrl(params);
+    loadJson(immuneHeroesQuery).then(immuneHeroesArray => {
+      console.log(immuneHeroesArray);
+      for (const entry of immuneHeroesArray) {
+        addNutsPolygon(entry);
+      }
     });
 
     addClinicMarker({
