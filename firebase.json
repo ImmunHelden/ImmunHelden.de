@@ -29,6 +29,10 @@
         "function": "getAllStakeHoldersAsJson"
       },
       {
+        "source": "/getAllImmuneHeroesNutsAsJson",
+        "function": "getAllImmuneHeroesNutsAsJson"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

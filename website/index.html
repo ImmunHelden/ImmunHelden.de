@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>ImmuneHeroes</title>
+		<title>ImmunHelden</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="description" content="" />
@@ -20,24 +20,17 @@
 		<style>
 			#banner {
 				background-image: linear-gradient(rgba(27, 69, 206, 0.25), rgba(206, 27, 40, 0.25)), url(images/cta01.jpg);
+				color: #fff;
 			}
 			#banner h1 {
-				color: #fff;
 				font-weight: bold;
 				text-transform: none;
 			}
-			#banner p {
-				color: #fff;
-			}
-			#osm-map {
-				height: 45rem;
+			.osm-map-iframe {
+				height: 25rem;
 				width: 100%;
 				max-width: 100%;
 				overflow: hidden;
-			}
-			#osm-map p.text {
-				margin: 0;
-				margin-bottom: 0.75em;
 			}
 		</style>
 	</head>
@@ -45,36 +38,58 @@
 
 		<!-- Header -->
 			<header id="header">
-				<a class="logo" href="index.html">ImmuneHeroes</a>
+				<a class="logo" href="index.html">ImmunHelden</a>
 			</header>
 
 		<!-- Banner -->
 			<section id="banner">
 				<div class="heading">
-					<h1>ImmuneHeroes</h1>
+					<h1>ImmunHelden</h1>
 					<br>
 					<p>Wir verbinden von Covid-19 genesene und damit immune Helfer:innen mit allen, die ihre Unterstützung benötigen.<br />
 					</p>
 				</div>
 			</section>
 
-		<!-- Vision -->
-			<section class="wrapper">
-				<div class="inner">
-					<header class="special">
-						<h2>Die Vision</h2>
+  	<section class="wrapper">
+			<div class="inner">
+				<header class="special">
+					<h2>Was kann ich tun?</h2>
+					<div class="highlights">
+						<!-- Map -->
+						<section>
+							<iframe src="map.html?zoom=5&interactive=false" class="osm-map-iframe"></iframe>
+							<br><br>
+							<a href="map.html">Hier geht's zur interaktiven Karte</a>
+						</section>
+						<!-- Vision -->
+						<section>
+							<div class="content">
+								<p style="text-align: justify; max-width: 100%; margin-top: 0;">
+									<b>Wir wollen erreichen, dass notwendige Dienstleistungen</b> von Personen übernommen werden, die immun gegen das neuartige Coronavirus sind,
+									weil sie die COVID-19-Erkrankung schon hinter sich haben.
+									<br><br>
+									<b>Wenn wir alle im System entstehenden Lücken</b> so schnell wie möglich mit Immunen füllen,
+									können wir die Versorgung der Gesellschaft sicherstellen und gleichzeitig Infektionsketten unterbrechen!
+									Zusammen können wir die Virusausbreitung verlangsamen und diejenigen schützen, für die eine Erkrankung besonders gefährlich wäre.
+								</p>
+							</div>
+						</section>
+					</div>
+				</header>
+			</div>
+		</section>
 
-						<p style="text-align: justify;">Von Covid-19 genesene Menschen und damit immune Helfer:innen dorthin zu vermitteln, wo sie am dringendsten gebraucht werden. Wir wollen alle im System entstehenden Lücken so schnell wie möglich mit Immunen füllen.</p>
-
-						<p style="text-align: justify;">Was wäre, wenn viele notwendige Dienstleistungen von Personen übernommen werden könnten, die immun gegen das neuartige Coronavirus sind, weil sie die COVID-19-Erkrankung schon hinter sich haben? Mit unserer Website, die hilfesuchende Personen oder Organisationen mit immunen Hilfskräften verbindet, kannst Du dazu beitragen! In Zeiten, in denen Medizinstudierende zur Mithilfe in Krankenhäusern aufgerufen werden, die Großeltern im Altersheim nicht besucht werden können und es für viele Menschen riskant ist, im Supermarkt einzukaufen, sind die Einsatzmöglichkeiten von immunen Engagierten riesig! <b><br><br>Darum an alle ImmuneHeroes da draußen: Vernetzt Euch hier mit Krankenhausleitungen, Direktor:innen ehrenamtlicher Organisationen, Supermarktleitungen, Senior:innen und vielen mehr! <br><br> Und an alle, die Hilfe gebrauchen können: Holt sie Euch!  <br><br></b> Wenn möglichst viele Tätigkeiten durch ImmuneHeroes ausgeführt werden, verlangsamen wir die Virusausbreitung und schützen diejenigen, für die eine Erkrankung besonders gefährlich wäre.</p>
-
-					</header>
+		<section class="wrapper">
+			<div class="inner">
+				<header class="special">
+					<h2>Mitmachen</h2>
 					<div class="highlights">
 						<section>
 							<div class="content">
 								<header>
 									<a href="#cta"><img src="images/superhero.png" alt="hero" width="100" /></a>
-									<h3>Ich möchte ein ImmuneHero werden</h3>
+									<h3>Ich möchte ImmunHeld:in werden</h3>
 								</header>
 							</div>
 						</section>
@@ -82,13 +97,14 @@
 							<div class="content">
 								<header>
 									<a href="#cta2"><img src="images/broadcast.png" alt="hero" width="100" /></a>
-									<h3>Ich brauche einen ImmuneHero</h3>
+									<h3>Ich brauche eine ImmunHeld:in</h3>
 								</header>
 							</div>
 						</section>
 					</div>
-				</div>
-			</section>
+				</header>
+			</div>
+		</section>
 
 		<!-- CTA -->
 			<section id="cta" class="wrapper">
@@ -102,7 +118,7 @@
 			<section id="formular_held" class="wrapper">
 				<div class="inner">
 					<header class="special">
-						<h2>Werde ImmuneHero</h2>
+						<h2>Werde ImmunHeld:in</h2>
 						<form action="/addImmuneHero" id="person" method="GET">
 
 							<label for="vorname">Vorname *</label>
@@ -144,10 +160,10 @@
 				<div class="inner">
 					<h2>Ich brauche Unterstützung durch Immune.</br>Wie geht es weiter?</h2>
 					<p>Superhelden gibt es nicht? Jeder denkt nur an sich? Stimmt nicht! Hier findest Du Deine immunen Superhelden. <br><br>
-					ImmuneHeroes können bei vielen gesellschaftlich wichtigen Aufgaben unterstützen - sei es im Gesundheitsweisen, im Einzelhandel oder in der Pflege.
+					ImmunHelden können bei vielen gesellschaftlich wichtigen Aufgaben unterstützen - sei es im Gesundheitsweisen, im Einzelhandel oder in der Pflege.
 					Bei Deiner Anmeldung fragen wir Dich, wo in Deutschland Du Hilfe brauchst. Du beschreibst in einem kurzen Text, welche Arbeit ansteht, in welchem systemrelevanten Bereich oder Ehrenamt und wie wir Dich erreichen können. Dann melden sich schon bald ImmuneHeroes bei Dir.
 
-					<br><br>Über eine etwaige Vergütung stimmst Du Dich direkt mit dem ImmuneHero ab.</p>
+					<br><br>Über eine etwaige Vergütung stimmst Du Dich direkt mit dem ImmunHelden ab.</p>
 				</div>
 			</section>
 
@@ -155,7 +171,7 @@
 			<section id="formular_anfrage" class="wrapper">
 			<div class="inner">
 				<header class="special">
-					<h2>Frage ImmuneHeroes an</h2>
+					<h2>Frage ImmunHelden an</h2>
 					<form action="/addStakeHolder" id="person" method="GET">
 						<h3>Ansprechpartner</h3>
 						<label for="vorname">Vorname *</label>
@@ -197,124 +213,6 @@
 				</header>
 			</div>
 			</section>
-
-		<!-- Map -->
-			<section id="WasKannIchTun" class="wrapper" style="padding: 0;">
-				<div class="inner">
-					<header class="special">
-						<h2>Was kann ich tun?</h2>
-						<a href="map.html">Hier geht's zur interaktiven Karte</a>
-						<br><br>
-						<div id="osm-map"></div>
-					</header>
-				</div>
-			</section>
-
-		<script>
-			if (!String.prototype.format) {
-				String.prototype.format = function() {
-					var args = Array.prototype.slice.call(arguments);
-					return this.replace(/{(\d+)}/g, function(match, number) {
-						return typeof args[number] != 'undefined'
-							? args[number]
-							: match
-						;
-					});
-				};
-			}
-
-			// Simple OpenStreetMap with credentials.
-			function createBaseLayer() {
-				return L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png',
-					{ attribution:
-							'<a href="{0}">{1}</a> | &copy; <a href="{2}">{3}</a>'.format(
-								'https://foundation.wikimedia.org/wiki/Maps_Terms_of_Use',
-								'Wikimedia maps', 'http://osm.org/copyright', 'OpenStreetMap')
-					}
-				);
-			}
-
-			function loadJson(fileUrl) {
-				return new Promise(function(resolve, reject) {
-					$.ajax({ url: fileUrl })
-						.fail(() => reject("Error querying " + fileUrl))
-						.done(content => {
-							resolve((typeof content === 'string') ? JSON.parse(content) : content);
-						});
-				});
-			}
-
-			function resolveLatLng(addressAtoms) {
-				const urlBase = "https://eu1.locationiq.com/v1/search.php?key=pk.861b8037ac48a2b23d05c90e89658064&format=json&q=";
-				const urlRequest = urlBase + addressAtoms.join(',');
-				return new Promise(function(resolve, reject) {
-					$.ajax({ url: urlRequest })
-						.fail(() => reject("Error querying " + urlRequest))
-						.done(content => {
-							const matches = (typeof content === "string") ? JSON.parse(content) : content;
-							if (!matches.hasOwnProperty("length") || matches.length == 0) {
-								reject("Invalid response from " + urlRequest + ": " + matches);
-								return;
-							}
-							const bestMatch = matches[0];
-							if (!bestMatch.hasOwnProperty("lat") || !bestMatch.hasOwnProperty("lon")) {
-								reject("Invalid response from " + urlRequest + ":" + bestMatch);
-								return;
-							}
-							resolve(L.latLng(parseFloat(bestMatch.lat), parseFloat(bestMatch.lon)));
-						});
-				});
-			}
-
-			let map = new L.map('osm-map', {
-				center: [51, 10],
-				zoom: 6,
-				zoomControl: false,
-				dragging: false,
-				doubleClickZoom: false,
-				scrollWheelZoom: false
-			});
-
-			createBaseLayer().addTo(map);
-
-			function addStakeholderMarker(json, retry) {
-				// TODO: So far, country is hardcoded.
-				resolveLatLng([json.address, json.zipCode, json.city, "Germany"])
-					.then(latlng => {
-						L.marker(latlng).bindPopup(getPopupContent(json)).addTo(map);
-					})
-					.catch(err => {
-						// TODO: Every other attempt returns a "Error: rate limited" (429).
-						// Retry again with a delay. We may have to pay for the geocoding
-						// service in order to avoid it.
-						if (retry > 0) {
-							const delay = Math.round(Math.random() * 5000);
-							console.log(err + " (will try again in {0}ms)".format(delay));
-							setTimeout(() => addStakeholderMarker(json, retry - 1), delay);
-						} else {
-							console.error(err + " (eventually failed)");
-						}
-					});
-			}
-
-			function getPopupContent(json) {
-				let html = "";
-				html += "<b>Was kann ich tun?</b><p class=\"text\">{0}</p>".format(json.text);
-				html += "<b>Absender</b><p class=\"text\">{0} {1}, {2}</p>".format(
-									json.preName, json.lastName, json.organisation);
-				html += "✉ <a href=\"mailto:{0}\">Email</a><br>".format(json.emailAddress);
-				html += "☎ <a href=\"tel:{0}\">Telefon</a>".format(json.phoneNumber);
-				return html;
-			}
-
-			loadJson("/getAllStakeHoldersAsJson").then(stakeholdersJSON => {
-				console.log(stakeholdersJSON);
-				const retryMax = 10;
-				for (const key in stakeholdersJSON) {
-					addStakeholderMarker(stakeholdersJSON[key], retryMax);
-				}
-			});
-		</script>
 
 	<!-- Testimonials -->
 			<section class="wrapper">
@@ -373,7 +271,7 @@
 					<div class="content">
 						<section>
 							<h3>Ich bin nicht immun, wie kann ich sonst helfen?</h3>
-							<p>Werde unser PR Hero! Teile einfach diese Website mit Freunden, Familie, Kolleg:innen und Nachbar:innen. Je mehr ImmuneHeroes wir mit offenen Stellen vernetzen können, desto weniger Infektionen wird es geben.</p>
+							<p>Werde unser PR Hero! Teile einfach diese Website mit Freunden, Familie, Kolleg:innen und Nachbar:innen. Je mehr ImmunHelden wir mit offenen Stellen vernetzen können, desto weniger Infektionen wird es geben.</p>
 						</section>
 						<section>
 							<h4>#WirVsVirus</h4>
