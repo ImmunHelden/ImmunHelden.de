@@ -2,6 +2,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 admin.initializeApp();
 
 const immuneHeroesTable = '/immuneHeroes'
@@ -36,6 +37,56 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
 //   const result = await getImmuneHeroesInZipCodeRange(searchZipCode)
 //   res.json(result.toJSON()).send();
 // });
+
+exports.getAllImmuneHeroesNutsAsJson = functions.https.onRequest(async (req, res) => {
+  const heroesData = await admin.database().ref(immuneHeroesTable).once('value');
+
+  // Load map of zipCode => NUTS_ID, build from CSV data:
+  // https://ec.europa.eu/eurostat/web/nuts/correspondence-tables/postcodes-and-nuts
+  fs.readFile('zip2nuts.json', 'utf8', (err, data) => {
+    if (err) throw err;
+    const heroes = heroesData.toJSON();
+    const heroesPerNuts = {};
+    const zip2nuts = JSON.parse(data);
+
+    for (const key in heroes) {
+      const zip = heroes[key].zipCode;
+      if (!zip2nuts.hasOwnProperty(zip)) {
+        // TODO: Handle invalid/unknown ZIP codes.
+        continue;
+      }
+
+      const nuts = zip2nuts[zip];
+      if (heroesPerNuts.hasOwnProperty(nuts)) {
+        heroesPerNuts[nuts] += 1;
+      } else {
+        heroesPerNuts[nuts] = 1;
+      }
+    }
+
+    // Load map of NUTS_ID => shape, extracted from:
+    // https://datahub.io/core/geo-nuts-administrative-boundaries/r/nuts_rg_60m_2013_lvl_3.geojson
+    fs.readFile('nuts_lvl_3_de_by_id.json', 'utf8', (err, data) => {
+      if (err) throw err;
+      const nutsLvl3 = JSON.parse(data);
+
+      const resp = [];
+      for (const nutsId in heroesPerNuts) {
+        if (!nutsLvl3.hasOwnProperty(nutsId)) {
+          // TODO: Handle invalid/unknown NUTS.
+          continue;
+        }
+
+        resp.push({
+          "shape": nutsLvl3[nutsId][0],
+          "users": heroesPerNuts[nutsId]
+        });
+      }
+
+      res.json(resp).send();
+    })
+  });
+});
 
 exports.getAllStakeHoldersAsJson = functions.https.onRequest(async (req, res) => {
   const result = await getAllStakeHolders()
