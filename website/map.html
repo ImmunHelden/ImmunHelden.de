@@ -17,15 +17,15 @@
       width: 100%;
       height: 100%;
     }
-    p.popup-stakeholders p {
+    div.popup-stakeholders p {
       margin-top: 0;
       margin-bottom: 0.75em;
     }
-    p.popup-immuneheroes b {
+    div.popup-immuneheroes b {
       font-size: 1.5rem;
       color: #d3303b;
     }
-    p.popup-immuneheroes img {
+    div.popup-immuneheroes img {
       height: 1.2rem;
       width: auto;
     }
@@ -59,6 +59,14 @@
           ;
         });
       };
+    }
+
+    function toBool(string) {
+      switch (string.toLowerCase().trim()) {
+        case "true": case "yes": case "1": return true;
+        case "false": case "no": case "0": case null: return false;
+        default: return Boolean(string);
+      }
     }
 
     function parseUrlParams(url) {
@@ -122,10 +130,17 @@
       });
     }
 
+    const params = parseUrlParams(window.location.href);
+    const initialZoom = params.hasOwnProperty("zoom") ? params.zoom : 6;
+    const interactive = params.hasOwnProperty("interactive") ? toBool(params.interactive) : true;
+
     let map = new L.map('osm-map', {
       center: [51, 10],
-      zoom: 6,
-      zoomControl: true
+      zoom: initialZoom,
+      zoomControl: interactive,
+      dragging: interactive,
+      doubleClickZoom: interactive,
+      scrollWheelZoom: interactive
     });
 
     createBaseLayer().addTo(map);
@@ -162,13 +177,13 @@
 
     function createStakeholderPopupContent(json) {
       let html = "";
-      html += "<p class=\"popup-stakeholders\">";
+      html += "<div class=\"popup-stakeholders\">";
       html += "<b>Was kann ich tun?</b><p>{0}</p>".format(json.text);
       html += "<b>Absender</b><p>{0} {1}, {2}</p>".format(
                 json.preName, json.lastName, json.organisation);
-      html += "✉ <a href=\"mailto:{0}\">Email</a><br>".format(json.emailAddress);
+      html += "✉ <a href=\"mailto:{0}\">Email</a> ".format(json.emailAddress);
       html += "☎ <a href=\"tel:{0}\">Telefon</a>".format(json.phoneNumber);
-      html += "</p>";
+      html += "</div>";
       return html;
     }
 
@@ -208,15 +223,12 @@
 
     function createImmuneHeroesNutsPopupContent(json) {
       let html = "";
-      html += "<p class=\"popup-immuneheroes\">";
+      html += "<div class=\"popup-immuneheroes\">";
       html += "<img src=\"images/superhero.png\" alt=\"hero\" /> ";
       html += "<b>" + json.users + "</b>";
-      html += "</p>";
+      html += "</div>";
       return html;
     }
-
-
-    const params = parseUrlParams(window.location.href);
 
     const retryMax = 2;
     const rateLimit = 500; // Delay between requests in ms.
@@ -232,7 +244,6 @@
         });
       }
     });
-
 
     function getImmuneHeroesQueryUrl(params) {
       if (params.hasOwnProperty("local")) {
