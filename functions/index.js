@@ -1,7 +1,7 @@
-// ImmuneHeros Functions as Firebase Backe-End
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
+const rp = require('request-promise');
 const fs = require('fs');
 admin.initializeApp();
 
@@ -19,16 +19,68 @@ exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
 });
 
 exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
-  const preName = req.query.preName
-  const lastName = req.query.lastName
-  const organisation = req.query.organisation
-  const text = req.query.text
-  const emailAddress = req.query.emailAddress
-  const phoneNumber = req.query.phoneNumber
-  const address = req.query.address
-  const zipCode = parseInt(req.query.zipCode)
-  const city = req.query.city
-  const result = await admin.database().ref(stakeHoldersTable).push({ preName: preName, lastName: lastName, organisation: organisation, text: text, emailAddress: emailAddress, phoneNumber: phoneNumber, address: address, zipCode: zipCode, city: city });
+  const address = req.query.address;
+  const zipCode = parseInt(req.query.zipCode);
+  const city = req.query.city;
+  const country = "Germany";
+
+  // LocationIQ query
+  const baseUrl = "https://eu1.locationiq.com/v1/search.php";
+  const params = {
+    key: "pk.861b8037ac48a2b23d05c90e89658064",
+    format: "json",
+    q: [address, zipCode, city, country].join(',')
+  };
+
+  // LocationIQ request with retry
+  const requestLatLng = (attemptsRemaining, retryDelay) => {
+    console.log(`${baseUrl}?key=${params.key}&format=${params.format}&q=${params.q}`);
+    return rp.get({ uri: baseUrl, qs: params, json: true })
+      .then(response => {
+        console.log("requestLatLng::doRequest::then");
+        console.log(response);
+        return response;
+      });
+    };
+
+  // LocationIQ response validation
+  const hasValidLatLngMatch = (matches) => {
+    return matches.hasOwnProperty("length") && matches.length > 0 &&
+           matches[0].hasOwnProperty("lat") && matches[0].hasOwnProperty("lon");
+  };
+
+  // Resolve location via LocationIQ
+  const bestMatch = await requestLatLng(10, 500)
+    .then(response => {
+      if (!hasValidLatLngMatch(response))
+        throw new Error(`Invalid response: ${response}`);
+
+      return {
+        "lat": parseFloat(response[0].lat),
+        "lon": parseFloat(response[0].lon)
+      };
+    });
+
+  console.log("Best match:", bestMatch);
+
+  // Add record to database
+  const entry = {
+    "preName": req.query.preName,
+    "lastName": req.query.lastName,
+    "organisation": req.query.organisation,
+    "text": req.query.text,
+    "emailAddress": req.query.emailAddress,
+    "phoneNumber": req.query.phoneNumber,
+    "address": address,
+    "zipCode": zipCode,
+    "city": city,
+    "latitude": bestMatch.lat,
+    "longitude": bestMatch.lon
+  };
+
+  // TODO: For security reasons the key for adjustment should time out!
+  const result = await admin.database().ref(stakeHoldersTable).push(entry);
+
   res.redirect('../generic.html');
 });
 
