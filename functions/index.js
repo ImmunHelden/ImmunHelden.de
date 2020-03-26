@@ -80,8 +80,21 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
 
   // TODO: For security reasons the key for adjustment should time out!
   const result = await admin.database().ref(stakeHoldersTable).push(entry);
+  const qs = [ 'key=' + result.key, 'lat=' + bestMatch.lat, 'lng=' + bestMatch.lon ];
 
-  res.redirect('../generic.html');
+  // Let the user verify and adjust the exact pin location.
+  res.redirect('../verifyStakeholderPin.html?' + qs.join('&'));
+});
+
+exports.doneVerifyStakeholderPin = functions.https.onRequest(async (req, res) => {
+  // TODO: Check the key didn't time out yet!
+  const updates = {};
+  updates["/stakeHolders/" + req.query.key + "/latitude"] = req.query.exact_lat;
+  updates["/stakeHolders/" + req.query.key + "/longitude"] = req.query.exact_lng;
+
+  // Update database record with confirmed exact pin location.
+  admin.database().ref().update(updates);
+  res.redirect("../generic.html");
 });
 
 // exports.getImmuneHeroesInZipCodeRangeAsJson = functions.https.onRequest(async (req, res) => {

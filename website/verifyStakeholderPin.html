@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<!--
+	Industrious by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>ImmuneHeroes</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+		<style>
+			#osm-map {
+				height: 35rem;
+				width: 100%;
+				max-width: 100%;
+				overflow: hidden;
+			}
+			#center-marker {
+				position: absolute;
+				left: calc(50% - 12px);
+				top: calc(50% - 41px);
+				width: 25px;
+				height: 41px;
+				z-index: 9999;
+				background-image: url('https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png');
+				background-size: cover;
+			}
+			.wrapper {
+				padding: 2rem 0 2rem 0;
+			}
+			h2 {
+				margin: 0 0 0.5rem 0;
+			}
+			form {
+				margin: 0 0 1rem 0;
+			}
+			label {
+				display: inline-block;
+				font-size: 1rem;
+				font-weight: 400;
+				margin-top: 1rem;
+			}
+			#coords {
+				width: 10rem;
+				margin: 1rem;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a class="logo" href="index.html">ImmuneHelden</a>
+			</header>
+
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="inner">
+					<div class="content">
+						<header>
+							<h2>Genauen Treffpunkt nachjustieren</h2>
+							<form action="/doneVerifyStakeholderPin">
+								<label>Koordinaten:</label><label id="coords"></label>
+								<div style="float: right;">
+									<input type="hidden" id="key" name="key">
+									<input type="hidden" id="exact_lat" name="exact_lat">
+									<input type="hidden" id="exact_lng" name="exact_lng">
+									<input type="checkbox" id="confirmed" onchange="allowSubmit()">
+									<label for="confirmed">Position korrekt</label>
+									<input type="submit" id="complete" value="Fertig" disabled>
+								</div>
+							</form>
+						</header>
+						<div id="osm-map">
+							<div id="center-marker"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<script>
+				if (!String.prototype.format) {
+					String.prototype.format = function() {
+						var args = Array.prototype.slice.call(arguments);
+						return this.replace(/{(\d+)}/g, function(match, number) {
+							return typeof args[number] != 'undefined'
+								? args[number]
+								: match
+							;
+						});
+					};
+				}
+
+				function toBool(string) {
+					switch (string.toLowerCase().trim()) {
+						case "true": case "yes": case "1": return true;
+						case "false": case "no": case "0": case null: return false;
+						default: return Boolean(string);
+					}
+				}
+
+				function allowSubmit() {
+					const confirmed = $('#confirmed').is(':checked');
+					$('#complete').prop('disabled', !confirmed);
+				}
+
+				function parseUrlParams(url) {
+					const regex = /[?&]([^=#]+)=([^&#]*)/g;
+					let params = {};
+					let match;
+					while(match = regex.exec(url)) {
+						params[match[1]] = match[2];
+					}
+					return params;
+				}
+
+				function createBaseLayer() {
+					return L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png',
+						{ attribution:
+								'<a href="{0}">{1}</a> | &copy; <a href="{2}">{3}</a>'.format(
+									'https://foundation.wikimedia.org/wiki/Maps_Terms_of_Use',
+									'Wikimedia maps', 'http://osm.org/copyright', 'OpenStreetMap')
+						}
+					);
+				}
+
+				function updateCoords(latLng) {
+					$('#exact_lat').val(latLng.lat);
+					$('#exact_lng').val(latLng.lng);
+
+					const fourDigits = val => Math.round(val * 10000) / 10000;
+					$('#coords').html('[ {0}, {1} ]'.format(
+							fourDigits(latLng.lat),
+							fourDigits(latLng.lng)));
+				}
+
+				const params = parseUrlParams(window.location.href);
+				if (!params.hasOwnProperty("key")) {
+					console.error("Missing URL parameter 'key'");
+				}
+				if (!params.hasOwnProperty("lat")) {
+					console.error("Missing URL parameter 'lat'");
+				}
+				if (!params.hasOwnProperty("lng")) {
+					console.error("Missing URL parameter 'lng'");
+				}
+
+				// Secret one-time key that identifies the stakeholder data to adjust.
+				$('#key').val(params.key);
+
+				const resolvedLatLng = L.latLng(parseFloat(params.lat), parseFloat(params.lng));
+
+				let map = new L.map('osm-map', {
+					center: resolvedLatLng,
+					zoom: 13,
+					zoomControl: true,
+					scrollWheelZoom: 'center',
+					doubleClickZoom: 'center',
+					touchZoom: 'center'
+				});
+
+				map.on('move', evt => { updateCoords(map.getCenter()); });
+
+				updateCoords(map.getCenter());
+				createBaseLayer().addTo(map);
+			</script>
+
+
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="content">
+						<section>
+							<h3>Ich bin nicht immun, wie kann ich sonst helfen?</h3>
+							<p>Bitte teile diese Website mit Freunden, Familie, Kollegen und Nachbarn. Je mehr Immune wir mit offenen Stellen vernetzen können desto weniger Infektionen wird es geben.</p>
+						</section>
+						<section>
+							<h4>#WirVsVirus</h4>
+							<ul class="alt">
+								<li><a href="https://wirvsvirushackathon.org/">Website</a></li>
+								<li><a href="https://www.bundesregierung.de/breg-de/themen/coronavirus/wir-vs-virus-1731968">Bundesregierung</a></li>
+							</ul>
+						</section>
+						<section>
+							<h4>Follow us</h4>
+							<ul class="plain">
+								<li><a href="https://twitter.com/LeonMachler"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+								<li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
+								<li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
+								<li><a href="https://github.com/jomapp/immuneheroes"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+							</ul>
+						</section>
+					</div>
+					<div class="copyright">
+						&copy; Pictures <a href="https://unsplash.co">Unsplash</a>, Video <a href="https://coverr.co">Coverr</a>.
+						<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

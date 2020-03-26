@@ -33,6 +33,10 @@
         "function": "getAllImmuneHeroesNutsAsJson"
       },
       {
+        "source": "/doneVerifyStakeholderPin",
+        "function": "doneVerifyStakeholderPin"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
