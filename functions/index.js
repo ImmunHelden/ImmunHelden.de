@@ -33,15 +33,37 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   };
 
   // LocationIQ request with retry
-  const requestLatLng = (attemptsRemaining, retryDelay) => {
-    console.log(`${baseUrl}?key=${params.key}&format=${params.format}&q=${params.q}`);
-    return rp.get({ uri: baseUrl, qs: params, json: true })
-      .then(response => {
-        console.log("requestLatLng::doRequest::then");
-        console.log(response);
-        return response;
-      });
-    };
+  const requestLatLng = async (maxAttempts, retryDelay) => {
+    console.log(`Requesting: ${baseUrl}?key=${params.key}&format=${params.format}&q=${params.q}`);
+    const STATUS_CODE_RATE_LIMIT_EXCEEDED = 429;
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        return await rp.get({ uri: baseUrl, qs: params, json: true });
+      } catch (err) {
+        console.log(err);
+        if (err.statusCode === STATUS_CODE_RATE_LIMIT_EXCEEDED) {
+          // Our free LocationIQ account has a rate limit and it may kick in
+          // when multiple users register at the same time. We will have to pay
+          // for the service in order to avoid that. For now log a warning and
+          // retry.
+          console.warn('Failed to resolve coordinates. Will try again in ' +
+                        retryDelay + 'ms.');
+          await new Promise((wakeup, _) => setTimeout(wakeup, retryDelay));
+        } else {
+          console.error(err);
+          throw err;
+        }
+      }
+    }
+
+    // We cannot let the user wait forever..
+    // TODO: Forward users to a "Try again later page".
+    throw new Error(
+      'Give up trying to resolve coordinates for address after ' +
+      maxAttempts + ' attempts over ' + (maxAttempts * retryDelay / 1000) +
+      ' seconds.');
+  };
 
   // LocationIQ response validation
   const hasValidLatLngMatch = (matches) => {
@@ -49,7 +71,7 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
            matches[0].hasOwnProperty("lat") && matches[0].hasOwnProperty("lon");
   };
 
-  // Resolve location via LocationIQ
+  // Kick-off request to LocationIQ and process result.
   const bestMatch = await requestLatLng(10, 500)
     .then(response => {
       if (!hasValidLatLngMatch(response))
@@ -118,6 +140,7 @@ exports.getAllImmuneHeroesNutsAsJson = functions.https.onRequest(async (req, res
       const zip = heroes[key].zipCode;
       if (!zip2nuts.hasOwnProperty(zip)) {
         // TODO: Handle invalid/unknown ZIP codes.
+        console.log("Ignore unknown ZIP code:", zip);
         continue;
       }
 
@@ -139,6 +162,7 @@ exports.getAllImmuneHeroesNutsAsJson = functions.https.onRequest(async (req, res
       for (const nutsId in heroesPerNuts) {
         if (!nutsLvl3.hasOwnProperty(nutsId)) {
           // TODO: Handle invalid/unknown NUTS.
+          console.log("Ignore unknown NUTS_ID:", nutsId);
           continue;
         }
 
