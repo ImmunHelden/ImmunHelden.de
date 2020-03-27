@@ -108,37 +108,6 @@
       });
     }
 
-    function requestLatLng(addressAtoms, attempts, initialDelay) {
-      // TODO: This may happen on the server to protect the LocationIQ token.
-      const token = "pk.861b8037ac48a2b23d05c90e89658064";
-      const templateUrl = "https://eu1.locationiq.com/v1/search.php?key={0}&format=json&q={1}";
-      const requestUrl = templateUrl.format(token, addressAtoms.join(','));
-      return new Promise(function(resolve, reject) {
-        const doRequest = (attemptsRemaining, delay) => {
-          // When exceeding the rate limit of our free LocationIQ account,
-          // requests will fail (429). Woraround it by applying an initial delay
-          // and retry if necessary. We may have to pay for the geocoding
-          // service in order to avoid that.
-          setTimeout(() => {
-            $.ajax({ url: requestUrl })
-              .done(response => resolve(response))
-              .fail(err => {
-                if (err.status == 429 && attemptsRemaining > 0) {
-                  // Retry is a fallback. Wait between 5 and 10 seconds.
-                  const retryDelay = Math.round(Math.random() * 5000 + 5000);
-                  doRequest(attemptsRemaining - 1, retryDelay);
-                } else {
-                  console.error("Failed to resolve coordinates for address after",
-                                attempts, "attemps: ", err);
-                  reject();
-                }
-              });
-          }, delay);
-        };
-        doRequest(attempts, initialDelay);
-      });
-    }
-
     const params = parseUrlParams(window.location.href);
     const initialZoom = params.hasOwnProperty("zoom") ? params.zoom : 6;
     const interactive = params.hasOwnProperty("interactive") ? toBool(params.interactive) : true;
@@ -166,26 +135,6 @@
       }
       // Default for production.
       return "/getAllStakeHoldersAsJson";
-    }
-
-    function createStakeholderMarker(json, attempts, initialDelay) {
-      return new Promise(function(resolve, reject) {
-        const country = "Germany";
-        requestLatLng([json.address, json.zipCode, json.city, country], attempts, initialDelay).then(
-          response => {
-            const matches = (typeof response === "string") ? JSON.parse(response) : response;
-            if (!matches.hasOwnProperty("length") || matches.length == 0 ||
-                !matches[0].hasOwnProperty("lat") || !matches[0].hasOwnProperty("lon")) {
-              console.error("Invalid response from " + urlRequest + ":" + response);
-              reject();
-              return;
-            }
-
-            resolve(L.marker(L.latLng(
-                parseFloat(matches[0].lat), parseFloat(matches[0].lon))));
-          },
-          err => { /* Logged already. */ });
-      });
     }
 
     function createStakeholderPopupContent(json) {
@@ -243,18 +192,16 @@
       return html;
     }
 
-    const retryMax = 2;
-    const rateLimit = 500; // Delay between requests in ms.
     const stakeholdersQuery = getStakeHoldersQueryUrl(params);
     loadJson(stakeholdersQuery).then(stakeholdersJSON => {
       console.log(stakeholdersJSON);
-      let delay = 0;
       for (const key in stakeholdersJSON) {
         const entry = stakeholdersJSON[key];
-        delay += rateLimit;
-        createStakeholderMarker(entry, retryMax, delay).then(marker => {
-          marker.bindPopup(createStakeholderPopupContent(entry)).addTo(map);
-        });
+        if (entry.hasOwnProperty("latitude") && entry.hasOwnProperty("longitude")) {
+          L.marker(L.latLng(parseFloat(entry.latitude), parseFloat(entry.longitude)))
+              .bindPopup(createStakeholderPopupContent(entry))
+              .addTo(map);
+        }
       }
     });
 
