@@ -124,23 +124,19 @@
 				}
 
 				function createBaseLayer() {
-					return L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png',
+					return L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
 						{ attribution:
-								'<a href="{0}">{1}</a> | &copy; <a href="{2}">{3}</a>'.format(
-									'https://foundation.wikimedia.org/wiki/Maps_Terms_of_Use',
-									'Wikimedia maps', 'http://osm.org/copyright', 'OpenStreetMap')
-						}
-					);
+								'<a href="http://osm.org/copyright">&copy; OpenStreetMap contributors</a>' });
 				}
 
 				function updateCoords(latLng) {
 					$('#exact_lat').val(latLng.lat);
 					$('#exact_lng').val(latLng.lng);
 
-					const fourDigits = val => Math.round(val * 10000) / 10000;
+					const fiveDigits = val => Math.round(val * 100000) / 100000;
 					$('#coords').html('[ {0}, {1} ]'.format(
-							fourDigits(latLng.lat),
-							fourDigits(latLng.lng)));
+							fiveDigits(latLng.lat),
+							fiveDigits(latLng.lng)));
 				}
 
 				const params = parseUrlParams(window.location.href);
@@ -161,7 +157,7 @@
 
 				let map = new L.map('osm-map', {
 					center: resolvedLatLng,
-					zoom: 13,
+					zoom: 18,
 					zoomControl: true,
 					scrollWheelZoom: 'center',
 					doubleClickZoom: 'center',
