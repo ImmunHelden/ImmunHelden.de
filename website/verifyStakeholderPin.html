@@ -49,6 +49,10 @@
 				font-weight: 400;
 				margin-top: 1rem;
 			}
+			img.asterisk {
+				height: 1rem;
+				width: auto;
+			}
 			#coords {
 				width: 10rem;
 				margin: 1rem;
@@ -67,7 +71,7 @@
 				<div class="inner">
 					<div class="content">
 						<header>
-							<h2>Genauen Treffpunkt nachjustieren</h2>
+							<h2>Genauer Treffpunkt</h2>
 							<form action="/doneVerifyStakeholderPin">
 								<label>Koordinaten:</label><label id="coords"></label>
 								<div style="float: right;">
@@ -75,7 +79,9 @@
 									<input type="hidden" id="exact_lat" name="exact_lat">
 									<input type="hidden" id="exact_lng" name="exact_lng">
 									<input type="checkbox" id="show_on_map" name="show_on_map">
-									<label for="show_on_map">In Karte anzeigen</label>
+									<label for="show_on_map" title="Ich möchte, dass der hier angegebene Ort zusammen mit der von mir unter „Ansprechpartner:in“ angegebenen E-Mailadresse und Telefonnummer auf https://immunhelden.de/map.html veröffentlicht wird. Meine Einwilligung zur Veröffentlichung dieser Daten ist freiwillig und kann jederzeit mit Wirkung auf die Zukunft widerrufen werden. Weitere Informationen dazu unter https://immunhelden.de/datenschutz">
+										In Karte anzeigen <img src="images/asterisk.png" class="asterisk">
+									</label>
 									<input type="checkbox" id="confirmed" onchange="allowSubmit()">
 									<label for="confirmed">Position korrekt</label>
 									<input type="submit" id="complete" value="Fertig" disabled>
@@ -84,6 +90,15 @@
 						</header>
 						<div id="osm-map">
 							<div id="center-marker"></div>
+						</div>
+						<div style="padding-top: 1rem;">
+							<img src="images/asterisk.png" class="asterisk">
+							<span>Ich möchte, dass der hier angegebene Ort zusammen mit der von mir unter „Ansprechpartner:in“
+								angegebenen E-Mailadresse und Telefonnummer auf <a target="_blank" href="https://immunhelden.de/map.html">der
+								Übersichtskarte</a> veröffentlicht wird. Meine Einwilligung zur Veröffentlichung dieser Daten
+								ist freiwillig und kann jederzeit mit Wirkung auf die Zukunft widerrufen werden. Weitere
+								Informationen dazu in unserer <a target="_blank" href=https://immunhelden.de/datenschutz>Datenschutzerklärung</a>.
+							</span>
 						</div>
 					</div>
 				</div>
