@@ -97,7 +97,8 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
     "zipCode": zipCode,
     "city": city,
     "latitude": bestMatch.lat,
-    "longitude": bestMatch.lon
+    "longitude": bestMatch.lon,
+    "showOnMap": false
   };
 
   // Organizations -> opt-out from display on map
