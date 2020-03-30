@@ -13,9 +13,9 @@
     div#osm-map {
       position: absolute;
       left: 0px;
-      top: 0px;
+      top: 44px;
       width: 100%;
-      height: 100%;
+      height: calc(100% - 44px);
     }
     #osm-map-overlay {
       position: absolute;
@@ -51,9 +51,29 @@
       stroke-width: 2px;
       fill-opacity: 0.25;
     }
+    body {
+      margin: 0;
+    }
+    header {
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
+      line-height: 44px;
+      background: #111111;
+    }
+    header .logo {
+      padding: 0 1.25rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    header a:link, header a:visited, header a:hover, header a:active {
+      color: white;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
+  <header id="header">
+    <a class="logo" href="index.html">ImmunHelden</a>
+  </header>
   <div id="osm-map"></div>
   <div id="osm-map-overlay"></div>
 
@@ -71,11 +91,14 @@
     }
 
     function toBool(string) {
-      switch (string.toLowerCase().trim()) {
-        case "true": case "yes": case "1": return true;
-        case "false": case "no": case "0": case null: return false;
-        default: return Boolean(string);
+      if (string) {
+        switch (string.toLowerCase().trim()) {
+          case "true": case "yes": case "1": return true;
+          case "false": case "no": case "0": case null: return false;
+          default: return Boolean(string);
+        }
       }
+      return false;
     }
 
     function parseUrlParams(url) {
@@ -111,9 +134,15 @@
     const params = parseUrlParams(window.location.href);
     const initialZoom = params.hasOwnProperty("zoom") ? params.zoom : 6;
     const interactive = params.hasOwnProperty("interactive") ? toBool(params.interactive) : true;
+    const showHeader = params.hasOwnProperty("header") ? toBool(params.header) : true;
 
     if (!interactive) {
       $("#osm-map-overlay").css("height", "100%");
+    }
+    if (!showHeader) {
+      $("#header").css("height", "0");
+      $("#osm-map").css("top", "0");
+      $("#osm-map").css("height", "100%");
     }
 
     let map = new L.map('osm-map', {
