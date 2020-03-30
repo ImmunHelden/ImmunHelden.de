@@ -69,6 +69,20 @@
       text-decoration: none;
     }
 
+    #legend img {
+      height: 1rem;
+      padding: 0 0.25rem;
+    }
+
+    #legend table {
+      margin-top: 4px;
+    }
+
+    #legend td:first-child {
+      text-align: center;
+      vertical-align: middle;
+    }
+
     .beta-ribbon-wrapper {
       width: 130px;
       height: 130px;
@@ -154,6 +168,30 @@
       );
     }
 
+    L.Control.Legend = L.Control.extend({
+      onAdd: function(map) {
+        let div = L.DomUtil.create('div', 'leaflet-bar');
+        div.style.backgroundColor = "#fff";
+        div.style.padding = "3px 8px";
+        div.id = "legend";
+
+        let html = '';
+        html += '<table>';
+        html += '  <tr><td><img src="images/marker-icon-2x-blue.png"></td><td>Angebot einer Hilfesuchenden</td></tr>';
+        html += '  <tr><td><img src="images/region.png"></td><td>Region mit registrierten ImmunHelden</td></tr>';
+        html += '';
+        html += '';
+        html += '';
+
+        div.innerHTML = html;
+        return div;
+      }
+    });
+
+    function createLegend() {
+      return new L.Control.Legend({ position: 'bottomleft' });
+    }
+
     function loadJson(fileUrl) {
       return new Promise(function(resolve, reject) {
         $.ajax({ url: fileUrl })
@@ -189,6 +227,7 @@
     });
 
     createBaseLayer().addTo(map);
+    createLegend().addTo(map);
 
     function getStakeHoldersQueryUrl(params) {
       if (params.hasOwnProperty("local")) {
@@ -270,7 +309,6 @@
 
     const stakeholdersQuery = getStakeHoldersQueryUrl(params);
     loadJson(stakeholdersQuery).then(stakeholdersJSON => {
-      console.log(stakeholdersJSON);
       for (const key in stakeholdersJSON) {
         const entry = stakeholdersJSON[key];
         if (entry.hasOwnProperty("latitude") && entry.hasOwnProperty("longitude")) {
@@ -294,7 +332,6 @@
 
     const immuneHeroesQuery = getImmuneHeroesQueryUrl(params);
     loadJson(immuneHeroesQuery).then(immuneHeroesArray => {
-      console.log(immuneHeroesArray);
       for (const entry of immuneHeroesArray) {
         addNutsPolygon(entry);
       }
