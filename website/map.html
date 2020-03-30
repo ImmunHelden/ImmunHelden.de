@@ -192,7 +192,7 @@
     }
 
     const clinicIcon = new L.Icon({
-      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+      iconUrl: 'images/marker-icon-2x-orange.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34]
@@ -202,6 +202,19 @@
       L.marker(json.latlng, {
         icon: clinicIcon
       }).bindPopup(createClinicPopupContent(json)).addTo(map);
+    }
+
+    const stakeholderIcon = new L.Icon({
+      iconUrl: 'images/marker-icon-2x-blue.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
+    });
+
+    function addStakeholderMarker(json) {
+      L.marker(json.latlng, {
+        icon: stakeholderIcon
+      }).bindPopup(createStakeholderPopupContent(json.info)).addTo(map);
     }
 
     function addNutsPolygon(json) {
@@ -227,9 +240,10 @@
       for (const key in stakeholdersJSON) {
         const entry = stakeholdersJSON[key];
         if (entry.hasOwnProperty("latitude") && entry.hasOwnProperty("longitude")) {
-          L.marker(L.latLng(parseFloat(entry.latitude), parseFloat(entry.longitude)))
-              .bindPopup(createStakeholderPopupContent(entry))
-              .addTo(map);
+          addStakeholderMarker({
+            latlng: L.latLng(parseFloat(entry.latitude), parseFloat(entry.longitude)),
+            info: entry
+          });
         }
       }
     });
