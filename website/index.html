@@ -185,21 +185,25 @@
 							Dann hörst du schon bald von uns wo du überall gebraucht wirst.
 						</p>
 						<form action="/addImmuneHero" id="person" class="label-above-input" method="GET">
-							<input type="hidden" name="preName" value="_">
 							<div>
-								<label for="heroName">Name</label>
-								<input type="text" name="lastName" id="heroName" maxlength="40"
-											title="Dein Name" required>
+								<label for="heroFirstName">Vorname</label>
+								<input type="text" name="preName" id="heroFirstName" maxlength="40"
+											 title="Um Vertrauen zwischen unseren Mitgliedern herzustellen, benötigen wir deinen Vor- und Nachnamen" required>
+							</div>
+							<div>
+								<label for="heroLastName">Nachname</label>
+								<input type="text" name="lastName" id="heroLastName" maxlength="40"
+											 title="Um Vertrauen zwischen unseren Mitgliedern herzustellen, benötigen wir deinen Vor- und Nachnamen" required>
 							</div>
 							<div>
 								<label for="heroZip">Postleitzahl</label>
 								<input type="text" name="zipCode" id="heroZip" maxlength="5" class="zipCode"
-											pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
+											 pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
 							</div>
 							<div>
 								<label for="heroMail">E-Mail</label>
 								<input type="email" name="emailAddress" id="heroMail" maxlength="100"
-											pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
+											 pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
 							</div>
 
 							<p>Wir schicken dir e-Mails sobald jemand in deiner Region Hilfe braucht.</p>
