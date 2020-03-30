@@ -100,9 +100,14 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
     "longitude": bestMatch.lon
   };
 
+  // Organizations -> opt-out from display on map
+  // Private person -> opt-in to display on map
+  const addToMapDefault = (req.query.organisation.length > 0) ? "true" : "false";
+
   // TODO: For security reasons the key for adjustment should time out!
   const result = await admin.database().ref(stakeHoldersTable).push(entry);
-  const qs = [ 'key=' + result.key, 'lat=' + bestMatch.lat, 'lng=' + bestMatch.lon ];
+  const qs = [ 'key=' + result.key, 'lat=' + bestMatch.lat, 'lng=' + bestMatch.lon,
+               'map-opt-out=' + addToMapDefault ];
 
   // Let the user verify and adjust the exact pin location.
   res.redirect('../verifyStakeholderPin.html?' + qs.join('&'));
@@ -113,6 +118,7 @@ exports.doneVerifyStakeholderPin = functions.https.onRequest(async (req, res) =>
   const updates = {};
   updates["/stakeHolders/" + req.query.key + "/latitude"] = req.query.exact_lat;
   updates["/stakeHolders/" + req.query.key + "/longitude"] = req.query.exact_lng;
+  updates["/stakeHolders/" + req.query.key + "/showOnMap"] = req.query.show_on_map;
 
   // Update database record with confirmed exact pin location.
   admin.database().ref().update(updates);

@@ -74,6 +74,8 @@
 									<input type="hidden" id="key" name="key">
 									<input type="hidden" id="exact_lat" name="exact_lat">
 									<input type="hidden" id="exact_lng" name="exact_lng">
+									<input type="checkbox" id="show_on_map" name="show_on_map">
+									<label for="show_on_map">In Karte anzeigen</label>
 									<input type="checkbox" id="confirmed" onchange="allowSubmit()">
 									<label for="confirmed">Position korrekt</label>
 									<input type="submit" id="complete" value="Fertig" disabled>
@@ -101,11 +103,14 @@
 				}
 
 				function toBool(string) {
-					switch (string.toLowerCase().trim()) {
-						case "true": case "yes": case "1": return true;
-						case "false": case "no": case "0": case null: return false;
-						default: return Boolean(string);
+					if (string) {
+						switch (string.toLowerCase().trim()) {
+							case "true": case "yes": case "1": return true;
+							case "false": case "no": case "0": case null: return false;
+							default: return Boolean(string);
+						}
 					}
+					return false;
 				}
 
 				function allowSubmit() {
@@ -150,6 +155,11 @@
 					console.error("Missing URL parameter 'lng'");
 				}
 
+				// Opt-out for organizations. Opt-in for private persons.
+				if (params.hasOwnProperty("map-opt-out")) {
+					$('#show_on_map').prop("checked", toBool(params["map-opt-out"]));
+				}
+
 				// Secret one-time key that identifies the stakeholder data to adjust.
 				$('#key').val(params.key);
 
@@ -157,7 +167,7 @@
 
 				let map = new L.map('osm-map', {
 					center: resolvedLatLng,
-					zoom: 18,
+					zoom: 16,
 					zoomControl: true,
 					scrollWheelZoom: 'center',
 					doubleClickZoom: 'center',
