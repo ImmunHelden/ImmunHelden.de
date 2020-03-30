@@ -343,7 +343,7 @@ function createStakeHoldersHtmlTable(stakeHoldersList) {
 function wrapStakeHoldersHtmlTableInBody(stakeHoldersHtmlTable) {
   var body = "<!doctype html>"
   body += "<html>"
-  body += "<title>ImmuneHeroes</title>"
+  body += "<title>ImmunHelden</title>"
   body += "</head>"
   body += "<h3>Diese Personen/Organisationen benötigen deine Hilfe:</h3>"
   body += stakeHoldersHtmlTable
@@ -355,14 +355,14 @@ function wrapStakeHoldersHtmlTableInBody(stakeHoldersHtmlTable) {
 function wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, stakeHoldersHtmlTable) {
   var body = "<!doctype html>"
   body += "<html>"
-  body += "<title>ImmuneHeroes</title>"
+  body += "<title>ImmunHelden</title>"
   body += "</head>"
   body += "<h3>Hey " + immuneHero.preName + ",</h3>"
   body += "<p>danke, dass Du mit dabei bist!</p>"
   body += "<h4>Diese Personen/Organisationen benötigen gerade deine Hilfe:</h4>"
   body += stakeHoldersHtmlTable
   body += "<p>Bitte melde dich direkt bei Ihnen!</p>"
-  body += "<p>Dein ImmuneHeroes Team</p>"
+  body += "<p>Dein ImmunHelden Team</p>"
   body += "</body>"
   body += "</html>"
   return body;
@@ -411,11 +411,11 @@ let mailTransport = nodemailer.createTransport({
 
 async function sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable) {
   const mailOptions = {
-    from: "ImmuneHeroes",
+    from: "ImmunHelden",
     to: immuneHero.emailAddress
   };
   mailOptions.subject = 'Hey ImmuneHero: Wir brauchen dich!';
-  mailOptions.text = 'Hey ' + immuneHero.preName + ',\n\nWir brauchen deine Unterstützung!\n\nDein ImmuneHeroes Team';
+  mailOptions.text = 'Hey ' + immuneHero.preName + ',\n\nWir brauchen deine Unterstützung!\n\nDein ImmunHelden Team';
   mailOptions.html = wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, await stakeHoldersHtmlTable);
   return await mailTransport.sendMail(mailOptions);
 }
