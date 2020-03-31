@@ -20,7 +20,7 @@ exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
 
 exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   const address = req.query.address;
-  const zipCode = parseInt(req.query.zipCode);
+  const zipCode = req.query.zipCode;
   const city = req.query.city;
   const country = "Germany";
 
