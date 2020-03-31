@@ -232,7 +232,7 @@
       if (params.hasOwnProperty("local")) {
         // Special case for frontend development on local machine. Only works
         // with CORS disabled: https://stackoverflow.com/questions/3102819
-        return "https://immuneheroes-35036.firebaseapp.com/getAllStakeHoldersAsJson";
+        return "https://immunhelden.firebaseapp.com/getAllStakeHoldersAsJson";
       }
       // Default for production.
       return "/getAllStakeHoldersAsJson";
@@ -323,7 +323,7 @@
       if (params.hasOwnProperty("local")) {
         // Special case for frontend development on local machine. Only works
         // with CORS disabled: https://stackoverflow.com/questions/3102819
-        return "https://us-central1-immuneheroes-35036.cloudfunctions.net/getAllImmuneHeroesNutsAsJson";
+        return "https://immunhelden.firebaseapp.com/getAllImmuneHeroesNutsAsJson";
       }
       // Default for production.
       return "/getAllImmuneHeroesNutsAsJson";
