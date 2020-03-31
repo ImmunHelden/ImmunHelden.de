@@ -241,9 +241,13 @@
     function createStakeholderPopupContent(json) {
       let html = "";
       html += "<div class=\"popup-stakeholders\">";
-      html += "<b>Was kann ich tun?</b><p>{0}</p>".format(json.text);
-      html += "<b>Absender</b><p>{0} {1}, {2}</p>".format(
-                json.preName, json.lastName, json.organisation);
+      if (json.organisation) {
+        html += "<h2>{0}</h2>".format(json.organisation);
+      }
+      html += "<b>Was kann ich tun?</b><p>{0}</p>".format(
+                json.text.split(/\r?\n/).join("<br>"));
+      html += "<b>Absender</b><p>{0} {1}</p>".format(
+                json.preName, json.lastName);
       html += "✉ <a href=\"mailto:{0}\">Email</a> ".format(json.emailAddress);
       html += "☎ <a href=\"tel:{0}\">Telefon</a>".format(json.phoneNumber);
       html += "</div>";
