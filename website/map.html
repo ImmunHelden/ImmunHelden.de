@@ -10,6 +10,11 @@
   <script src="assets/js/jquery.min.js"></script>
 
   <style>
+    @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
+
+    body {
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
+    }
     div#osm-map {
       position: absolute;
       left: 0px;
@@ -104,7 +109,7 @@
       background-color: #ffea94;
       background-image: linear-gradient(to bottom, #ffea94, #ffea5E);
     }
-    .beta-ribbon span {
+    .beta-ribbon a:link, .beta-ribbon a:visited, .beta-ribbon a:hover, .beta-ribbon a:active {
       font-size: 18px;
       text-decoration: none;
       color: #393939;
@@ -114,7 +119,7 @@
 <body>
   <div class="beta-ribbon-wrapper" id="beta-ribbon">
     <div class="beta-ribbon">
-      <span>Beta</span>
+      <a target="_blank" href="https://github.com/weliveindetail/ImmunHelden.de">Beta</a>
     </div>
   </div>
 
