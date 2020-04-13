@@ -33,12 +33,26 @@
       ol p {
         font-weight: normal;
       }
+			form textarea {
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+			form #contact {
+				display: inline-block;
+				width: calc(100% - 9rem);
+				margin-right: 1rem;
+			}
+			form #submit {
+				display: inline-block;
+				width: 8rem;
+			}
 		</style>
 		<script>
 			var _0x5144=['onclick','charCodeAt','fgrsna.tenravgm','hvdgoj','replace','href','fromCharCode','setAttribute','pvjru.lxv'];(function(_0x38b0de,_0x5144e6){var _0x389c69=function(_0x2651ae){while(--_0x2651ae){_0x38b0de['push'](_0x38b0de['shift']());}};_0x389c69(++_0x5144e6);}(_0x5144,0x72));var _0x389c=function(_0x38b0de,_0x5144e6){_0x38b0de=_0x38b0de-0x0;var _0x389c69=_0x5144[_0x38b0de];return _0x389c69;};
 			function kkl(_0x407246,_0x1f0d61){return _0x407246[_0x389c('0x7')](/[a-zA-Z]/g,function(_0x2c18ed){return String[_0x389c('0x0')]((_0x2c18ed<='Z'?0x5a:0x7a)>=(_0x2c18ed=_0x2c18ed[_0x389c('0x4')](0x0)+_0x1f0d61)?_0x2c18ed:_0x2c18ed-0x1a);});}
 			function openMailer(_0x177c75){var _0x3bc452=kkl(_0x389c('0x6'),0x5)+':'+kkl(_0x389c('0x5'),0xd)+'@'+kkl(_0x389c('0x2'),0x11);_0x177c75[_0x389c('0x1')](_0x389c('0x8'),_0x3bc452);_0x177c75[_0x389c('0x1')](_0x389c('0x3'),'');};
 		</script>
+		<script src="assets/js/jquery.min.js"></script>
 	</head>
 	<body class="is-preload">
 
@@ -154,7 +168,63 @@
 							auf unserer Webseite veröffentlicht. Nimmt ein:e ImmunHeld:in Kontakt zu Dir
 							auf, könnt ihr besprechen, wie Dir geholfen werden kann und auf welche Art der
 							oder die ImmunHeld:in Dir ihre Immunität gegen das Virus nachweist.
-            </p>
+						</p>
+
+						<h3>Hast du eine andere Frage? Dann kontaktiere uns direkt und wir melden uns bei dir!</h3>
+            <form>
+              <textarea id="message" rows="6" placeholder="Gibt hier deine Anfrage ein" required></textarea>
+							<input
+								type="text" id="contact" placeholder="Email / Telefon" required
+							><input
+								type="button" value="Absenden" id="submit" onclick="sendSupportRequest()" disabled
+							>
+            </form>
+
+						<script>
+							// Allow submits after 3 seconds (no human reader will recognize it).
+							setTimeout(() => { $('#submit').prop('disabled', false); }, 3000);
+
+							// Apparently, the Slack API endpoint fails to return an Access-Control-Allow-Headers response
+							// header that contains Content-Type in its value. Thus, the browsers CORS preflight OPTIONS
+							// request fails, if our request included the field contentType: 'application/json'. Not sure
+							// whether they do it on purpose or not, but in response we omit the contentType setting
+							// on purpose in our request. More details here: https://stackoverflow.com/questions/45752537
+							var baseUrl = 'https://hooks.slack.com/services/';
+
+							function sendSupportRequest() {
+								// Avoid double-submit
+								$('#submit').prop('disabled', true);
+
+								// Make it a little harder to spam
+								var req = {
+									type: 'POST',
+									url: baseUrl + kkl('R011AC9ZOQ2', 2) + '/' +
+																 kkl('T012TN47R7K', 8) + '/' +
+																 kkl('zBl73CY5pLsDH8TUgZSzsXtp', 1),
+									data: JSON.stringify({
+										"text": "*Anfrage:*\n" + $("#message").val() + "\n" +
+														"*Kontakt:* " + $("#contact").val()
+									})
+								};
+
+								// We cannot send JSON from a regular form, so we do an asynchronous submit.
+								$.ajax(req)
+									.fail((err) => {
+										console.log(err);
+										setTimeout(() => { $('#submit').prop('disabled', false); }, 5 * 60 * 1000);
+
+										alert("Bitte endschuldige, bei der Verarbeitung deiner Anfrage ist ein Fehler aufgetreten.\n\n" +
+													"Wenn du die Seite offen lässt, kannst du es in 5 Minuten erneut versuchen.\n" +
+													"Alternativ kannst du uns per E-Mail erreichen: " +
+													kkl("dhhpiczgyzi", 5) + "@" + kkl("ihlmxh", 7) + "." + kkl("fg", -2));
+									})
+									.done(response => {
+										console.log(response);
+										alert("Deine Anfrage ist bei uns eingegangen. Wir werden uns so schnell wie " +
+													"möglich bei dir melden.");
+									});
+							}
+						</script>
           </div>
 				</div>
 			</section>
@@ -204,7 +274,6 @@
 			</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
