@@ -132,6 +132,187 @@ exports.doneVerifyStakeholderPin = functions.https.onRequest(async (req, res) =>
 //   res.json(result.toJSON()).send();
 // });
 
+const DEMO_STAKEHOLDERS = {
+  "-M3kqEGlGPS4VXKtwmFq" : {
+    "address" : "Oberstdorfer Str. 20 ",
+    "city" : "Sonthofen",
+    "emailAddress" : "a@b.c",
+    "lastName" : "Jole",
+    "latitude" : 47.50745779304866,
+    "longitude" : 10.274544954299929,
+    "organisation" : "Alpenland Pflege- und Altenheim",
+    "phoneNumber" : "0123456789",
+    "preName" : "Jan",
+    "directContact": true,
+    "text" : "Das Alpenland Pflege- und Altenheim bietet alten Menschen qualifizierte Pflege und Begleitung in 28 Häusern an. Nach dem krankheitsbedingten Ausfall mehrerer Mitarbeiter suchen wir zum nächstmöglichen Termin fünf Aushilfekräfte. Um eine lebensgefährliche Ansteckung unserer Senioren zu vermeiden, bevorzugen wir Personen die die COVID-19 Erkrankung bereits überwunden haben und damit immun sind gegen das neuartige  Corona-Virus.\r\n\r\nSie sind im interdisziplinären Team verantwortlich für:\r\n• Begleitung der Bewohner/innen in ihrer individuellen Lebens- und Alltagsgestaltung entsprechend den jeweiligen Wünschen und Bedarfen\r\n• Unterstützung in der Gestaltung des privaten Umfeldes wie Wohnlichkeit, Aufräumarbeiten Pflege, Wäsche und Reinigung\r\n• Service und Moderation bei den Mahlzeiten\r\n• Ergänzendes Zubereiten von Mahlzeitenkomponenten gemeinsam mit den Bewohner/innen als tagesstrukturierende Angebote\r\n• Durchführung von grundpflegerischen Maßnahmen",
+    "zipCode" : "87527"
+  },
+  "-M3l2nqBPHCGTyGd43RL" : {
+    "address" : "Eisenbahnstraße 27",
+    "city" : "Leipzig",
+    "emailAddress" : "a@b.c",
+    "lastName" : "Henning",
+    "latitude" : 51.3460671,
+    "longitude" : 12.3989616,
+    "organisation" : "East Organic Bioladen",
+    "phoneNumber" : "0123456789",
+    "preName" : "Hans",
+    "directContact": true,
+    "text" : "Unser Bioladen ist seit Jahren ein beliebter Treffpunkt in der Eisenbahnstraße. Seit Beginn der Corona Pandemie ist den meisten Kunden zwar die Lust am längeren Verweilen vergangen, doch zum Einkaufen besuchen sie uns immer noch genauso oft wie früher.\r\n\r\nUm Infektionsrisiko für unsere Kunden minimieren, möchten wir sobald wie möglich alle Kassenschichten an ImmunHelden abgeben.\r\n\r\nNeben einer fairen Bezahlung bekommt ihr die Möglichkeit in unserem Laden zu Mitarbeiterkonditionen selbst einzukaufen. Bei Interesse meldet euch gern bei uns, dann wir klären alles Weitere.",
+    "zipCode" : "04315"
+  },
+  "-M3l5s6sP2Jv42nq16rl" : {
+    "address" : "Sebastian-Bach-Straße 51",
+    "city" : "Leipzig",
+    "emailAddress" : "a@b.c",
+    "lastName" : "Konrad",
+    "latitude" : 51.33313703172817,
+    "longitude" : 12.35391676425934,
+    "organisation" : "Senioren-Wohnpark Stadtpalais",
+    "phoneNumber" : "0123456789",
+    "preName" : "Karl",
+    "directContact": false,
+    "text" : "Für die Betreuung gesunder Risikoklienten in unserer Pflegeeinrichtung im Bachviertel suchen wir ab sofort drei zusätzliche Mitarbeiter. Krankheitsbedingte Ausfälle haben in den letzten Wochen zu einem ständigen Wechsel unter unseren Mitarbeitern geführt und das erschwert den Alltag für alle zunehmend.\r\n\r\nWir hoffen dass durch die Beschäftigung von ImmunHelden in unserer Einrichtung wieder mehr Ruhe und Stetigkeit einkehrt.\r\n\r\nAlle immunen Hilfskräfte bekommen dieselbe Vergütung wie unsere angestellten Mitarbeiter. Bitte melden Sie sich bei Interesse umgehend, um weitere Details zu klären.",
+    "zipCode" : "04109"
+  },
+  "-M3mVHBAWkbnuve2C4SC" : {
+    "address" : "Prager Str. 13 ",
+    "city" : "Leipzig",
+    "emailAddress" : "a@b.c",
+    "lastName" : "Meinhardt",
+    "latitude" : 51.3318815,
+    "longitude" : 12.3953362,
+    "organisation" : "DRK-Blutspendedienst Nord-Ost",
+    "phoneNumber" : "0123456789",
+    "preName" : "Maria",
+    "directContact" : false,
+    "text" : "Wir suchen ab sofort ImmunHelden für eine Studie zum Wirksamkeitsnachweis der Blutplasmaspende für schwer Erkrankte. Für Sie handelt es sich um eine gewöhnliche Blutplasmaspende. Eine Aufwandsentschädigung kann in gleicher Höhe ausgezahlt werden.\r\n\r\nBitte melden Sie sich bei Interesse telefonisch um einen Termin zu vereinbaren. Vielen Danke für Ihre Mithilfe!",
+    "zipCode" : "04103"
+  },
+  "-M3mY_6ZBcxv9ogclXsg" : {
+    "address" : "Liebigstraße 20",
+    "city" : "Leipzig",
+    "emailAddress" : "a@b.c",
+    "lastName" : "Noldern",
+    "latitude" : 51.32988560475346,
+    "longitude" : 12.387095689773561,
+    "organisation" : "Universitätsklinikum",
+    "phoneNumber" : "0123456789",
+    "preName" : "Norman",
+    "directContact": true,
+    "text" : "Wir suchen dringend ImmunHelden als Helfer auf allen Corona Stationen. Erfahrung in einem medizinischen Beruf ist wünschenswert, aber keine Voraussetzung. Neben der direkten medizinischen Assistenz, gibt es viele Aufgaben die zu erledigen sind und ein Ansteckungsrisiko für unser Fachpersonal birgt.\r\n\r\nDie Unterstützung durch ImmunHelden gibt uns die Möglichkeit verbleibende Schutzausrüstung und Fachpersonal auf die Intensivstationen zu konzentrieren.\r\n\r\nEine Vergütung können wir bis dato nicht garantieren, aber wir setzten uns derzeit auf allen Ebenen für die Beschaffung der nötigen Mittel ein.",
+    "zipCode" : "04103"
+  },
+  "-M3mc9gm-2_nbvIwKrzT" : {
+    "address" : "Tschaikowskistraße 28",
+    "city" : "Leipzig",
+    "emailAddress" : "a@b.c",
+    "lastName" : "Olsen",
+    "latitude" : 51.346096163595845,
+    "longitude" : 12.36015558242798,
+    "organisation" : "Kita \"Rosentalzwerge\"",
+    "phoneNumber" : "0123456789",
+    "preName" : "Ole",
+    "directContact": true,
+    "text" : "Unsere Kita organisiert die Notbetreuung für das Zentrum-Nordwest. Da wir das Betreuungsangebot unter allen Umständen aufrechterhalten müssen, suchen wir 3 ImmunHelden die April als Springer ab Mitte kurzfristig einspringen können.\r\n\r\nDie Tätigkeit erfordert ein hohes Maß an Verantwortung. Erfahrung beim Umgang mit Kleinkindern ist notwendig!\r\n\r\nEine provisorische Einarbeitungswoche beginnt am Montag den 13. April. Die Anwesenheitszeiten während der Einarbeitungswoche können wir flexibel planen. Alle Arbeitsstunden werden zum regulären Satz vergütet.",
+    "zipCode" : "04105"
+  },
+  "-M3mfJWxi9DMHVHJOOUz" : {
+    "address" : "Jordanstraße 5A",
+    "city" : "Leipzig",
+    "emailAddress" : "a@b.c",
+    "lastName" : "Petersen",
+    "latitude" : 51.33243323827341,
+    "longitude" : 12.323157191276552,
+    "organisation" : "Leipziger Tafel e.V.",
+    "phoneNumber" : "0123456789",
+    "preName" : "Paula",
+    "directContact": true,
+    "text" : "Viele Menschen die auf das Angebot der Tafeln angewiesen sind gehören gleichzeitig auch zu den Gruppen in unserer Gesellschaft mit dem höchsten Risiko im Falle einer Corona Erkrankung.\r\n\r\nWir suchen ab sofort 5 ImmunHelden als ehrenamtliche Helfer für die Verteilung von Lebensmitteln. Durch Ihre Mithilfe erweisen Sie der Gesellschaft einen hohen Dienst, indem Sie sowohl unsere Mitarbeiter schützen und damit das Angebot der Tafeln sichern und gleichzeitig das Risiko einer Infektion für unsere Klienten minimieren. Bitte melden Sie sich bei Interesse unter der angegebenen E-Mail Adresse.",
+    "zipCode" : "04177"
+  }
+};
+
+const DEMO_HEROES = {
+  "-M3l6eqWaXOS1cF87OTQ" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Aller",
+    "preName" : "Aaron",
+    "zipCode" : "04315"
+  },
+  "-M3l7gQOTb0crfvz5aLN" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Brämer",
+    "preName" : "Bert",
+    "zipCode" : "04103"
+  },
+  "-M3l8GxpHehFl3Gyklfz" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Crimm",
+    "preName" : "Carola",
+    "zipCode" : "04275"
+  },
+  "-M3l8jY4yRAEYWaVosu4" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Dimmer",
+    "preName" : "Daniel",
+    "zipCode" : "04564"
+  },
+  "-M3lGgU0aRauVbd0HMKB" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Ebert",
+    "preName" : "Enno",
+    "zipCode" : "90762"
+  },
+  "-M3lGoUQhiVxfBTwb15W" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Fertig",
+    "preName" : "Florian",
+    "zipCode" : "90475"
+  },
+  "-M3lHJzFRPwOVgUGQgum" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Gut",
+    "preName" : "Gerd",
+    "zipCode" : "90518"
+  },
+  "-M3lHSx_GCMp83TH1kW5" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Heinz",
+    "preName" : "Hans",
+    "zipCode" : "90518"
+  },
+  "-M3lHrkCPdf5vH6idhay" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Inmaz",
+    "preName" : "Ingo",
+    "zipCode" : "81735"
+  },
+  "-M3lI7lWvdUZ-fesBOHe" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "Jelbi",
+    "preName" : "Jonas",
+    "zipCode" : "81735"
+  },
+  "-M3lITFJcc7w7FWws0HZ" : {
+    "emailAddress" : "a@b.c",
+    "emailCategory" : "direct",
+    "lastName" : "König",
+    "preName" : "Karl",
+    "zipCode" : "85521"
+  }
+};
+
 exports.getAllImmuneHeroesNutsAsJson = functions.https.onRequest(async (req, res) => {
   const heroesData = await admin.database().ref(immuneHeroesTable).once('value');
 
@@ -139,7 +320,8 @@ exports.getAllImmuneHeroesNutsAsJson = functions.https.onRequest(async (req, res
   // https://ec.europa.eu/eurostat/web/nuts/correspondence-tables/postcodes-and-nuts
   fs.readFile('zip2nuts.json', 'utf8', (err, data) => {
     if (err) throw err;
-    const heroes = heroesData.toJSON();
+    console.log("heroesData: ", heroesData);
+    const heroes = { ...DEMO_HEROES, ...heroesData.toJSON() };
     const heroesPerNuts = {};
     const zip2nuts = JSON.parse(data);
 
@@ -185,8 +367,11 @@ exports.getAllImmuneHeroesNutsAsJson = functions.https.onRequest(async (req, res
 });
 
 exports.getAllStakeHoldersAsJson = functions.https.onRequest(async (req, res) => {
-  const result = await getAllStakeHolders()
-  res.json(result.toJSON()).send();
+  //const result = await getAllStakeHolders()
+  //res.json(result.toJSON()).send();
+
+  // Serve sample data until start of beta.
+  res.json(DEMO_STAKEHOLDERS).send();
 });
 
 exports.getStakeHoldersInZipCodeRangeAsJson = functions.https.onRequest(async (req, res) => {
