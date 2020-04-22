@@ -37,6 +37,34 @@
         "function": "doneVerifyStakeholderPin"
       },
       {
+        "source": "/contactStakeholder",
+        "function": "contactStakeholder"
+      },
+      {
+        "source": "/demo/pins",
+        "function": "pin_locations"
+      },
+      {
+        "source": "/demo/regions",
+        "function": "regions"
+      },
+      {
+        "source": "/demo/details_html",
+        "function": "details_html"
+      },
+      {
+        "source": "/map/pins",
+        "function": "pin_locations"
+      },
+      {
+        "source": "/map/regions",
+        "function": "regions"
+      },
+      {
+        "source": "/map/details_html",
+        "function": "details_html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

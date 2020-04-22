@@ -5,8 +5,26 @@ const rp = require('request-promise');
 const fs = require('fs');
 admin.initializeApp();
 
+// CORS Express middleware to enable CORS Requests.
+const cors = require('cors')({
+  origin: true,
+});
+
 const immuneHeroesTable = '/immuneHeroes'
 const stakeHoldersTable = '/stakeHolders'
+
+
+function toBool(string) {
+  if (string) {
+    switch (string.toLowerCase().trim()) {
+      case "true": case "yes": case "1": case "on": return true;
+      case "false": case "no": case "0": case "off": case null: return false;
+      default: return Boolean(string);
+    }
+  }
+  return false;
+}
+
 
 exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
   const preName = req.query.preName
@@ -117,9 +135,10 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
 exports.doneVerifyStakeholderPin = functions.https.onRequest(async (req, res) => {
   // TODO: Check the key didn't time out yet!
   const updates = {};
-  updates["/stakeHolders/" + req.query.key + "/latitude"] = req.query.exact_lat;
-  updates["/stakeHolders/" + req.query.key + "/longitude"] = req.query.exact_lng;
-  updates["/stakeHolders/" + req.query.key + "/showOnMap"] = req.query.show_on_map;
+  const key = req.query.key;
+  updates[`/stakeHolders/${key}/latitude`] = parseFloat(req.query.exact_lat);
+  updates[`/stakeHolders/${key}/longitude`] = parseFloat(req.query.exact_lng);
+  updates[`/stakeHolders/${key}/directContact`] = toBool(req.query.show_on_map);
 
   // Update database record with confirmed exact pin location.
   admin.database().ref().update(updates);
@@ -231,6 +250,13 @@ const DEMO_STAKEHOLDERS = {
     "text" : "Viele Menschen die auf das Angebot der Tafeln angewiesen sind gehören gleichzeitig auch zu den Gruppen in unserer Gesellschaft mit dem höchsten Risiko im Falle einer Corona Erkrankung.\r\n\r\nWir suchen ab sofort 5 ImmunHelden als ehrenamtliche Helfer für die Verteilung von Lebensmitteln. Durch Ihre Mithilfe erweisen Sie der Gesellschaft einen hohen Dienst, indem Sie sowohl unsere Mitarbeiter schützen und damit das Angebot der Tafeln sichern und gleichzeitig das Risiko einer Infektion für unsere Klienten minimieren. Bitte melden Sie sich bei Interesse unter der angegebenen E-Mail Adresse.",
     "zipCode" : "04177"
   }
+//  , "ABCDE" : {
+//    latlng: [ 52.526417, 13.376720 ],
+//    name: "Charité",
+//    address: "Charitépl. 1, 10117 Berlin",
+//    website: "charite.de",
+//    phoneNumber: "030 45050"
+//  }
 };
 
 const DEMO_HEROES = {
@@ -312,6 +338,175 @@ const DEMO_HEROES = {
     "zipCode" : "85521"
   }
 };
+
+
+exports.pin_locations = functions.https.onRequest(async (req, res) => {
+  // This endpoint supports cross-origin requests.
+  return cors(req, res, () => {
+    const locations = {}; // Map: ID -> { type, title, latlng }
+
+    for (const key in DEMO_STAKEHOLDERS) {
+      const entry = DEMO_STAKEHOLDERS[key];
+      if (key === "ABCDE") {
+        // test another pin type
+        locations[key] = {
+          "type": 1,
+          "title": entry.name,
+          "latlng": entry.latlng
+        };
+      }
+      else {
+        locations[key] = {
+          "type": 0,
+          "title": entry.organisation,
+          "latlng": [entry.latitude, entry.longitude]
+        };
+      }
+    }
+
+    res.json(locations).send();
+  });
+});
+
+exports.regions = functions.https.onRequest(async (req, res) => {
+  // This endpoint supports cross-origin requests.
+  return cors(req, res, () => {
+    const regions = {}; // Map: ZIP -> [ ID, ID, ... ]
+
+    for (const key in DEMO_HEROES) {
+      const zip = DEMO_HEROES[key].zipCode;
+      if (!regions.hasOwnProperty(zip))
+        regions[zip] = [];
+      regions[zip].push(key);
+    }
+
+    res.json(regions).send();
+  });
+});
+
+function formatFullAddressHTML(entry) {
+  let items = [];
+  if (entry.hasOwnProperty("address") && entry.address.length > 0)
+    items.push(entry.address);
+  if (entry.hasOwnProperty("zipCode") && entry.zipCode.length > 0)
+    items.push(entry.zipCode);
+  if (entry.hasOwnProperty("city") && entry.city.length > 0)
+    items.push(entry.city);
+  return items.join(', ');
+}
+
+function formatStakeholderDetailsHTML(key, entry) {
+  let html = entry.organisation ? `<h2>${entry.organisation}</h2>` : '';
+
+  const addressHTML = formatFullAddressHTML(entry);
+  if (addressHTML.length > 0)
+    html += `<b>Wo?</b><p>${addressHTML}</p>`;
+
+  const textHTML = entry.text.split(/\r?\n/).join("<br>");
+  html += `<b>Was kann ich tun?</b><p>${textHTML}</p>`;
+
+  html += `<b>Kontakt aufnehmen</b>`;
+  if (entry.directContact) {
+    html += `<p>`;
+    html += `✉ <a href="mailto:${entry.emailAddress}">Email</a> `;
+    html += `☎ <a href="tel:${entry.phoneNumber}">Telefon</a>`;
+    html += `</p>`;
+  }
+  else {
+    html += `<form action="https://immunhelden.de/contactStakeholder" method="POST">`;
+    html += `  <input type="hidden" name="key" value="${key}">`;
+    html += `  <p>`;
+    html += `    Du bleibst vollständig annonym. Deine E-Mail Adresse wird`;
+    html += `    nur dafür genutzt dir einmalig einen Zugangslink zu senden,`;
+    html += `    sobald du eine Antwort bekommst. `;
+    html += `  </p>`;
+    html += `  <input type="text" name="contact" placeholder="E-Mail Adresse" required`;
+    html += `         style="width: 100%;">`;
+    html += `  <p>`;
+    html += `    Um deine Identität zu bestätigen, musst du bei jedem Aufruf des Links`;
+    html += `    dein Passwort erneut eingeben.`;
+    html += `  </p>`;
+    html += `  <input type="password" name="password" placeholder="Passwort" required`;
+    html += `         style="width: 100%;">`;
+    html += `  <p>`;
+    html += `    Schreib optional etwas zu deiner Motivation oder Qualifikation und`;
+    html += `    wie du genannt werden möchtest.`;
+    html += `  </p>`;
+    html += `  <textarea name="message" rows="3" placeholder="Sag hallo!"></textarea> `;
+    html += `  <input type="text" name="pseudonym" placeholder="Anzeigename"`;
+    html += `         style="width: calc(100% - 6rem); margin-top: 1rem;">`;
+    html += `  <input type="submit" value="Los"`;
+    html += `         style="width: 5rem; float: right; margin-top: 1rem;">`;
+    html += `</form>`;
+  }
+
+  return `<div id="${key}" style="padding: 0 1rem;">${html}</div>`;
+}
+
+exports.details_html = functions.https.onRequest(async (req, res) => {
+  // This endpoint supports cross-origin requests.
+  return cors(req, res, () => {
+    const keys = req.query.ids.split(',');
+    const sections = [];
+    let heroes = [];
+
+    for (const key of keys) {
+      if (key === "ABCDE") {
+        let html = ``;
+        html += `<div style="margin: 1rem 0;">`;
+        html += `  <img src="https://immunhelden.de/images/clinic.png" alt="clinic"`;
+        html += `       style="height: 2rem; float: left; margin-right: 5px;">`;
+        html += `  <b>Charité</b><br>`;
+        html += `  Charitépl. 1, 10117 Berlin`;
+        html += `  <p>`;
+        html += `    ✉ <a href="https://charite.de">Webseite</a>`;
+        html += `    ☎ <a href="tel:03012345">Telefon</a>`;
+        html += `  </p>`;
+        html += `</div>`;
+        sections.push(html);
+      }
+      else if (DEMO_STAKEHOLDERS.hasOwnProperty(key)) {
+        sections.push(formatStakeholderDetailsHTML(key, DEMO_STAKEHOLDERS[key]));
+      }
+      else if (DEMO_HEROES.hasOwnProperty(key)) {
+        heroes.push(key);
+      }
+      else {
+        console.log('Encountered unknown key: ', key);
+      }
+    }
+
+    let html = '';
+    if (sections.length > 0) {
+      html += sections.join('<hr>\n');
+    }
+    if (heroes.length > 0) {
+      if (html !== '') {
+        html += '<hr>\n';
+        console.warn('Details request mixed heroes with stakeholders!', req.query.ids);
+      }
+      html += '<div id="' + heroes.join("_") + '">';
+      html += '<img src="https://immunhelden.de/images/superhero.png" alt="heroes" style="height: 1.2rem;"> ';
+      html += '<b style="font-size: 1.5rem; color: #d3303b;">';
+      html += heroes.length + ' ImmunHeld:in' + (heroes.length > 1 ? 'nen' : '');
+      html += '</b></div>\n';
+    }
+
+    res.send(html);
+  });
+});
+
+
+exports.contactStakeholder = functions.https.onRequest(async (req, res) => {
+  // Check for POST request
+  if (req.method !== "POST") {
+    res.status(400).send('Please send a POST request');
+    return;
+  }
+
+  res.send(req.body.contact + ' an ' + req.body.key + ':\n' + req.body.message);
+});
+
 
 exports.getAllImmuneHeroesNutsAsJson = functions.https.onRequest(async (req, res) => {
   const heroesData = await admin.database().ref(immuneHeroesTable).once('value');
