@@ -73,7 +73,7 @@
   },
   {
     "target": "dev",
-    "public": "frontend-dev",
+    "public": "new-website/public",
     "ignore": [
       "firebase.json",
       "**/.*",
