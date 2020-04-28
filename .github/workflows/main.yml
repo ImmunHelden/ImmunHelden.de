@@ -24,7 +24,7 @@ jobs:
         gatsby-arg: build
     - uses: actions/upload-artifact@v2
       with:
-        name: website
+        name: new-website
         path: new-website/public/
   deploy:
     name: Deploy to Firebase hosting
@@ -36,6 +36,6 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: website
+          name: new-website
           path: new-website/public/
       - run: ls -alh && ls -alh ./new-website
