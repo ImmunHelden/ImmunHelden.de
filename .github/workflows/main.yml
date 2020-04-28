@@ -37,4 +37,5 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: website
+          path: new-website/public/
       - run: ls -alh && ls -alh ./new-website
