@@ -1,7 +1,7 @@
 import React from "react"
 import BannerImage from "./BannerImage"
 import styled from "styled-components"
-import { useStaticQuery, graphql } from "gatsby"
+import { FormattedMessage } from "gatsby-plugin-intl"
 
 const Banner = styled.section`
     color: white;
@@ -28,24 +28,16 @@ const Description = styled.h2`
 `
 
 export default function BannerComponent() {
-    const { site } = useStaticQuery(
-        graphql`
-            query {
-                site {
-                    siteMetadata {
-                        title
-                        description
-                    }
-                }
-            }
-        `
-    )
     return (
         <Banner>
             <BannerImage className="banner" />
             <TextBox>
-                <Title>{site.siteMetadata.title}</Title>
-                <Description>{site.siteMetadata.description}</Description>
+                <Title>
+                    <FormattedMessage id="pageTitle" />
+                </Title>
+                <Description>
+                    <FormattedMessage id="pageDescription" />
+                </Description>
             </TextBox>
         </Banner>
     )
