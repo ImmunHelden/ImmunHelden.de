@@ -1,6 +1,6 @@
 import React from "react"
 import { Paper, Grid } from "@material-ui/core"
-import { Link } from "gatsby"
+import { Link } from "gatsby-plugin-intl"
 import styled from "styled-components"
 
 const Item = styled(Paper)`
