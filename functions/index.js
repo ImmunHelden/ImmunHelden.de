@@ -53,7 +53,7 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
   try {
     const heroSnapshot = await heroRef.once('value');
     if (!heroSnapshot)
-      throw `Unknown immuneHeroes key '${key}'`;
+      throw new Error(`Unknown immuneHeroes key '${key}'`);
 
     console.log(`About to update HeldenInfo ${key}:`, heroSnapshot.toJSON());
     const heroRefChanged = heroRef.update({
@@ -69,9 +69,10 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
     await heroRefChanged.then(async () => {
       const updatedSnapshot = await heroRef.once('value');
       console.log(`Done updating HeldenInfo ${key}:`, updatedSnapshot.toJSON());
+      return;
     });
   } catch (err) {
-    console.error(`Error Message: ${err}`);
+    console.error(`Error Message:`, err);
     res.status(400).send('Invalid request. See function logs for details.');
   }
 });
