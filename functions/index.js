@@ -34,9 +34,14 @@ exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
   }
 
   const newHeroRef = await admin.database().ref('/immuneHeroes').push();
-  newHeroRef.set({ email: req.body.emailAddress, zipCode: req.body.zipCode });
+  newHeroRef.set({
+    firstName: req.body.preName,
+    lastName: req.body.lastName,
+    email: req.body.emailAddress,
+    zipCode: req.body.zipCode
+  });
 
-  res.redirect(`../heldeninfo.html?key=${newHeroRef.key}`);
+  res.redirect(`../heldeninfo.html?key=${newHeroRef.key}&firstName=${req.body.preName}&lastName=${req.body.lastName}`);
 });
 
 exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
