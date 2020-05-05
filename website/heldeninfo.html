@@ -40,6 +40,9 @@
       h2 {
         margin: 0 0 0.5rem 0;
       }
+      h3 {
+        margin-bottom: 0.5rem;
+      }
       form {
         margin: 0 0 1rem 0;
       }
@@ -56,6 +59,16 @@
       #coords {
         width: 10rem;
         margin: 1rem;
+      }
+      #immunStatusForm > div {
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+      #immunStatusForm > div > label {
+        font-size: 1.25rem;
+        font-weight: 300;
+        line-height: 1.5;
+        text-transform: uppercase;
       }
     </style>
   </head>
@@ -77,31 +90,41 @@
               </p>
 
               <p>
-                Um unsere Angebote besser auf Dich zuzuschneiden und unseren Partnern einen genaueren Überblick zu den verfügbaren ImmunHeld:innen zu bieten, kannst du jetzt zusätzliche Angaben machen. Diese <b>Daten werden nicht personenbezogen weitergegeben</b>, sondern nur genutzt um deine Benachrichtigungen zu filtern und statistisch darzustellen wie viele Helfer es pro Region gibt.
+                Um unsere Angebote besser auf Dich zuzuschneiden und unseren Partnern einen genaueren Überblick zu bieten, kannst du jetzt zusätzliche Angaben machen. <b>Diese Daten werden nicht personenbezogen weitergegeben</b>, sondern nur genutzt um deine Benachrichtigungen zu filtern und statistisch darzustellen wie viele Helfer es pro Region gibt.
               </p>
               <form id="immunStatusForm" action="/submitHeldenInfo" method="POST">
                 <input type="hidden" id="key" name="key">
 
-                <h3>Deine Verfügbarkeit</h3>
-                <input type="radio" id="avail-unknown" value="hourly" name="availability" checked>
-                <label for="avail-unknown">
-                  Keine Angabe
-                </label>
-                <br>
-                <input type="radio" id="avail-hourly" value="hourly" name="availability">
-                <label for="avail-hourly">
-                  Stundenweise von Zeit zu Zeit
-                </label>
-                <br>
-                <input type="radio" id="avail-parttime" value="parttime" name="availability">
-                <label for="avail-parttime">
-                  Teilzeit (regelmäßig)
-                </label>
-                <br>
-                <input type="radio" id="avail-fulltime" value="fulltime" name="availability">
-                <label for="avail-fulltime">
-                  Vollzeit
-                </label>
+                <div>
+                  <label for="firstName">Vorname</label>
+                  <input type="text" name="firstName" id="firstName" maxlength="40"
+                         title="Dein Vorname">
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div>
+                  <label for="lastName">Nachname</label>
+                  <input type="text" name="lastName" id="lastName" maxlength="40"
+                         title="Dein Nachname">
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div>
+                  <label for="frequency">Info Mails</label>
+                  <select name="frequency" id="frequency">
+                    <option value="direct">Für jedes neue Angebot</option>
+                    <option value="daily">Tägliche Zusammenfassung</option>
+                    <option value="weekly">Wöchentliche Zusammenfassung</option>
+                  </select>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div>
+                  <label for="availability">Verfügbarkeit</label>
+                  <select name="availability" id="availability">
+                    <option value="unknown">Keine Angabe</option>
+                    <option value="hourly">Stundenweise von Zeit zu Zeit</option>
+                    <option value="parttime">Teilzeit (regelmäßig)</option>
+                    <option value="fulltime">Vollzeit</option>
+                  </select>
+                </div>
 
                 <h3>Dein Immunstatus</h3>
                 <input type="radio" id="status-unknown" value="unknown" name="status" checked>
@@ -179,18 +202,28 @@
           let params = {};
           let match;
           while(match = regex.exec(url)) {
-            params[match[1]] = match[2];
+            params[match[1]] = decodeURIComponent(match[2]);
           }
           return params;
         }
 
 				// TODO: This should be passed as POST data
 				const params = parseUrlParams(window.location.href);
-				if (!params.hasOwnProperty("key")) {
+				if (params.hasOwnProperty("key")) {
+          $('#key').val(params.key);
+        } else {
 					console.error("Missing URL parameter 'key'");
         }
 
-				$('#key').val(params.key);
+        // Fill in passed values
+        if (params.hasOwnProperty("status")) {
+          $('#status-' + params.status).prop('checked', true);
+        }
+        for (const prop of ["firstName", "lastName", "frequency", "availability"]) {
+          if (params.hasOwnProperty(prop)) {
+            $('#' + prop).val(params[prop]);
+          }
+        }
 
         /*
         function createBaseLayer() {

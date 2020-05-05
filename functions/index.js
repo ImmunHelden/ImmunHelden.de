@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const rp = require('request-promise');
 const fs = require('fs');
-admin.initializeApp();
+admin.initializeApp(functions.config().firebase);
 
 // CORS Express middleware to enable CORS Requests.
 const cors = require('cors')({
@@ -27,13 +27,16 @@ function toBool(string) {
 
 
 exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
-  const preName = req.query.preName
-  const lastName = req.query.lastName
-  const emailAddress = req.query.emailAddress
-  const zipCode = parseInt(req.query.zipCode)
-  const emailCategory = req.query.emailCategory
-  const result = await admin.database().ref(immuneHeroesTable).push({ preName: preName, lastName: lastName, emailAddress: emailAddress, zipCode: zipCode, emailCategory: emailCategory});
-  res.redirect('../generic.html');
+  // Check for POST request
+  if (req.method !== "POST") {
+    res.status(400).send('Please send a POST request');
+    return;
+  }
+
+  const newHeroRef = await admin.database().ref('/immuneHeroes').push();
+  newHeroRef.set({ email: req.body.emailAddress, zipCode: req.body.zipCode });
+
+  res.redirect(`../heldeninfo.html?key=${newHeroRef.key}`);
 });
 
 exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
@@ -43,7 +46,34 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
     return;
   }
 
-  res.send('Eintrag ' + req.body.key + ': available ' + req.body.availability + ' and status ' + req.body.status);
+  //console.log('Eintrag ' + req.body.key + ': ' + req.body.name + ' available ' + req.body.availability + ' and status ' + req.body.status);
+
+  const key = req.body.key;
+  const heroRef = admin.database().ref(`/immuneHeroes/${key}`);
+  try {
+    const heroSnapshot = await heroRef.once('value');
+    if (!heroSnapshot)
+      throw `Unknown immuneHeroes key '${key}'`;
+
+    console.log(`About to update HeldenInfo ${key}:`, heroSnapshot.toJSON());
+    const heroRefChanged = heroRef.update({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      availability: req.body.availability,
+      frequency: req.body.frequency,
+      status: req.body.status
+    });
+
+    res.redirect(`../map.html?registered=${heroSnapshot.zipCode}`);
+
+    await heroRefChanged.then(async () => {
+      const updatedSnapshot = await heroRef.once('value');
+      console.log(`Done updating HeldenInfo ${key}:`, updatedSnapshot.toJSON());
+    });
+  } catch (err) {
+    console.error(`Error Message: ${err}`);
+    res.status(400).send('Invalid request. See function logs for details.');
+  }
 });
 
 exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
@@ -525,7 +555,7 @@ exports.getAllImmuneHeroesNutsAsJson = functions.https.onRequest(async (req, res
   // https://ec.europa.eu/eurostat/web/nuts/correspondence-tables/postcodes-and-nuts
   fs.readFile('zip2nuts.json', 'utf8', (err, data) => {
     if (err) throw err;
-    console.log("heroesData: ", heroesData);
+    //console.log("heroesData: ", heroesData);
     const heroes = { ...DEMO_HEROES, ...heroesData.toJSON() };
     const heroesPerNuts = {};
     const zip2nuts = JSON.parse(data);
