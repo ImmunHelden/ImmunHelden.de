@@ -39,5 +39,3 @@ Wir wollen ganz ehrlich sein: Ein gewisses Restrisiko für einzelne Personen lä
 Wenn Du Dich als ImmunHeld:in registriert hast, erhältst Du regelmäßig E-Mails mit Hilfsgesuchen in Deiner Umgebung. Dabei werden auch Deine Interessen sowie Dein Immunstatus berücksichtigt, also Deine Angaben, warum Du denkst, dass Du immun bist. Du kannst dann frei entscheiden, auf welche Hilfsgesuche Du reagierst.
 
 Wenn Du Dich als Hilfesuchender registriert hast, erhalten ImmunHeld:innen in Deiner Umgebung Dein Hilfsgesuch und Deine Kontaktdaten. Sie melden sich dann bei Dir, wenn sie Dich unterstützen können. Wenn Du das bei der Registrierung angegeben hast, werden Deine Kontaktdaten auch in der Karte auf unserer Webseite veröffentlicht. Nimmt ein:e ImmunHeld:in Kontakt zu Dir auf, könnt ihr besprechen, wie Dir geholfen werden kann und auf welche Art der oder die ImmunHeld:in Dir ihre Immunität gegen das Virus nachweist.
-
-<ContactForm />
