@@ -83,82 +83,85 @@
       <section id="main" class="wrapper">
         <div class="inner">
           <div class="content">
-            <header>
+            <header id="header-added">
               <h2>Vielen Dank für Deine Anmeldung!</h2>
               <p>
                 Eine E-Mail zur Bestätigung deiner Anmeldung ist auf dem Weg. Bitte öffne den Link darin um Deine Anmeldung abzuschließen.
               </p>
-
-              <p>
-                Um unsere Angebote besser auf Dich zuzuschneiden und unseren Partnern einen genaueren Überblick zu bieten, kannst du jetzt zusätzliche Angaben machen. <b>Diese Daten werden nicht personenbezogen weitergegeben</b>, sondern nur genutzt um deine Benachrichtigungen zu filtern und statistisch darzustellen wie viele Helfer es pro Region gibt.
-              </p>
-              <form id="immunStatusForm" action="/submitHeldenInfo" method="POST">
-                <input type="hidden" id="key" name="key">
-
-                <div>
-                  <label for="firstName">Vorname</label>
-                  <input type="text" name="firstName" id="firstName" maxlength="40"
-                         title="Dein Vorname">
-                </div>
-                &nbsp;&nbsp;&nbsp;
-                <div>
-                  <label for="lastName">Nachname</label>
-                  <input type="text" name="lastName" id="lastName" maxlength="40"
-                         title="Dein Nachname">
-                </div>
-                &nbsp;&nbsp;&nbsp;
-                <div>
-                  <label for="frequency">Info Mails</label>
-                  <select name="frequency" id="frequency">
-                    <option value="direct">Für jedes neue Angebot</option>
-                    <option value="daily">Tägliche Zusammenfassung</option>
-                    <option value="weekly">Wöchentliche Zusammenfassung</option>
-                  </select>
-                </div>
-                &nbsp;&nbsp;&nbsp;
-                <div>
-                  <label for="availability">Verfügbarkeit</label>
-                  <select name="availability" id="availability">
-                    <option value="unknown">Keine Angabe</option>
-                    <option value="hourly">Stundenweise von Zeit zu Zeit</option>
-                    <option value="parttime">Teilzeit (regelmäßig)</option>
-                    <option value="fulltime">Vollzeit</option>
-                  </select>
-                </div>
-
-                <h3>Dein Immunstatus</h3>
-                <input type="radio" id="status-unknown" value="unknown" name="status" checked>
-                <label for="status-unknown">
-                  Keine Angabe
-                </label>
-                <input type="radio" id="status-tested-pcr" value="tested-pcr" name="status">
-                <label for="status-tested-pcr">
-                  Ich habe eine Infektion mit dem Coronavirus SARS-CoV-2 hinter mir und bin inzwischen genesen. Ich kann einen <b>positiven PCR-Test</b> (Bluttest, der derzeit bei Verdacht auf das Vorliegen einer Infektion durchgeführt wird) vorlegen. Der Beginn meiner Symptome bzw. das positive Testergebnis liegt 3 Wochen oder länger zurück.
-                </label>
-                <input type="radio" id="status-tested-elisa" value="tested-elisa" name="status">
-                <label for="status-tested-elisa">
-                  Meine überstandene Infektion wurde mithilfe eines <b>ELISA-Antikörpertests</b> (Antikörper-Bluttest beim Arzt oder im Krankenhaus) bestätigt. Das Testergebnis kann ich vorlegen.
-                </label>
-                <input type="radio" id="status-tested-lateral" value="tested-lateral" name="status">
-                <label for="status-tested-lateral">
-                  Meine überstandene Infektion wurde mithilfe eines <b>Antikörper-Schnelltests</b> (Lateral-Flow-Test) bestätigt. Das Testergebnis kann ich vorlegen.
-                </label>
-                <input type="radio" id="status-assumed-contact" value="assumed-contact" name="status">
-                <label for="status-assumed-contact">
-                  Ich kann meine überstandene Infektion nicht nachweisen, habe aber den <b>begründeten Verdacht</b>, dass ich mit SARS-CoV-2 infiziert war, weil ich mich in einem Risikogebiet (siehe Link)aufgehalten habe UND mit den Symptomen Fieber UND Husten erkrankt war. Inzwischen fühle ich mich wieder gesund und der Beginn meiner Erkrankung liegt mindestens 4 Wochen zurück. Den Aufenthalt in einem Risikogebiet kann ich nachweisen (z.B. durch ein Flugticket, meinen Wohnort o.ä.)
-                </label>
-                <input type="radio" id="status-assumed-symptoms" value="assumed-symptoms" name="status">
-                <label for="status-assumed-symptoms">
-                  Ich kann meine überstandene Infektion nicht nachweisen, habe aber den <b>begründeten Verdacht</b>, dass ich mit SARS-CoV-2 infiziert war, weil ich Kontakt zu einer nachweislich infizierten Person hatte UND mit den Symptomen Fieber UND Husten erkrankt war. Inzwischen fühle ich mich wieder gesund und der Beginn meiner Erkrankung liegt mindestens 4 Wochen zurück.
-                </label>
-                <br>
-                <div style="float: right;">
-                  <input type="checkbox" id="confirmed" onclick="allowSubmit();">
-                  <label for="confirmed">Hinweise zum Datenschutz verstanden <img src="images/asterisk.png" class="asterisk"></label>
-                  <input type="submit" id="complete" value="Absenden" disabled>
-                </div>
-              </form>
             </header>
+            <header id="header-edit" style="display: none;">
+              <h2>Hier kannst du deine Angaben ändern und ergänzen</h2>
+            </header>
+            <p>
+              Um unsere Angebote besser auf Dich zuzuschneiden und unseren Partnern einen genaueren Überblick zu bieten, kannst du jetzt zusätzliche Angaben machen. <b>Diese Daten werden nicht personenbezogen weitergegeben</b>, sondern nur genutzt um deine Benachrichtigungen zu filtern und statistisch darzustellen wie viele Helfer es pro Region gibt.
+            </p>
+            <form id="immunStatusForm" action="/submitHeldenInfo" method="POST">
+              <input type="hidden" id="key" name="key">
+
+              <div>
+                <label for="firstName">Vorname</label>
+                <input type="text" name="firstName" id="firstName" maxlength="40"
+                        title="Dein Vorname">
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <div>
+                <label for="lastName">Nachname</label>
+                <input type="text" name="lastName" id="lastName" maxlength="40"
+                        title="Dein Nachname">
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <div>
+                <label for="frequency">Info Mails</label>
+                <select name="frequency" id="frequency">
+                  <option value="direct">Für jedes neue Angebot</option>
+                  <option value="daily">Tägliche Zusammenfassung</option>
+                  <option value="weekly">Wöchentliche Zusammenfassung</option>
+                </select>
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <div>
+                <label for="availability">Verfügbarkeit</label>
+                <select name="availability" id="availability">
+                  <option value="unknown">Keine Angabe</option>
+                  <option value="hourly">Stundenweise von Zeit zu Zeit</option>
+                  <option value="parttime">Teilzeit (regelmäßig)</option>
+                  <option value="fulltime">Vollzeit</option>
+                </select>
+              </div>
+
+              <h3>Dein Immunstatus</h3>
+              <input type="radio" id="status-unknown" value="unknown" name="status" checked>
+              <label for="status-unknown">
+                Keine Angabe
+              </label>
+              <input type="radio" id="status-tested-pcr" value="tested-pcr" name="status">
+              <label for="status-tested-pcr">
+                Ich habe eine Infektion mit dem Coronavirus SARS-CoV-2 hinter mir und bin inzwischen genesen. Ich kann einen <b>positiven PCR-Test</b> (Bluttest, der derzeit bei Verdacht auf das Vorliegen einer Infektion durchgeführt wird) vorlegen. Der Beginn meiner Symptome bzw. das positive Testergebnis liegt 3 Wochen oder länger zurück.
+              </label>
+              <input type="radio" id="status-tested-elisa" value="tested-elisa" name="status">
+              <label for="status-tested-elisa">
+                Meine überstandene Infektion wurde mithilfe eines <b>ELISA-Antikörpertests</b> (Antikörper-Bluttest beim Arzt oder im Krankenhaus) bestätigt. Das Testergebnis kann ich vorlegen.
+              </label>
+              <input type="radio" id="status-tested-lateral" value="tested-lateral" name="status">
+              <label for="status-tested-lateral">
+                Meine überstandene Infektion wurde mithilfe eines <b>Antikörper-Schnelltests</b> (Lateral-Flow-Test) bestätigt. Das Testergebnis kann ich vorlegen.
+              </label>
+              <input type="radio" id="status-assumed-contact" value="assumed-contact" name="status">
+              <label for="status-assumed-contact">
+                Ich kann meine überstandene Infektion nicht nachweisen, habe aber den <b>begründeten Verdacht</b>, dass ich mit SARS-CoV-2 infiziert war, weil ich mich in einem Risikogebiet (siehe Link)aufgehalten habe UND mit den Symptomen Fieber UND Husten erkrankt war. Inzwischen fühle ich mich wieder gesund und der Beginn meiner Erkrankung liegt mindestens 4 Wochen zurück. Den Aufenthalt in einem Risikogebiet kann ich nachweisen (z.B. durch ein Flugticket, meinen Wohnort o.ä.)
+              </label>
+              <input type="radio" id="status-assumed-symptoms" value="assumed-symptoms" name="status">
+              <label for="status-assumed-symptoms">
+                Ich kann meine überstandene Infektion nicht nachweisen, habe aber den <b>begründeten Verdacht</b>, dass ich mit SARS-CoV-2 infiziert war, weil ich Kontakt zu einer nachweislich infizierten Person hatte UND mit den Symptomen Fieber UND Husten erkrankt war. Inzwischen fühle ich mich wieder gesund und der Beginn meiner Erkrankung liegt mindestens 4 Wochen zurück.
+              </label>
+              <br>
+              <div style="float: right;">
+                <input type="checkbox" id="confirmed" onclick="allowSubmit();">
+                <label for="confirmed">Hinweise zum Datenschutz verstanden <img src="images/asterisk.png" class="asterisk"></label>
+                <input type="submit" id="complete" value="Absenden" disabled>
+              </div>
+            </form>
+
             <div style="padding-top: 1rem; clear: both;">
               <img src="images/asterisk.png" class="asterisk">
               <span>Ich bin mir im Klaren, dass [...] freiwillig ist und jederzeit mit Wirkung auf die Zukunft widerrufen werden kann. Weitere Informationen dazu in unserer <a target="_blank" href="https://immunhelden.de/datenschutz">Datenschutzerklärung</a>.
@@ -181,11 +184,11 @@
           };
         }
 
-        function toBool(string) {
+        function parseBool(string) {
           if (string) {
             switch (string.toLowerCase().trim()) {
-              case "true": case "yes": case "1": return true;
-              case "false": case "no": case "0": case null: return false;
+              case "true": case "yes": case "1": case "on": return true;
+              case "false": case "no": case "0": case "off": case null: return false;
               default: return Boolean(string);
             }
           }
@@ -207,12 +210,12 @@
           return params;
         }
 
-				// TODO: This should be passed as POST data
-				const params = parseUrlParams(window.location.href);
-				if (params.hasOwnProperty("key")) {
+        // TODO: This should be passed as POST data
+        const params = parseUrlParams(window.location.href);
+        if (params.hasOwnProperty("key")) {
           $('#key').val(params.key);
         } else {
-					console.error("Missing URL parameter 'key'");
+          console.error("Missing URL parameter 'key'");
         }
 
         // Fill in passed values
@@ -225,58 +228,11 @@
           }
         }
 
-        /*
-        function createBaseLayer() {
-          return L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',
-            { attribution:
-                '<a href="http://osm.org/copyright">&copy; OpenStreetMap contributors</a>' });
+        // Switch heading when editing
+        if (params.hasOwnProperty('edit') && parseBool(params.edit)) {
+          $('#header-added').hide();
+          $('#header-edit').show();
         }
-
-        function updateCoords(latLng) {
-          $('#exact_lat').val(latLng.lat);
-          $('#exact_lng').val(latLng.lng);
-
-          const fiveDigits = val => Math.round(val * 100000) / 100000;
-          $('#coords').html('[ {0}, {1} ]'.format(
-              fiveDigits(latLng.lat),
-              fiveDigits(latLng.lng)));
-        }
-
-        const params = parseUrlParams(window.location.href);
-        if (!params.hasOwnProperty("key")) {
-          console.error("Missing URL parameter 'key'");
-        }
-        if (!params.hasOwnProperty("lat")) {
-          console.error("Missing URL parameter 'lat'");
-        }
-        if (!params.hasOwnProperty("lng")) {
-          console.error("Missing URL parameter 'lng'");
-        }
-
-        // Opt-out for organizations. Opt-in for private persons.
-        if (params.hasOwnProperty("map-opt-out")) {
-          $('#show_on_map').prop("checked", toBool(params["map-opt-out"]));
-        }
-
-        // Secret one-time key that identifies the stakeholder data to adjust.
-        $('#key').val(params.key);
-
-        const resolvedLatLng = L.latLng(parseFloat(params.lat), parseFloat(params.lng));
-
-        let map = new L.map('osm-map', {
-          center: resolvedLatLng,
-          zoom: 16,
-          zoomControl: true,
-          scrollWheelZoom: 'center',
-          doubleClickZoom: 'center',
-          touchZoom: 'center'
-        });
-
-        map.on('move', evt => { updateCoords(map.getCenter()); });
-
-        updateCoords(map.getCenter());
-        createBaseLayer().addTo(map);
-        */
       </script>
 
     <!-- Footer -->
