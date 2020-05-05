@@ -1,52 +1,38 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 import { Paper, Grid, Box } from "@material-ui/core"
 import Layout from "../components/layout"
 import ContactForm from "../components/contact-form"
 import SEO from "../components/seo"
 import { useIntl } from "gatsby-plugin-intl"
+import { takeFirst, getGraphQlNode, filterForNeedle } from "../util"
 
-const FaqPage = () => {
+function getMarkdownHead(node) {
+    return node?.frontmatter
+}
+
+const FaqPage = ({ data }) => {
     const { locale } = useIntl()
-    console.log(locale)
+    const filterMarkdownsForLang = filterForNeedle(locale, "lang")
+    const { allMarkdownRemark } = data
 
-    const queryDe = graphql`
-        query {
-            markdownRemark(frontmatter: { path: { eq: "/faq" } }) {
-                html
-                frontmatter {
-                    path
-                    title
-                    lang
-                }
-            }
-        }
-    `
-    const queryEn = graphql`
-        query {
-            markdownRemark(frontmatter: { path: { eq: "/faq" }, lang: { eq: "en" } }) {
-                html
-                frontmatter {
-                    path
-                    title
-                    lang
-                }
-            }
-        }
-    `
+    const { frontmatter, html } = getGraphQlNode(
+        takeFirst(
+            allMarkdownRemark?.edges?.filter(edge => filterMarkdownsForLang(getMarkdownHead(getGraphQlNode(edge))))
+        )
+    )
 
-    const data = useStaticQuery(locale === "de" ? queryDe : queryEn)
-    const { markdownRemark } = data // data.markdownRemark holds your post data
-    const { frontmatter, html } = markdownRemark
+    const { title = "" } = frontmatter
+
     return (
         <Layout>
-            <SEO title={frontmatter.title} />
+            <SEO title={title} />
             <section className="faq">
                 <Grid container xs={12} justify="center">
                     <Grid item xs={10}>
                         <Paper elevation={2}>
                             <Box p={2}>
-                                <h1>{frontmatter.title}</h1>
+                                <h1>{title}</h1>
                                 <div className="faq-content" dangerouslySetInnerHTML={{ __html: html }} />
                                 <ContactForm />
                             </Box>
@@ -60,15 +46,19 @@ const FaqPage = () => {
 
 export default FaqPage
 
-// export const query = graphql`
-//     query {
-//         markdownRemark(frontmatter: { path: { eq: "/faq" } }) {
-//             html
-//             frontmatter {
-//                 path
-//                 title
-//                 lang
-//             }
-//         }
-//     }
-// `
+export const query = graphql`
+    query {
+        allMarkdownRemark {
+            edges {
+                node {
+                    html
+                    frontmatter {
+                        lang
+                        path
+                        title
+                    }
+                }
+            }
+        }
+    }
+`
