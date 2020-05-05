@@ -1,13 +1,41 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import { Paper, Grid, Box } from "@material-ui/core"
 import Layout from "../components/layout"
 import ContactForm from "../components/contact-form"
 import SEO from "../components/seo"
+import { useIntl } from "gatsby-plugin-intl"
 
-const FaqPage = ({
-    data, // this prop will be injected by the GraphQL query below.
-}) => {
+const FaqPage = () => {
+    const { locale } = useIntl()
+    console.log(locale)
+
+    const queryDe = graphql`
+        query {
+            markdownRemark(frontmatter: { path: { eq: "/faq" } }) {
+                html
+                frontmatter {
+                    path
+                    title
+                    lang
+                }
+            }
+        }
+    `
+    const queryEn = graphql`
+        query {
+            markdownRemark(frontmatter: { path: { eq: "/faq" }, lang: { eq: "en" } }) {
+                html
+                frontmatter {
+                    path
+                    title
+                    lang
+                }
+            }
+        }
+    `
+
+    const data = useStaticQuery(locale === "de" ? queryDe : queryEn)
     const { markdownRemark } = data // data.markdownRemark holds your post data
     const { frontmatter, html } = markdownRemark
     return (
@@ -32,14 +60,15 @@ const FaqPage = ({
 
 export default FaqPage
 
-export const query = graphql`
-    query {
-        markdownRemark(frontmatter: { path: { eq: "/faq" } }) {
-            html
-            frontmatter {
-                path
-                title
-            }
-        }
-    }
-`
+// export const query = graphql`
+//     query {
+//         markdownRemark(frontmatter: { path: { eq: "/faq" } }) {
+//             html
+//             frontmatter {
+//                 path
+//                 title
+//                 lang
+//             }
+//         }
+//     }
+// `
