@@ -55,7 +55,9 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
     if (!heroSnapshot)
       throw new Error(`Unknown immuneHeroes key '${key}'`);
 
-    console.log(`About to update HeldenInfo ${key}:`, heroSnapshot.toJSON());
+    const heroJson = heroSnapshot.toJSON();
+    console.log(`About to update HeldenInfo ${key}:`, heroJson);
+
     const heroRefChanged = heroRef.update({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -64,7 +66,7 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
       status: req.body.status
     });
 
-    res.redirect(`../map.html?registered=${heroSnapshot.zipCode}`);
+    res.redirect(`../map.html?registered=${heroJson.zipCode}`);
 
     await heroRefChanged.then(async () => {
       const updatedSnapshot = await heroRef.once('value');
