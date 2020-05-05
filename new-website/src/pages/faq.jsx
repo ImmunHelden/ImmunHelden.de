@@ -11,16 +11,16 @@ function getMarkdownHead(node) {
     return node?.frontmatter
 }
 
+function findMarkdownNode(filterFunc) {
+    return edges => getGraphQlNode(takeFirst(edges?.filter(edge => filterFunc(getMarkdownHead(getGraphQlNode(edge))))))
+}
+
 const FaqPage = ({ data }) => {
     const { locale } = useIntl()
-    const filterMarkdownsForLang = filterForNeedle(locale, "lang")
+    const findMarkdownForLocale = findMarkdownNode(filterForNeedle(locale, "lang"))
     const { allMarkdownRemark } = data
 
-    const { frontmatter, html } = getGraphQlNode(
-        takeFirst(
-            allMarkdownRemark?.edges?.filter(edge => filterMarkdownsForLang(getMarkdownHead(getGraphQlNode(edge))))
-        )
-    )
+    const { frontmatter, html } = findMarkdownForLocale(allMarkdownRemark?.edges)
 
     const { title = "" } = frontmatter
 
