@@ -1,6 +1,7 @@
 ---
 path: "/faq"
 title: "Häufige Fragen"
+lang: "de"
 ---
 
 ## Bin ich nach überstandener Infektion wirklich immun? Und ab wann?

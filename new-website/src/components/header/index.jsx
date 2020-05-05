@@ -1,4 +1,4 @@
-import { Link } from "gatsby-plugin-intl"
+import { Link, FormattedMessage } from "gatsby-plugin-intl"
 import React from "react"
 import styled from "styled-components"
 import BetaRibbon from "./beta-ribbon"
@@ -24,7 +24,9 @@ const HeaderComponent = ({ title }) => {
         <HeaderBar position="fixed">
             <Toolbar color="black">
                 <BetaRibbon />
-                <Logo to="/">{title}</Logo>
+                <Logo to="/">
+                    <FormattedMessage id="pageTitle" />
+                </Logo>
             </Toolbar>
         </HeaderBar>
     )
