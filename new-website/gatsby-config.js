@@ -2,6 +2,7 @@ module.exports = {
     siteMetadata: {
         title: `ImmunHelden`,
         description: `Wir verbinden von Covid-19 genesene und damit immune Helfer:innen mit allen, die ihre Unterstützung benötigen.`,
+        defaultLanguage: "de",
     },
     plugins: [
         {
