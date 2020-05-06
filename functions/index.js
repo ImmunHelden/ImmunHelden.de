@@ -220,7 +220,7 @@ exports.parseBlutspendenDe = functions.https.onRequest(async (req, res) => {
     contact: '<div.*?institutions__contact">(.*?)</div>',
     address: '<div.*?institutions__address">(.*?)</div>',
     phone: '<div.*?institutions__phone">(.*?)</div>',
-    phone: '<div.*?institutions__email">(.*?)</div>',
+    email: '<div.*?institutions__email">(.*?)</div>',
     url: '<div.*?institutions__url">(.*?)</div>'
   };
   const excludedProps = new Set(req.query.hasOwnProperty('exclude') ? req.query.exclude.split(',') : []);
@@ -233,11 +233,11 @@ exports.parseBlutspendenDe = functions.https.onRequest(async (req, res) => {
     const record = {};
     for (const [i, capture] of selectedCaptures.entries()) {
       const groups = [...li.matchAll(capture)];
-      if (groups.length == 0 || !groups[0].hasOwnProperty('length')) {
+      if (groups.length === 0 || !groups[0].hasOwnProperty('length')) {
         failures.push(`Missing ${selectedProps[i]} in: ${li}`);
         continue;
       }
-      if (groups[0].length != 2) {
+      if (groups[0].length !== 2) {
         console.error("For each property, please specify a capture that matches exactly once. " +
                       `${capture} has ${(groups[0].length - 1)} matches.`);
         continue;
