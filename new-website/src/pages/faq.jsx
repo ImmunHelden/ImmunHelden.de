@@ -17,11 +17,10 @@ function findMarkdownNode(filterFunc) {
 
 const FaqPage = ({ data }) => {
     const { locale } = useIntl()
-    const findMarkdownForLocale = findMarkdownNode(filterForNeedle(locale, "lang"))
     const { allMarkdownRemark } = data
 
+    const findMarkdownForLocale = findMarkdownNode(filterForNeedle(locale, "lang"))
     const { frontmatter, html } = findMarkdownForLocale(allMarkdownRemark?.edges)
-
     const { title = "" } = frontmatter
 
     return (
@@ -48,7 +47,7 @@ export default FaqPage
 
 export const query = graphql`
     query {
-        allMarkdownRemark {
+        allMarkdownRemark(filter: {frontmatter: {path: {eq: "/faq"}}}) {
             edges {
                 node {
                     html
