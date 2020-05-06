@@ -14,7 +14,7 @@ const immuneHeroesTable = '/immuneHeroes'
 const stakeHoldersTable = '/stakeHolders'
 
 
-function toBool(string) {
+function parseBool(string) {
   if (string) {
     switch (string.toLowerCase().trim()) {
       case "true": case "yes": case "1": case "on": return true;
@@ -186,12 +186,74 @@ exports.doneVerifyStakeholderPin = functions.https.onRequest(async (req, res) =>
   const key = req.query.key;
   updates[`/stakeHolders/${key}/latitude`] = parseFloat(req.query.exact_lat);
   updates[`/stakeHolders/${key}/longitude`] = parseFloat(req.query.exact_lng);
-  updates[`/stakeHolders/${key}/directContact`] = toBool(req.query.show_on_map);
+  updates[`/stakeHolders/${key}/directContact`] = parseBool(req.query.show_on_map);
 
   // Update database record with confirmed exact pin location.
   admin.database().ref().update(updates);
   res.redirect("../generic.html");
 });
+
+
+function trimTrailingComma(str) {
+  return str.replace(/(^,)|(,$)/g, '');
+}
+
+function escapeHtml(unsafe) {
+  return unsafe
+       .replace(/&/g, "&amp;")
+       .replace(/</g, "&lt;")
+       .replace(/>/g, "&gt;")
+       .replace(/"/g, "&quot;")
+       .replace(/'/g, "&#039;");
+}
+
+exports.parseBlutspendenDe = functions.https.onRequest(async (req, res) => {
+  const html = await rp.get({ uri: "https://www.blutspenden.de/blutspendedienste/" });
+  const oneliner = html.split("\n").join();
+  const allListItems = oneliner.match(new RegExp(`<li.*?/li>`, 'g'));
+
+  const indicator = new RegExp('data-covid="1"', 'g');
+  const relevantListItems = allListItems.filter(li => li.match(indicator));
+
+  const propCaptures = {
+    title: '<div.*?institutions__title">(.*?)</div>',
+    contact: '<div.*?institutions__contact">(.*?)</div>',
+    address: '<div.*?institutions__address">(.*?)</div>',
+    phone: '<div.*?institutions__phone">(.*?)</div>',
+    phone: '<div.*?institutions__email">(.*?)</div>',
+    url: '<div.*?institutions__url">(.*?)</div>'
+  };
+  const excludedProps = new Set(req.query.hasOwnProperty('exclude') ? req.query.exclude.split(',') : []);
+  const selectedProps = Object.keys(propCaptures).filter(name => !excludedProps.has(name));
+  const selectedCaptures = selectedProps.map(name => new RegExp(propCaptures[name]));
+
+  const records = [];
+  const failures = [];
+  for (const li of relevantListItems) {
+    const record = {};
+    for (const [i, capture] of selectedCaptures.entries()) {
+      const groups = [...li.matchAll(capture)];
+      if (groups.length == 0 || !groups[0].hasOwnProperty('length')) {
+        failures.push(`Missing ${selectedProps[i]} in: ${li}`);
+        continue;
+      }
+      if (groups[0].length != 2) {
+        console.error("For each property, please specify a capture that matches exactly once. " +
+                      `${capture} has ${(groups[0].length - 1)} matches.`);
+        continue;
+      }
+      record[selectedProps[i]] = trimTrailingComma(groups[0][1].trim());
+    }
+    records.push(record);
+  }
+
+  if (!req.query.hasOwnProperty('debug')) {
+    res.json(records).send();
+  } else {
+    res.send(`<pre>${JSON.stringify(records)}\n\n\nFailures:\n${escapeHtml(failures.join('\n'))}</pre>`);
+  }
+});
+
 
 // exports.getImmuneHeroesInZipCodeRangeAsJson = functions.https.onRequest(async (req, res) => {
 //   const searchZipCode = parseInt(req.query.searchZipCode)
