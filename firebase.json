@@ -18,6 +18,10 @@
         "function": "parseBlutspendenDe"
       },
       {
+        "source": "/renderBlutspendenDe",
+        "function": "renderBlutspendenDe"
+      },
+      {
         "source": "/addImmuneHero",
         "function": "addImmuneHero"
       },
