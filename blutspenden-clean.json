@@ -580,6 +580,7 @@
     "title": "Blutspendezentrum Wuppertal BZW",
     "contact": "Blutspendezentrum Wuppertal BZW, RKP-Spende (COVID-19) Mail: covid19@blutspendezentren.de, RKP-Spende (COVID-19) Website: https://www.blutspendezentren.de/aktuelle-neuigkeiten/spende-nach-covid-19-erkrankung.html",
     "address": "Erholungstr. 19, 42103 Wuppertal-Elberfeld",
+    "latlng": [ 51.257426, 7.144058 ],
     "phone": "0202 2813980",
     "url": "http://www.blutspendezentren.de/standort-wuppertal.html",
     "id": "DqDW7hLMRDi"
