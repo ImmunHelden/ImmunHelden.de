@@ -26,9 +26,10 @@
   },
   {
     "title": "CSL Plasma Kiel",
-    "contact": "RKP-Spende (COVID-19) Telefon: 0431/661690",
     "address": "Sophienblatt 98/100, 24114 Kiel",
     "phone": "0431/661690",
+    "email": "kiel@cslplasma.com",
+    "url": "https://www.plasma-spenden.de/covid-19",
     "id": "25fwlIRS6r"
   },
   {
@@ -81,9 +82,10 @@
   },
   {
     "title": "CSL Plasma Nürnberg",
-    "contact": "RKP-Spende (COVID-19) Telefon: 0911/22911",
     "address": "Pfannenschmiedsgasse 5, 90402 Nürnberg",
     "phone": "0911/22911",
+    "email": "nuernberg@cslplasma.com",
+    "url": "https://www.plasma-spenden.de/covid-19",
     "id": "jaAYO0zHFe"
   },
   {
@@ -176,6 +178,8 @@
     "title": "CSL Plasma Berlin",
     "address": "Axel-Springer-Str. 42, 10969 Berlin",
     "phone": "030/2537470",
+    "email": "berlin@cslplasma.com",
+    "url": "https://www.plasma-spenden.de/covid-19",
     "id": "Q8v3XGWf0Vr"
   },
   {
@@ -302,6 +306,8 @@
     "title": "CSL Plasma Bremen",
     "address": "An der Weide 27-29, 28195 Bremen",
     "phone": "0421/173640",
+    "email": "bremen@cslplasma.com",
+    "url": "https://www.plasma-spenden.de/covid-19",
     "id": "bOSkVeoLZca"
   },
   {
@@ -386,6 +392,9 @@
   {
     "title": "CSL Plasma Frankfurt a. M.",
     "address": "Stiftstraße 9-17, 60313 Frankfurt",
+    "phone": "06988 7061",
+    "email": "frankfurt@cslplasma.com",
+    "url": "https://www.plasma-spenden.de/covid-19",
     "id": "Hbi6UFK-gm5"
   },
   {
@@ -469,13 +478,16 @@
     "title": "CSL Plasma Braunschweig",
     "address": "Burgpassage 7, 38100 Braunschweig",
     "phone": "0531/243560",
+    "email": "braunschweig@cslplasma.com",
+    "url": "https://www.plasma-spenden.de/covid-19",
     "id": "1T3EwXq8r1t"
   },
   {
     "title": "CSL Plasma Göttingen",
-    "contact": "RKP-Spende (COVID-19) Telefon: 0551/495060",
     "address": "Weender Straße 80-82, 37073 Göttingen",
     "phone": "0551/495060",
+    "email": "goettingen@cslplasma.com",
+    "url": "https://www.plasma-spenden.de/covid-19",
     "id": "QltdtTyS9YC"
   },
   {
@@ -589,6 +601,8 @@
     "title": "CSL Plasma Bielefeld",
     "address": "Niederwall 1-3, 33602 Bielefeld",
     "phone": "0521/967270",
+    "email": "bielefeld@cslplasma.com",
+    "url": "https://www.plasma-spenden.de/covid-19",
     "id": "CqIcTHfK7bC"
   },
   {
