@@ -328,18 +328,12 @@
   },
   {
     "title": "Blutspendedienst Hamburg Altona",
-    "contact": "Blutspendedienst Hamburg Altona, RKP-Spende (COVID-19) Mail: info@blutspendehamburg.de, RKP-Spende (COVID-19) Telefon: 040 2000 2200",
+    "contact": "Ottenser Hauptstr. 10 im Mercado, 4. OG",
     "address": "Ottenser Hauptstr. 10, 22765 Hamburg",
     "phone": "040 20002200",
+    "email": "info@blutspendehamburg.de",
     "url": "https://www.blutspendehamburg.de/standorte-ablaufzeiten/standorte/blutspendedienst-altona/",
     "id": "Ia04jQ7KDaC"
-  },
-  {
-    "title": "Blutspendedienst Hamburg City",
-    "address": "Hamburg",
-    "phone": "040 2000 2200",
-    "email": "info@blutspendehamburg.de",
-    "id": "JJIp3NTfJYw"
   },
   {
     "title": "Blutspendedienst Hamburg-Harburg",
@@ -359,9 +353,11 @@
   },
   {
     "title": "Blutspendedienst Hamburg-Wandsbek",
-    "contact": "Blutspendedienst Hamburg-Wandsbek, RKP-Spende (COVID-19) Mail: info@blutspendehamburg.de, RKP-Spende (COVID-19) Telefon: 040 2000 2200",
+    "contact": "Quarree 2, 3. Obergeschoss",
     "address": "Quarree 8-10, 22041 Hamburg",
+    "latlng": [ 53.5734028, 10.0669343 ],
     "phone": "040 20002200",
+    "email": "info@blutspendehamburg.de",
     "url": "https://www.blutspendehamburg.de/standorte-ablaufzeiten/standorte/blutspendedienst-wandsbek/",
     "id": "8KtY3K5Szo9"
   },
@@ -430,6 +426,7 @@
   {
     "title": "Ernst-Moritz-Arndt-Universität Greifswald Medizinische Fakultät",
     "address": "Ferdinand-Sauerbruch-Str., 17475 Greifswald",
+    "url": "http://www2.medizin.uni-greifswald.de/transfus/index.php?id=538",
     "phone": "03834/86-5478",
     "id": "gLToX4ON_0X"
   },
@@ -541,8 +538,8 @@
   },
   {
     "title": "Blutspendedienst des Uniklinikums Bonn (UKB)",
-    "contact": "Institut für Experimentelle Hämatologie und Transfusionsmedizin, RKP-Spende (COVID-19) Telefon: 0228-287 14780",
-    "address": "Venusberg-Campus 1 Gebäude 43, 53127 Bonn",
+    "contact": "Venusberg-Campus 1 Gebäude 43",
+    "address": "Venusberg-Campus 1, 53127 Bonn",
     "phone": "0228-28715174",
     "email": "blutspende@ukbonn.de",
     "url": "https://www.ukbonn.de/42256BC8002AF3E7/direct/blutspende",
@@ -914,11 +911,11 @@
     "id": "Rd_vCHuV5_a"
   },
   {
-    "title": "Blutspendezentrum am Campus Lübeck",
-    "contact": "Universitätsklinikum Schleswig-Holstein, Institut für Transfusionsmedizin Lübeck, RKP-Spende (COVID-19) Mail: termin.blutspende@uksh.de, RKP-Spende (COVID-19) Telefon: 0451-50016052",
+    "title": "UKSH Blutspendezentrum am Campus Lübeck",
     "address": "Ratzeburger Allee 160, Haus 31, 23538 Lübeck",
-    "phone": "0451-5003506",
-    "url": "http://www.uksh.de/blutspende/blutspende_luebeck.html",
+    "phone": "0451-500-16051",
+    "email": "Blutspende-Luebeck@uksh.de",
+    "url": "https://www.uksh.de/blutspende/blutspende_luebeck.html",
     "id": "Si9mv-RPUNa"
   },
   {
@@ -939,10 +936,10 @@
   },
   {
     "title": "UKSH Blutspendezentrum Lübeck CITTI-Park",
-    "contact": "RKP-Spende (COVID-19) Mail: termin.blutspende@uksh.de, RKP-Spende (COVID-19) Telefon: 0451-50016052",
     "address": "Herrenholz 14, 23556 Lübeck",
-    "phone": "0451 50016052",
-    "email": "termin.blutspende@uksh.de",
+    "phone": "0451-500-16051",
+    "email": "Blutspende-Luebeck@uksh.de",
+    "url": "https://www.uksh.de/blutspende/blutspende_luebeck.html",
     "id": "1wkndcQa1fl"
   },
   {
