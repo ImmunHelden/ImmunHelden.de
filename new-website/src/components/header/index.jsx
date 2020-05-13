@@ -3,7 +3,7 @@ import React from "react"
 import BetaRibbon from "./beta-ribbon"
 import PropTypes from "prop-types"
 import { AppBar, Toolbar, makeStyles } from "@material-ui/core"
-import { ImmunHeldenLogo } from "../logo/immunHelden-logo"
+import { ImmunHeldenLogo } from "../logo"
 import wirVsVirusSolutionEnablerLogo from "../../images/wirvsvirusSE.png"
 
 const useStyles = makeStyles(theme => ({
