@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-  Industrious by TEMPLATED
-  templated.co @templatedco
-  Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
 <html>
   <head>
     <title>ImmunHelden</title>
@@ -12,8 +7,12 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <script src="assets/js/jquery.min.js"></script>
+    <script async src="https://webcomponent.coverified.info/build/embed.js"></script>
+
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <style>
       @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
+      @import url("//db.onlinewebfonts.com/c/f4bc352b52c96ca087093d36bd2396bb?family=Noteworthy");
 
       body {
         font-family: "Raleway", Arial, Helvetica, sans-serif;
@@ -27,36 +26,7 @@
         display: inline;
       }
 
-      header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3rem;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-      }
-
-      header > * {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-      }
-
-      header a:link, header a:visited, header a:hover, header a:active {
-        text-decoration: none;
-        font-weight: bold;
-        color: #333;
-      }
-
-      div.page {
-        margin-top: 3rem;
-        box-shadow: 0 0 15px #888;
-      }
-
       section {
-        /*margin-bottom: 2rem;*/
         padding: 4rem 2rem;
         display: flex;
         flex-direction: column;
@@ -69,52 +39,132 @@
       section div.content > div {
         display: flex;
         flex-direction: column;
-        justify-content: top;
-      }
-      section div.content div.intro-right {
-        flex: 1;
+        justify-content: flex-start;
       }
       section.questions {
         background: linear-gradient(45deg, #93672533, transparent);
+        box-shadow: 0 0 15px #888;
+        margin-top: 4rem;
+      }
+
+      section.questions * {
+        box-sizing: border-box;
+      }
+
+      header a:link, header a:visited, header a:hover, header a:active {
+        text-decoration: none;
+        font-weight: bold;
+        color: #333;
+      }
+
+      div.page {
+        box-sizing: border-box;
       }
 
       @media only screen and (min-width: 700px) {
+        header {
+          position: absolute;
+          top: 0;
+          left: 2rem;
+          width: 8rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: #fff;
+          box-shadow: 0 0 15px;
+        }
+
+        header > a {
+          display: block;
+          text-align: center;
+        }
+
+        header > a > * {
+          display: inline-block;
+          text-align: center;
+        }
+
+        header .logo {
+          width: 5rem;
+          padding-top: 1rem;
+        }
+
+        header img.wirvsvirus {
+          width: 6rem;
+          padding-top: 0.33rem;
+        }
+
         section div.content {
           flex-direction: row;
-          max-width: 100%;
+          width: 100%;
         }
         section div.content > div:first-child {
           padding-right: 3rem;
         }
         section div.content > div.center {
-          justify-content: center;
+          align-items: center;
         }
         div.intro-right {
-          min-width: 25rem;
+          flex: auto;
+          width: 19rem;
           padding: 2rem;
+          margin: 3rem 0;
           border-radius: 2rem 0 0 2rem;
           background-color: #f4f4f4d4;
+          margin-left: 12rem;
         }
-        div.intro-right form {
-          min-width: 20rem;
-        }
-        section.radial-gradient {
-          background: linear-gradient(90deg, transparent, #ffffff80), url('images/cta02.jpg');
+        section.intro {
+          background: url('images/cta02.jpg');
           background-position: 50% 70%;
-          padding-right: 0;
+          padding: 0;
+          align-items: flex-end;
         }
 
         section.plasma iframe {
           height: 100%;
           min-height: 20rem;
-          min-width: 30rem;
+          min-width: 20rem;
           border: 0;
+        }
+        section.plasma {
+          padding-bottom: 0;
         }
         section.questions div.content {
           flex-direction: row;
         }
+
+        #footer {
+          padding: 2rem;
+        }
       }
       @media only screen and (max-width: 700px) {
+        header {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 3rem;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          background: #fff;
+        }
+
+        header img.logo {
+          height: 1.2rem;
+          padding: 0 0.8rem 0 1rem;
+        }
+
+        header img.wirvsvirus {
+          height: 40px;
+          margin-left: 10px;
+          margin-top: 2px;
+        }
+
+        div.page {
+          margin-top: 3rem;
+        }
+
         section div.content {
           flex-direction: column;
         }
@@ -123,28 +173,30 @@
           border-radius: 0;
           background-color: transparent;
         }
-        section.radial-gradient {
-          background: linear-gradient(135deg, #f4f4f484, #fff), url('images/cta02.jpg');
-          background-position: 25% 50%;
-          padding-left: 0;
-          padding-right: 0;
-          min-height: calc(100vh - 9rem);
+        section.intro {
+          background: linear-gradient( #ffffffaa, #ffffffaa), url('images/cta02.jpg');
+          background-position: 40% 50%;
+          min-height: calc(100vh - 3rem);
           padding: 0;
         }
         section.plasma {
           padding: 0;
         }
-        section.plasma div.content > div:first-child {
+        section.plasma div.content {
+          flex-direction: column-reverse;
+        }
+        section.plasma div.description {
           padding: 2rem;
+          padding-top: 4rem;
         }
         section.plasma iframe {
           height: 20rem;
           width: 100%;
           border: 0;
-          margin-bottom: 4rem;
         }
-        section.questions div.content {
-          flex-direction: column-reverse;
+
+        #footer {
+          padding: 0;
         }
       }
 
@@ -156,8 +208,32 @@
         background-position: top left;
         padding-top: 20px;
         margin-top: 0;
-        font-size: 2rem;
+        font-size: 1.5rem;
         line-height: 2.25rem;
+        display: inline-block;
+      }
+
+      h4 {
+        margin: 0;
+      }
+
+      #footer div.content > div {
+        display: inline-block;
+        flex: auto;
+        padding: 1rem 0;
+      }
+
+      #footer ul {
+        list-style-type: none;
+        padding-inline-start: 0;
+      }
+
+      #footer i.icon {
+        font-family: FontAwesome;
+        font-style: normal;
+        display: inline-block;
+        width: 1.5rem;
+        text-align: center;
       }
 
       .beta-ribbon-wrapper {
@@ -252,22 +328,27 @@
       </div>
     </div>
 
+    <!--
+    <div class="logo">
+        <img src="images/superhero-bkgnd.png" alt="superhero" style="width: 5rem; display: inline;">
+        <span style="font-family: Noteworthy; font-size: 1rem;">ImmunHelden.de</span>
+        Wir verbinden von Covid-19 genesene und damit voraussichtlich immune Helfer:innen mit allen, die Unterstützung benötigen.
+    </div>
+    -->
+
     <header>
       <a href="index.html">
-        <img src="images/superhero.png" alt="ImmunHelden logo" style="height: 1.2rem; padding: 0 0.8rem 0 1rem;">
-        ImmunHelden
+        <img src="images/superhero.png" alt="ImmunHelden logo" class="logo">
+        <span style="font-family: 'Noteworthy';">ImmunHelden</span>
       </a>
       <a href="https://twitter.com/WirvsVirusHack" target="_blank">
-        <img src="images/wirvsvirusSE.png" alt="wirvsvirus" style="height: 40px; margin-left: 10px; margin-top: 2px;">
+        <img src="images/wirvsvirusSE.png" alt="wirvsvirus" class="wirvsvirus">
       </a>
     </header>
 
     <div class="page">
-      <section class="radial-gradient" style="background-size: cover;">
-        <div class="content" style="max-width: 100%;">
-          <div class="center" style="flex: 1; width: 15rem;">
-            <!--<img src="images/superhero-invert.png" alt="superhero" style="width: 15rem;">-->
-          </div>
+      <section class="intro" style="background-size: cover;">
+        <div class="content">
           <div class="intro-right">
             <h2>
               <div style="display: inline-block;">Ich bin immun,</div>
@@ -299,32 +380,35 @@
 
       <section class="plasma">
         <div class="content">
-          <div>
+          <div style="flex: none;">
+            <iframe src="https://immunhelden.github.io/WirVsVirusMap/plasma.html?zoom=5&amp;interactive=false&header=false"></iframe>
+            <!--<div class="map-overlay">
+              <a class="map-overlay-link" href="map.html"></a>
+            </div>-->
+          </div>
+          <div class="description">
             <h2>
               Blutplasmaspende
             </h2>
             Während deines Kampfes gegen COVID-19 hat dein Immunsystem Antikörper gegen das Virus gebildet. Sie haben dir geholfen, das Virus zu besiegen. Und finden sich nun in deinem Blutplasma. Wenn du alle gesundheitlichen Kriterien erfüllst, kannst du mit deiner Spende schwer Erkrankten im Kampf gegen COVID-19 helfen. Oder einen Beitrag zur Forschung über Antikörper leisten.
-          </div>
-          <div style="flex: none;">
-            <iframe src="https://immunhelden.github.io/WirVsVirusMap/plasma.html?zoom=5&amp;interactive=false&header=false"></iframe>
-            <!--<iframe src="/map/plasma.html?zoom=5&amp;interactive=false&header=false"></iframe>-->
-            <!--<div class="map-overlay">
-              <a class="map-overlay-link" href="map.html"></a>
-            </div>-->
           </div>
         </div>
       </section>
 
       <section class="questions">
         <div class="content">
+          <div style="flex: 2;">
+            <h2>
+              Häufige Fragen
+            </h2>
+            Aufmerksam verfolgen wir den aktuellen Stand der Forschung zur Immunität gegen das neuartige Corona Virus. Viele Fragen beantwortet <a href="faq.html">unsere FAQ</a>.
+          </div>
           <div style="flex: 4;">
             Hast du eine Frage? Dann schreib uns direkt und wir melden uns bei dir!
             <form>
               <textarea id="message" rows="6" placeholder="Gibt hier deine Anfrage ein" required></textarea>
-              <div style="display: flex; flex-direction: row;">
-                <input type="text" id="contact" style="flex: 3; margin-right: 8px; width: 5rem;" placeholder="Email / Telefon" required>
-                <input type="submit" value="Senden" id="submitQuestion" style="flex: 1;" onclick="sendSupportRequest()" disabled>
-              </div>
+              <input type="text" id="contact" style="width: 100%; margin-bottom: 5px;" placeholder="Email / Telefon" required>
+              <input type="submit" value="Senden" id="submitQuestion" style="" onclick="sendSupportRequest()" disabled>
             </form>
             <script>
               // Allow submits after 3 seconds (no human reader will recognize it).
@@ -372,15 +456,10 @@
               }
             </script>
           </div>
-          <div style="flex: 2;">
-            <h2>
-              Häufige Fragen
-            </h2>
-            Aufmerksam verfolgen wir den aktuellen Stand der Forschung zur Immunität gegen das neuartige Corona Virus. Viele Fragen beantwortet <a href="faq.html">unsere FAQ</a>.
-          </div>
         </div>
       </section>
 
+<!--
       <section>
         <div class="content">
           <div>
@@ -395,7 +474,6 @@
         </div>
       </section>
 
-<!--
       <section>
         <div class="content">
           <div style="flex: none; justify-content: top;">
@@ -473,14 +551,19 @@
 -->
     </div>
 
-
-    <!-- Footer -->
     <section id="footer">
       <div class="content">
+        <div style="margin-top: 1.5rem">
+          <ul class="alt">
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+            <li>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a></li>
+          </ul>
+        </div>
         <div>
           <h4>#WirVsVirus</h4>
           <ul class="alt">
-            <li><a target="_blank" href="https://devpost.com/software/immuneheros">ImmunHelden DevPost</a>
+            <li><a target="_blank" href="https://devpost.com/software/immuneheros">ImmunHelden DevPost</a></li>
             <li><a target="_blank" href="https://wirvsvirushackathon.org/">Website Hackathon</a></li>
             <li><a target="_blank" href="https://www.bundesregierung.de/breg-de/themen/coronavirus/wir-vs-virus-1731968">Bundesregierung</a></li>
           </ul>
@@ -488,26 +571,12 @@
         <div>
           <h4>Follow us</h4>
           <ul class="plain">
+            <li><a target="_blank" href="https://github.com/ImmunHelden"><i class="icon fa-github">&nbsp;</i>Github</a></li>
             <li><a target="_blank" href="https://twitter.com/ImmunHelden"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
             <li><i class="icon fa-facebook">&nbsp;</i>Facebook</li>
             <li><i class="icon fa-instagram">&nbsp;</i>Instagram</li>
-            <li><a target="_blank" href="https://github.com/weliveindetail/ImmunHelden.de"><i class="icon fa-github">&nbsp;</i>Github</a></li>
           </ul>
         </div>
-        <div>
-          <div class="image">
-            <a target="_blank" href="https://wirvsvirushackathon.org/">
-              <img src="images/Logo_02_weiss.svg" alt="logo" width="400px" />
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="copyright">
-        <a href="datenschutz.html">Datenschutzerklärung</a> •
-        <a href="impressum.html">Impressum ImmunHelden.de</a>
-        <br>
-        Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
-        from <a href="https://www.flaticon.com/" title="Flaticon">flaticon.com</a>
       </div>
     </footer>
 
