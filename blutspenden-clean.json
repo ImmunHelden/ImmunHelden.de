@@ -1,0 +1,980 @@
+[
+  {
+    "title": "Blutspende am Universitätsklinikum Freiburg",
+    "contact": "Blutspendezentrale Haus Langerhans",
+    "address": "Hugstetter Str. 55, 79106 Freiburg",
+    "phone": "0761 2704444",
+    "url": "http://www.uniklinik-freiburg.de/blutspende/live/index.html",
+    "id": "U0_T_pAy9"
+  },
+  {
+    "title": "Blutspendezentrale Heidelberg",
+    "contact": "IKTZ Heidelberg gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Im Neuenheimer Feld 583, 69120 Heidelberg",
+    "phone": "06221 650510",
+    "url": "https://www.iktz-hd.de/blutspende/wann-kann-ich-spenden/",
+    "id": "EkTtPs-tZl"
+  },
+  {
+    "title": "Blutspendezentrale im ZKT Tübingen",
+    "contact": "Zentrum für Klinische Transfusionsmedizin, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Otfried-Müller-Str. 4/1, 72076 Tübingen",
+    "phone": "07071 2981616",
+    "email": "blutspende@blutspendezentrale.de",
+    "url": "http://www.blutspendezentrale.de/",
+    "id": "x0CCcFTvAn"
+  },
+  {
+    "title": "CSL Plasma Kiel",
+    "contact": "RKP-Spende (COVID-19) Telefon: 0431/661690",
+    "address": "Sophienblatt 98/100, 24114 Kiel",
+    "phone": "0431/661690",
+    "id": "25fwlIRS6r"
+  },
+  {
+    "title": "DRK Blutspendedienst Ulm",
+    "contact": "DRK Blutspendedienst Baden-Württemberg-Hessen gGmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Helmholtzstr. 10, 89081 Ulm",
+    "phone": "0731 1500",
+    "url": "http://www.blutspende.de/ueber-uns/institute-einrichtungen/ulm/institut-ulm.php",
+    "id": "tXWFCOHfH6"
+  },
+  {
+    "title": "DRK-Blutspendedienst Baden-Baden",
+    "contact": "DRK-Blutspendedienst Baden-Württemberg-Hessen gGmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Gunzenbachstr. 35, 76530 Baden-Baden",
+    "phone": "07221 2140",
+    "url": "http://www.blutspende.de/ueber-uns/institute-einrichtungen/baden-baden/institut-baden-baden.php",
+    "id": "ED5AQh9lxj"
+  },
+  {
+    "title": "DRK-Blutspendedienst Mannheim",
+    "contact": "DRK-Blutspendedienst Baden-Württemberg-Hessen gGmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Friedrich-Ebertstr. 107, 68167 Mannheim",
+    "phone": "0621 37060",
+    "url": "http://www.blutspende.de/ueber-uns/institute-einrichtungen/mannheim/institut-mannheim.php",
+    "id": "E7DfrDX1Eg"
+  },
+  {
+    "title": "Octapharma Plasma Mannheim",
+    "address": "Heinrich-von-Stephan-Str. 5, 68161 Mannheim",
+    "phone": "0621 8191090",
+    "email": "pzman-mannheim@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/mannheim",
+    "id": "vUsdpOKfQJ"
+  },
+  {
+    "title": "Blutspende Uniklinik Würzburg",
+    "contact": "Institut für Klinische Transfusionsmedizin und Hämotherapie des Universitätsklinikums Würzburg, RKP-Spende (COVID-19) Mail: transfusionsmedizin@ukw.de, RKP-Spende (COVID-19) Telefon: 0931/201-31375",
+    "address": "Oberdürrbacher Str. 6, 97080 Würzburg",
+    "phone": "0931 20131230",
+    "url": "http://www.transfusionsmedizin.ukw.de/spender/blutspender.html",
+    "id": "v5AN-N5qeC"
+  },
+  {
+    "title": "Blutspendedienst München",
+    "contact": "Blutspendedienst Bayerisches Rotes Kreuz gGmbH, RKP-Spende (COVID-19) Mail: Kontaktaufnahme über Homepage: http://www.blutspendedienst.com/",
+    "address": "Herzog-Heinrich-Str. 4, 80336 München",
+    "phone": "089 53990",
+    "url": "http://www.blutspendedienst.com/blutspendedienst/institut-muenchen",
+    "id": "yujIH6T-2r"
+  },
+  {
+    "title": "CSL Plasma Nürnberg",
+    "contact": "RKP-Spende (COVID-19) Telefon: 0911/22911",
+    "address": "Pfannenschmiedsgasse 5, 90402 Nürnberg",
+    "phone": "0911/22911",
+    "id": "jaAYO0zHFe"
+  },
+  {
+    "title": "Haema Blutspendezentrum München",
+    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Dachauer Straße 70, 80335 München",
+    "phone": "089 547265990",
+    "url": "http://www.haema.de/blutspendezentren/bayern/muenchen.html",
+    "id": "t-3d_3U4dY"
+  },
+  {
+    "title": "Haema Blutspendezentrum Nürnberg",
+    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Aufseßplatz 21, 90459 Nürnberg",
+    "phone": "0911 2342980",
+    "url": "https://www.haema.de/blut-plasmaspendezentren/bayern/nuernberg.html",
+    "id": "i-Yi_hPTRF"
+  },
+  {
+    "title": "Haema Blutspendezentrum Regensburg",
+    "contact": "Haema Blutspendedienst im Facharztzentrum Regensburg, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Hildegard-von-Bingen-Straße 1, 93053 Regensburg",
+    "phone": "0941 2808970",
+    "url": "http://www.haema.de/blutspendezentren/bayern/regensburg.html",
+    "id": "34u7uh_LTK"
+  },
+  {
+    "title": "Haema Plasmaspendezentrum Augsburg",
+    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Philippine-Welser-Straße 8, 86150 Augsburg",
+    "phone": "0821 21700Haema Plasmaspendezentrum Augsburg70",
+    "url": "https://www.haema.de/blutspendezentren/bayern/augsburg.html",
+    "id": "fqPnyLnx-G"
+  },
+  {
+    "title": "Haema Plasmaspendezentrum Bayreuth",
+    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de",
+    "address": "Spinnereistraße 5 b, 95445 Bayreuth",
+    "phone": "0921 4040",
+    "url": "https://www.haema.de/blutspendezentren/bayern/bayreuth.html",
+    "id": "gBUmuQwnq3"
+  },
+  {
+    "title": "Haema Plasmaspendezentrum Fürth",
+    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Hallstraße 9, 90762 Fürth",
+    "url": "https://www.haema.de/blutspendezentren/bayern/fuerth.html",
+    "id": "zYEcOvp6-eU"
+  },
+  {
+    "title": "Haema Plasmaspendezentrum Ingolstadt",
+    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Rathausplatz 11, 85049 Ingolstadt",
+    "phone": "0841 934140",
+    "url": "https://www.haema.de/blutspendezentren/bayern/ingolstadt.html?nomob=1",
+    "id": "0YwbxNGxkDg"
+  },
+  {
+    "title": "Institut für Transfusions­medizin und Hämostaseologie",
+    "contact": "RKP-Spende (COVID-19) Mail: plasmaspende@uk-augsburg.de, RKP-Spende (COVID-19) Telefon: 0821-400-3868",
+    "address": "Stenglinstr. 2, 86156 Augsburg",
+    "phone": "0821 40001",
+    "email": "info@uk-augsburg.de",
+    "url": "https://www.uk-augsburg.de/kliniken-und-institute/institut-fuer-transfusionsmedizin-und-haemostaseologie/ueberblick.html",
+    "id": "6a5FJA8LYnd"
+  },
+  {
+    "title": "Plasmazentrum Würzburg",
+    "contact": "Kontaktaufnahme über Homepage: http://www.blutspendedienst.com/",
+    "address": "Virchowstraße 22, 97072 Würzburg",
+    "id": "MNXcuRsCohA"
+  },
+  {
+    "title": "Blutspende am Campus Virchow-Klinikum Wedding",
+    "contact": "ZTB Zentrum für Transfusionsmedizin und Zelltherapie Berlin gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: RKP-Spende@charite.de",
+    "address": "Augustenburger Platz 1, 13353 Berlin",
+    "phone": "030-450553899",
+    "url": "http://www.ztb-blutspende.de",
+    "id": "YxCmgS8qPZ1"
+  },
+  {
+    "title": "Blutspende an der Charité - Campus Mitte",
+    "contact": "ZTB Zentrum für Transfusionsmedizin und Zelltherapie Berlin gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: RKP-Spende@charite.de",
+    "address": "Schumannstraße 22, 10117 Berlin",
+    "phone": "030-450525167",
+    "url": "https://www.ztb-blutspende.de/",
+    "id": "UtoJG9Jpuku"
+  },
+  {
+    "title": "CSL Plasma Berlin",
+    "address": "Axel-Springer-Str. 42, 10969 Berlin",
+    "phone": "030/2537470",
+    "id": "Q8v3XGWf0Vr"
+  },
+  {
+    "title": "DRK-Blutspendedienst Berlin",
+    "contact": "Institut für Transfusionsmedizin Berlin, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Hindenburgdamm 30 A, 12203 Berlin",
+    "phone": "030 806810",
+    "url": "https://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-berlin.php",
+    "id": "SsUTW0dcf-E"
+  },
+  {
+    "title": "Haema Blutspendezentrum Berlin-Charlottenburg",
+    "contact": "Wilmersdorfer Arcaden 4.OG, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Wilmersdorfer Straße 54, 10627 Berlin",
+    "phone": "030 688383620",
+    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-charlottenburg.html",
+    "id": "WNtaq3OGWTj"
+  },
+  {
+    "title": "Haema Blutspendezentrum Berlin-Hellersdorf",
+    "contact": "Haema Blutspendezentrum Berlin-Hellersdorf, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Marktplatz Center Hellersdorf Peter-Weiss-Gasse 1, 12627 Berlin",
+    "phone": "030-992550",
+    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-hellersdorf.html",
+    "id": "ZHQyKukzfsY"
+  },
+  {
+    "title": "Haema Blutspendezentrum Berlin-Marzahn",
+    "contact": "Haema Blutspendezentrum Berlin-Marzahn, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Havemann Str. 12b, 12689 Berlin",
+    "phone": "030-936410",
+    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-marzahn.html",
+    "id": "o-Olcy8zd9L"
+  },
+  {
+    "title": "Haema Blutspendezentrum Berlin-Prenzlauer Berg",
+    "contact": "Haema Blutspendezentrum Berlin-Prenzlauer Berg, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Landsberger Allee 117, 10407 Berlin",
+    "phone": "030 457997",
+    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-prenzlauer-berg.html",
+    "id": "Uc_GXlnFQiQ"
+  },
+  {
+    "title": "Haema Blutspendezentrum Berlin-Tegel",
+    "contact": "Gesundheitszentrum am Borsigturm, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Berliner Straße 25, 13507 Berlin",
+    "phone": "030-4374360",
+    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-tegel.html",
+    "id": "GM37mbS8SUM"
+  },
+  {
+    "title": "Haema Blutspendezentrum Berlin-Wedding",
+    "contact": "Haema Blutspendedienst im Gesundbrunnen-Center, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Badstraße 4a, 13357 Berlin",
+    "phone": "030-497689210",
+    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-wedding.html",
+    "id": "esrZeurKU6O"
+  },
+  {
+    "title": "Octapharma Plasma Berlin-Köpenick",
+    "address": "Pablo-Neruda-Straße 2-4, 12559 Berlin-Köpenick",
+    "phone": "030 64387820",
+    "email": "pzman-koepenick@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/berlin-koepenick",
+    "id": "1NDi6NInegX"
+  },
+  {
+    "title": "Octapharma Plasma Berlin-Spandau",
+    "address": "Streitstraße 13, 13587 Berlin",
+    "phone": "030 30105920",
+    "email": "pzman-spandau@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/berlin-spandau",
+    "id": "XkZTpyBYUdc"
+  },
+  {
+    "title": "DRK-Blut- und Plasmaspendedienst Cottbus",
+    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Thiemstraße 105, 03050 Cottbus",
+    "phone": "0355 49950",
+    "url": "https://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-cottbus.php",
+    "id": "VcOJE6_m1Tx"
+  },
+  {
+    "title": "DRK-Blut- und Plasmaspendedienst Potsdam",
+    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Charlottenstr. 72, 14467 Potsdam",
+    "phone": "0331 28460",
+    "url": "https://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-potsdam.php",
+    "id": "cYWqmLdyP3E"
+  },
+  {
+    "title": "Haema Blutspendezentrum Brandenburg an der Havel",
+    "contact": "Haema Blutspendezentrum Brandenburg an der Havel, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Kirchhofstraße 1-2, 14776 Brandenburg an der Havel",
+    "phone": "03381-3967530",
+    "url": "http://www.haema.de/blutspendezentren/brandenburg/brandenburg-an-der-havel.html",
+    "id": "RG6zty5af5z"
+  },
+  {
+    "title": "Haema Blutspendezentrum Frankfurt (Oder)",
+    "contact": "Haema Blutspendezentrum Frankfurt (Oder), RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Karl-Marx-Straße 2, 15230 Frankfurt (Oder)",
+    "phone": "0335 86911820",
+    "url": "http://www.haema.de/blutspendezentren/brandenburg/frankfurt-oder.html",
+    "id": "K2lObYAjKbL"
+  },
+  {
+    "title": "Haema Blutspendezentrum Potsdam",
+    "contact": "Haema Blutspendedienst am Stern-Center, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Nuthestraße 1, 14480 Potsdam",
+    "phone": "0331-29704130",
+    "url": "http://www.haema.de/blutspendezentren/brandenburg/potsdam.html",
+    "id": "d6w6qjQp8qS"
+  },
+  {
+    "title": "Octapharma Plasma Potsdam",
+    "address": "Babelsberger Str. 16, 14473 Potsdam",
+    "phone": "0331 5816590",
+    "email": "pzman-potsdam@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/potsdam",
+    "id": "SOjVN7RmFw5"
+  },
+  {
+    "title": "CSL Plasma Bremen",
+    "address": "An der Weide 27-29, 28195 Bremen",
+    "phone": "0421/173640",
+    "id": "bOSkVeoLZca"
+  },
+  {
+    "title": "Blutspende Albertinen Haus Hamburg",
+    "contact": "RKP-Spende (COVID-19) Mail: Covid19plasma@uke.de, RKP-Spende (COVID-19) Telefon: 040 / 5581 – 1374",
+    "address": "Sellhopsweg 18-22, 22459 Hamburg",
+    "phone": "040 55811374",
+    "url": "http://blutsgeschwister.net",
+    "id": "vcLxJhVaw_p"
+  },
+  {
+    "title": "Blutspende am Campus Universität Hamburg",
+    "contact": "RKP-Spende (COVID-19) Mail: Covid19plasma@uke.de, RKP-Spende (COVID-19) Telefon: 040 / 7410 – 52616",
+    "address": "Von-Melle-Park 5, EG, Zimmer 0076 B, 20146 Hamburg",
+    "phone": "040 741052616",
+    "url": "http://www.blutsgeschwister.net",
+    "id": "dAUQ55ApMwK"
+  },
+  {
+    "title": "Blutspendedienst Hamburg Altona",
+    "contact": "Blutspendedienst Hamburg Altona, RKP-Spende (COVID-19) Mail: info@blutspendehamburg.de, RKP-Spende (COVID-19) Telefon: 040 2000 2200",
+    "address": "Ottenser Hauptstr. 10, 22765 Hamburg",
+    "phone": "040 20002200",
+    "url": "https://www.blutspendehamburg.de/standorte-ablaufzeiten/standorte/blutspendedienst-altona/",
+    "id": "Ia04jQ7KDaC"
+  },
+  {
+    "title": "Blutspendedienst Hamburg City",
+    "address": "Hamburg",
+    "phone": "040 2000 2200",
+    "email": "info@blutspendehamburg.de",
+    "id": "JJIp3NTfJYw"
+  },
+  {
+    "title": "Blutspendedienst Hamburg-Harburg",
+    "contact": "Blutspendedienst Harburg, RKP-Spende (COVID-19) Mail: info@blutspendehamburg.de, RKP-Spende (COVID-19) Telefon: 040 2000 2200",
+    "address": "Lüneburger Straße 25, 21073 Hamburg",
+    "phone": "040 20002200",
+    "url": "https://www.blutspendehamburg.de/standorte-ablaufzeiten/standorte/blutspendedienst-harburg/",
+    "id": "AlJGDaeIGhj"
+  },
+  {
+    "title": "Blutspendedienst Hamburg-Nord",
+    "contact": "Blutspendedienst Hamburg-Nord, RKP-Spende (COVID-19) Mail: info@blutspendehamburg.de, RKP-Spende (COVID-19) Telefon: 040 2000 2200",
+    "address": "Langenhorner Markt 5, 22415 Hamburg",
+    "phone": "040 20002200",
+    "url": "https://www.blutspendehamburg.de/standorte-ablaufzeiten/standorte/blutspendedienst-hamburg-nord/",
+    "id": "dtFONOI_VTZ"
+  },
+  {
+    "title": "Blutspendedienst Hamburg-Wandsbek",
+    "contact": "Blutspendedienst Hamburg-Wandsbek, RKP-Spende (COVID-19) Mail: info@blutspendehamburg.de, RKP-Spende (COVID-19) Telefon: 040 2000 2200",
+    "address": "Quarree 8-10, 22041 Hamburg",
+    "phone": "040 20002200",
+    "url": "https://www.blutspendehamburg.de/standorte-ablaufzeiten/standorte/blutspendedienst-wandsbek/",
+    "id": "8KtY3K5Szo9"
+  },
+  {
+    "title": "Institut für Transfusionsmedizin, Universitätsklinikum Hamburg-Eppendorf",
+    "contact": "RKP-Spende (COVID-19) Mail: Covid19plasma@uke.de, RKP-Spende (COVID-19) Telefon: 040/7410 – 52616, RKP-Spende (COVID-19) Website: blutsgeschwister.net",
+    "address": "Martinistraße 52, 20246 Hamburg",
+    "phone": "040 741052616",
+    "url": "https://www.uke.de/kliniken-institute/institute/transfusionsmedizin/index.html",
+    "id": "GWKQ7wHAowa"
+  },
+  {
+    "title": "Universitätsklinikum Hamburg Eppendorf",
+    "contact": "Blutspendedienst im UKE - Haus Ost 38, RKP-Spende (COVID-19) Mail: Covid19plasma@uke.de, RKP-Spende (COVID-19) Telefon: 040 / 7410 – 52616",
+    "address": "Martinistraße 52, 20246 Hamburg",
+    "phone": "040 741052616",
+    "url": "http://www.blutsgeschwister.net",
+    "id": "o5v5Qyq44dv"
+  },
+  {
+    "title": "Blutspende Marburg",
+    "contact": "Blutspende Marburg, RKP-Spende (COVID-19) Mail: www.ukgm.de/blutspende, RKP-Spende (COVID-19) Telefon: 06421/58-64492",
+    "address": "Conradisstraße 5, 35043 Marburg",
+    "phone": "06421 5864492",
+    "url": "http://www.ukgm.de/ugm_2/deu/umr_tra/7308.html",
+    "id": "hL2xlzmVWCY"
+  },
+  {
+    "title": "CSL Plasma Frankfurt a. M.",
+    "address": "Stiftstraße 9-17, 60313 Frankfurt",
+    "id": "Hbi6UFK-gm5"
+  },
+  {
+    "title": "DRK-Blutspendedienst Frankfurt am Main",
+    "contact": "DRK-Blutspendedienst Baden-Württemberg - Hessen gGmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Sandhofstr. 1, 60528 Frankfurt am Main",
+    "phone": "069-67820",
+    "url": "http://www.blutspende.de/ueber-uns/institute-einrichtungen/frankfurt/institut-frankfurt.php",
+    "id": "ueWgA2lufyV"
+  },
+  {
+    "title": "DRK-Blutspendedienst Kassel",
+    "contact": "DRK-Blutspendedienst Baden-Württemberg - Hessen gGmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Mönchebergstr. 57, 34125 Kassel",
+    "phone": "0561 87930",
+    "url": "http://www.blutspende.de/ueber-uns/institute-einrichtungen/kassel/institut-kassel.php",
+    "id": "6_GJrW2SL6w"
+  },
+  {
+    "title": "Plasmavita Nordwestzentrum Frankfurt",
+    "contact": "RKP-Spende (COVID-19) Mail: frankfurt@plasmavita.de, RKP-Spende (COVID-19) Telefon: 069 273166120",
+    "address": "Nidacorso 13, 60439 Frankfurt am Main",
+    "url": "https://plasmavita.de/standorte/plasmazentrum-frankfurt/",
+    "id": "uRk8MBY80nw"
+  },
+  {
+    "title": "Universitätsklinikum Giessen",
+    "address": "Langhansstraße 7, 35385 Gießen",
+    "phone": "0641/985-41506",
+    "url": "http://www.ukgm.de/blutspende",
+    "id": "ysThYBLKlhd"
+  },
+  {
+    "title": "Ernst-Moritz-Arndt-Universität Greifswald Medizinische Fakultät",
+    "address": "Ferdinand-Sauerbruch-Str., 17475 Greifswald",
+    "phone": "03834/86-5478",
+    "id": "gLToX4ON_0X"
+  },
+  {
+    "title": "Haema Blutspendezentrum Rostock",
+    "contact": "Haema Blutspendedeinst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "DEUTSCHE-MED-Platz 2, 18057 Rostock",
+    "phone": "0381-877600",
+    "url": "http://www.haema.de/blutspendezentren/mecklenburg-vorpommern/rostock.html",
+    "id": "NERI44JW-4M"
+  },
+  {
+    "title": "Haema Blutspendezentrum Schwerin",
+    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Friedrichstraße 18, 19055 Schwerin",
+    "phone": "0385-20271720",
+    "url": "http://www.haema.de/blutspendezentren/mecklenburg-vorpommern/schwerin.html",
+    "id": "HKEvz2lIkIJ"
+  },
+  {
+    "title": "Blutspendedienst DRK NSTOB Oldenburg",
+    "contact": "Blutspendedienst der Landesverbände des DRK NSTOB gGmbH",
+    "address": "Brandenburger Straße 21, 26133 Oldenburg",
+    "phone": "0441 9440118",
+    "email": "plasma@bsd-nstob.de",
+    "url": "http://www.blutspende-nstob.de/Indoor/Blutspendedienst/Institute/Oldenburg/",
+    "id": "kEsFRxO1Ytv"
+  },
+  {
+    "title": "Blutspendedienst der Universitätsmedizin Göttingen",
+    "contact": "Abteilung Transfusionsmedizin, RKP-Spende (COVID-19) Mail: tfm@med.uni-goettingen.de, RKP-Spende (COVID-19) Telefon: 0551 / 39 22750",
+    "address": "Robert-Koch-Str. 40, 37075 Göttingen",
+    "phone": "0551 3966899",
+    "url": "http://www.blutspende-goettingen.de/",
+    "id": "PCpI8pISvDl"
+  },
+  {
+    "title": "Blutspendedienst der Universitätsmedizin Göttingen",
+    "contact": "Abteilung Transfusionsmedizin, am Campus, RKP-Spende (COVID-19) Mail: tfm@med.uni-goettingen.de, RKP-Spende (COVID-19) Telefon: 0551 / 39 22750",
+    "address": "Weender Landstr. 1, 37073 Göttingen",
+    "phone": "0551 9176899",
+    "url": "http://www.blutspende-goettingen.de",
+    "id": "O6B-DIdOV13"
+  },
+  {
+    "title": "CSL Plasma Braunschweig",
+    "address": "Burgpassage 7, 38100 Braunschweig",
+    "phone": "0531/243560",
+    "id": "1T3EwXq8r1t"
+  },
+  {
+    "title": "CSL Plasma Göttingen",
+    "contact": "RKP-Spende (COVID-19) Telefon: 0551/495060",
+    "address": "Weender Straße 80-82, 37073 Göttingen",
+    "phone": "0551/495060",
+    "id": "QltdtTyS9YC"
+  },
+  {
+    "title": "Klinikum Wolfsburg",
+    "address": "Sauerbruchstr. 7, 38440 Wolfsburg",
+    "phone": "05361 801727",
+    "email": "blutspende@klinikum.wolfsburg.de",
+    "url": "https://www.klinikum.wolfsburg.de/kliniken/institute-und-zentren/institut-fuer-labormedizin/blutspende/",
+    "id": "bQNJ5rCkUiX"
+  },
+  {
+    "title": "MHH Blutspendedienst Hannover",
+    "contact": "RKP-Spende (COVID-19) Mail: RKP-spende@mh-hannover.de, RKP-Spende (COVID-19) Telefon: 0800 532 532 5",
+    "address": "Carl-Neuberg-Straße 1, 30625 Hannover",
+    "phone": "0800 532 5325",
+    "email": "RKP-spende@mh-hannover.de",
+    "url": "https://www.mhh.de/institute-zentren-forschungseinrichtungen/institut-fuer-transfusionsmedizin-und-transplantat-engineering/blutspende",
+    "id": "OnT9FRMnKkg"
+  },
+  {
+    "title": "Blutspende Klinikum Dortmund",
+    "contact": "Institut für Transfusionsmedizin (ITLM), RKP-Spende (COVID-19) Mail: blutspende@klinikumdo.de, RKP-Spende (COVID-19) Telefon: 0231 - 953 19620",
+    "address": "Alexanderstr. 6 - 10, 44137 Dortmund",
+    "phone": "0231-95319999",
+    "url": "http://www.blutspendedo.de/",
+    "id": "ANgrgDOAj9_"
+  },
+  {
+    "title": "Blutspende am Universitätsklinikum Münster",
+    "contact": "UKM Blutspende, RKP-Spende (COVID-19) Mail: COVID19.Plasma@ukmuenster.de",
+    "address": "Albert-Schweitzer-Campus 1 / Gebäude D 11, 48149 Münster",
+    "url": "http://www.ukm-blutspende.de",
+    "id": "gLsLj0i5zmY"
+  },
+  {
+    "title": "Blutspende im Universitätsklinikum Essen",
+    "contact": "Institut für Transfusionsmedizin, RKP-Spende (COVID-19) Mail: RKP-Spende@uk-essen.de, RKP-Spende (COVID-19) Telefon: 0201 723 4888",
+    "address": "Hufelandstr. 55, 45122 Essen",
+    "phone": "0201-7231560",
+    "email": "blutspende@uk-essen.de",
+    "url": "http://www.uk-essen.de/transfusionsmedizin/fuer-blutspender/blutspendezeiten/",
+    "id": "qI6kXiGxv6M"
+  },
+  {
+    "title": "Blutspendedienst der Uniklinik RWTH Aachen",
+    "contact": "Transfusionsmedizin, RKP-Spende (COVID-19) Mail: transfusionsmedizin@ukaachen.de",
+    "address": "Pauwelsstr. 30, 52074 Aachen",
+    "phone": "0241 8080000",
+    "url": "http://www.ukaachen.de/kliniken-institute/transfusionsmedizinblutspendedienst/blutspendedienst.html",
+    "id": "7wZqQN8AB_t"
+  },
+  {
+    "title": "Blutspendedienst des Uniklinikums Bonn (UKB)",
+    "contact": "Institut für Experimentelle Hämatologie und Transfusionsmedizin, RKP-Spende (COVID-19) Telefon: 0228-287 14780",
+    "address": "Venusberg-Campus 1 Gebäude 43, 53127 Bonn",
+    "phone": "0228-28715174",
+    "email": "blutspende@ukbonn.de",
+    "url": "https://www.ukbonn.de/42256BC8002AF3E7/direct/blutspende",
+    "id": "txvzoFOYbmR"
+  },
+  {
+    "title": "Blutspendezentrale Uniklinik Köln",
+    "contact": "Zentrale Dienstleistungseinrichtung für Transfusionsmedizin / Blutspendezentrale, RKP-Spende (COVID-19) Mail: covid-plasmaspende@uk-koeln.de",
+    "address": "Kerpener Str. 62, 50937 Köln",
+    "phone": "0221 4784805",
+    "url": "http://transfusionsmedizin.uk-koeln.de/blutspendezentrale",
+    "id": "WYZoKLlTu43"
+  },
+  {
+    "title": "Blutspendezentrale im Universitätsklinikum Düsseldorf",
+    "contact": "Zentrum für Operative Medizin I / &quot;Alte Chirurgie&quot;, Geb. 12.43",
+    "address": "Moorenstraße 5, 40225 Düsseldorf",
+    "phone": "0211 8118575",
+    "url": "http://www.uni-blutspende.de",
+    "id": "tGvGHPNYTsG"
+  },
+  {
+    "title": "Blutspendezentrum Duisburg BZD",
+    "contact": "Blutspendezentrum Duisburg BZD, RKP-Spende (COVID-19) Mail: covid19@blutspendezentren.de, RKP-Spende (COVID-19) Website: https://www.blutspendezentren.de/aktuelle-neuigkeiten/spende-nach-covid-19-erkrankung.html",
+    "address": "Königstraße 53, 47051 Duisburg",
+    "phone": "0203 300950",
+    "url": "http://www.blutspendezentren.de/standort-duisburg.html",
+    "id": "zExrdyl_Amt"
+  },
+  {
+    "title": "Blutspendezentrum Gelsenkirchen BZG",
+    "contact": "Blutspendezentrum Gelsenkirchen BZG, RKP-Spende (COVID-19) Mail: covid19@blutspendezentren.de, RKP-Spende (COVID-19) Website: https://www.blutspendezentren.de/aktuelle-neuigkeiten/spende-nach-covid-19-erkrankung.html",
+    "address": "Bahnhofstraße 55-65, 45879 Gelsenkirchen",
+    "phone": "0209 155180",
+    "url": "http://www.blutspendezentren.de/standort-gelsenkirchen.html",
+    "id": "LOWHPfqJUvX"
+  },
+  {
+    "title": "Blutspendezentrum Oberhausen BZO",
+    "contact": "Blutspendezentrum Oberhausen BZO, RKP-Spende (COVID-19) Mail: covid19@blutspendezentren.de, RKP-Spende (COVID-19) Website: https://www.blutspendezentren.de/aktuelle-neuigkeiten/spende-nach-covid-19-erkrankung.html",
+    "address": "Neue Mitte / Centroallee 271, 46047 Oberhausen",
+    "phone": "0208 823110",
+    "url": "http://www.blutspendezentren.de/standort-oberhausen.html",
+    "id": "9hP1gEZ9Law"
+  },
+  {
+    "title": "Blutspendezentrum Wuppertal BZW",
+    "contact": "Blutspendezentrum Wuppertal BZW, RKP-Spende (COVID-19) Mail: covid19@blutspendezentren.de, RKP-Spende (COVID-19) Website: https://www.blutspendezentren.de/aktuelle-neuigkeiten/spende-nach-covid-19-erkrankung.html",
+    "address": "Erholungstr. 19, 42103 Wuppertal-Elberfeld",
+    "phone": "0202 2813980",
+    "url": "http://www.blutspendezentren.de/standort-wuppertal.html",
+    "id": "DqDW7hLMRDi"
+  },
+  {
+    "title": "CSL Plasma Bielefeld",
+    "address": "Niederwall 1-3, 33602 Bielefeld",
+    "phone": "0521/967270",
+    "id": "CqIcTHfK7bC"
+  },
+  {
+    "title": "DRK Zentrum für Transfusionsmedizin Münster",
+    "address": "Sperlichstraße 15, 48151 Münster",
+    "phone": "0251 709277",
+    "email": "muenster@bsdwest.de",
+    "url": "https://www.blutspendedienst-west.de/blutspendedienst/standorte/muenster",
+    "id": "niJaRONxBKk"
+  },
+  {
+    "title": "Haema Blutspendezentrum Bonn",
+    "contact": "Haema Blutspendezentrum Bonn, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Poststr. 19, 53111 Bonn",
+    "phone": "0228-8509740",
+    "url": "http://www.haema.de/blutspendezentren/nordrhein-westfalen/bonn.html",
+    "id": "33W45wyVj8w"
+  },
+  {
+    "title": "Haema Blutspendezentrum Dortmund",
+    "contact": "Haema Blutspendezentrum Dortmund, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Ostenhellweg 50-52, 44135 Dortmund",
+    "phone": "0231-28225320",
+    "url": "http://www.haema.de/blutspendezentren/nordrhein-westfalen/dortmund.html",
+    "id": "Uhu4XlpBelG"
+  },
+  {
+    "title": "Haema Blutspendezentrum Essen",
+    "contact": "Haema Blutspendezentrum Essen, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Kettwiger Straße 64, 45127 Essen",
+    "phone": "0201-94604600",
+    "url": "http://www.haema.de/blutspendezentren/nordrhein-westfalen/essen.html",
+    "id": "cEnqDbJa1L9"
+  },
+  {
+    "title": "Haema Blutspendezentrum Hamm",
+    "contact": "Haema Blutspendedienst in der City Galerie, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Westring 2, 59065 Hamm",
+    "phone": "02381-9299290",
+    "url": "http://www.haema.de/blutspendezentren/nordrhein-westfalen/hamm.html",
+    "id": "OcbzZGM0bPz"
+  },
+  {
+    "title": "Octapharma Plasma Aachen",
+    "address": "Peterstraße 20-24, 52062 Aachen",
+    "phone": "0241 4001550",
+    "email": "pzman-aachen@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/aachen",
+    "id": "XsYEZguyyzj"
+  },
+  {
+    "title": "Universitärer Blutspendedienst OWL - Bad Oeynhausen",
+    "contact": "Institut für Laboratoriums- und Transfusionsmedizin des Herz- und Diabeteszentrums NRW (HDZ NRW), RKP-Spende (COVID-19) Mail: corona@blutspendedienst-owl.de, RKP-Spende (COVID-19) Telefon: 05731 97-2400 (werktags von 10-19 Uhr)",
+    "address": "Georgstraße 11, 32545 Bad Oeynhausen",
+    "phone": "05731 971197",
+    "url": "http://www.uni-blutspendedienst-owl.de",
+    "id": "owvdgfQS0N8"
+  },
+  {
+    "title": "Universitärer Blutspendedienst OWL - Bielefeld Stadt",
+    "contact": "Institut für Laboratoriums- und Transfusionsmedizin des Herz- und Diabeteszentrums NRW (HDZ NRW), RKP-Spende (COVID-19) Mail: corona@blutspendedienst-owl.de, RKP-Spende (COVID-19) Telefon: 05731 97-2400 (werktags von 10-19 Uhr)",
+    "address": "Oberntorwall 22, 33602 Bielefeld",
+    "phone": "0521 9666660",
+    "url": "http://www.uni-blutspendedienst-owl.de",
+    "id": "n3bytWa2Cyn"
+  },
+  {
+    "title": "octapharma Plasma Hagen",
+    "address": "Hohenzollernstraße 5, 58095 Hagen",
+    "phone": "02331 348810",
+    "email": "pzman-hagen@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/hagen",
+    "id": "8NJeZlFMcUo"
+  },
+  {
+    "title": "octapharma Plasma Krefeld",
+    "address": "Petersstraße 122, Behnisch Haus, 47798 Krefeld",
+    "phone": "02151 569050",
+    "email": "pzman-krefeld@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/krefeld",
+    "id": "2RyU6m0a1QM"
+  },
+  {
+    "title": "octapharma Plasma Mönchengladbach",
+    "address": "Lürriper Str. 11, 41065 Mönchengladbach",
+    "phone": "02161 463430",
+    "email": "pzman-moenchengladbach@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/moenchengladbach",
+    "id": "teV-I29_GM0"
+  },
+  {
+    "title": "octapharma Plasma Oberhausen",
+    "address": "Concordiastraße 32, 46049 Oberhausen",
+    "phone": "0208 9418770",
+    "email": "pzman-oberhausen@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/oberhausen",
+    "id": "RmDSAk8xXGx"
+  },
+  {
+    "title": "octapharma Plasma Koblenz",
+    "address": "Löhrstraße 23, 56068 Koblenz",
+    "phone": "0261 973760",
+    "email": "pzman-koblenz@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/koblenz",
+    "id": "6uCcTL93Muz"
+  },
+  {
+    "title": "Blutspendedienst am Universitätsklinikum des Saarlandes Homburg",
+    "contact": "Gebäude 1, RKP-Spende (COVID-19) Mail: haemostaseologie@uks.eu, hermann.eichler@uks.eu, RKP-Spende (COVID-19) Telefon: 06841-16-22530",
+    "address": "Ringstraße 52, 66421 Homburg",
+    "phone": "06841 1622540",
+    "url": "http://www.uniklinikum-saarland.de/einrichtungen/kliniken_institute/chirurgie/haemostaseologie/infos_fuer_blutspender/oeffnungszeiten_blutspende/",
+    "id": "dBBpkOgvtUi"
+  },
+  {
+    "title": "Blutspende Uniklinik Leipzig",
+    "contact": "Blutspende Uniklinik Leipzig, RKP-Spende (COVID-19) Telefon: 0341-9725393",
+    "address": "Johannisallee 32, 04103 Leipzig",
+    "phone": "03 41-9725410",
+    "url": "http://www.blutbank.uniklinikum-leipzig.de/blutbank2012.site,postext,ueber-das-institut.html",
+    "id": "CkPPZppfaQN"
+  },
+  {
+    "title": "DRK-Blutspendedienst Chemnitz",
+    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Zeisigwaldstraße 103, 09130 Chemnitz",
+    "phone": "0371-432200",
+    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-chemnitz.php",
+    "id": "nDfXXm4DC8K"
+  },
+  {
+    "title": "DRK-Blutspendedienst Dresden",
+    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Blasewitzer Straße 68 / 70, 01307 Dresden",
+    "phone": "0351-4450800",
+    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-dresden.php",
+    "id": "SlVJbZ_js5n"
+  },
+  {
+    "title": "DRK-Blutspendedienst Görlitz",
+    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Zeppelinstraße 43, 02828 Görlitz",
+    "phone": "03581-321150",
+    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-goerlitz.php",
+    "id": "0GSKtNezGIR"
+  },
+  {
+    "title": "DRK-Blutspendedienst Leipzig",
+    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Prager Str. 13, 04317 Leipzig",
+    "phone": "0341-30391442",
+    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-leipzig.php",
+    "id": "E0bMDZlpLxJ"
+  },
+  {
+    "title": "DRK-Blutspendedienst Plauen",
+    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Röntgenstraße 2a, 08529 Plauen",
+    "phone": "03741-40700",
+    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-plauen.php",
+    "id": "dQaaVxSAW-n"
+  },
+  {
+    "title": "DRK-Blutspendedienst Zwickau",
+    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Karl-Keil Straße 33a, 08060 Zwickau",
+    "phone": "0375 5015810",
+    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-zwickau.php",
+    "id": "R0lJIK3VQMN"
+  },
+  {
+    "title": "HAEMA Dresden Elbepark",
+    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Lommatzscher Straße 82, 01139 Dresden",
+    "phone": "0351 20 28 700",
+    "url": "https://www.haema.de/spendezentren/sachsen/dresden-elbepark.html",
+    "id": "erBCWbPn83P"
+  },
+  {
+    "title": "Haema Blutspendezentrum Chemnitz",
+    "contact": "Haema Blutspendezentrum Chemnitz, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Markt 5, 09111 Chemnitz",
+    "phone": "0371-6662750",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/chemnitz.html",
+    "id": "bquETJI236k"
+  },
+  {
+    "title": "Haema Blutspendezentrum Dresden-Fetscherplatz",
+    "contact": "Haema Blutspendezentrum Dresden-Fetscherplatz",
+    "address": "Fetscherplatz 2a, 01307 Dresden",
+    "phone": "0351 2166810",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/dresden-fetscherplatz.html",
+    "id": "YJ5WXjK-Kw2"
+  },
+  {
+    "title": "Haema Blutspendezentrum Dresden-World Trade Center",
+    "contact": "Haema Blutspendezentrum Dresden-World Trade Center, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Rosenstrasse 30, 01067 Dresden",
+    "phone": "0351 4079250",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/dresden-world-trade-center.html",
+    "id": "qidEwubIJl-"
+  },
+  {
+    "title": "Haema Blutspendezentrum Freiberg",
+    "contact": "Haema Blutspendezentrum Freiberg, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Bahnhofstr. 40-42, 09599 Freiberg",
+    "phone": "03731 5895940",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/freiberg.html",
+    "id": "NrGdeFgEqKx"
+  },
+  {
+    "title": "Haema Blutspendezentrum Grimma",
+    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Käthe-Kollwitz-Straße 6, 04668 Grimma",
+    "phone": "03437-707650",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/grimma.html",
+    "id": "dgbXgHuAuz6"
+  },
+  {
+    "title": "Haema Blutspendezentrum Görlitz",
+    "contact": "Haema Blutspendezentrum Görlitz, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "An der Frauenkirche 12, 02826 Görlitz",
+    "phone": "03581 877780",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/goerlitz.html",
+    "id": "nuV53uZjrsc"
+  },
+  {
+    "title": "Haema Blutspendezentrum Leipzig-Connewitz",
+    "contact": "Haema Blutspendedienst Connewitz, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Karl-Liebknecht-Straße 153-155, 04277 Leipzig",
+    "phone": "0341-3037680",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/leipzig-connewitz.html",
+    "id": "8xhY3z7WoA1"
+  },
+  {
+    "title": "Haema Blutspendezentrum Leipzig-Gohlis",
+    "contact": "Haema Blutspendedienst in den Gohlis Arkaden, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Lützowstraße 11, 04155 Leipzig",
+    "phone": "0341-5830950",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/leipzig-gohlis-arkaden.html",
+    "id": "-gQBhUwnAnG"
+  },
+  {
+    "title": "Haema Blutspendezentrum Leipzig-Markt",
+    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Markt 9, 04109 Leipzig",
+    "phone": "0341-2120060",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/leipzig-markt.html",
+    "id": "Z9ksYEFpV_A"
+  },
+  {
+    "title": "Haema Blutspendezentrum Plauen",
+    "contact": "Haema Blutspendedienst am Klostermarkt, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Oberer Steinweg 10, 08523 Plauen",
+    "phone": "03741-280740",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/plauen.html",
+    "id": "K7gt1qdu_Pi"
+  },
+  {
+    "title": "Haema Blutspendezentrum Zwickau",
+    "contact": "Haema Blutspendedienst in den Zwickau-Arcaden, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Marienstraße 3/1, 08056 Zwickau",
+    "phone": "0375-2721940",
+    "url": "http://www.haema.de/blutspendezentren/sachsen/zwickau.html",
+    "id": "Fi9f8KsD3V6"
+  },
+  {
+    "title": "Octapharma Plasma Dresden",
+    "address": "Altmarkt-Galerie, Webergasse 1, 01067 Dresden",
+    "id": "lY5XAh8lf_q"
+  },
+  {
+    "title": "Plasmavita Chemnitz Center",
+    "contact": "RKP-Spende (COVID-19) Mail: chemnitz@plasmavita.de, RKP-Spende (COVID-19) Telefon: 03722 8929130",
+    "address": "Ringstraße 17, 09247 Chemnitz",
+    "url": "https://plasmavita.de/standorte/plasmazentrum-chemnitz/",
+    "id": "QFF0nJKg_q9"
+  },
+  {
+    "title": "Haema Blutspendezentrum Halle (Saale)",
+    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Neustädter Passage 17 A, 06122 Halle (Saale)",
+    "phone": "0345-6857940",
+    "url": "http://www.haema.de/blutspendezentren/sachsen-anhalt/hallesaale.html",
+    "id": "_4g6is8jWtz"
+  },
+  {
+    "title": "Plasmavita City Carré Magdeburg",
+    "contact": "RKP-Spende (COVID-19) Mail: magdeburg@plasmavita.de, RKP-Spende (COVID-19) Telefon: 0391 55686130",
+    "address": "Ernst-Reuter-Allee 39, 39104 Magdeburg",
+    "url": "https://plasmavita.de/standorte/plasmazentrum-magdeburg/",
+    "id": "b0WtlsXrf-g"
+  },
+  {
+    "title": "Uni-Blutbank Magdeburg",
+    "contact": "Institut für Transfusionsmedizin und Immunhämatologie mit Blutbank, RKP-Spende (COVID-19) Mail: transmed@ovgu.de",
+    "address": "Leipziger Str. 44, 39120 Magdeburg",
+    "phone": "0391-6713939",
+    "email": "transmed@ovgu.de",
+    "url": "http://www.blutspende-magdeburg.de",
+    "id": "s4eSctGfc5S"
+  },
+  {
+    "title": "octapharma Plasma Dessau",
+    "address": "Kavalierstraße 49, Rathaus-Center, 06844 Dessau",
+    "phone": "0340 216410",
+    "email": "pzman-dessau@octapharmaplasma.de",
+    "url": "https://www.octapharmaplasma.de/standorte/dessau",
+    "id": "Rd_vCHuV5_a"
+  },
+  {
+    "title": "Blutspendezentrum am Campus Lübeck",
+    "contact": "Universitätsklinikum Schleswig-Holstein, Institut für Transfusionsmedizin Lübeck, RKP-Spende (COVID-19) Mail: termin.blutspende@uksh.de, RKP-Spende (COVID-19) Telefon: 0451-50016052",
+    "address": "Ratzeburger Allee 160, Haus 31, 23538 Lübeck",
+    "phone": "0451-5003506",
+    "url": "http://www.uksh.de/blutspende/blutspende_luebeck.html",
+    "id": "Si9mv-RPUNa"
+  },
+  {
+    "title": "DRK-Blutspendedienst Schleswig",
+    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "address": "Rote Kreuz-Weg 5, 24837 Schleswig",
+    "phone": "04621-96740",
+    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/institut-schleswig.php",
+    "id": "pNvWOf0cH3Z"
+  },
+  {
+    "title": "Haema Blutspendezentrum Lübeck",
+    "contact": "Haema Blutspendedeinst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Sandstraße 1-15, 23552 Lübeck",
+    "phone": "0451-98930110",
+    "url": "http://www.haema.de/blutspendezentren/schleswig-holstein/luebeck.html",
+    "id": "ELgEIyQt6CE"
+  },
+  {
+    "title": "UKSH Blutspendezentrum Lübeck CITTI-Park",
+    "contact": "RKP-Spende (COVID-19) Mail: termin.blutspende@uksh.de, RKP-Spende (COVID-19) Telefon: 0451-50016052",
+    "address": "Herrenholz 14, 23556 Lübeck",
+    "phone": "0451 50016052",
+    "email": "termin.blutspende@uksh.de",
+    "id": "1wkndcQa1fl"
+  },
+  {
+    "title": "Uni-Klinik Kiel",
+    "contact": "RKP-Spende (COVID-19) Mail: termin.blutspende@uksh.de, RKP-Spende (COVID-19) Telefon: 0451-50016052",
+    "address": "Mühlendamm 1, 24113 Kiel",
+    "phone": "0431 50016191",
+    "email": "Blutspende-Kiel@uksh.de",
+    "url": "https://www.uksh.de/blutspende/blutspende_kiel.html",
+    "id": "v7jP0BTHmz3"
+  },
+  {
+    "title": "Haema Blutspendezentrum Erfurt",
+    "contact": "Haema Blutspendezentrum Erfurt, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Lachsgasse 3, 99084 Erfurt",
+    "phone": "0361-6441120",
+    "url": "http://www.haema.de/blutspendezentren/thueringen/erfurt.html",
+    "id": "-h_km0ggCRZ"
+  },
+  {
+    "title": "Haema Blutspendezentrum Gera",
+    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Breitscheidstraße 1-5, 07545 Gera",
+    "phone": "0365-5520680",
+    "url": "http://www.haema.de/blutspendezentren/thueringen/gera.html",
+    "id": "GBmwzZbcD9J"
+  },
+  {
+    "title": "Haema Blutspendezentrum Gotha",
+    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Oststraße 51, 99867 Gotha",
+    "phone": "03621-733770",
+    "url": "http://www.haema.de/blutspendezentren/thueringen/gotha.html",
+    "id": "qNU6IBiK4Aj"
+  },
+  {
+    "title": "Haema Blutspendezentrum Jena",
+    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Goethestraße 3a, 07743 Jena",
+    "id": "tyVdosrWoxg"
+  },
+  {
+    "title": "Haema Blutspendezentrum Weimar",
+    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "address": "Steubenstraße 15, 99423 Weimar",
+    "phone": "03643-4581630",
+    "url": "http://www.haema.de/blutspendezentren/thueringen/weimar.html",
+    "id": "Av5vJ0hoV7n"
+  }
+]
