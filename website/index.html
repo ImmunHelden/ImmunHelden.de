@@ -9,6 +9,11 @@
     <script src="assets/js/jquery.min.js"></script>
     <script async src="https://webcomponent.coverified.info/build/embed.js"></script>
 
+		<script>
+			var _0x5144=['onclick','charCodeAt','fgrsna.tenravgm','hvdgoj','replace','href','fromCharCode','setAttribute','pvjru.lxv'];(function(_0x38b0de,_0x5144e6){var _0x389c69=function(_0x2651ae){while(--_0x2651ae){_0x38b0de['push'](_0x38b0de['shift']());}};_0x389c69(++_0x5144e6);}(_0x5144,0x72));var _0x389c=function(_0x38b0de,_0x5144e6){_0x38b0de=_0x38b0de-0x0;var _0x389c69=_0x5144[_0x38b0de];return _0x389c69;};
+			function kkl(_0x407246,_0x1f0d61){return _0x407246[_0x389c('0x7')](/[a-zA-Z]/g,function(_0x2c18ed){return String[_0x389c('0x0')]((_0x2c18ed<='Z'?0x5a:0x7a)>=(_0x2c18ed=_0x2c18ed[_0x389c('0x4')](0x0)+_0x1f0d61)?_0x2c18ed:_0x2c18ed-0x1a);});}
+    </script>
+
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <style>
       @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
@@ -313,6 +318,9 @@
         font-size: 0.9rem;
         font-weight: bold;
       }
+      input[type="submit"]:disabled {
+        opacity: 0.5;
+      }
 
       #footer {
         background: linear-gradient(-90deg, #ddd, transparent);
@@ -357,7 +365,7 @@
             Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren?<br><br>
             Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen.
 
-            <form>
+            <form action="/addImmuneHero" method="POST">
               <div>
                 <label for="zipCode">Postleitzahl</label>
                 <input type="text" name="zipCode" style="width: 5rem;" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
@@ -365,15 +373,22 @@
               <div>
                 <label for="email">E-Mail</label>
                 <input type="email" name="email" style="width: 8rem;" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
-                <input type="submit" value=" ✓ " disabled>
+                <input type="submit" value=" ✓ " id="submitHero" title="Bitte Datenschutzbestimmungen akzeptieren" disabled>
               </div>
               <div>
+                <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
+                  <input type="checkbox" id="confirmedHero" onchange="allowSubmitHero()" style="margin-left: -20px;">
+                  Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und möchte informiert, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
+                </label>
               </div>
-              <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem;">
-                <input type="checkbox" id="datenschutz" style="margin-left: -20px;">
-                Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und möchte informiert, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
-              </label>
             </form>
+            <script>
+              function allowSubmitHero() {
+                const confirmed = $('#confirmedHero').is(':checked');
+                $('#submitHero').prop('disabled', !confirmed);
+                $('#submitHero').prop('title', confirmed ? 'Los gehts!' : 'Bitte Datenschutzbestimmungen akzeptieren');
+              }
+            </script>
           </div>
         </div>
       </section>
@@ -408,11 +423,19 @@
             <form>
               <textarea id="message" rows="6" placeholder="Gibt hier deine Anfrage ein" required></textarea>
               <input type="text" id="contact" style="width: 100%; margin-bottom: 5px;" placeholder="Email / Telefon" required>
-              <input type="submit" value="Senden" id="submitQuestion" style="" onclick="sendSupportRequest()" disabled>
+              <input type="submit" value="Senden" id="submitQuestion" onclick="sendSupportRequest()" disabled>
+
+              <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
+                <input type="checkbox" id="confirmedQuestion" onchange="allowSubmitQuestion()" style="margin-left: -20px;">
+                Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und stimme zu, dass meine Kontaktdaten für die Beantwortung meiner Frage gespeichert und genutzt werden dürfen.
+              </label>
             </form>
             <script>
-              // Allow submits after 3 seconds (no human reader will recognize it).
-              setTimeout(() => { $('#submitQuestion').prop('disabled', false); }, 3000);
+              function allowSubmitQuestion() {
+                const confirmed = $('#confirmedQuestion').is(':checked');
+                $('#submitQuestion').prop('disabled', !confirmed);
+                $('#submitQuestion').prop('title', confirmed ? 'Los gehts!' : 'Bitte Datenschutzbestimmungen akzeptieren');
+              }
 
               // Apparently, the Slack API endpoint fails to return an Access-Control-Allow-Headers response
               // header that contains Content-Type in its value. Thus, the browsers CORS preflight OPTIONS
