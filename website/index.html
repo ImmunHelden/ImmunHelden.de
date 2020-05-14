@@ -1,446 +1,584 @@
 <!DOCTYPE HTML>
-<!--
-	Industrious by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
 <html>
-	<head>
-		<title>ImmunHelden</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<style>
-			#banner {
-				background-image: linear-gradient(rgba(27, 69, 206, 0.25), rgba(206, 27, 40, 0.25)), url(images/cta01.jpg);
-				text-shadow: 1px 1px #333;
-				color: #fff;
-			}
-			#banner h1 {
-				font-weight: bold;
-				text-transform: none;
-			}
-			section.wrapper h1 {
-				text-shadow: 1px 1px #333;
-			}
-			header.special p {
-				margin: 1rem auto;
-			}
-			div.intro {
-				border-radius: 4px;
-				background: #ffffff;
-				box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.025);
-				padding: 2rem;
-			}
-			div.intro div.intro-text {
-				float: left;
-				text-align: justify;
-			}
-			div.intro iframe {
-				width: 100%;
-				height: 100%;
-				min-height: 25rem;
-			}
-			form.label-above-input h3 {
-				margin-bottom: 0;
-    		margin-top: 2rem;
-			}
-			form.label-above-input div {
-				display: inline-block;
-				margin: 1rem;
-				text-align: left;
-			}
-			form.label-above-input label {
-				padding: 0;
-				margin: 0;
-			}
-			form.label-above-input input {
-				width: 12rem;
-				display: block;
-			}
-			form.label-above-input input.zipCode {
-				width: 6rem;
-			}
-			form.label-above-input textarea {
-				/* Not sure where the 0.6rem come from.. */
-				width: 32rem;
-				display: block;
-			}
+  <head>
+    <title>ImmunHelden</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <script src="assets/js/jquery.min.js"></script>
+    <script async src="https://webcomponent.coverified.info/build/embed.js"></script>
 
-			/* TODO: The overlay is not fully exact yet! */
-			.map-overlay {
-				position: relative;
-				left: 0;
-				top: -100%;
-				width: 100%;
-				height: 100%;
-			}
-			.map-overlay-link {
-				display: inline-block;
-				width: 100%;
-				height: 100%;
-			}
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
+      @import url("//db.onlinewebfonts.com/c/f4bc352b52c96ca087093d36bd2396bb?family=Noteworthy");
 
-			.beta-ribbon-wrapper {
-				width: 130px;
-				height: 130px;
-				overflow: hidden;
-				position: fixed;
-				top: 0;
-				right: 0;
-				z-index: 10002;
-			}
-			.beta-ribbon {
-				font-weight: bold;
-				text-align: center;
-				transform: rotate(45deg);
-				position: relative;
-				padding: 7px 0;
-				left: 0px;
-				top: 11px;
-				width: 200px;
-				background-color: #ffea94;
-				background-image: linear-gradient(to bottom, #ffea94, #ffea5E);
-			}
-			.beta-ribbon a:link, .beta-ribbon a:visited, .beta-ribbon a:hover, .beta-ribbon a:active {
-				font-size: 18px;
-				text-decoration: none;
-				color: #393939;
-			}
-		</style>
-	</head>
-	<body class="is-preload">
-		<div class="beta-ribbon-wrapper">
-			<div class="beta-ribbon">
-				<a target="_blank" href="https://github.com/weliveindetail/ImmunHelden.de">Beta</a>
-			</div>
-		</div>
+      body {
+        font-family: "Raleway", Arial, Helvetica, sans-serif;
+        line-height: 1.55rem;
+        margin: 0;
+      }
 
-		<header id="header">
-			<a class="logo" href="index.html">ImmunHelden</a>
-		</header>
+      a:link, a:visited, a:hover, a:active {
+        text-decoration: none;
+        color: #ce1b28;
+        display: inline;
+      }
 
-		<section id="banner">
-			<div class="heading">
-				<h1>ImmunHelden</h1>
-				<br>
-				<p>
-					Wir verbinden von Covid-19 genesene und damit voraussichtlich immune Helfer:innen
-					mit allen, die Unterstützung benötigen.<br>
-				</p>
-			</div>
-		</section>
+      section {
+        padding: 4rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      section div.content {
+        max-width: 50rem;
+        display: flex;
+      }
+      section div.content > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+      section.questions {
+        background: linear-gradient(45deg, #93672533, transparent);
+        box-shadow: 0 0 15px #888;
+        margin-top: 4rem;
+      }
 
-  	<section class="wrapper">
-			<div class="inner">
-				<header class="special">
-					<h2>Ich bin immun, was kann ich tun?</h2>
+      section.questions * {
+        box-sizing: border-box;
+      }
 
-					<div class="highlights intro">
-						<div class="intro-map">
-							<iframe src="map.html?zoom=5&amp;interactive=false&header=false"></iframe>
-							<div class="map-overlay">
-								<a class="map-overlay-link" href="map.html"></a>
-							</div>
-						</div>
-						<div class="intro-text">
-							<b>Superhelden gibt es nicht? Jeder oder jede denkt nur an sich? Stimmt nicht!</b> Du hast
-							die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich
-							engagieren? <a href="#cta">Dann mach mit und werde Immunheld:in</a>!<br>
-							<br>
-							<b>Wir möchten helfen, für notwendige Dienstleistungen</b> Menschen zu finden,
-							die gegen das neuartige Coronavirus wahrscheinlich immun sind, weil sie die COVID-19-Erkrankung
-							schon hinter sich haben. Brauchst Unterstützung in einem wichtigen Lebensbereich?
-							<a href="#cta2">Dann mach mit und stelle hier eine Anfrage für eine Immunheld:in</a>!<br>
-							<br>
-							<b>Wenn wir die im System entstehenden Lücken</b> schnell mit Immunen besetzen
-							können, wird die Versorgung der Gesellschaft besser sichergestellt und die Infektionskette
-							gleichzeitig unterbrochen! Zusammen können wir die Virusausbreitung verlangsamen
-							und Risikogruppen schützen.
-						</div>
-					</div>
-				</header>
-			</div>
-		</section>
+      header a:link, header a:visited, header a:hover, header a:active {
+        text-decoration: none;
+        font-weight: bold;
+        color: #333;
+      }
 
-		<section class="wrapper">
-			<div class="inner">
-				<header class="special">
-					<h2>Mitmachen</h2>
-					<div class="highlights">
-						<section>
-							<div class="content">
-								<header>
-									<a href="#cta"><img src="images/superhero.png" alt="hero" width="100" /></a>
-									<h3>Ich möchte ImmunHeld:in werden</h3>
-								</header>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<header>
-									<a href="#cta2"><img src="images/broadcast.png" alt="announce" width="100" /></a>
-									<h3>Ich brauche eine ImmunHeld:in</h3>
-								</header>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<header>
-									<a href="faq.html"><img src="images/qa.png" alt="question-answer" width="100" /></a>
-									<h3>Häufige Fragen und Kontakt</h3>
-								</header>
-							</div>
-						</section>
-					</div>
-				</header>
-			</div>
-		</section>
+      div.page {
+        box-sizing: border-box;
+      }
 
-		<!-- CTA -->
-			<section id="cta" class="wrapper">
-				<h1>Werde ImmunHeld:in</h1>
-			</section>
+      @media only screen and (min-width: 700px) {
+        header {
+          position: absolute;
+          top: 0;
+          left: 2rem;
+          width: 8rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: #fff;
+          box-shadow: 0 0 15px;
+        }
 
-		<!-- Formular -->
-			<section id="formular_held" class="wrapper">
-				<div class="inner">
-					<header class="special">
-						<p>
-							Wir informieren dich, sobald jemand in deiner Region Hilfe braucht.
-						</p>
-						<form action="/addImmuneHero" id="person" class="label-above-input" method="POST">
-							<div>
-								<label for="heroFirstName">Vorname</label>
-								<input type="text" name="preName" id="heroFirstName" maxlength="40"
-											 title="Um Vertrauen aufzubauen und eine persönliche Atmosphäre zu gestalten, benötigen wir bitte deinen Vor- und Nachnamen" required>
-							</div>
-							<div>
-								<label for="heroLastName">Nachname</label>
-								<input type="text" name="lastName" id="heroLastName" maxlength="40"
-											 title="Um Vertrauen aufzubauen und eine persönliche Atmosphäre zu gestalten, benötigen wir bitte deinen Vor- und Nachnamen" required>
-							</div>
-							<div>
-								<label for="heroZip">Postleitzahl</label>
-								<input type="text" name="zipCode" id="heroZip" maxlength="5" class="zipCode"
-											 pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
-							</div>
-							<div>
-								<label for="heroMail">E-Mail</label>
-								<input type="email" name="emailAddress" id="heroMail" maxlength="100"
-											 pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
-							</div>
+        header > a {
+          display: block;
+          text-align: center;
+        }
 
-						<!--
-							<div class="col-12">
-								<select name="emailCategory" id="emailCategory" required>
-									<option value="" disabled selected>So oft möchte ich informiert werden</option>
-									<option value="direct">Für jede neue Anfrage</option>
-									<option value="daily">Tägliche Zusammenfassung</option>
-									<option value="weekly">Wöchentliche Zusammenfassung</option>
-								</select>
-							</div>
-						-->
+        header > a > * {
+          display: inline-block;
+          text-align: center;
+        }
 
-							<p>
-								Deine hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet,
-								dich mit Personen in Kontakt zu bringen, die über diese Seite Hilfe anfordern.
-								Deine Daten werden den Hilfesuchenden dabei <u>nicht</u> offengelegt.<br>
-								Du bekommst Informationen und Kontaktdaten von Hilfesuchenden aus deiner
-								Umgebung und entscheidest, bei welchen Hilfesuchenden du dich meldest.
-								Weitere Informationen in unserer
-								<a href="datenschutz.html">Datenschutzerklärung</a>.
-							</p>
-							<button class="button primary large" type="submit">Eingaben absenden</button>
-						</form>
-					</header>
-				</div>
-			</section>
+        header .logo {
+          width: 5rem;
+          padding-top: 1rem;
+        }
 
-		<!-- CTA2 -->
-			<section id="cta2" class="wrapper">
-				<h1>Frage ImmunHelden an</h1>
-			</section>
+        header img.wirvsvirus {
+          width: 6rem;
+          padding-top: 0.33rem;
+        }
 
-		<!-- Formular2 -->
-			<section id="formular_anfrage" class="wrapper">
-				<div class="inner">
-					<header class="special">
-						<p>
-							Ob im Gesundheitsweisen, Einzelhandel, Lieferdienst, Suppenküche, Kinderbetreuung oder Pflege.
-							ImmunHeld:innen können dich bei vielen gesellschaftlich wichtigen Aufgaben unterstützen.
-						</p>
-						<form action="/addStakeHolder" id="person" class="label-above-input" method="GET">
-							<h3>Wo wird Hilfe gebraucht?</h3>
-							<div>
-								<label for="stakeholderAddress">Straße, Hausnummer</label>
-								<input type="text" name="address" id="stakeholderAddress" maxlength="100" required>
-							</div>
-							<div>
-								<label for="stakeholderZip">Postleitzahl</label>
-								<input type="text" name="zipCode" id="stakeholderZip" maxlength="5" class="zipCode"
-												pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
-							</div>
-							<div>
-								<label for="stakeholderCity">Stadt</label>
-								<input type="text" name="city" id="stakeholderCity" maxlength="40" required>
-							</div>
-							<div style="display: block; width: 32rem; margin: 1rem auto 2rem auto;">
-								<label for="stakeholderMessage">
-									Kurze Beschreibung.
-									Über eine etwaige Vergütung stimmst du dich bei Kontaktaufnahme direkt mit der ImmunHeld:in ab.
-								</label>
-								<textarea name="text" id="stakeholderMessage" rows="6"
-												  placeholder="Was ist zu tun? Gibt es besondere Anforderungen? Geht es um eine einmalige oder eine regelmäßige Tätigkeit?" required></textarea>
-							</div>
+        section div.content {
+          flex-direction: row;
+          width: 100%;
+        }
+        section div.content > div:first-child {
+          padding-right: 3rem;
+        }
+        section div.content > div.center {
+          align-items: center;
+        }
+        div.intro-right {
+          flex: auto;
+          width: 19rem;
+          padding: 2rem;
+          margin: 3rem 0;
+          border-radius: 2rem 0 0 2rem;
+          background-color: #f4f4f4d4;
+          margin-left: 12rem;
+        }
+        section.intro {
+          background: url('images/cta02.jpg');
+          background-position: 50% 70%;
+          padding: 0;
+          align-items: flex-end;
+        }
 
-							<h3>Ansprechpartner</h3>
-							<div>
-								<label for="stakeholderFirstName">Vorname</label>
-								<input type="text" name="preName" id="stakeholderFirstName" maxlength="40"
-											title="Vorname des Ansprechpartners" required>
-							</div>
-							<div>
-								<label for="stakeholderLastName">Nachname</label>
-								<input type="text" name="lastName" id="stakeholderLastName" maxlength="40"
-											title="Nachname des Ansprechpartners" required>
-							</div>
-							<div>
-								<label for="stakeholderOrg">Organisation (optional)</label>
-								<input type="text" name="organisation" id="stakeholderOrg" maxlength="40">
-							</div>
-							<br>
-							<div>
-								<label for="stakeholderEmail">E-Mail</label>
-								<input type="email" name="emailAddress" id="stakeholderEmail" maxlength="100"
-											pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Email Adresse des Ansprechpartners" required>
-							</div>
-							<div>
-								<label for="stakeholderPhone">Telefon</label>
-								<input type="text" name="phoneNumber" id="stakeholderPhone" maxlength="16"
-											pattern="[0-9\s\+]+" title="Telefonnummer des Ansprechpartners" required>
-							</div>
+        section.plasma iframe {
+          height: 100%;
+          min-height: 20rem;
+          min-width: 20rem;
+          border: 0;
+        }
+        section.plasma {
+          padding-bottom: 0;
+        }
+        section.questions div.content {
+          flex-direction: row;
+        }
 
-							<p>
-								Eure hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet,
-								euch mit Personen in Kontakt zu bringen, die sich auf dieser Seite als Helfer
-								registriert haben. Dazu werden eure Daten in automatisch generierten E-Mails
-								an Helfern in der Umgebung geschickt. Diese können dann mit euch Kontakt
-								aufnehmen, wenn sie euch unterstützen möchten. Außerdem werden Informationen
-								zu Ort, Tätigkeit und Kontakt auf unserer Karte angezeigt. Weitere
-								Informationen in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.
-							</p>
-							<button class="button primary large" type="submit">Eingaben absenden</button>
-						</form>
-					</header>
-				</div>
-			</section>
+        #footer {
+          padding: 2rem;
+        }
+      }
+      @media only screen and (max-width: 700px) {
+        header {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 3rem;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          background: #fff;
+        }
 
-	<!-- Testimonials
-			<section class="wrapper">
-				<div class="inner">
-					<header class="special">
-						<h2>Erfahrungen</h2>
-					</header>
-					<div class="testimonials">
-						<section>
-							<div class="content">
-								<blockquote>
-									<p>Im Edeka helfen hat super viel Spaß gemacht!</p>
-								</blockquote>
-								<div class="author">
-									<div class="image">
-										<img src="images/pic01.jpg" alt="" />
-									</div>
-									<p class="credit">- <strong>Jane Doe</strong> <span>CEO - ABC Inc.</span></p>
-								</div>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<blockquote>
-									<p>Endlich haben wir viele helfende Hände in unserer Suppenküche!</p>
-								</blockquote>
-								<div class="author">
-									<div class="image">
-										<img src="images/pic03.jpg" alt="" />
-									</div>
-									<p class="credit">- <strong>John Doe</strong> <span>CEO - ABC Inc.</span></p>
-								</div>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<blockquote>
-									<p>Es war eine große Beruhigung für die Pfegebedürftigen und ihre Angehörigen, zu wissen, dass ich sie garantiert nicht anstecken werde. Und Spaß hat es mir auch gemacht :)</p>
-								</blockquote>
-								<div class="author">
-									<div class="image">
-										<img src="images/pic02.jpg" alt="" />
-									</div>
-									<p class="credit">- <strong>Janet Smith</strong> <span>CEO - ABC Inc.</span></p>
-								</div>
-							</div>
-						</section>
-					</div>
-				</div>
-			</section>
-		-->
+        header img.logo {
+          height: 1.2rem;
+          padding: 0 0.8rem 0 1rem;
+        }
+
+        header img.wirvsvirus {
+          height: 40px;
+          margin-left: 10px;
+          margin-top: 2px;
+        }
+
+        div.page {
+          margin-top: 3rem;
+        }
+
+        section div.content {
+          flex-direction: column;
+        }
+        div.intro-right {
+          padding: 2rem;
+          border-radius: 0;
+          background-color: transparent;
+        }
+        section.intro {
+          background: linear-gradient( #ffffffaa, #ffffffaa), url('images/cta02.jpg');
+          background-position: 40% 50%;
+          min-height: calc(100vh - 3rem);
+          padding: 0;
+        }
+        section.plasma {
+          padding: 0;
+        }
+        section.plasma div.content {
+          flex-direction: column-reverse;
+        }
+        section.plasma div.description {
+          padding: 2rem;
+          padding-top: 4rem;
+        }
+        section.plasma iframe {
+          height: 20rem;
+          width: 100%;
+          border: 0;
+        }
+
+        #footer {
+          padding: 0;
+        }
+      }
 
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<div class="content">
-						<section>
-							<h3>Ich bin nicht immun, wie kann ich sonst helfen?</h3>
-							<p>Werde unsere PR Held:in! Teile einfach diese Website mit Freunden, Familie, Kolleg:innen und Nachbar:innen. Je mehr ImmunHeld:innen wir mit offenen Stellen vernetzen können, desto weniger Infektionen wird es geben.</p>
-						</section>
-						<section>
-							<h4>#WirVsVirus</h4>
-							<ul class="alt">
-								<li><a target="_blank" href="https://devpost.com/software/immuneheros">ImmunHelden DevPost</a>
-								<li><a target="_blank" href="https://wirvsvirushackathon.org/">Website Hackathon</a></li>
-								<li><a target="_blank" href="https://www.bundesregierung.de/breg-de/themen/coronavirus/wir-vs-virus-1731968">Bundesregierung</a></li>
-							</ul>
-						</section>
-						<section>
-							<h4>Follow us</h4>
-							<ul class="plain">
-								<li><a target="_blank" href="https://twitter.com/ImmunHelden"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
-								<li><i class="icon fa-facebook">&nbsp;</i>Facebook</li>
-								<li><i class="icon fa-instagram">&nbsp;</i>Instagram</li>
-								<li><a target="_blank" href="https://github.com/weliveindetail/ImmunHelden.de"><i class="icon fa-github">&nbsp;</i>Github</a></li>
-							</ul>
-						</section>
-					</div>
-					<div class="content">
-						<section>
-							<div class="image">
-								<a target="_blank" href="https://wirvsvirushackathon.org/">
-									<img src="images/Logo_02_weiss.svg" alt="logo" width="400px" />
-								</a>
-							</div>
-						</section>
-					</div>
-					<div class="copyright">
-            <a href="datenschutz.html">Datenschutzerklärung</a> •
-            <a href="impressum.html">Impressum ImmunHelden.de</a>
-						<br>
-						Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
-						from <a href="https://www.flaticon.com/" title="Flaticon">flaticon.com</a>
-					</div>
-				</div>
-			</footer>
+      h2 {
+        background-image: url('images/black-bar.png');
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: top left;
+        padding-top: 20px;
+        margin-top: 0;
+        font-size: 1.5rem;
+        line-height: 2.25rem;
+        display: inline-block;
+      }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+      h4 {
+        margin: 0;
+      }
 
-	</body>
+      #footer div.content > div {
+        display: inline-block;
+        flex: auto;
+        padding: 1rem 0;
+      }
+
+      #footer ul {
+        list-style-type: none;
+        padding-inline-start: 0;
+      }
+
+      #footer i.icon {
+        font-family: FontAwesome;
+        font-style: normal;
+        display: inline-block;
+        width: 1.5rem;
+        text-align: center;
+      }
+
+      .beta-ribbon-wrapper {
+        width: 130px;
+        height: 130px;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 10002;
+      }
+      .beta-ribbon {
+        font-weight: bold;
+        text-align: center;
+        transform: rotate(45deg);
+        position: relative;
+        padding: 7px 0;
+        left: 0px;
+        top: 11px;
+        width: 200px;
+        background-color: #ffea94;
+        background-image: linear-gradient(to bottom, #ffea94, #ffea5E);
+      }
+      .beta-ribbon a:link, .beta-ribbon a:visited, .beta-ribbon a:hover, .beta-ribbon a:active {
+        font-size: 18px;
+        text-decoration: none;
+        color: #393939;
+      }
+
+      input[type="email"], input[type="text"], textarea {
+        font-family: Raleway, sans-serif; font-size: 1rem;
+        padding: 8px;
+        border: solid 1px; border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.075);
+        border-color: rgba(0, 0, 0, 0.25);
+      }
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      input[type="submit"] {
+        color: #fff; background-color: #ce1b28;
+        font-size: 1.1rem;
+        border: 0;
+        border-radius: 4px;
+        height: 2.2rem;
+      }
+      input[type="button"] {
+        border: 0;
+        background: none;
+        text-decoration: underline;
+        font-size: 1.1rem;
+        font-weight: 300;
+        margin-top: 2rem;
+      }
+      .overlay-followup {
+        position: absolute;
+        left: 0px; top: 0px; width: 100%; height: 100%;
+        font-family: Raleway, sans-serif; font-size: 14pt;
+        background-image: url('images/bkgnd04.jpg');
+        background-size: cover;
+        background-position: center;
+        display: none; /* on click set to 'flex' */
+        flex-direction: column; justify-content: center; align-items: center;
+        box-sizing: border-box; padding: 2rem; text-align: center;
+      }
+      form {
+        margin: 1rem 0;
+      }
+      form > div {
+        display: inline-block;
+        margin: 0;
+      }
+      form > div > label {
+        display: block;
+        text-align: left;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+
+      #footer {
+        background: linear-gradient(-90deg, #ddd, transparent);
+        /*margin-top: -2rem;*/
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="beta-ribbon-wrapper">
+      <div class="beta-ribbon">
+        <a target="_blank" href="https://github.com/weliveindetail/ImmunHelden.de">Beta</a>
+      </div>
+    </div>
+
+    <!--
+    <div class="logo">
+        <img src="images/superhero-bkgnd.png" alt="superhero" style="width: 5rem; display: inline;">
+        <span style="font-family: Noteworthy; font-size: 1rem;">ImmunHelden.de</span>
+        Wir verbinden von Covid-19 genesene und damit voraussichtlich immune Helfer:innen mit allen, die Unterstützung benötigen.
+    </div>
+    -->
+
+    <header>
+      <a href="index.html">
+        <img src="images/superhero.png" alt="ImmunHelden logo" class="logo">
+        <span style="font-family: 'Noteworthy';">ImmunHelden</span>
+      </a>
+      <a href="https://twitter.com/WirvsVirusHack" target="_blank">
+        <img src="images/wirvsvirusSE.png" alt="wirvsvirus" class="wirvsvirus">
+      </a>
+    </header>
+
+    <div class="page">
+      <section class="intro" style="background-size: cover;">
+        <div class="content">
+          <div class="intro-right">
+            <h2>
+              <div style="display: inline-block;">Ich bin immun,</div>
+              <div style="display: inline-block;">was kann ich tun?</div>
+            </h2>
+            Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren?<br><br>
+            Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen.
+
+            <form>
+              <div>
+                <label for="zipCode">Postleitzahl</label>
+                <input type="text" name="zipCode" style="width: 5rem;" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
+              </div>
+              <div>
+                <label for="email">E-Mail</label>
+                <input type="email" name="email" style="width: 8rem;" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
+                <input type="submit" value=" ✓ " disabled>
+              </div>
+              <div>
+              </div>
+              <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem;">
+                <input type="checkbox" id="datenschutz" style="margin-left: -20px;">
+                Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und möchte informiert, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
+              </label>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="plasma">
+        <div class="content">
+          <div style="flex: none;">
+            <iframe src="https://immunhelden.github.io/WirVsVirusMap/plasma.html?zoom=5&amp;interactive=false&header=false"></iframe>
+            <!--<div class="map-overlay">
+              <a class="map-overlay-link" href="map.html"></a>
+            </div>-->
+          </div>
+          <div class="description">
+            <h2>
+              Blutplasmaspende
+            </h2>
+            Während deines Kampfes gegen COVID-19 hat dein Immunsystem Antikörper gegen das Virus gebildet. Sie haben dir geholfen, das Virus zu besiegen. Und finden sich nun in deinem Blutplasma. Wenn du alle gesundheitlichen Kriterien erfüllst, kannst du mit deiner Spende schwer Erkrankten im Kampf gegen COVID-19 helfen. Oder einen Beitrag zur Forschung über Antikörper leisten.
+          </div>
+        </div>
+      </section>
+
+      <section class="questions">
+        <div class="content">
+          <div style="flex: 2;">
+            <h2>
+              Häufige Fragen
+            </h2>
+            Aufmerksam verfolgen wir den aktuellen Stand der Forschung zur Immunität gegen das neuartige Corona Virus. Viele Fragen beantwortet <a href="faq.html">unsere FAQ</a>.
+          </div>
+          <div style="flex: 4;">
+            Hast du eine Frage? Dann schreib uns direkt und wir melden uns bei dir!
+            <form>
+              <textarea id="message" rows="6" placeholder="Gibt hier deine Anfrage ein" required></textarea>
+              <input type="text" id="contact" style="width: 100%; margin-bottom: 5px;" placeholder="Email / Telefon" required>
+              <input type="submit" value="Senden" id="submitQuestion" style="" onclick="sendSupportRequest()" disabled>
+            </form>
+            <script>
+              // Allow submits after 3 seconds (no human reader will recognize it).
+              setTimeout(() => { $('#submitQuestion').prop('disabled', false); }, 3000);
+
+              // Apparently, the Slack API endpoint fails to return an Access-Control-Allow-Headers response
+              // header that contains Content-Type in its value. Thus, the browsers CORS preflight OPTIONS
+              // request fails, if our request included the field contentType: 'application/json'. Not sure
+              // whether they do it on purpose or not, but in response we omit the contentType setting
+              // on purpose in our request. More details here: https://stackoverflow.com/questions/45752537
+              var baseUrl = 'https://hooks.slack.com/services/';
+
+              function sendSupportRequest() {
+                // Avoid double-submit
+                $('#submitQuestion').prop('disabled', true);
+
+                // Make it a little harder to spam
+                var req = {
+                  type: 'POST',
+                  url: baseUrl + kkl('R011AC9ZOQ2', 2) + '/' +
+                                kkl('T012TN47R7K', 8) + '/' +
+                                kkl('zBl73CY5pLsDH8TUgZSzsXtp', 1),
+                  data: JSON.stringify({
+                    "text": "*Anfrage:*\n" + $("#message").val() + "\n" +
+                            "*Kontakt:* " + $("#contact").val()
+                  })
+                };
+
+                // We cannot send JSON from a regular form, so we do an asynchronous submit.
+                $.ajax(req)
+                  .fail((err) => {
+                    console.log(err);
+                    setTimeout(() => { $('#submitQuestion').prop('disabled', false); }, 5 * 60 * 1000);
+
+                    alert("Bitte endschuldige, bei der Verarbeitung deiner Anfrage ist ein Fehler aufgetreten.\n\n" +
+                          "Wenn du die Seite offen lässt, kannst du es in 5 Minuten erneut versuchen.\n" +
+                          "Alternativ kannst du uns per E-Mail erreichen: " +
+                          kkl("dhhpiczgyzi", 5) + "@" + kkl("ihlmxh", 7) + "." + kkl("fg", -2));
+                  })
+                  .done(response => {
+                    console.log(response);
+                    alert("Deine Anfrage ist bei uns eingegangen. Wir werden uns so schnell wie " +
+                          "möglich bei dir melden.");
+                  });
+              }
+            </script>
+          </div>
+        </div>
+      </section>
+
+<!--
+      <section>
+        <div class="content">
+          <div>
+            <h2>
+              Frage ImmunHelden an
+            </h2>
+            todo
+          </div>
+          <div style="flex: none; justify-content: top;">
+            <img src="images/together.png" alt="together" style="width: 15rem;">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="content">
+          <div style="flex: none; justify-content: top;">
+            <img src="images/together.png" alt="together" style="width: 15rem;">
+          </div>
+          <div>
+            <h2>
+              Frage ImmunHelden an
+            </h2>
+            <form action="/addStakeHolder" id="person" class="label-above-input" method="GET">
+              <h3>Wo wird Hilfe gebraucht?</h3>
+              <div>
+                <label for="stakeholderAddress">Straße, Hausnummer</label>
+                <input type="text" name="address" id="stakeholderAddress" maxlength="100" required>
+              </div>
+              <div>
+                <label for="stakeholderZip">Postleitzahl</label>
+                <input type="text" name="zipCode" id="stakeholderZip" maxlength="5" class="zipCode"
+                        pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
+              </div>
+              <div>
+                <label for="stakeholderCity">Stadt</label>
+                <input type="text" name="city" id="stakeholderCity" maxlength="40" required>
+              </div>
+              <div style="display: block; width: 32rem; margin: 1rem auto 2rem auto;">
+                <label for="stakeholderMessage">
+                  Kurze Beschreibung.
+                  Über eine etwaige Vergütung stimmst du dich bei Kontaktaufnahme direkt mit der ImmunHeld:in ab.
+                </label>
+                <textarea name="text" id="stakeholderMessage" rows="6"
+                          placeholder="Was ist zu tun? Gibt es besondere Anforderungen? Geht es um eine einmalige oder eine regelmäßige Tätigkeit?" required></textarea>
+              </div>
+
+              <h3>Ansprechpartner</h3>
+              <div>
+                <label for="stakeholderFirstName">Vorname</label>
+                <input type="text" name="preName" id="stakeholderFirstName" maxlength="40"
+                      title="Vorname des Ansprechpartners" required>
+              </div>
+              <div>
+                <label for="stakeholderLastName">Nachname</label>
+                <input type="text" name="lastName" id="stakeholderLastName" maxlength="40"
+                      title="Nachname des Ansprechpartners" required>
+              </div>
+              <div>
+                <label for="stakeholderOrg">Organisation (optional)</label>
+                <input type="text" name="organisation" id="stakeholderOrg" maxlength="40">
+              </div>
+              <br>
+              <div>
+                <label for="stakeholderEmail">E-Mail</label>
+                <input type="email" name="emailAddress" id="stakeholderEmail" maxlength="100"
+                      pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Email Adresse des Ansprechpartners" required>
+              </div>
+              <div>
+                <label for="stakeholderPhone">Telefon</label>
+                <input type="text" name="phoneNumber" id="stakeholderPhone" maxlength="16"
+                      pattern="[0-9\s\+]+" title="Telefonnummer des Ansprechpartners" required>
+              </div>
+
+              <p>
+                Eure hier angegebenen Daten werden ausschließlich zu dem Zweck verarbeitet,
+                euch mit Personen in Kontakt zu bringen, die sich auf dieser Seite als Helfer
+                registriert haben. Dazu werden eure Daten in automatisch generierten E-Mails
+                an Helfern in der Umgebung geschickt. Diese können dann mit euch Kontakt
+                aufnehmen, wenn sie euch unterstützen möchten. Außerdem werden Informationen
+                zu Ort, Tätigkeit und Kontakt auf unserer Karte angezeigt. Weitere
+                Informationen in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.
+              </p>
+              <button class="button primary large" type="submit">Eingaben absenden</button>
+            </form>
+          </div>
+        </div>
+      </section>
+-->
+    </div>
+
+    <section id="footer">
+      <div class="content">
+        <div style="margin-top: 1.5rem">
+          <ul class="alt">
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+            <li>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>#WirVsVirus</h4>
+          <ul class="alt">
+            <li><a target="_blank" href="https://devpost.com/software/immuneheros">ImmunHelden DevPost</a></li>
+            <li><a target="_blank" href="https://wirvsvirushackathon.org/">Website Hackathon</a></li>
+            <li><a target="_blank" href="https://www.bundesregierung.de/breg-de/themen/coronavirus/wir-vs-virus-1731968">Bundesregierung</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Follow us</h4>
+          <ul class="plain">
+            <li><a target="_blank" href="https://github.com/ImmunHelden"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+            <li><a target="_blank" href="https://twitter.com/ImmunHelden"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+            <li><i class="icon fa-facebook">&nbsp;</i>Facebook</li>
+            <li><i class="icon fa-instagram">&nbsp;</i>Instagram</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </body>
 </html>
