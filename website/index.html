@@ -17,7 +17,13 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <style>
       @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
-      @import url("//db.onlinewebfonts.com/c/f4bc352b52c96ca087093d36bd2396bb?family=Noteworthy");
+
+      @font-face {
+        font-family: 'Noteworthy Light';
+        font-style: normal;
+        font-weight: normal;
+        src: local('Noteworthy Light'), url('assets/fonts/Noteworthy-Lt.woff') format('woff');
+      }
 
       body {
         font-family: "Raleway", Arial, Helvetica, sans-serif;
@@ -56,10 +62,34 @@
         box-sizing: border-box;
       }
 
+      header {
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 0 15px;
+      }
+
       header a:link, header a:visited, header a:hover, header a:active {
         text-decoration: none;
         font-weight: bold;
         color: #333;
+      }
+
+      header a.logo {
+        font-family: 'Noteworthy Light';
+        background: url('images/superhero.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        display: block;
+        flex: none;
+      }
+
+      header a.wirvsvirus {
+        background: url('images/wirvsvirusSE.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: block;
+        flex: none;
       }
 
       div.page {
@@ -71,31 +101,24 @@
           position: absolute;
           top: 0;
           left: 2rem;
-          width: 8rem;
+          width: 7rem;
           display: flex;
           flex-direction: column;
           align-items: center;
-          background: #fff;
-          box-shadow: 0 0 15px;
         }
 
-        header > a {
-          display: block;
+        header a.logo {
+          margin-top: 1rem;
+          padding-top: 5.25rem;
+          background-size: 5rem;
+          background-position: top center;
+          width: 100%;
           text-align: center;
         }
 
-        header > a > * {
-          display: inline-block;
-          text-align: center;
-        }
-
-        header .logo {
-          width: 5rem;
-          padding-top: 1rem;
-        }
-
-        header img.wirvsvirus {
+        header a.wirvsvirus {
           width: 6rem;
+          height: 2.5rem;
           padding-top: 0.33rem;
         }
 
@@ -155,15 +178,18 @@
           background: #fff;
         }
 
-        header img.logo {
-          height: 1.2rem;
-          padding: 0 0.8rem 0 1rem;
+        header a.logo {
+          height: 1.66rem;
+          line-height: 1.66rem;
+          font-size: 1.33rem;
+          margin-left: 1rem;
+          padding-left: 2.5rem;
+          background-position: center left;
         }
 
-        header img.wirvsvirus {
-          height: 40px;
-          margin-left: 10px;
-          margin-top: 2px;
+        header a.wirvsvirus {
+          width: 10rem;
+          height: 2.8rem;
         }
 
         div.page {
@@ -345,13 +371,8 @@
     -->
 
     <header>
-      <a href="index.html">
-        <img src="images/superhero.png" alt="ImmunHelden logo" class="logo">
-        <span style="font-family: 'Noteworthy';">ImmunHelden</span>
-      </a>
-      <a href="https://twitter.com/WirvsVirusHack" target="_blank">
-        <img src="images/wirvsvirusSE.png" alt="wirvsvirus" class="wirvsvirus">
-      </a>
+      <a href="index.html" class="logo">ImmunHelden</a>
+      <a href="https://twitter.com/WirvsVirusHack" target="_blank" class="wirvsvirus"></a>
     </header>
 
     <div class="page">
@@ -405,7 +426,7 @@
             <h2>
               Blutplasmaspende
             </h2>
-            Während deines Kampfes gegen COVID-19 hat dein Immunsystem Antikörper gegen das Virus gebildet. Sie haben dir geholfen, das Virus zu besiegen. Und finden sich nun in deinem Blutplasma. Wenn du alle gesundheitlichen Kriterien erfüllst, kannst du mit deiner Spende schwer Erkrankten im Kampf gegen COVID-19 helfen. Oder einen Beitrag zur Forschung über Antikörper leisten.
+            Während deines Kampfes gegen COVID-19 hat dein Immunsystem Antikörper gegen das Virus gebildet. Sie haben dir geholfen, das Virus zu besiegen und finden sich nun in deinem Blutplasma. Wenn du alle gesundheitlichen Kriterien erfüllst, kannst du mit deiner Spende schwer Erkrankten im Kampf gegen COVID-19 helfen. Oder einen Beitrag zur Forschung über Antikörper leisten.
           </div>
         </div>
       </section>
