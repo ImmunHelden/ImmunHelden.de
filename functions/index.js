@@ -143,7 +143,7 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   };
 
   // Kick-off request to LocationIQ and process result.
-  const bestMatch = await requestLatLng(10, 500)
+  const pendingLocationQuery = requestLatLng(10, 500)
     .then(response => {
       if (!hasValidLatLngMatch(response))
         throw new Error(`Invalid response: ${response}`);
@@ -154,34 +154,53 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
       };
     });
 
-  console.log("Best match:", bestMatch);
+  // Add records to database
+  const stakeholderRef = await admin.database().ref('/stakeholders').push();
+  const accountRef = await admin.database().ref('/accounts').push();
+  const postRef = await admin.database().ref('/posts').push();
 
-  // Add record to database
-  const entry = {
-    "preName": req.query.preName,
-    "lastName": req.query.lastName,
-    "organisation": req.query.organisation,
-    "text": req.query.text,
-    "emailAddress": req.query.emailAddress,
-    "phoneNumber": req.query.phoneNumber,
-    "address": address,
-    "zipCode": zipCode,
-    "city": city,
-    "latitude": bestMatch.lat,
-    "longitude": bestMatch.lon,
-    "showOnMap": false
-  };
+  stakeholderRef.set({
+    organisation: req.query.organisation,
+    accounts: [ accountRef.key ],
+    posts: [ postRef.key ]
+  });
 
+  // TODO: Send verification email.
+  accountRef.set({
+    stakeholder: stakeholderRef.key,
+    firstName: req.query.firstName,
+    lastName: req.query.lastName,
+    email: req.query.email,
+    phone: req.query.phone
+  });
+
+  // Wait for location.
+  const resolvedLocation = await pendingLocationQuery;
+  console.log("Best match:", resolvedLocation);
+
+  postRef.set({
+    stakeholder: stakeholderRef.key,
+    address: address,
+    zipCode: zipCode,
+    city: city,
+    latitude: resolvedLocation.lat,
+    longitude: resolvedLocation.lon,
+    text: req.query.text,
+    showOnMap: false
+  });
+
+  // Forward to verification page.
   // Organizations -> opt-out from display on map
   // Private person -> opt-in to display on map
   const addToMapDefault = (req.query.organisation.length > 0) ? "true" : "false";
+  const qs = [
+    'key=' + stakeholderRef.key,
+    'lat=' + resolvedLocation.lat,
+    'lng=' + resolvedLocation.lon,
+    'map-opt-out=' + addToMapDefault
+  ];
 
-  // TODO: For security reasons the key for adjustment should time out!
-  const result = await admin.database().ref(stakeHoldersTable).push(entry);
-  const qs = [ 'key=' + result.key, 'lat=' + bestMatch.lat, 'lng=' + bestMatch.lon,
-               'map-opt-out=' + addToMapDefault ];
-
-  // Let the user verify and adjust the exact pin location.
+  // TODO: For security reasons the key for adjustments should time out!
   res.redirect('../verifyStakeholderPin.html?' + qs.join('&'));
 });
 
