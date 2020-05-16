@@ -90,9 +90,15 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
 });
 
 exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
-  const address = req.query.address;
-  const zipCode = req.query.zipCode;
-  const city = req.query.city;
+  // Check for POST request
+  if (req.method !== "POST") {
+    res.status(400).send('Please send a POST request');
+    return;
+  }
+
+  const address = req.body.address;
+  const zipCode = req.body.zipCode;
+  const city = req.body.city;
   const country = "Germany";
 
   // LocationIQ query
@@ -160,7 +166,7 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   const postRef = await admin.database().ref('/posts').push();
 
   stakeholderRef.set({
-    organisation: req.query.organisation,
+    organisation: req.body.organisation,
     accounts: [ accountRef.key ],
     posts: [ postRef.key ]
   });
@@ -168,10 +174,10 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   // TODO: Send verification email.
   accountRef.set({
     stakeholder: stakeholderRef.key,
-    firstName: req.query.firstName,
-    lastName: req.query.lastName,
-    email: req.query.email,
-    phone: req.query.phone
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    phone: req.body.phone
   });
 
   // Wait for location.
@@ -185,14 +191,14 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
     city: city,
     latitude: resolvedLocation.lat,
     longitude: resolvedLocation.lon,
-    text: req.query.text,
+    text: req.body.text,
     showOnMap: false
   });
 
   // Forward to verification page.
   // Organizations -> opt-out from display on map
   // Private person -> opt-in to display on map
-  const addToMapDefault = (req.query.organisation.length > 0) ? "true" : "false";
+  const addToMapDefault = (req.body.organisation.length > 0) ? "true" : "false";
   const qs = [
     'key=' + stakeholderRef.key,
     'lat=' + resolvedLocation.lat,
