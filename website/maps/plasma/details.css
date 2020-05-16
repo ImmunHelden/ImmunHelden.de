@@ -1,0 +1,26 @@
+
+div > div {
+  margin-bottom: 10px;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: #931814;
+}
+
+div > div.title {
+  font-size: 2rem;
+}
+
+div > div.phone {
+  background-image: url(images/symbol-phone.png);
+  background-repeat: no-repeat;
+  background-size: 1.1rem;
+  padding-left: 22px;
+}
+
+div > div.url {
+  background-image: url(images/symbol-website.png);
+  background-repeat: no-repeat;
+  background-size: 1.1rem;
+  padding-left: 22px;
+}
