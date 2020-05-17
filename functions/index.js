@@ -166,7 +166,7 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   const postRef = await admin.database().ref('/posts').push();
 
   stakeholderRef.set({
-    organisation: req.body.organisation,
+    organisation: req.body.organization || '',
     accounts: [ accountRef.key ],
     posts: [ postRef.key ]
   });
@@ -198,7 +198,7 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   // Forward to verification page.
   // Organizations -> opt-out from display on map
   // Private person -> opt-in to display on map
-  const addToMapDefault = (req.body.organisation.length > 0) ? "true" : "false";
+  const addToMapDefault = (req.body.organization.length > 0) ? "true" : "false";
   const qs = [
     'key=' + stakeholderRef.key,
     'lat=' + resolvedLocation.lat,
