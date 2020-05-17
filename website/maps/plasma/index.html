@@ -77,7 +77,6 @@
       top: 44px;
       width: 100%;
       height: calc(100% - 44px);
-      box-shadow: 3px 2px 15px #bbb;
       z-index: 10010;
     }
     header {
@@ -172,19 +171,8 @@
       <img src="../../images/wirvsvirusSE.png" alt="wirvsvirus" style="height: 40px; margin-top: 2px;">
     </a>
   </header>
+
   <div id="osm-map"></div>
-  <div id="osm-map-lock">
-    <a href="plasma.html" target="_parent" id="osm-map-lock-link"></a>
-  </div>
-  <div id="osm-map-pane">
-    <!-- Allow scripts temporarily to initiate follow-up dialog -->
-    <iframe id="osm-map-details"></iframe>
-    <div id="osm-map-pane-close">
-      <a href="javascript:void(0)" onclick="closeDetails();" style="display: block;">
-        Einklappen &gt;&gt;
-      </a>
-    </div>
-  </div>
 
   <script>
     const plasmaPinIcon = {
@@ -196,6 +184,8 @@
 
     const map = new WirVsVirusMap('osm-map', {
       embedded: false,
+      locked: false,
+      lockLink: 'plasma.html',
       platforms: [
         { name: "#SpendeCOVIDPlasma", source: window.location.href, icon: plasmaPinIcon }
       ]

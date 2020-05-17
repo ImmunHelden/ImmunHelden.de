@@ -43,6 +43,15 @@ function parseUrlParams(url) {
   return params;
 }
 
+const wvv = {};
+
+function closeDetails() {
+  wvv.dom.pane.hide();
+  wvv.dom.canvas.css("width", "100%");
+  wvv.map.invalidateSize();
+  //$("#platforms-pane").show();
+}
+
 function WirVsVirusMap(domElementMap, options) {
 
   // TODO: Only for demo purpose
@@ -144,7 +153,25 @@ function WirVsVirusMap(domElementMap, options) {
     $("#osm-map-lock-link").attr("href", overlayHref);
   }
 
-  var map = new L.map('osm-map', {
+  wvv.dom = {};
+  wvv.dom.root = $('#' + domElementMap).addClass('wvvm-root')
+      .append('<div id="osm-map-canvas"></div>')
+      .append('<div class="pane"></div>');
+
+  if (options.locked) {
+    wvv.dom.root.append('<a href="' + options.lockLink + '" target="_parent" class="lock"></a>');
+  }
+
+  wvv.dom.canvas = $('#osm-map-canvas');
+  wvv.dom.lock = $('.wvvm-root > div.lock');
+  wvv.dom.pane = $('.wvvm-root > div.pane')
+      .append('<iframe></iframe>')
+      .append('<a href="javascript:void(0)" onclick="closeDetails();">Einklappen &gt;&gt;</a>');
+
+  wvv.dom.paneDetails = $('.wvvm-root > div.pane > iframe');
+  wvv.dom.paneClose = $('.wvvm-root > div.pane > a');
+
+  wvv.map = new L.map('osm-map-canvas', {
     center: [51.5, 10],
     zoom: initialZoom,
     zoomControl: interactive,
@@ -153,7 +180,7 @@ function WirVsVirusMap(domElementMap, options) {
     scrollWheelZoom: interactive
   });
 
-  createBaseLayer().addTo(map);
+  createBaseLayer().addTo(wvv.map);
 
   var platformsView = new L.Control.Platforms({ position: 'bottomleft' });
   //platformsView.addTo(map);
@@ -235,20 +262,20 @@ function WirVsVirusMap(domElementMap, options) {
       return;
     }
 
-    $("#osm-map-details").attr("srcdoc", '<img src="../images/spin_loading.gif" style="width:100%;">');
-    $("#osm-map-pane").show();
-    $("#osm-map").css("width", "calc(100% - 400px)");
+    wvv.dom.paneDetails.attr("srcdoc", '<img src="../images/spin_loading.gif" style="width:100%;">');
+    wvv.dom.pane.show();
+    wvv.dom.canvas.css("width", "calc(100% - 400px)");
 
     const pinInfo = allPinsById[id];
     console.log(pinInfo);
 
     // TODO: if there's space left for the map at all
-    map.invalidateSize();
-    map.panTo(L.latLng(pinInfo.latlng));
+    wvv.map.invalidateSize();
+    wvv.map.panTo(L.latLng(pinInfo.latlng));
     //$("#platforms-pane").hide();
 
     if (pinInfo.hasOwnProperty("details")) {
-      $("#osm-map-details").attr("srcdoc", pinInfo.details.html());
+      wvv.dom.paneDetails.attr("srcdoc", pinInfo.details.html());
     }
     else {
       const contentBaseUrl = platforms[pinInfo.platformIdx].url + "/details/";
@@ -257,7 +284,7 @@ function WirVsVirusMap(domElementMap, options) {
           const annotations = [];
           annotations.push('<base href="' + baseUrlDir + '" target="_blank">');
           annotations.push('<link rel="stylesheet" href="details.css">');
-          pinInfo.details = $('<div>' + annotations.join() + html + '</div>');
+          pinInfo.details = $('<div>' + annotations.join('') + html + '</div>');
 
           const followupHandler =
             'setTimeout(function() { document.getElementById("followup").style.display="flex"; }, 500)';
@@ -275,11 +302,11 @@ function WirVsVirusMap(domElementMap, options) {
           pinInfo.details.children('div').each((i, elem) => $(elem).css('margin-left', '25px').css('margin-right', '10px'));
           pinInfo.details.append(followupHtml);
 
-          setTimeout(() => { $("#osm-map-details").attr("srcdoc", pinInfo.details.html()); }, 2000);
+          setTimeout(() => { wvv.dom.paneDetails.attr("srcdoc", pinInfo.details.html()); }, 200);
         },
         err => {
           console.error("Error repsonse from: ", contentBaseUrl + id);
-          closeDetails()
+          closeDetails();
         }
       );
     }
@@ -293,27 +320,27 @@ function WirVsVirusMap(domElementMap, options) {
       return;
     }
 
-    $("#osm-map-details").html('<img src="../../images/spin_loading.gif"  style="width:100%;">');
-    $("#osm-map-pane").show();
-    $("#osm-map").css("width", "calc(100% - 400px)");
+    wvv.dom.paneDetails.html('<img src="../../images/spin_loading.gif"  style="width:100%;">');
+    wvv.dom.pane.show();
+    wvv.dom.canvas.css("width", "calc(100% - 400px)");
 
     const regionInfo = allRegionsByAgs[ags];
     console.log(regionInfo);
 
     // TODO: if there's space left for the map at all
-    map.invalidateSize();
-    map.panTo(regionInfo.center);
+    wvv.map.invalidateSize();
+    wvv.map.panTo(regionInfo.center);
     //$("#platforms-pane").hide();
 
     if (regionInfo.idsByPlatform.length == 0) {
       const text = "<b>Leider liegen für diese Postleitzahlen bis jetzt keine Angebote vor:</b><br>" +
                     regionInfo.zips.join(", ");
 
-      $("#osm-map-details").html('<div style="padding: 1rem;">' + text + '</div>');
+      wvv.dom.paneDetails.html('<div style="padding: 1rem;">' + text + '</div>');
     }
     else if (regionInfo.hasOwnProperty("cachedDetails")) {
       // TODO: select the divs to show!
-      $("#osm-map-details").html(regionInfo.cachedDetails);
+      wvv.dom.paneDetails.html(regionInfo.cachedDetails);
     }
     else {
       // Select platforms that have IDs for the region and request details.
@@ -347,18 +374,11 @@ function WirVsVirusMap(domElementMap, options) {
           //  }
           //}
           regionInfo.cachedDetails = htmls;
-          $("#osm-map-details").html(htmls);
+          wvv.dom.paneDetails.html(htmls);
         },
         err => closeDetails()
       );
     }
-  }
-
-  function closeDetails() {
-    $("#osm-map-pane").hide();
-    $("#osm-map").css("width", "100%");
-    map.invalidateSize();
-    //$("#platforms-pane").show();
   }
 
   function mayViewDetails(id) {
@@ -371,7 +391,7 @@ function WirVsVirusMap(domElementMap, options) {
     if (allPinsById.hasOwnProperty(id)) {
       allPinsById[id].popup.openPopup();
       mayViewDetails(id);
-      map.flyTo(allPinsById[id].latlng, 12, {
+      wvv.map.flyTo(allPinsById[id].latlng, 12, {
         animate: true,
         duration: 3
       });
@@ -407,7 +427,7 @@ function WirVsVirusMap(domElementMap, options) {
           const icon = defaultPinIcons[pin.type]; // TODO: customizable icons
           pin.marker = L.marker(pin.latlng, { "icon": icon });
           pin.popup = pin.marker.bindPopup(content);
-          pin.elem = $(pin.popup.addTo(map).getElement());
+          pin.elem = $(pin.popup.addTo(wvv.map).getElement());
           pin.marker.on('click', function() { mayViewDetails(id); });
           allPinsById[id] = pin;
         }
@@ -449,7 +469,7 @@ function WirVsVirusMap(domElementMap, options) {
   }
 
   var regionsByAgsReady = loadJson(asset('Karte_de_geodata.geo.json')).then(geoJson => {
-    var geoJsonLayer = L.geoJSON(geoJson).addTo(map);
+    var geoJsonLayer = L.geoJSON(geoJson).addTo(wvv.map);
     geoJsonLayer.eachLayer(function (layer) {
       var lnglatRange = [[90, -90], [180, -180]];
       forEachPoint(layer.feature.geometry.coordinates, lnglat => {
@@ -493,13 +513,13 @@ function WirVsVirusMap(domElementMap, options) {
         var region = allRegionsByAgs[layer.feature.properties.ags];
         var clickHandler = "viewDetailsR('" + layer.feature.properties.ags + "');";
         var popupContent = renderPreviewHtml(region.name, clickHandler);
-        L.popup().setLatLng(region.center).setContent(popupContent).openOn(map);
+        L.popup().setLatLng(region.center).setContent(popupContent).openOn(wvv.map);
         eval(clickHandler);
       });
     });
 
     var updateVisibleRegions = function() {
-      var zoom = map.getZoom();
+      var zoom = wvv.map.getZoom();
       for (var ags in allRegionsByAgs) {
         if (isRegionVisible(ags, zoom)) {
           allRegionsByAgs[ags].elem.show();
@@ -510,7 +530,7 @@ function WirVsVirusMap(domElementMap, options) {
       }
     };
 
-    map.on('zoomend', updateVisibleRegions);
+    wvv.map.on('zoomend', updateVisibleRegions);
     updateVisibleRegions();
   });
 
