@@ -43,6 +43,15 @@ function parseUrlParams(url) {
   return params;
 }
 
+function guessIFrame() {
+  return window.location !== window.parent.location;
+}
+
+function parseBaseUrlDir() {
+  const baseUrl = parseBaseUrl(window.location.href);
+  return baseUrl.substring(0, baseUrl.lastIndexOf('/'));
+}
+
 const wvv = {};
 
 function closeDetails() {
@@ -52,23 +61,41 @@ function closeDetails() {
   //$("#platforms-pane").show();
 }
 
-function WirVsVirusMap(domElementMap, options) {
+wvv.hostBaseUrl = parseBaseUrlDir(window.location.href);
 
-  // TODO: Only for demo purpose
-  //const demoPlatformsStr = 'Demo ImmunHelden.de|https://immunhelden.de/map,Demo Static|https://weliveindetail.github.io/WirVsVirusMap/demo_static'
-  const baseUrl = parseBaseUrl(window.location.href);
-  const lastSlash = baseUrl.lastIndexOf('/');
-  const baseUrlDir = lastSlash > 0 ? baseUrl.substring(0, lastSlash + 1) : baseUrl;
-  console.log(baseUrlDir);
-  const plasmaPlatfromStr = '#SpendeCOVIDPlasma|' + baseUrlDir + '/';
-  const defaultPlatformsStr = plasmaPlatfromStr;
+const defaultIcon = {
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34]
+};
 
-  function parsePlatforms(params) {
-    const platformsStr = decodeURIComponent(params.platforms || defaultPlatformsStr);
-    return platformsStr.split(',').map(function(pair) {
-      const nameUrlArray = pair.split('|');
-      return { "name": nameUrlArray[0], "url": nameUrlArray[1] };
-    });
+const defaultSettings = {
+  embedded: guessIFrame(),
+  lockLink: '/',
+  zoom: 6,
+  platforms: [
+    //{
+    //name: 'Default',
+    //sources: [
+      { name: 'Default', restBaseUrl: wvv.hostBaseUrl, icon: defaultIcon }
+    //]
+    //}
+  ]
+};
+
+function WirVsVirusMap(domElementName, actualSettings) {
+  const settings = { ...defaultSettings, ...actualSettings };
+
+  if (typeof domElementName !== 'string' || domElementName.length == 0) {
+    console.error('Please pass the ID of the DOM element to host WirVsVirusMap as first argument.');
+    return;
+  }
+
+  if ($('#' + domElementName).length == 0) {
+    console.error('Cannot find DOM element to host WirVsVirusMap. ' +
+                  'Try adding this to your HTML: <div id="' + domElementName + '"></div>');
+    return;
   }
 
   function createBaseLayer() {
@@ -126,40 +153,16 @@ function WirVsVirusMap(domElementMap, options) {
     });
   }
 
-  var params = parseUrlParams(window.location.href);
-  var initialZoom = params.zoom || 6;
-  var interactive = params.hasOwnProperty("interactive") ? parseBool(params.interactive) : true;
-  var showHeader = params.hasOwnProperty("header") ? parseBool(params.header) : true;
-  var embedded = params.hasOwnProperty("embedded") ? parseBool(params.embedded) : false;
-  var overlayHref = params.hasOwnProperty("href") ? decodeURIComponent(params.href) : null;
-  var platforms = parsePlatforms(params);
-
-  if (!interactive || embedded) {
-    $("#osm-map-lock").css("height", "100%");
-  }
-  if (!showHeader || embedded) {
-    $("#header").css("height", "0");
-    $("#osm-map").css("top", "0");
-    $("#osm-map").css("height", "100%");
-    $("#beta-ribbon").hide();
-  }
-  if (embedded) {
-    const baseUrl = parseBaseUrl(window.location.href);
-    const anchor = parseAnchor(window.location.href) || '';
-    const href = anchor ? [ baseUrl, anchor ].join('#') : baseUrl;
-    $("#osm-map-lock-link").attr("href",  href);
-  }
-  if (overlayHref) {
-    $("#osm-map-lock-link").attr("href", overlayHref);
-  }
+  //var platforms = parsePlatforms(params);
 
   wvv.dom = {};
-  wvv.dom.root = $('#' + domElementMap).addClass('wvvm-root')
+  wvv.dom.root = $('#' + domElementName).addClass('wvvm-root')
       .append('<div id="osm-map-canvas"></div>')
       .append('<div class="pane"></div>');
 
-  if (options.locked) {
-    wvv.dom.root.append('<a href="' + options.lockLink + '" target="_parent" class="lock"></a>');
+  if (settings.embedded) {
+    const href = settings.lockLink || '/';
+    wvv.dom.root.append('<a href="' + href + '" target="_parent" class="lock"></a>');
   }
 
   wvv.dom.canvas = $('#osm-map-canvas');
@@ -173,11 +176,11 @@ function WirVsVirusMap(domElementMap, options) {
 
   wvv.map = new L.map('osm-map-canvas', {
     center: [51.5, 10],
-    zoom: initialZoom,
-    zoomControl: interactive,
-    dragging: interactive,
-    doubleClickZoom: interactive,
-    scrollWheelZoom: interactive
+    zoom: settings.zoom,
+    zoomControl: !settings.embedded
+    //dragging: interactive,
+    //doubleClickZoom: interactive,
+    //scrollWheelZoom: interactive
   });
 
   createBaseLayer().addTo(wvv.map);
@@ -251,7 +254,8 @@ function WirVsVirusMap(domElementMap, options) {
 
   // TODO: It needs a place to live
   let followupHtml;
-  loadPlain(baseUrlDir + "/followup.html").then(
+  console.log(wvv.hostBaseUrl + '/followup.html');
+  loadPlain(wvv.hostBaseUrl + '/followup.html').then(
     html => { followupHtml = html; },
     err => console.error(err)
   );
@@ -278,11 +282,12 @@ function WirVsVirusMap(domElementMap, options) {
       wvv.dom.paneDetails.attr("srcdoc", pinInfo.details.html());
     }
     else {
-      const contentBaseUrl = platforms[pinInfo.platformIdx].url + "/details/";
+      const contentBaseUrl = settings.platforms[pinInfo.platformIdx].restBaseUrl + "/details/";
+      console.log('request:', contentBaseUrl + id);
       loadPlain(contentBaseUrl + id).then(
         html => {
           const annotations = [];
-          annotations.push('<base href="' + baseUrlDir + '" target="_blank">');
+          annotations.push('<base href="' + wvv.hostBaseUrl + '/" target="_blank">');
           annotations.push('<link rel="stylesheet" href="details.css">');
           pinInfo.details = $('<div>' + annotations.join('') + html + '</div>');
 
@@ -292,7 +297,7 @@ function WirVsVirusMap(domElementMap, options) {
             const targetUrl = $(elem).attr('href');
             if (targetUrl && targetUrl.hasOwnProperty('length') && targetUrl.length > 0) {
               if (targetUrl.charAt(0) == '#') {
-                $(elem).attr('href', baseUrl + targetUrl);
+                $(elem).attr('href', wvv.hostBaseUrl + targetUrl);
               }
               else {
                 $(elem).attr('onclick', followupHandler);
@@ -349,7 +354,7 @@ function WirVsVirusMap(domElementMap, options) {
       const ids = regionInfo.idsByPlatform;
       for (let i = 0; i < ids.length; i++) {
         if (ids[i] && ids[i].hasOwnProperty('length') && ids[i].length > 0) {
-          contentReady.push(loadPlain(platforms[i].url + "/details/" + ids[i].join(',')));
+          contentReady.push(loadPlain(settings.platforms[i].restBaseUrl + "/details/" + ids[i].join(',')));
           //contentReady.push(loadPlain(platforms[i].url + "/details_html?ids=" + ids[i].join(',')));
           idxs.push(i);
         }
@@ -382,7 +387,7 @@ function WirVsVirusMap(domElementMap, options) {
   }
 
   function mayViewDetails(id) {
-    if (!embedded && window.innerWidth >= 600) {
+    if (!settings.embedded && window.innerWidth >= 600) {
       viewDetails(id);
     }
   }
@@ -409,8 +414,8 @@ function WirVsVirusMap(domElementMap, options) {
   }
 
   var pinsReady = [];
-  for (let i = 0; i < platforms.length; i++) {
-    pinsReady.push(loadJson(platforms[i].url + '/pins').then(pinsById => {
+  for (let i = 0; i < settings.platforms.length; i++) {
+    pinsReady.push(loadJson(settings.platforms[i].restBaseUrl + '/pins').then(pinsById => {
       for (let id in pinsById) {
         if (isValidPinInfo(pinsById[id])) {
           const pin = {
@@ -537,8 +542,8 @@ function WirVsVirusMap(domElementMap, options) {
   var zip2argsReady = loadJson(asset('zip2ags.json'));
 
   let idsByZipCodeReady = [];
-  for (let i = 0; i < platforms.length; i++) {
-    idsByZipCodeReady.push(loadJson(platforms[i].url + "/regions"));
+  for (let i = 0; i < settings.platforms.length; i++) {
+    idsByZipCodeReady.push(loadJson(settings.platforms[i].restBaseUrl + "/regions"));
   }
 
   const maxIdsPerRegionSize = { "2": 1, "5": 1 };
@@ -568,7 +573,7 @@ function WirVsVirusMap(domElementMap, options) {
 
   var regionsReady = Promise.all(idsByZipCodeReady.concat([zip2argsReady, regionsByAgsReady]))
           .then(function (values) {
-    if (platforms.length != values.length - 2) {
+    if (settings.platforms.length != values.length - 2) {
       console.error("[Internal] Invalid promise results order");
       return;
     }
@@ -579,7 +584,7 @@ function WirVsVirusMap(domElementMap, options) {
     const idsByZipCode = values;
 
     // TODO: Handle/detect overlap in IDs between different platforms!
-    for (let i = 0; i < platforms.length; i++) {
+    for (let i = 0; i < settings.platforms.length; i++) {
       for (const zip in idsByZipCode[i]) {
         const entry = idsByZipCode[i][zip];
 
@@ -654,7 +659,7 @@ function WirVsVirusMap(domElementMap, options) {
 
   function togglePlatform(checkbox, platformIdx) {
     const show = $(checkbox).is(':checked');
-    console.log("Anzeigen von ", platforms[platformIdx].name, (show ? "ein" : "aus") + "blenden");
+    console.log("Anzeigen von ", settings.platforms[platformIdx].name, (show ? "ein" : "aus") + "blenden");
 
     const toggle = (show ? function(elem) { elem.show(); }
                           : function(elem) { elem.hide(); });
