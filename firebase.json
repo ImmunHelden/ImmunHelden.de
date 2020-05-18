@@ -14,6 +14,10 @@
     ],
     "rewrites": [
       {
+        "source": "/verifyHero",
+        "function": "verifyHero"
+      },
+      {
         "source": "/parseBlutspendenDe",
         "function": "parseBlutspendenDe"
       },

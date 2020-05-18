@@ -46,7 +46,37 @@ exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
     zipCode: req.body.zipCode
   });
 
+  const link = 'https://immunhelden.de/verifyHero?key=' + newHeroRef.key;
+  const heroSignupText =
+    'Hallo!<br><br>' +
+    'Wir freuen uns, dass Du Teil der ImmunHelden Community werden möchtest. Bitte ' +
+    'bestätige dafür deine E-Mail Adresse mit einem Klick auf diesen Link:<br>' +
+    `<a href="${link}">${link}</a><br><br>` +
+    'Viele Grüße und willkommen an Bord!<br>' +
+    'Dein Team von ImmunHelden.de';
+
+  admin.firestore().collection('mail').add({
+    to: req.body.email,
+    message: {
+      subject: 'ImmunHelden Updates',
+      html: heroSignupText,
+    }
+  });
+
   res.redirect(`../heldeninfo.html?key=${newHeroRef.key}`);
+});
+
+exports.verifyHero = functions.https.onRequest(async (req, res) => {
+  // Check for POST request
+  if (req.method !== "GET" || !req.query.key) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  const heroRef = admin.database().ref('/immuneHeroes/' + req.query.key);
+  heroRef.update({ 'doubleOptIn': true });
+
+  res.redirect("../generic.html");
 });
 
 exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
