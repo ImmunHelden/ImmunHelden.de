@@ -1101,21 +1101,21 @@ function getSearchZipCodeBounds(searchZipCode) {
 }
 
 //Email
-let mailTransport = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'immune.heroes@gmail.com',
-    pass: ''
-  }
-});
-
+//let mailTransport = nodemailer.createTransport({
+//  service: 'gmail',
+//  auth: {
+//    user: 'immune.heroes@gmail.com',
+//    pass: ''
+//  }
+//});
+//
 async function sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable) {
-  const mailOptions = {
-    from: "ImmunHelden",
-    to: immuneHero.emailAddress
-  };
-  mailOptions.subject = 'Hey ImmuneHero: Wir brauchen dich!';
-  mailOptions.text = 'Hey ' + immuneHero.preName + ',\n\nWir brauchen deine Unterstützung!\n\nDein ImmunHelden Team';
-  mailOptions.html = wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, await stakeHoldersHtmlTable);
-  return await mailTransport.sendMail(mailOptions);
+//  const mailOptions = {
+//    from: "ImmunHelden",
+//    to: immuneHero.emailAddress
+//  };
+//  mailOptions.subject = 'Hey ImmuneHero: Wir brauchen dich!';
+//  mailOptions.text = 'Hey ' + immuneHero.preName + ',\n\nWir brauchen deine Unterstützung!\n\nDein ImmunHelden Team';
+//  mailOptions.html = wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, await stakeHoldersHtmlTable);
+//  return await mailTransport.sendMail(mailOptions);
 }
