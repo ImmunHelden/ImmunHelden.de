@@ -175,6 +175,7 @@
   <div id="osm-map"></div>
 
   <script>
+
     const plasmaPinIcon = {
       iconUrl: '/maps/plasma/images/marker-icon-blood.png',
       iconSize: [30, 38],
@@ -182,14 +183,23 @@
       popupAnchor: [1, -34]
     };
 
-    const map = new WirVsVirusMap('osm-map', {
-      embedded: false,
-      locked: false,
-      lockLink: 'plasma.html',
+    const params = parseUrlParams(window.location.href);
+
+    const settings = {
+      embedded: params.hasOwnProperty("embedded"),
+      lockLink: params.hasOwnProperty("link") ? decodeURIComponent(params.link) : null,
+      zoom: params.hasOwnProperty("zoom") ? parseInt(params.zoom) : 6,
       platforms: [
-        { name: "#SpendeCOVIDPlasma", source: window.location.href, icon: plasmaPinIcon }
+        //{ name: 'ImmunHelden.de',
+        //  sources: [
+          { name: "#SpendeCOVIDPlasma", restBaseUrl: 'http://localhost:5000/maps/plasma', icon: plasmaPinIcon }
+        //]}
       ]
-    });
+    };
+
+    const map = new WirVsVirusMap('osm-map', settings);
+
+    // interactions
   </script>
 </body>
 </html>
