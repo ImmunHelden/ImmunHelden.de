@@ -18,6 +18,18 @@
         "function": "verifyHero"
       },
       {
+        "source": "/deleteHero",
+        "function": "deleteHero"
+      },
+      {
+        "source": "/sendExampleMail",
+        "function": "sendExampleMail"
+      },
+      {
+        "source": "/doSendExampleMail",
+        "function": "doSendExampleMail"
+      },
+      {
         "source": "/parseBlutspendenDe",
         "function": "parseBlutspendenDe"
       },

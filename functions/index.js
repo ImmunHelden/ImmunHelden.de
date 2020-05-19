@@ -6,6 +6,10 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 const shortid = require('shortid');
+const crypto = require('crypto');
+const showdown = require('showdown');
+const fillTemplate = require('es6-dynamic-template');
+
 
 admin.initializeApp(functions.config().firebase);
 
@@ -32,6 +36,23 @@ function parseBool(string) {
   return false;
 }
 
+async function renderMessage(template, params) {
+  const baseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/notifications/';
+  const template_markdown = await rp.get({ uri: baseUrl + template });
+
+  const match = /# (.*?)\n(.*)/s.exec(template_markdown);
+  if (match.length !== 3) {
+    console.error('Invalid markdown given. Regex match invalid:', match);
+    throw new Error(`Invalid markdown. Plese follow the example here: https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/notifications/email/hero_welcome.md`);
+  }
+
+  const markdown = fillTemplate(match[2], params);
+  const converter = new showdown.Converter();
+  return {
+    subject: fillTemplate(match[1], params),
+    html: converter.makeHtml(markdown)
+  };
+}
 
 exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
   // Check for POST request
@@ -40,43 +61,49 @@ exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
     return;
   }
 
-  const newHeroRef = await admin.database().ref('/immuneHeroes').push();
+  const newHeroRef = await admin.database().ref('/heroes').push();
   newHeroRef.set({
     email: req.body.email,
     zipCode: req.body.zipCode
   });
 
-  const link = 'https://immunhelden.de/verifyHero?key=' + newHeroRef.key;
-  const heroSignupText =
-    'Hallo!<br><br>' +
-    'Wir freuen uns, dass Du Teil der ImmunHelden Community werden möchtest. Bitte ' +
-    'bestätige dafür deine E-Mail Adresse mit einem Klick auf diesen Link:<br>' +
-    `<a href="${link}">${link}</a><br><br>` +
-    'Viele Grüße und willkommen an Bord!<br>' +
-    'Dein Team von ImmunHelden.de';
+  // Render E-Mail
+  const msg = await renderMessage('email/de/hero_welcome.md', {
+    link_hero_double_opt_in: `https://immunhelden.de/verifyHero?key=${newHeroRef.key}`,
+    link_hero_opt_out: `https://immunhelden.de/deleteHero?key=${newHeroRef.key}`
+  });
 
+  // Trigger E-Mail
   admin.firestore().collection('mail').add({
     to: req.body.email,
-    message: {
-      subject: 'ImmunHelden Updates',
-      html: heroSignupText,
-    }
+    message: msg
   });
 
   res.redirect(`../heldeninfo.html?key=${newHeroRef.key}`);
 });
 
 exports.verifyHero = functions.https.onRequest(async (req, res) => {
-  // Check for POST request
   if (req.method !== "GET" || !req.query.key) {
     res.status(400).send('Invalid request');
     return;
   }
 
-  const heroRef = admin.database().ref('/immuneHeroes/' + req.query.key);
+  const heroRef = admin.database().ref('/heroes/' + req.query.key);
   heroRef.update({ 'doubleOptIn': true });
 
   res.redirect("../generic.html");
+});
+
+exports.deleteHero = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET" || !req.query.key) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  const heroRef = admin.database().ref('/heroes/' + req.query.key);
+  await heroRef.remove();
+
+  res.send('Subscription deleted');
 });
 
 exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
@@ -89,11 +116,11 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
   //console.log('Eintrag ' + req.body.key + ': ' + req.body.name + ' available ' + req.body.availability + ' and status ' + req.body.status);
 
   const key = req.body.key;
-  const heroRef = admin.database().ref(`/immuneHeroes/${key}`);
+  const heroRef = admin.database().ref(`/heroes/${key}`);
   try {
     const heroSnapshot = await heroRef.once('value');
     if (!heroSnapshot)
-      throw new Error(`Unknown immuneHeroes key '${key}'`);
+      throw new Error(`Unknown heroes key '${key}'`);
 
     const heroJson = heroSnapshot.toJSON();
     console.log(`About to update HeldenInfo ${key}:`, heroJson);
@@ -253,10 +280,68 @@ exports.doneVerifyStakeholderPin = functions.https.onRequest(async (req, res) =>
   res.redirect("../generic.html");
 });
 
+exports.sendExampleMail = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET") {
+    res.status(400).send('Invalid request');
+    return;
+  }
 
-function trimTrailingComma(str) {
-  return str.replace(/(^,)|(,$)/g, '');
-}
+  try {
+    // Render message for preview
+    const msg = await renderMessage(req.query.template, {
+      link_hero_double_opt_in: 'https://immunhelden.de/verifyHero?key=test',
+      link_hero_opt_out: 'https://immunhelden.de/deleteHero?key=test'
+    });
+
+    res.send(`
+      <link rel="stylesheet" href="https://newcss.net/new.min.css">
+      <form action="/doSendExampleMail" method="POST">
+        <input type="text" name="template" value="${req.query.template}">
+        <input type="password" name="pass" value="" placeholder="Passwort">
+        <input type="email" name="email" placeholder="Empfänger E-Mail">
+        <input type="submit">
+      </form>
+      <hr>
+      Subject: ${msg.subject}
+      <hr>
+      ${msg.html}
+    `);
+  }
+  catch (err) {
+    res.status(400).send(err.message);
+  }
+});
+
+exports.doSendExampleMail = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "POST" || !req.body.pass || !req.body.email || !req.body.template) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  // For now simple security should be sufficient.
+  const shasum = crypto.createHash('sha1').update(req.body.pass);
+  if (shasum.digest('hex') !== '0ae1588ad4b7568ec2539065fc830cafba9a7d6a') {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  try {
+    // Render message to send
+    const mail = {
+      to: req.body.email,
+      message: await renderMessage(req.body.template, {
+        link_hero_double_opt_in: 'https://immunhelden.de/verifyHero?key=test',
+        link_hero_opt_out: 'https://immunhelden.de/deleteHero?key=test'
+      })
+    };
+
+    admin.firestore().collection('mail').add(mail);
+    res.send('Ok');
+  }
+  catch (err) {
+    res.status(400).send(err.message);
+  }
+});
 
 function escapeHtml(unsafe) {
   return unsafe
