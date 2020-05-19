@@ -57,10 +57,9 @@
         margin-bottom: 0.5rem;
       }
 
-      section#questions {
+      section#plasma {
         background: linear-gradient(45deg, #93672533, transparent);
         box-shadow: 0 0 15px #888;
-        margin-top: 4rem;
       }
 
       section#questions * {
@@ -168,9 +167,11 @@
           background: #f4f4f4e4;
         }
 
-        section#plasma {
-          padding-bottom: 0;
+        section#youknow iframe {
+          width: 100%;
+          border: 0;
         }
+
         section#plasma iframe {
           border: 0;
           height: 100%;
@@ -231,6 +232,19 @@
           min-height: calc(100vh - 3rem);
           padding: 0;
         }
+
+        section#youknow {
+          padding: 0;
+        }
+        section#youknow div.content {
+          width: 100%;
+          padding: 4rem 0;
+        }
+        section#youknow iframe {
+          width: 100%;
+          border: 0;
+        }
+
         section#plasma {
           padding: 0;
         }
@@ -437,6 +451,22 @@
           </div>
         </div>
         <div class="padding right"></div>
+      </section>
+
+      <section id="youknow">
+        <div class="content">
+          <iframe id="youknow-video" src="https://www.youtube.com/embed/fyPF3RUv00A?html5=1"
+                  allowfullscreen="1" frameborder="0" title="YouTube video player"
+                  allow="picture-in-picture"></iframe>
+          <script>
+            function fitVideoHeight() {
+              var width = $("#youknow-video").width();
+              $("#youknow-video").height(width / 1.78);
+            }
+            $(window).resize(fitVideoHeight);
+            fitVideoHeight();
+          </script>
+        </div>
       </section>
 
       <!--
