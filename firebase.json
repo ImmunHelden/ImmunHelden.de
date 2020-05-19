@@ -50,6 +50,14 @@
         "function": "addStakeHolder"
       },
       {
+        "source": "/verifyOrg",
+        "function": "verifyOrg"
+      },
+      {
+        "source": "/deleteOrg",
+        "function": "deleteOrg"
+      },
+      {
         "source": "/getStakeHoldersInZipCodeRangeAsJson",
         "function": "getStakeHoldersInZipCodeRangeAsJson"
       },

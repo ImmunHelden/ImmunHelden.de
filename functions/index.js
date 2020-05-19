@@ -55,7 +55,6 @@ async function renderMessage(template, params) {
 }
 
 exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
-  // Check for POST request
   if (req.method !== "POST") {
     res.status(400).send('Please send a POST request');
     return;
@@ -222,13 +221,27 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   const accountRef = await admin.database().ref('/accounts').push();
   const postRef = await admin.database().ref('/posts').push();
 
+  // Render verification E-Mail
+  const msg = await renderMessage('email/de/org_welcome.md', {
+    prop_org_name: req.body.organization,
+    prop_org_login_first_name: req.body.firstName,
+    link_org_login_double_opt_in: `https://immunhelden.de/verifyOrg?key=${stakeholderRef.key}`,
+    link_org_login_opt_out: `https://immunhelden.de/deleteOrg?key=${stakeholderRef.key}`
+  });
+
+  // Trigger verification E-Mail
+  admin.firestore().collection('mail').add({
+    to: req.body.email,
+    message: msg
+  });
+
+  // Fill records in database
   stakeholderRef.set({
     organisation: req.body.organization || '',
     accounts: [ accountRef.key ],
     posts: [ postRef.key ]
   });
 
-  // TODO: Send verification email.
   accountRef.set({
     stakeholder: stakeholderRef.key,
     firstName: req.body.firstName,
@@ -280,6 +293,30 @@ exports.doneVerifyStakeholderPin = functions.https.onRequest(async (req, res) =>
   res.redirect("../generic.html");
 });
 
+exports.verifyOrg = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET" || !req.query.key) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  const ref = admin.database().ref('/stakeholders/' + req.query.key);
+  ref.update({ 'doubleOptIn': true });
+
+  res.redirect("../generic.html");
+});
+
+exports.deleteOrg = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET" || !req.query.key) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  const ref = admin.database().ref('/stakeholders/' + req.query.key);
+  await ref.remove();
+
+  res.send('Subscription deleted');
+});
+
 exports.sendExampleMail = functions.https.onRequest(async (req, res) => {
   if (req.method !== "GET") {
     res.status(400).send('Invalid request');
@@ -290,7 +327,11 @@ exports.sendExampleMail = functions.https.onRequest(async (req, res) => {
     // Render message for preview
     const msg = await renderMessage(req.query.template, {
       link_hero_double_opt_in: 'https://immunhelden.de/verifyHero?key=test',
-      link_hero_opt_out: 'https://immunhelden.de/deleteHero?key=test'
+      link_hero_opt_out: 'https://immunhelden.de/deleteHero?key=test',
+      prop_org_name: 'Test-Organisation',
+      prop_org_login_first_name: 'Test-Vorname',
+      link_org_login_double_opt_in: `https://immunhelden.de/verifyOrg?key=test`,
+      link_org_login_opt_out: `https://immunhelden.de/deleteOrg?key=test`
     });
 
     res.send(`
