@@ -6,4 +6,4 @@ Hier liegen Vorlagen für Nachrichten an unsere Nutzer:innen.
 
 | Zweck | Datei | Test |
 | ----- | ----- | ---- |
-| Double Opt-In | [email/hero_welcome.md](email/hero_welcome.md) | [Beispiel schicken](https://immunhelden.de/sendExampleMail?template=email/hero_welcome.md) |
+| Double Opt-In | [email/de/hero_welcome.md](email/de/hero_welcome.md) | [Beispiel senden](https://immunhelden.de/sendExampleMail?template=email/de/hero_welcome.md) |
