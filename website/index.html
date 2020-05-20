@@ -57,6 +57,31 @@
         margin-bottom: 0.5rem;
       }
 
+      section#youknow div.content {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('images/spin_loading.gif');
+      }
+      section#youknow #youknow-video {
+        width: 100%;
+        height: 100%;
+      }
+
+      a#youknow-video-placeholder {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('images/youknow_preview1.png');
+      }
+
+      a#youknow-video-placeholder:hover {
+        background-image: url('images/youknow_preview2.png');
+      }
+
       section#plasma {
         background: linear-gradient(45deg, #93672533, transparent);
         box-shadow: 0 0 15px #888;
@@ -167,11 +192,6 @@
           background: #f4f4f4e4;
         }
 
-        section#youknow iframe {
-          width: 100%;
-          border: 0;
-        }
-
         section#plasma iframe {
           border: 0;
           height: 100%;
@@ -239,10 +259,6 @@
         section#youknow div.content {
           width: 100%;
           padding: 4rem 0;
-        }
-        section#youknow iframe {
-          width: 100%;
-          border: 0;
         }
 
         section#plasma {
@@ -455,18 +471,23 @@
 
       <section id="youknow">
         <div class="content">
-          <iframe id="youknow-video" src="https://www.youtube.com/embed/fyPF3RUv00A?html5=1"
-                  allowfullscreen="1" frameborder="0" title="YouTube video player"
-                  allow="picture-in-picture"></iframe>
-          <script>
-            function fitVideoHeight() {
-              var width = $("#youknow-video").width();
-              $("#youknow-video").height(width / 1.78);
-            }
-            $(window).resize(fitVideoHeight);
-            fitVideoHeight();
-          </script>
+          <a href="javascript:loadYouKnowVideo()" id="youknow-video-placeholder"></a>
         </div>
+        <script>
+          function loadYouKnowVideo() {
+            $('#youknow > div.content').html(
+              '<iframe id="youknow-video" src="https://www.youtube.com/embed/fyPF3RUv00A?html5=1&autoplay=1"' +
+              '        allowfullscreen="1" frameborder="0" title="YouTube video player"' +
+              '        allow="autoplay; picture-in-picture"></iframe>');
+            fitVideoHeight();
+          }
+          function fitVideoHeight() {
+            var width = $("#youknow > div.content").width();
+            $("#youknow > div.content").height(width / 1.78);
+          }
+          $(window).resize(fitVideoHeight);
+          fitVideoHeight();
+        </script>
       </section>
 
       <!--
