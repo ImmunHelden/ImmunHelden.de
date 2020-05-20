@@ -12,6 +12,13 @@
   <style>
     @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
 
+    @font-face {
+      font-family: 'Noteworthy Light';
+      font-style: normal;
+      font-weight: normal;
+      src: local('Noteworthy Light'), url('../../assets/fonts/Noteworthy-Lt.woff') format('woff');
+    }
+
     body {
       font-family: "Raleway", Arial, Helvetica, sans-serif;
       margin: 0;
@@ -153,6 +160,20 @@
       text-decoration: none;
       padding: 0 10px;
     }
+    header a.logo {
+      display: block;
+      height: 1.66rem;
+      flex: none;
+
+      background: url('../../images/superhero.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center left;
+      margin-left: 1rem;
+      padding-left: 2.5rem;
+
+      font-family: 'Noteworthy Light';
+    }
 
     #platforms table {
       margin-top: 4px;
@@ -205,11 +226,12 @@
   </div>
 
   <header id="header">
-    <a href="https://twitter.com/WirvsVirusHack" target="_blank">
-      <img src="../../images/wirvsvirusSE.png" alt="wirvsvirus" style="height: 40px; margin-left: 10px; margin-top: 2px;">
-    </a>
-    <a href="https://twitter.com/search?q=%23SpendeCOVIDPlasma" target="_blank" style="padding-bottom: 4px;">
+    <a href="../../" class="logo">ImmunHelden</a>
+    <a href="https://twitter.com/search?q=%23SpendeCOVIDPlasma" target="_blank">
       #SpendeCOVIDPlasma
+    </a>
+    <a href="https://twitter.com/WirvsVirusHack" target="_blank">
+      <img src="../../images/wirvsvirusSE.png" alt="wirvsvirus" style="height: 40px; margin-top: 2px;">
     </a>
   </header>
   <div id="osm-map"></div>
