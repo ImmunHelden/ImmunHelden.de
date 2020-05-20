@@ -57,8 +57,10 @@
         margin-bottom: 0.5rem;
       }
 
+      section#youknow {
+        padding: 2rem;
+      }
       section#youknow div.content {
-        background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         background-image: url('images/spin_loading.gif');
@@ -68,7 +70,7 @@
         height: 100%;
       }
 
-      a#youknow-video-placeholder {
+      a#youknow-placeholder {
         display: block;
         width: 100%;
         height: 100%;
@@ -78,7 +80,7 @@
         background-image: url('images/youknow_preview1.png');
       }
 
-      a#youknow-video-placeholder:hover {
+      a#youknow-placeholder:hover {
         background-image: url('images/youknow_preview2.png');
       }
 
@@ -258,7 +260,7 @@
         }
         section#youknow div.content {
           width: 100%;
-          padding: 4rem 0;
+          padding: 2rem 0;
         }
 
         section#plasma {
@@ -471,12 +473,12 @@
 
       <section id="youknow">
         <div class="content">
-          <a href="javascript:loadYouKnowVideo()" id="youknow-video-placeholder"></a>
+          <a href="javascript:loadYouKnowVideo()" id="youknow-placeholder"></a>
         </div>
         <script>
           function loadYouKnowVideo() {
             $('#youknow > div.content').html(
-              '<iframe id="youknow-video" src="https://www.youtube.com/embed/fyPF3RUv00A?html5=1&autoplay=1"' +
+              '<iframe id="youknow-video" src="https://www.youtube-nocookie.com/embed/fyPF3RUv00A?html5=1&autoplay=1"' +
               '        allowfullscreen="1" frameborder="0" title="YouTube video player"' +
               '        allow="autoplay; picture-in-picture"></iframe>');
             fitVideoHeight();
