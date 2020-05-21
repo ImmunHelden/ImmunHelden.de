@@ -260,14 +260,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
   }
 
   var allPinsById = {};
-  var allRegionsByZip = {};
-
-  //    function addPin(id, info, icon) {
-  //      var clickHandler = "viewDetails('" + id + "');";
-  //      var content = renderPreviewHtml(info.title, clickHandler);
-  //      allPinsById[id].popup = L.marker(L.latLng(info.latlng), { "icon": icon }).bindPopup(content);
-  //      allPinsById[id].popup.addTo(map);
-  //    }
 
   // TODO: It needs a place to live
   let followupHtml;
@@ -333,6 +325,78 @@ function WirVsVirusMap(domElementName, actualSettings) {
       );
     }
   }
+
+  function mayViewDetails(id) {
+    if (!settings.embedded && window.innerWidth >= 600) {
+      viewDetails(id);
+    }
+  }
+
+  function focusPin(id) {
+    if (allPinsById.hasOwnProperty(id)) {
+      allPinsById[id].popup.openPopup();
+      mayViewDetails(id);
+      wvv.map.flyTo(allPinsById[id].latlng, 12, {
+        animate: true,
+        duration: 3
+      });
+      return;
+    }
+  }
+
+  var pinsReady = [];
+  for (let i = 0; i < settings.platforms.length; i++) {
+    pinsReady.push(loadJson(settings.platforms[i].restBaseUrl + '/pins').then(pinsById => {
+      for (let id in pinsById) {
+        if (isValidPinInfo(pinsById[id])) {
+          const pin = {
+            latlng: L.latLng(pinsById[id].latlng),
+            title: pinsById[id].title,
+            platformIdx: i,
+            marker: null,
+            popup: null,
+            elem: null
+          };
+          const clickHandler = "viewDetails('" + id + "');";
+          const content = renderPreviewHtml(pin.title, clickHandler);
+          pin.marker = L.marker(pin.latlng, { "icon": new L.Icon(settings.platforms[i].icon) });
+          pin.popup = pin.marker.bindPopup(content);
+          pin.elem = $(pin.popup.addTo(wvv.map).getElement());
+          pin.marker.on('click', function() { mayViewDetails(id); });
+          allPinsById[id] = pin;
+        }
+      }
+    }));
+  }
+
+  // TODO: Get back code to load regions
+  const regionsReady = new Promise((resolve, reject) => resolve());
+
+  Promise.all(pinsReady.concat([regionsReady])).then(function() {
+    let preselectId = parseAnchor(window.location.href);
+    console.log(preselectId);
+    if (preselectId) {
+      focusPin(preselectId);
+    }
+  });
+
+  function togglePlatform(checkbox, platformIdx) {
+    const show = $(checkbox).is(':checked');
+    console.log("Anzeigen von ", settings.platforms[platformIdx].name, (show ? "ein" : "aus") + "blenden");
+
+    const toggle = (show ? function(elem) { elem.show(); }
+                          : function(elem) { elem.hide(); });
+
+    for (const id in allPinsById) {
+      if (allPinsById[id].platformIdx == platformIdx) {
+        toggle(allPinsById[id].elem);
+      }
+    }
+  }
+}
+
+/*
+
 
   var allRegionsByAgs = {};
 
@@ -403,57 +467,8 @@ function WirVsVirusMap(domElementName, actualSettings) {
     }
   }
 
-  function mayViewDetails(id) {
-    if (!settings.embedded && window.innerWidth >= 600) {
-      viewDetails(id);
-    }
-  }
 
-  function focusPin(id) {
-    if (allPinsById.hasOwnProperty(id)) {
-      allPinsById[id].popup.openPopup();
-      mayViewDetails(id);
-      wvv.map.flyTo(allPinsById[id].latlng, 12, {
-        animate: true,
-        duration: 3
-      });
-      return;
-    }
-    // TODO: Should we have a ID-lookup for regions?
-    for (var ags in allRegionsByAgs) {
-      if (allRegionsByAgs[ags].ids &&
-          allRegionsByAgs[ags].ids.indexOf(preselectId) != -1) {
-        // TODO: User might need to scroll down.
-        viewDetailsR(ags);
-        return;
-      }
-    }
-  }
 
-  var pinsReady = [];
-  for (let i = 0; i < settings.platforms.length; i++) {
-    pinsReady.push(loadJson(settings.platforms[i].restBaseUrl + '/pins').then(pinsById => {
-      for (let id in pinsById) {
-        if (isValidPinInfo(pinsById[id])) {
-          const pin = {
-            latlng: L.latLng(pinsById[id].latlng),
-            title: pinsById[id].title,
-            platformIdx: i,
-            marker: null,
-            popup: null,
-            elem: null
-          };
-          const clickHandler = "viewDetails('" + id + "');";
-          const content = renderPreviewHtml(pin.title, clickHandler);
-          pin.marker = L.marker(pin.latlng, { "icon": new L.Icon(settings.platforms[i].icon) });
-          pin.popup = pin.marker.bindPopup(content);
-          pin.elem = $(pin.popup.addTo(wvv.map).getElement());
-          pin.marker.on('click', function() { mayViewDetails(id); });
-          allPinsById[id] = pin;
-        }
-      }
-    }));
-  }
 
   //    loadJson('assets/zipcodes.de.json').then(zipCodes => {
   //      const reg = {};
@@ -633,25 +648,4 @@ function WirVsVirusMap(domElementName, actualSettings) {
     }
   });
 
-  Promise.all(pinsReady.concat([regionsReady])).then(function() {
-    let preselectId = parseAnchor(window.location.href);
-    console.log(preselectId);
-    if (preselectId) {
-      focusPin(preselectId);
-    }
-  });
-
-  function togglePlatform(checkbox, platformIdx) {
-    const show = $(checkbox).is(':checked');
-    console.log("Anzeigen von ", settings.platforms[platformIdx].name, (show ? "ein" : "aus") + "blenden");
-
-    const toggle = (show ? function(elem) { elem.show(); }
-                          : function(elem) { elem.hide(); });
-
-    for (const id in allPinsById) {
-      if (allPinsById[id].platformIdx == platformIdx) {
-        toggle(allPinsById[id].elem);
-      }
-    }
-  }
-}
+*/
