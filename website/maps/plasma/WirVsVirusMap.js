@@ -188,15 +188,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
   var platformsView = new L.Control.Platforms({ position: 'bottomleft' });
   //platformsView.addTo(map);
 
-  const defaultPinIcons = [
-    new L.Icon({
-      iconUrl: '/maps/plasma/images/marker-icon-blood.png',
-      iconSize: [30, 38],
-      iconAnchor: [15, 37],
-      popupAnchor: [1, -34]
-    })
-  ];
-
   function forEachPoint(geometry, predicate) {
     if (geometry.length == 2 && !geometry[0].hasOwnProperty("length")) {
       predicate(geometry);
@@ -232,11 +223,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
       return invalidInfo(I, 'Expected pin property "latlng" to be an array with 2 elements');
     if (!parseFloat(I.latlng[0]) || !parseFloat(I.latlng[1]))
       return invalidInfo(I, 'Expected elements of pin property "latlng" to be floating point numbers');
-    if (!I.hasOwnProperty("type") || !isInteger(I.type))
-      return invalidInfo(I, 'Expected integer value in pin property "type"');
-    const typeMax = defaultPinIcons.length - 1; // TODO: customizable icons
-    if (I.type < 0 || I.type > typeMax)
-      return invalidInfo(I, 'Expected "type" property of pin in range [0..' + typeMax + ']');
     if (!I.hasOwnProperty("title"))
       return invalidInfo(I, 'Expected string value in pin property "title"');
     return true;
@@ -420,7 +406,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
         if (isValidPinInfo(pinsById[id])) {
           const pin = {
             latlng: L.latLng(pinsById[id].latlng),
-            type: pinsById[id].type,
             title: pinsById[id].title,
             platformIdx: i,
             marker: null,
@@ -429,8 +414,7 @@ function WirVsVirusMap(domElementName, actualSettings) {
           };
           const clickHandler = "viewDetails('" + id + "');";
           const content = renderPreviewHtml(pin.title, clickHandler);
-          const icon = defaultPinIcons[pin.type]; // TODO: customizable icons
-          pin.marker = L.marker(pin.latlng, { "icon": icon });
+          pin.marker = L.marker(pin.latlng, { "icon": new L.Icon(settings.platforms[i].icon) });
           pin.popup = pin.marker.bindPopup(content);
           pin.elem = $(pin.popup.addTo(wvv.map).getElement());
           pin.marker.on('click', function() { mayViewDetails(id); });
