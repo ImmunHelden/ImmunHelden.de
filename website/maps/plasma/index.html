@@ -183,7 +183,7 @@
       popupAnchor: [1, -34]
     };
 
-    const params = parseUrlParams(window.location.href);
+    const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
 
     const settings = {
       embedded: params.hasOwnProperty("embedded"),
@@ -197,7 +197,14 @@
       ]
     };
 
-    const map = new WirVsVirusMap('osm-map', settings);
+    const map = new WirVsVirusMap.create('osm-map', settings);
+
+
+    $(window).on('hashchange', e => {
+      let preselectId = WirVsVirusMap.Utils.parseAnchor(window.location.href);
+      if (preselectId)
+        map.focusPin(preselectId);
+    });
 
     // interactions
   </script>

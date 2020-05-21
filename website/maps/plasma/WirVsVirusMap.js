@@ -1,103 +1,423 @@
+(function(WirVsVirusMap, $, L) {
 
-if (!String.prototype.format) {
-  String.prototype.format = function() {
-    var args = Array.prototype.slice.call(arguments);
-    return this.replace(/{(\d+)}/g, function(match, number) {
-      return typeof args[number] != 'undefined'
-        ? args[number]
-        : match
-      ;
-    });
-  };
-}
+  const Utils = {
+    // Interpret a string as boolean value as good as we can.
+    parseBool: function(string) {
+      if (string) {
+        switch (string.toLowerCase().trim()) {
+          case "true": case "yes": case "1": case "on": return true;
+          case "false": case "no": case "0": case "off": case null: return false;
+          default: return Boolean(string);
+        }
+      }
+      return false;
+    },
 
-function parseBool(string) {
-  if (string) {
-    switch (string.toLowerCase().trim()) {
-      case "true": case "yes": case "1": case "on": return true;
-      case "false": case "no": case "0": case "off": case null: return false;
-      default: return Boolean(string);
-    }
-  }
-  return false;
-}
+    // Strip parameters and anchors from the given URL.
+    parseBaseUrl: function(url) {
+      const regex = /[^?#]+/g;
+      const match = regex.exec(url);
+      return match.hasOwnProperty('0') ? match[0] : null;
+    },
 
-function parseBaseUrl(url) {
-  const regex = /[^?#]+/g;
-  const match = regex.exec(url);
-  return match.hasOwnProperty('0') ? match[0] : null;
-}
+    // Strip parameters and anchors from the given URL and cut everything
+    // that follows the last sepaerator slash.
+    parseBaseUrlDir: function(url) {
+      const baseUrl = Utils.parseBaseUrl(url);
+      return baseUrl.substring(0, baseUrl.lastIndexOf('/'));
+    },
 
-function parseAnchor(url) {
-  const apos = url.lastIndexOf('#');
-  return (apos > 0 && apos < url.length - 1) ? url.substring(apos + 1) : null;
-}
+    // Parse URL parameters into a key-value collection.
+    parseUrlParams: function(url) {
+      const regex = /[?&]([^=#]+)=([^&#]*)/g;
+      let params = {};
+      let match;
+      while(match = regex.exec(url)) {
+        params[match[1]] = match[2];
+      }
+      return params;
+    },
 
-function parseUrlParams(url) {
-  const regex = /[?&]([^=#]+)=([^&#]*)/g;
-  let params = {};
-  let match;
-  while(match = regex.exec(url)) {
-    params[match[1]] = match[2];
-  }
-  return params;
-}
+    // Parse the anchor string of the given URL.
+    parseAnchor: function(url) {
+      const apos = url.lastIndexOf('#');
+      return (apos > 0 && apos < url.length - 1) ? url.substring(apos + 1) : null;
+    },
 
-function guessIFrame() {
-  return window.location !== window.parent.location;
-}
+    // Guess whether or not we are living inside an iframe.
+    guessIFrame: function() {
+      return window.location !== window.parent.location;
+    },
 
-function parseBaseUrlDir() {
-  const baseUrl = parseBaseUrl(window.location.href);
-  return baseUrl.substring(0, baseUrl.lastIndexOf('/'));
-}
-
-function createBaseLayer() {
-  return L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png',
-        { attribution:
-            '<a href="https://carto.com/help/building-maps/basemap-list/">Map tiles by Carto under CC BY 3.0</a> | ' +
-            '<a href="http://osm.org/copyright">Data by OpenStreetMap under ODbL</a>'
-        });
-}
-
-function loadJson(fileUrl) {
-  return new Promise(function(resolve, reject) {
-    $.ajax({ url: fileUrl })
-      .fail(() => reject("Error querying " + fileUrl))
-      .done(content => {
-        resolve((typeof content === 'string') ? JSON.parse(content) : content);
+    // Load the given resource asynchronously and return plain text content.
+    loadPlain: function(fileUrl) {
+      return new Promise(function(resolve, reject) {
+        $.ajax({ url: fileUrl })
+          .fail(() => reject("Error querying " + fileUrl))
+          .done(content => resolve(content));
       });
-  });
-}
+    },
 
-function loadPlain(fileUrl) {
-  return new Promise(function(resolve, reject) {
-    $.ajax({ url: fileUrl })
-      .fail(() => reject("Error querying " + fileUrl))
-      .done(content => resolve(content));
-  });
-}
+    // Load the given resource asynchronously and return parse as JSON even if
+    // the MIME type didn't indicate it.
+    loadJson: function(fileUrl) {
+      return new Promise(function(resolve, reject) {
+        $.ajax({ url: fileUrl })
+          .fail(() => reject("Error querying " + fileUrl))
+          .done(content => {
+            resolve((typeof content === 'string') ? JSON.parse(content) : content);
+          });
+      });
+    },
 
-function forEachPoint(geometry, predicate) {
-  if (geometry.length == 2 && !geometry[0].hasOwnProperty("length")) {
-    predicate(geometry);
-  }
-  else {
-    for (var component of geometry) {
-      forEachPoint(component, predicate);
+    // Apply the given predicate function to each terminal point in a GeoJSON
+    // feature geometry.
+    forEachPoint: function(geometry, predicate) {
+      if (geometry.length == 2 && !geometry[0].hasOwnProperty("length")) {
+        predicate(geometry);
+      }
+      else {
+        for (var component of geometry) {
+          forEachPoint(component, predicate);
+        }
+      }
+    },
+
+    isInteger: function(N) {
+      return !isNaN(N) && parseInt(Number(N)) == N && !isNaN(parseInt(N, 10));
     }
-  }
-}
+  };
 
-function renderPreviewHtml(title, clickHandler) {
-  var html = '';
-  html += '<div class="popup-pin">';
-  html += '<h2><a href="javascript:void(0)" onclick="' + clickHandler + '">';
-  html += title;
-  html += '</a></h2>';
-  html += '</div>';
-  return html;
-}
+  const hostBaseUrl = Utils.parseBaseUrlDir(window.location.href);
+
+  const defaultIcon = {
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34]
+  };
+
+  const defaultBaseLayer = L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png',
+    { attribution:
+      '<a href="https://carto.com/help/building-maps/basemap-list/">Map tiles by Carto under CC BY 3.0</a> | ' +
+      '<a href="http://osm.org/copyright">Data by OpenStreetMap under ODbL</a>'
+    });
+
+  const defaultSettings = {
+    embedded: Utils.guessIFrame(),
+    lockLink: '/',
+    zoom: 6,
+    baseLayer: defaultBaseLayer,
+    platforms: [
+      //{
+      //name: 'Default',
+      //sources: [
+        { name: 'Default', restBaseUrl: hostBaseUrl, icon: defaultIcon }
+      //]
+      //}
+    ]
+  };
+
+  function invalidInfo(info, message) {
+    console.warn("Encountered invalid item in response:", message, info);
+    return false;
+  }
+
+  function isValidPinInfo(I) {
+    if (!I.hasOwnProperty("latlng") || !I.latlng.hasOwnProperty("length") || I.latlng.length != 2)
+      return invalidInfo(I, 'Expected pin property "latlng" to be an array with 2 elements');
+    if (!parseFloat(I.latlng[0]) || !parseFloat(I.latlng[1]))
+      return invalidInfo(I, 'Expected elements of pin property "latlng" to be floating point numbers');
+    if (!I.hasOwnProperty("title"))
+      return invalidInfo(I, 'Expected string value in pin property "title"');
+    return true;
+  }
+
+  function asset(name) {
+    const assetsBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/WirVsVirusMap/master/assets';
+    return [ assetsBaseUrl, name ].join('/');
+  }
+
+  const _isInputValid = function(elem) {
+    if (typeof elem !== 'string' || elem.length == 0) {
+      console.error('Please pass the ID of the DOM element to host WirVsVirusMap as first argument.');
+      return false;
+    }
+
+    if ($('#' + elem).length == 0) {
+      console.error('Cannot find DOM element to host WirVsVirusMap. ' +
+                    'Try adding this to your HTML: <div id="' + elem + '"></div>');
+      return false;
+    }
+
+    return true;
+  };
+
+  const _createPopupElem = function(title, clickHandler) {
+    // Embed HTML into an extra <div> for jQuery to work.
+    const container = $(
+      '<div>' +
+      '  <div class="popup-pin">' +
+      '    <h2><a href="javascript:void(0)">' + title + '</a></h2>' +
+      '  </div>' +
+      '</div>');
+
+    $('div.popup-pin a', container).on('click', clickHandler);
+
+    // Select non-wrapped content and return raw DOM element.
+    return $('div.popup-pin', container)[0];
+  };
+
+  function _makePlatformsControl(map, platforms) {
+    const create = (tag, parent) => {
+      const elem = document.createElement(tag);
+      parent.appendChild(elem);
+      return elem;
+    };
+
+    return L.Control.extend({
+      onAdd: function(leafletMap) {
+        // TODO: This could be easier.
+        const div = L.DomUtil.create('div');
+        L.DomUtil.addClass(div, 'leaflet-bar');
+        L.DomUtil.addClass(div, 'platforms-control');
+
+        const table = create('table', div);
+        table.innerHTML = '<tr><th>Anzeigen und Gesuche</th></tr>';
+
+        for (let i = 0; i < platforms.length; i++) {
+          const label = create('label', create('td', create('tr', table)));
+          const checkbox = create('input', label);
+          checkbox.type = 'checkbox';
+          checkbox.checked = true;
+          checkbox.addEventListener('change', () => map.togglePlatform(checkbox, i));
+          label.appendChild(document.createTextNode(platforms[i].name));
+        }
+
+        return div;
+      }
+    });
+  }
+
+  function _populateMapDom(map, container, settings) {
+    // TODO: This is all quite complicated.
+    const mdom = {};
+    mdom.root = $('#' + container).addClass('wvvm-root')
+        .append('<div id="osm-map-canvas"></div>')
+        .append('<div class="pane"></div>');
+
+    if (settings.embedded) {
+      const href = settings.lockLink || '/';
+      mdom.root.append('<a href="' + href + '" target="_parent" class="lock"></a>');
+    }
+
+    mdom.canvas = $('#osm-map-canvas');
+    mdom.lock = $('.wvvm-root > div.lock');
+    mdom.pane = $('.wvvm-root > div.pane')
+        .append('<iframe allowtransparency="true"></iframe>')
+        .append('<a href="javascript:void(0)">Einklappen &gt;&gt;</a>');
+
+    $('.wvvm-root > div.pane > a').on('click', () => map.closeDetailsPane());
+
+    mdom.paneDetails = $('.wvvm-root > div.pane > iframe');
+    mdom.paneClose = $('.wvvm-root > div.pane > a');
+
+    return mdom;
+  }
+
+  let followupHtml = '';
+
+  function create(domElementName, actualSettings) {
+    if (!_isInputValid(domElementName))
+      return;
+
+    const controls = {};
+    const settings = { ...defaultSettings, ...actualSettings };
+    const dom = _populateMapDom(this, domElementName, settings);
+    const allPinsById = {};
+
+    // TODO: We can choose the element ID and it must not clash with existing elements.
+    const map = new L.map('osm-map-canvas', {
+      center: [51.5, 10],
+      zoom: settings.zoom,
+      zoomControl: !settings.embedded
+    });
+
+    settings.baseLayer.addTo(map);
+
+    // TODO: Setting/condition for displaying the control for platform selection.
+    if (true) {
+      L.Control.Platforms = _makePlatformsControl(this, settings.platforms);
+      controls.platformsView = new L.Control.Platforms({ position: 'bottomleft' });
+      controls.platformsView.addTo(map);
+    }
+
+    Utils.loadPlain(hostBaseUrl + '/followup.html').then(
+      html => { followupHtml = html; },
+      err => console.error(err)
+    );
+
+    // TODO: Should we return pins-by-id as a result per promise and merge them in hindsight?
+    // TODO: Should we wait for all promises or start showing pins one by one?
+    const pinsReady = [];
+    for (let i = 0; i < settings.platforms.length; i++) {
+      const asyncLoad = Utils.loadJson(settings.platforms[i].restBaseUrl + '/pins');
+      pinsReady.push(asyncLoad.then(pinsById => {
+        _registerPinIds(pinsById, settings.platforms[i], i);
+      }));
+    }
+
+    // TODO: Get back code to load regions
+    const regionsReady = new Promise((resolve, reject) => resolve());
+
+    Promise.all(pinsReady.concat([regionsReady])).then(() => {
+      let preselectId = Utils.parseAnchor(window.location.href);
+      console.log(preselectId);
+      if (preselectId) {
+        focusPin(preselectId);
+      }
+    });
+
+    function _registerPinIds(pinsById, platform, platformIdx) {
+      for (let id in pinsById) {
+        if (isValidPinInfo(pinsById[id])) {
+          const pin = {
+            latlng: L.latLng(pinsById[id].latlng),
+            title: pinsById[id].title,
+            platformIdx: platformIdx,
+            marker: null,
+            popup: null,
+            elem: null
+          };
+
+          const content = _createPopupElem(pin.title, () => _viewDetailsForPin(id));
+
+          // TODO: Should we have a platform abstraction?
+          pin.marker = L.marker(pin.latlng, { "icon": new L.Icon(platform.icon) });
+          pin.popup = pin.marker.bindPopup(content);
+          pin.marker.on('click', () => _mayViewDetailsForPin(id));
+          pin.elem = $(pin.popup.addTo(map).getElement());
+
+          // TODO: Silent race condition for clashing IDs.
+          allPinsById[id] = pin;
+        }
+      }
+    }
+
+    function _viewDetailsForPin(id) {
+      if (!allPinsById.hasOwnProperty(id)) {
+        console.error("Requested invalid ID");
+        return;
+      }
+
+      _openDetailsPane();
+
+      const pinInfo = allPinsById[id];
+      map.panTo(L.latLng(pinInfo.latlng));
+
+      // TODO: Split loading off into separate function.
+      if (pinInfo.hasOwnProperty("details")) {
+        dom.paneDetails.attr("srcdoc", pinInfo.details.html());
+      }
+      else {
+        const contentBaseUrl = settings.platforms[pinInfo.platformIdx].restBaseUrl + "/details/";
+        console.log('request:', contentBaseUrl + id);
+        Utils.loadPlain(contentBaseUrl + id).then(
+          html => {
+            const annotations = [];
+            annotations.push('<base href="' + hostBaseUrl + '/" target="_blank">');
+            annotations.push('<link rel="stylesheet" href="details.css">');
+            pinInfo.details = $('<div>' + annotations.join('') + html + '</div>');
+
+            const followupHandler =
+              'setTimeout(function() { document.getElementById("followup").style.display="flex"; }, 500)';
+            pinInfo.details.find('a').each((i, elem) => {
+              const targetUrl = $(elem).attr('href');
+              if (targetUrl && targetUrl.hasOwnProperty('length') && targetUrl.length > 0) {
+                if (targetUrl.charAt(0) == '#') {
+                  $(elem).attr('href', hostBaseUrl + targetUrl);
+                }
+                else {
+                  $(elem).attr('onclick', followupHandler);
+                }
+              }
+            });
+            pinInfo.details.children('div').each((i, elem) => {
+              $(elem).css('margin-left', '25px')
+                    .css('margin-right', '10px');
+            });
+            pinInfo.details.append(followupHtml);
+
+            setTimeout(() => { dom.paneDetails.attr("srcdoc", pinInfo.details.html()); }, 500);
+          },
+          err => {
+            console.error("Error repsonse from", contentBaseUrl + id, ":", err);
+            _closeDetailsPane();
+          }
+        );
+      }
+    }
+
+    function _mayViewDetailsForPin(id) {
+      if (!settings.embedded && window.innerWidth >= 600) {
+        _viewDetailsForPin(id);
+      }
+    }
+
+    function _openDetailsPane() {
+      dom.pane.show();
+      dom.paneDetails.attr("srcdoc", ''); // '<img src="../images/spin_loading.gif" style="width:100%;">'
+      dom.canvas.css("width", "calc(100% - 400px)");
+      map.invalidateSize();
+    }
+
+    function _closeDetailsPane() {
+      dom.pane.hide();
+      dom.canvas.css("width", "100%");
+      map.invalidateSize();
+    }
+
+    function focusPin(id) {
+      if (allPinsById.hasOwnProperty(id)) {
+        allPinsById[id].popup.openPopup();
+        _mayViewDetailsForPin(id);
+        map.flyTo(allPinsById[id].latlng, 12, {
+          animate: true,
+          duration: 3
+        });
+        return;
+      }
+    }
+
+    function togglePlatform(checkbox, platformIdx) {
+      const show = $(checkbox).is(':checked');
+      console.log("Anzeigen von", settings.platforms[platformIdx].name,
+                  (show ? "ein" : "aus") + "blenden");
+
+      const toggle = show ? (e => e.show()) : (e => e.hide());
+      for (const id in allPinsById) {
+        if (allPinsById[id].platformIdx == platformIdx) {
+          toggle(allPinsById[id].elem);
+        }
+      }
+    }
+
+    this.focusPin = focusPin;
+    this.togglePlatform = togglePlatform;
+    this.viewDetailsForPin = _viewDetailsForPin;
+    this.closeDetailsPane = _closeDetailsPane;
+
+    return this;
+  }
+
+  WirVsVirusMap.create = create;
+  WirVsVirusMap.Utils = Utils;
+
+})(window.WirVsVirusMap = window.WirVsVirusMap || {}, jQuery, L);
+
+/*
+
 
 function isRegionVisible(ags, zoom) {
   return false;
@@ -116,287 +436,6 @@ function isRegionVisible(ags, zoom) {
   //}
   //return false;
 }
-
-function asset(name) {
-  const assetsBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/WirVsVirusMap/master/assets';
-  return [ assetsBaseUrl, name ].join('/');
-}
-
-$(window).on('hashchange', function(e) {
-  let preselectId = parseAnchor(window.location.href);
-  console.log(preselectId);
-  if (preselectId) {
-    focusPin(preselectId);
-  }
-});
-
-const wvv = {};
-
-function closeDetails() {
-  wvv.dom.pane.hide();
-  wvv.dom.canvas.css("width", "100%");
-  wvv.map.invalidateSize();
-  //$("#platforms-pane").show();
-}
-
-wvv.hostBaseUrl = parseBaseUrlDir(window.location.href);
-
-const defaultIcon = {
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34]
-};
-
-const defaultSettings = {
-  embedded: guessIFrame(),
-  lockLink: '/',
-  zoom: 6,
-  platforms: [
-    //{
-    //name: 'Default',
-    //sources: [
-      { name: 'Default', restBaseUrl: wvv.hostBaseUrl, icon: defaultIcon }
-    //]
-    //}
-  ]
-};
-
-function WirVsVirusMap(domElementName, actualSettings) {
-  const settings = { ...defaultSettings, ...actualSettings };
-
-  if (typeof domElementName !== 'string' || domElementName.length == 0) {
-    console.error('Please pass the ID of the DOM element to host WirVsVirusMap as first argument.');
-    return;
-  }
-
-  if ($('#' + domElementName).length == 0) {
-    console.error('Cannot find DOM element to host WirVsVirusMap. ' +
-                  'Try adding this to your HTML: <div id="' + domElementName + '"></div>');
-    return;
-  }
-
-  L.Control.Platforms = L.Control.extend({
-    onAdd: function(map) {
-      var div = L.DomUtil.create('div', 'leaflet-bar');
-      div.style.backgroundColor = "#fff";
-      div.style.padding = "3px 8px";
-      div.id = "platforms-pane";
-
-      var html = '';
-      html += '<table>';
-      html += '<tr><th>';
-      html += '  Anzeigen und Gesuche';
-      html += '</th></tr>';
-
-      for (var i = 0; i < platforms.length; i++) {
-        html += '<tr><td>';
-        html += '<input type="checkbox" id="platform{0}" checked onchange="togglePlatform(this, {0});">'.format(i);
-        html += '<label for="platform{0}" title="Anzeigen und Gesuche von {1}">'.format(i, platforms[i].name);
-        html += platforms[i].name;
-        html += '</label>';
-        html += '</td></tr>';
-      }
-
-      html += '</table>';
-
-      div.innerHTML = html;
-      return div;
-    }
-  });
-
-  //var platforms = parsePlatforms(params);
-
-  wvv.dom = {};
-  wvv.dom.root = $('#' + domElementName).addClass('wvvm-root')
-      .append('<div id="osm-map-canvas"></div>')
-      .append('<div class="pane"></div>');
-
-  if (settings.embedded) {
-    const href = settings.lockLink || '/';
-    wvv.dom.root.append('<a href="' + href + '" target="_parent" class="lock"></a>');
-  }
-
-  wvv.dom.canvas = $('#osm-map-canvas');
-  wvv.dom.lock = $('.wvvm-root > div.lock');
-  wvv.dom.pane = $('.wvvm-root > div.pane')
-      .append('<iframe></iframe>')
-      .append('<a href="javascript:void(0)" onclick="closeDetails();">Einklappen &gt;&gt;</a>');
-
-  wvv.dom.paneDetails = $('.wvvm-root > div.pane > iframe');
-  wvv.dom.paneClose = $('.wvvm-root > div.pane > a');
-
-  wvv.map = new L.map('osm-map-canvas', {
-    center: [51.5, 10],
-    zoom: settings.zoom,
-    zoomControl: !settings.embedded
-    //dragging: interactive,
-    //doubleClickZoom: interactive,
-    //scrollWheelZoom: interactive
-  });
-
-  createBaseLayer().addTo(wvv.map);
-
-  var platformsView = new L.Control.Platforms({ position: 'bottomleft' });
-  //platformsView.addTo(map);
-
-  function invalidInfo(info, message) {
-    console.warn("Encountered invalid item in response:", message, info);
-    return false;
-  }
-
-  function isInteger(N) {
-    return !isNaN(N) && parseInt(Number(N)) == N && !isNaN(parseInt(N, 10));
-  }
-
-  function isValidPinInfo(I) {
-    if (!I.hasOwnProperty("latlng") || !I.latlng.hasOwnProperty("length") || I.latlng.length != 2)
-      return invalidInfo(I, 'Expected pin property "latlng" to be an array with 2 elements');
-    if (!parseFloat(I.latlng[0]) || !parseFloat(I.latlng[1]))
-      return invalidInfo(I, 'Expected elements of pin property "latlng" to be floating point numbers');
-    if (!I.hasOwnProperty("title"))
-      return invalidInfo(I, 'Expected string value in pin property "title"');
-    return true;
-  }
-
-  var allPinsById = {};
-
-  // TODO: It needs a place to live
-  let followupHtml;
-  console.log(wvv.hostBaseUrl + '/followup.html');
-  loadPlain(wvv.hostBaseUrl + '/followup.html').then(
-    html => { followupHtml = html; },
-    err => console.error(err)
-  );
-
-  function viewDetails(id) {
-    if (!allPinsById.hasOwnProperty(id)) {
-      console.error("Requested invalid ID");
-      return;
-    }
-
-    wvv.dom.paneDetails.attr("srcdoc", '<img src="../images/spin_loading.gif" style="width:100%;">');
-    wvv.dom.pane.show();
-    wvv.dom.canvas.css("width", "calc(100% - 400px)");
-
-    const pinInfo = allPinsById[id];
-    console.log(pinInfo);
-
-    // TODO: if there's space left for the map at all
-    wvv.map.invalidateSize();
-    wvv.map.panTo(L.latLng(pinInfo.latlng));
-    //$("#platforms-pane").hide();
-
-    if (pinInfo.hasOwnProperty("details")) {
-      wvv.dom.paneDetails.attr("srcdoc", pinInfo.details.html());
-    }
-    else {
-      const contentBaseUrl = settings.platforms[pinInfo.platformIdx].restBaseUrl + "/details/";
-      console.log('request:', contentBaseUrl + id);
-      loadPlain(contentBaseUrl + id).then(
-        html => {
-          const annotations = [];
-          annotations.push('<base href="' + wvv.hostBaseUrl + '/" target="_blank">');
-          annotations.push('<link rel="stylesheet" href="details.css">');
-          pinInfo.details = $('<div>' + annotations.join('') + html + '</div>');
-
-          const followupHandler =
-            'setTimeout(function() { document.getElementById("followup").style.display="flex"; }, 500)';
-          pinInfo.details.find('a').each((i, elem) => {
-            const targetUrl = $(elem).attr('href');
-            if (targetUrl && targetUrl.hasOwnProperty('length') && targetUrl.length > 0) {
-              if (targetUrl.charAt(0) == '#') {
-                $(elem).attr('href', wvv.hostBaseUrl + targetUrl);
-              }
-              else {
-                $(elem).attr('onclick', followupHandler);
-              }
-            }
-          });
-          pinInfo.details.children('div').each((i, elem) => $(elem).css('margin-left', '25px').css('margin-right', '10px'));
-          pinInfo.details.append(followupHtml);
-
-          setTimeout(() => { wvv.dom.paneDetails.attr("srcdoc", pinInfo.details.html()); }, 200);
-        },
-        err => {
-          console.error("Error repsonse from: ", contentBaseUrl + id);
-          closeDetails();
-        }
-      );
-    }
-  }
-
-  function mayViewDetails(id) {
-    if (!settings.embedded && window.innerWidth >= 600) {
-      viewDetails(id);
-    }
-  }
-
-  function focusPin(id) {
-    if (allPinsById.hasOwnProperty(id)) {
-      allPinsById[id].popup.openPopup();
-      mayViewDetails(id);
-      wvv.map.flyTo(allPinsById[id].latlng, 12, {
-        animate: true,
-        duration: 3
-      });
-      return;
-    }
-  }
-
-  var pinsReady = [];
-  for (let i = 0; i < settings.platforms.length; i++) {
-    pinsReady.push(loadJson(settings.platforms[i].restBaseUrl + '/pins').then(pinsById => {
-      for (let id in pinsById) {
-        if (isValidPinInfo(pinsById[id])) {
-          const pin = {
-            latlng: L.latLng(pinsById[id].latlng),
-            title: pinsById[id].title,
-            platformIdx: i,
-            marker: null,
-            popup: null,
-            elem: null
-          };
-          const clickHandler = "viewDetails('" + id + "');";
-          const content = renderPreviewHtml(pin.title, clickHandler);
-          pin.marker = L.marker(pin.latlng, { "icon": new L.Icon(settings.platforms[i].icon) });
-          pin.popup = pin.marker.bindPopup(content);
-          pin.elem = $(pin.popup.addTo(wvv.map).getElement());
-          pin.marker.on('click', function() { mayViewDetails(id); });
-          allPinsById[id] = pin;
-        }
-      }
-    }));
-  }
-
-  // TODO: Get back code to load regions
-  const regionsReady = new Promise((resolve, reject) => resolve());
-
-  Promise.all(pinsReady.concat([regionsReady])).then(function() {
-    let preselectId = parseAnchor(window.location.href);
-    console.log(preselectId);
-    if (preselectId) {
-      focusPin(preselectId);
-    }
-  });
-
-  function togglePlatform(checkbox, platformIdx) {
-    const show = $(checkbox).is(':checked');
-    console.log("Anzeigen von ", settings.platforms[platformIdx].name, (show ? "ein" : "aus") + "blenden");
-
-    const toggle = (show ? function(elem) { elem.show(); }
-                          : function(elem) { elem.hide(); });
-
-    for (const id in allPinsById) {
-      if (allPinsById[id].platformIdx == platformIdx) {
-        toggle(allPinsById[id].elem);
-      }
-    }
-  }
-}
-
-/*
-
 
   var allRegionsByAgs = {};
 
