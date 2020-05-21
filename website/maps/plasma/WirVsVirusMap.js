@@ -52,6 +52,84 @@ function parseBaseUrlDir() {
   return baseUrl.substring(0, baseUrl.lastIndexOf('/'));
 }
 
+function createBaseLayer() {
+  return L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png',
+        { attribution:
+            '<a href="https://carto.com/help/building-maps/basemap-list/">Map tiles by Carto under CC BY 3.0</a> | ' +
+            '<a href="http://osm.org/copyright">Data by OpenStreetMap under ODbL</a>'
+        });
+}
+
+function loadJson(fileUrl) {
+  return new Promise(function(resolve, reject) {
+    $.ajax({ url: fileUrl })
+      .fail(() => reject("Error querying " + fileUrl))
+      .done(content => {
+        resolve((typeof content === 'string') ? JSON.parse(content) : content);
+      });
+  });
+}
+
+function loadPlain(fileUrl) {
+  return new Promise(function(resolve, reject) {
+    $.ajax({ url: fileUrl })
+      .fail(() => reject("Error querying " + fileUrl))
+      .done(content => resolve(content));
+  });
+}
+
+function forEachPoint(geometry, predicate) {
+  if (geometry.length == 2 && !geometry[0].hasOwnProperty("length")) {
+    predicate(geometry);
+  }
+  else {
+    for (var component of geometry) {
+      forEachPoint(component, predicate);
+    }
+  }
+}
+
+function renderPreviewHtml(title, clickHandler) {
+  var html = '';
+  html += '<div class="popup-pin">';
+  html += '<h2><a href="javascript:void(0)" onclick="' + clickHandler + '">';
+  html += title;
+  html += '</a></h2>';
+  html += '</div>';
+  return html;
+}
+
+function isRegionVisible(ags, zoom) {
+  return false;
+
+  if (zoom < 6) {
+    // Bundesländer
+    return ags.length == 2;
+  }
+  else { //if (zoom < 8) {
+    // Landkreise
+    return ags.length == 4 || ags.length == 5;
+  }
+  //else {
+  //  // Landkreise und Berliner Bezirke
+  //  return ags.length > 2 && ags != "11000";
+  //}
+  //return false;
+}
+
+function asset(name) {
+  const assetsBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/WirVsVirusMap/master/assets';
+  return [ assetsBaseUrl, name ].join('/');
+}
+
+$(window).on('hashchange', function(e) {
+  let preselectId = parseAnchor(window.location.href);
+  console.log(preselectId);
+  if (preselectId) {
+    focusPin(preselectId);
+  }
+});
+
 const wvv = {};
 
 function closeDetails() {
@@ -98,14 +176,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
     return;
   }
 
-  function createBaseLayer() {
-    return L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png',
-          { attribution:
-              '<a href="https://carto.com/help/building-maps/basemap-list/">Map tiles by Carto under CC BY 3.0</a> | ' +
-              '<a href="http://osm.org/copyright">Data by OpenStreetMap under ODbL</a>'
-          });
-  }
-
   L.Control.Platforms = L.Control.extend({
     onAdd: function(map) {
       var div = L.DomUtil.create('div', 'leaflet-bar');
@@ -134,24 +204,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
       return div;
     }
   });
-
-  function loadJson(fileUrl) {
-    return new Promise(function(resolve, reject) {
-      $.ajax({ url: fileUrl })
-        .fail(() => reject("Error querying " + fileUrl))
-        .done(content => {
-          resolve((typeof content === 'string') ? JSON.parse(content) : content);
-        });
-    });
-  }
-
-  function loadPlain(fileUrl) {
-    return new Promise(function(resolve, reject) {
-      $.ajax({ url: fileUrl })
-        .fail(() => reject("Error querying " + fileUrl))
-        .done(content => resolve(content));
-    });
-  }
 
   //var platforms = parsePlatforms(params);
 
@@ -187,27 +239,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
 
   var platformsView = new L.Control.Platforms({ position: 'bottomleft' });
   //platformsView.addTo(map);
-
-  function forEachPoint(geometry, predicate) {
-    if (geometry.length == 2 && !geometry[0].hasOwnProperty("length")) {
-      predicate(geometry);
-    }
-    else {
-      for (var component of geometry) {
-        forEachPoint(component, predicate);
-      }
-    }
-  }
-
-  function renderPreviewHtml(title, clickHandler) {
-    var html = '';
-    html += '<div class="popup-pin">';
-    html += '<h2><a href="javascript:void(0)" onclick="' + clickHandler + '">';
-    html += title;
-    html += '</a></h2>';
-    html += '</div>';
-    return html;
-  }
 
   function invalidInfo(info, message) {
     console.warn("Encountered invalid item in response:", message, info);
@@ -434,29 +465,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
   //      console.log(JSON.stringify(reg));
   //    });
 
-  function isRegionVisible(ags, zoom) {
-    return false;
-
-    if (zoom < 6) {
-      // Bundesländer
-      return ags.length == 2;
-    }
-    else { //if (zoom < 8) {
-      // Landkreise
-      return ags.length == 4 || ags.length == 5;
-    }
-    //else {
-    //  // Landkreise und Berliner Bezirke
-    //  return ags.length > 2 && ags != "11000";
-    //}
-    //return false;
-  }
-
-  function asset(name) {
-    const assetsBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/WirVsVirusMap/master/assets';
-    return [ assetsBaseUrl, name ].join('/');
-  }
-
   var regionsByAgsReady = loadJson(asset('Karte_de_geodata.geo.json')).then(geoJson => {
     var geoJsonLayer = L.geoJSON(geoJson).addTo(wvv.map);
     geoJsonLayer.eachLayer(function (layer) {
@@ -633,14 +641,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
     }
   });
 
-  $(window).on('hashchange', function(e) {
-    let preselectId = parseAnchor(window.location.href);
-    console.log(preselectId);
-    if (preselectId) {
-      focusPin(preselectId);
-    }
-  });
-
   function togglePlatform(checkbox, platformIdx) {
     const show = $(checkbox).is(':checked');
     console.log("Anzeigen von ", settings.platforms[platformIdx].name, (show ? "ein" : "aus") + "blenden");
@@ -652,6 +652,6 @@ function WirVsVirusMap(domElementName, actualSettings) {
       if (allPinsById[id].platformIdx == platformIdx) {
         toggle(allPinsById[id].elem);
       }
-      }
+    }
   }
 }
