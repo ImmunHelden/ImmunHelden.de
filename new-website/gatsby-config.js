@@ -1,3 +1,10 @@
+const activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+console.log(`Using environment config: '${activeEnv}'`)
+
+require("dotenv").config({
+    path: `./.env.${activeEnv}`,
+})
+
 module.exports = {
     siteMetadata: {
         title: `ImmunHelden`,
@@ -55,6 +62,20 @@ module.exports = {
                 defaultLanguage: `de`,
                 // option to redirect to default when connecting `/`
                 redirect: true,
+            },
+        },
+        {
+            resolve: "gatsby-plugin-firebase",
+            options: {
+                credentials: {
+                    apiKey: process.env.GATSBY_FIREBASE_API_KEY,
+                    authDomain: "immunhelden.firebaseapp.com",
+                    databaseURL: "https://immunhelden.firebaseio.com",
+                    projectId: "immunhelden",
+                    storageBucket: "immunhelden.appspot.com",
+                    messagingSenderId: "571517068232",
+                    appId: "1:571517068232:web:0d5ed271759c4f568b56fd",
+                },
             },
         },
         // this (optional) plugin enables Progressive Web App + Offline functionality

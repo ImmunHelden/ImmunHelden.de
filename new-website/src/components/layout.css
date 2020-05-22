@@ -1,43 +1,9 @@
 body {
-    margin: 0;
-    overflow-x: hidden;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #555555;
-    font-weight: 300;
-    line-height: 1.5;
-    text-transform: uppercase;
-    margin: 1.5rem 0 1.5rem 0;
-}
-h1 {
-    font-size: 3rem;
-    line-height: 1.2;
-}
-h2 {
-    margin: 2rem 0 0.5rem 0;
-    font-weight: bold;
-    font-size: 1.25rem;
-}
-p {
-    margin: 0 0 1rem 0;
-}
-a {
-    color: #ce1b28;
-    padding-left: 5px;
-}
-body,
-input,
-select,
-textarea {
     font-family: "Raleway", Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.65;
+}
+html,
+body {
+    height: 100%;
 }
 
 body:before {
