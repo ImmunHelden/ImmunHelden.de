@@ -8,6 +8,7 @@ import styled from "styled-components"
 const MainContent = styled.main`
     top: 3.25rem;
     position: relative;
+    flex-grow: 1;
 `
 
 const Layout = ({ children }) => {
@@ -21,13 +22,17 @@ const Layout = ({ children }) => {
         }
     `)
     return (
-        <>
+        <div
+            style={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+            }}
+        >
             <Header title={data.site.siteMetadata.title} />
-            <div>
-                <MainContent>{children}</MainContent>
-                <footer></footer>
-            </div>
-        </>
+            <main style={{ flexGrow: 1 }}>{children}</main>
+            <footer></footer>
+        </div>
     )
 }
 
