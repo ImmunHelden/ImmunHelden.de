@@ -119,20 +119,111 @@
     ]
   };
 
-  function invalidInfo(info, message) {
-    console.warn("Encountered invalid item in response:", message, info);
-    return false;
-  }
 
-  function isValidPinInfo(I) {
-    if (!I.hasOwnProperty("latlng") || !I.latlng.hasOwnProperty("length") || I.latlng.length != 2)
-      return invalidInfo(I, 'Expected pin property "latlng" to be an array with 2 elements');
-    if (!parseFloat(I.latlng[0]) || !parseFloat(I.latlng[1]))
-      return invalidInfo(I, 'Expected elements of pin property "latlng" to be floating point numbers');
-    if (!I.hasOwnProperty("title"))
-      return invalidInfo(I, 'Expected string value in pin property "title"');
-    return true;
-  }
+  const Pin = {
+
+    isValidInfo: function(I) {
+      const invalidInf = (info, message) => {
+        console.warn("Encountered invalid item in response:", message, info);
+        return false;
+      };
+      if (!I.hasOwnProperty("latlng") || !I.latlng.hasOwnProperty("length") || I.latlng.length != 2)
+        return invalidInfo(I, 'Expected pin property "latlng" to be an array with 2 elements');
+      if (!parseFloat(I.latlng[0]) || !parseFloat(I.latlng[1]))
+        return invalidInfo(I, 'Expected elements of pin property "latlng" to be floating point numbers');
+      if (!I.hasOwnProperty("title"))
+        return invalidInfo(I, 'Expected string value in pin property "title"');
+      return true;
+    },
+
+    _createPopupElem: function(title, clickHandler) {
+      // Embed HTML into an extra <div> for jQuery to work.
+      const container = $(
+        '<div>' +
+        '  <div class="popup-pin">' +
+        '    <h2><a href="javascript:void(0)">' + title + '</a></h2>' +
+        '  </div>' +
+        '</div>');
+
+      $('div.popup-pin a', container).on('click', clickHandler);
+
+      // Select non-wrapped content and return raw DOM element.
+      return $('div.popup-pin', container)[0];
+    },
+
+    _transformLink: function(elem) {
+      const followupHandler =
+        'setTimeout(function() { document.getElementById("followup").style.display="flex"; }, 500)';
+      const targetUrl = $(elem).attr('href');
+      if (targetUrl && targetUrl.hasOwnProperty('length') && targetUrl.length > 0) {
+        if (targetUrl.charAt(0) == '#') {
+          // Anchors refer to current base URL. Only used for permalinks so far.
+          $(elem).attr('href', hostBaseUrl + targetUrl);
+        }
+        else {
+          // Show follow-up dialog after clicking an external link.
+          $(elem).attr('onclick', followupHandler);
+        }
+      }
+    },
+
+    _populateDetails: function(plainHtml) {
+      const annotations = [];
+      annotations.push('<base href="' + hostBaseUrl + '/" target="_blank">');
+      annotations.push('<link rel="stylesheet" href="details.css">');
+      details = $('<div>' + annotations.join('') + plainHtml + '</div>');
+
+      details.find('a').each((i, elem) => Pin._transformLink(elem));
+      details.children('div').each((i, elem) => {
+        $(elem).css('margin-left', '25px')
+               .css('margin-right', '10px');
+      });
+      details.append(followupHtml);
+
+      // TODO: Return (and store as) raw DOM element.
+      return details;
+    },
+
+    Instance: function(info, id, map, platform, platformIdx, onClickPopup, onClickMarker) {
+      this.latlng = L.latLng(info.latlng);
+      this.title = info.title;
+
+      // TODO: Should we have a platform abstraction?
+      this.platformIdx = platformIdx;
+      this.platform = platform;
+      this.marker = L.marker(this.latlng, { "icon": new L.Icon(platform.icon) });
+      this.marker.on('click', onClickMarker);
+
+      this.popup = this.marker.bindPopup(Pin._createPopupElem(info.title, onClickPopup));
+      this.elem = $(this.popup.addTo(map.leaflet()).getElement());
+
+      let details = null;
+
+      this.fetchDetails = () => {
+        return new Promise((resolve, reject) => {
+          if (details) {
+            resolve(details.html());
+            return;
+          }
+
+          const src = platform.restBaseUrl + "/details/" + id;
+          Utils.loadPlain(src).then(
+            html => {
+              details = Pin._populateDetails(html);
+              resolve(details.html());
+            },
+            err => {
+              reject(src + " responded '" + err + "'");
+            }
+          );
+        });
+      };
+
+      return this;
+    }
+  };
+
+
 
   function asset(name) {
     const assetsBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/WirVsVirusMap/master/assets';
@@ -152,21 +243,6 @@
     }
 
     return true;
-  };
-
-  const _createPopupElem = function(title, clickHandler) {
-    // Embed HTML into an extra <div> for jQuery to work.
-    const container = $(
-      '<div>' +
-      '  <div class="popup-pin">' +
-      '    <h2><a href="javascript:void(0)">' + title + '</a></h2>' +
-      '  </div>' +
-      '</div>');
-
-    $('div.popup-pin a', container).on('click', clickHandler);
-
-    // Select non-wrapped content and return raw DOM element.
-    return $('div.popup-pin', container)[0];
   };
 
   function _makePlatformsControl(map, platforms) {
@@ -228,7 +304,7 @@
 
   let followupHtml = '';
 
-  function create(domElementName, actualSettings) {
+  function Instance(domElementName, actualSettings) {
     if (!_isInputValid(domElementName))
       return;
 
@@ -279,28 +355,14 @@
       }
     });
 
-    function _registerPinIds(pinsById, platform, platformIdx) {
+    const _registerPinIds = (pinsById, platform, platformIdx) => {
       for (let id in pinsById) {
-        if (isValidPinInfo(pinsById[id])) {
-          const pin = {
-            latlng: L.latLng(pinsById[id].latlng),
-            title: pinsById[id].title,
-            platformIdx: platformIdx,
-            marker: null,
-            popup: null,
-            elem: null
-          };
-
-          const content = _createPopupElem(pin.title, () => _viewDetailsForPin(id));
-
-          // TODO: Should we have a platform abstraction?
-          pin.marker = L.marker(pin.latlng, { "icon": new L.Icon(platform.icon) });
-          pin.popup = pin.marker.bindPopup(content);
-          pin.marker.on('click', () => _mayViewDetailsForPin(id));
-          pin.elem = $(pin.popup.addTo(map).getElement());
-
+        if (Pin.isValidInfo(pinsById[id])) {
           // TODO: Silent race condition for clashing IDs.
-          allPinsById[id] = pin;
+          const onClickPopup = () => _viewDetailsForPin(id);
+          const onClickMarker = () => _mayViewDetailsForPin(id);
+          allPinsById[id] = new Pin.Instance(pinsById[id], id, this, platform, platformIdx,
+            onClickPopup, onClickMarker);
         }
       }
     }
@@ -316,47 +378,14 @@
       const pinInfo = allPinsById[id];
       map.panTo(L.latLng(pinInfo.latlng));
 
-      // TODO: Split loading off into separate function.
-      if (pinInfo.hasOwnProperty("details")) {
-        dom.paneDetails.attr("srcdoc", pinInfo.details.html());
-      }
-      else {
-        const contentBaseUrl = settings.platforms[pinInfo.platformIdx].restBaseUrl + "/details/";
-        console.log('request:', contentBaseUrl + id);
-        Utils.loadPlain(contentBaseUrl + id).then(
-          html => {
-            const annotations = [];
-            annotations.push('<base href="' + hostBaseUrl + '/" target="_blank">');
-            annotations.push('<link rel="stylesheet" href="details.css">');
-            pinInfo.details = $('<div>' + annotations.join('') + html + '</div>');
-
-            const followupHandler =
-              'setTimeout(function() { document.getElementById("followup").style.display="flex"; }, 500)';
-            pinInfo.details.find('a').each((i, elem) => {
-              const targetUrl = $(elem).attr('href');
-              if (targetUrl && targetUrl.hasOwnProperty('length') && targetUrl.length > 0) {
-                if (targetUrl.charAt(0) == '#') {
-                  $(elem).attr('href', hostBaseUrl + targetUrl);
-                }
-                else {
-                  $(elem).attr('onclick', followupHandler);
-                }
-              }
-            });
-            pinInfo.details.children('div').each((i, elem) => {
-              $(elem).css('margin-left', '25px')
-                    .css('margin-right', '10px');
-            });
-            pinInfo.details.append(followupHtml);
-
-            setTimeout(() => { dom.paneDetails.attr("srcdoc", pinInfo.details.html()); }, 500);
-          },
-          err => {
-            console.error("Error repsonse from", contentBaseUrl + id, ":", err);
-            _closeDetailsPane();
-          }
-        );
-      }
+      // TODO: implement and can we pass an element?
+      pinInfo.fetchDetails().then(
+        html => dom.paneDetails.attr("srcdoc", html),
+        err => {
+          console.error("Failed to fetch pin details:", err);
+          _closeDetailsPane();
+        }
+      );
     }
 
     function _mayViewDetailsForPin(id) {
@@ -366,8 +395,8 @@
     }
 
     function _openDetailsPane() {
+      dom.paneDetails.attr("srcdoc", '');
       dom.pane.show();
-      dom.paneDetails.attr("srcdoc", ''); // '<img src="../images/spin_loading.gif" style="width:100%;">'
       dom.canvas.css("width", "calc(100% - 400px)");
       map.invalidateSize();
     }
@@ -408,10 +437,12 @@
     this.viewDetailsForPin = _viewDetailsForPin;
     this.closeDetailsPane = _closeDetailsPane;
 
+    this.leaflet = () => { return map; };
+
     return this;
   }
 
-  WirVsVirusMap.create = create;
+  WirVsVirusMap.Instance = Instance;
   WirVsVirusMap.Utils = Utils;
 
 })(window.WirVsVirusMap = window.WirVsVirusMap || {}, jQuery, L);
