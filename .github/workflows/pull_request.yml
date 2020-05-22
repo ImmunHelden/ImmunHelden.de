@@ -14,5 +14,6 @@ jobs:
       uses: jzweifel/gatsby-cli-github-action@master
       env:
         GATSBY_PROJECT_PATH: "./new-website"
+        GATSBY_FIREBASE_API_KEY: ${{ secrets.GATSBY_FIREBASE_API_KEY}}
       with:
         gatsby-arg: build
