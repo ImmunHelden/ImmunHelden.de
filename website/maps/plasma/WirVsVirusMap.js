@@ -119,11 +119,20 @@
     ]
   };
 
+  // Follow-up dialog shows up in the details pane after clicking an external
+  // link. So when the user comes back, they have the chance to sign-up in the
+  // hindsight. For now it's specific to the host (not the platform).
+  let followupHtml = '';
+
+  Utils.loadPlain(hostBaseUrl + '/followup.html').then(
+    html => { followupHtml = html; },
+    err => console.error(err)
+  );
 
   const Pin = {
-
-    isValidInfo: function(I) {
-      const invalidInf = (info, message) => {
+    // Public static helper function
+    isValidInfo: (I) => {
+      const invalidInfo = (info, message) => {
         console.warn("Encountered invalid item in response:", message, info);
         return false;
       };
@@ -136,7 +145,7 @@
       return true;
     },
 
-    _createPopupElem: function(title, clickHandler) {
+    _createPopupElem: (title, onClick) => {
       // Embed HTML into an extra <div> for jQuery to work.
       const container = $(
         '<div>' +
@@ -145,15 +154,13 @@
         '  </div>' +
         '</div>');
 
-      $('div.popup-pin a', container).on('click', clickHandler);
+      $('div.popup-pin a', container).on('click', onClick);
 
       // Select non-wrapped content and return raw DOM element.
       return $('div.popup-pin', container)[0];
     },
 
-    _transformLink: function(elem) {
-      const followupHandler =
-        'setTimeout(function() { document.getElementById("followup").style.display="flex"; }, 500)';
+    _transformLink: (elem) => {
       const targetUrl = $(elem).attr('href');
       if (targetUrl && targetUrl.hasOwnProperty('length') && targetUrl.length > 0) {
         if (targetUrl.charAt(0) == '#') {
@@ -162,55 +169,55 @@
         }
         else {
           // Show follow-up dialog after clicking an external link.
+          // Insert as string, as it runs inside the iframe.
+          const followupHandler =
+            'setTimeout(() => document.getElementById("followup").style.display="flex", 500)';
           $(elem).attr('onclick', followupHandler);
         }
       }
     },
 
-    _populateDetails: function(plainHtml) {
-      const annotations = [];
-      annotations.push('<base href="' + hostBaseUrl + '/" target="_blank">');
-      annotations.push('<link rel="stylesheet" href="details.css">');
-      details = $('<div>' + annotations.join('') + plainHtml + '</div>');
+    _populateDetails: (plainHtml) => {
+      const details = $(
+        '<div>' +
+          '<base href="' + hostBaseUrl + '/" target="_blank">' +
+          '<link rel="stylesheet" href="details.css">' +
+          plainHtml +
+        '</div>');
 
       details.find('a').each((i, elem) => Pin._transformLink(elem));
-      details.children('div').each((i, elem) => {
-        $(elem).css('margin-left', '25px')
-               .css('margin-right', '10px');
-      });
       details.append(followupHtml);
 
-      // TODO: Return (and store as) raw DOM element.
-      return details;
+      // Return as HTML as it goes into the iframe.
+      return details.html();
     },
 
-    Instance: function(info, id, map, platform, platformIdx, onClickPopup, onClickMarker) {
+    Instance: function(info, id, map, handlers) {
       this.latlng = L.latLng(info.latlng);
-      this.title = info.title;
+      this.platformIdx = info.platformIdx;
 
       // TODO: Should we have a platform abstraction?
-      this.platformIdx = platformIdx;
-      this.platform = platform;
-      this.marker = L.marker(this.latlng, { "icon": new L.Icon(platform.icon) });
-      this.marker.on('click', onClickMarker);
+      const icon = new L.Icon(map.platform(info.platformIdx).icon);
+      const marker = L.marker(this.latlng, { icon: icon });
+      marker.on('click', handlers.onClickMarker);
 
-      this.popup = this.marker.bindPopup(Pin._createPopupElem(info.title, onClickPopup));
+      this.popup = marker.bindPopup(Pin._createPopupElem(info.title, handlers.onClickPopup));
       this.elem = $(this.popup.addTo(map.leaflet()).getElement());
 
-      let details = null;
-
+      let detailsHtml = null;
       this.fetchDetails = () => {
         return new Promise((resolve, reject) => {
-          if (details) {
-            resolve(details.html());
+          if (detailsHtml) {
+            resolve(detailsHtml);
             return;
           }
 
+          const platform = map.platform(info.platformIdx);
           const src = platform.restBaseUrl + "/details/" + id;
           Utils.loadPlain(src).then(
             html => {
-              details = Pin._populateDetails(html);
-              resolve(details.html());
+              detailsHtml = Pin._populateDetails(html);
+              resolve(detailsHtml);
             },
             err => {
               reject(src + " responded '" + err + "'");
@@ -224,13 +231,7 @@
   };
 
 
-
-  function asset(name) {
-    const assetsBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/WirVsVirusMap/master/assets';
-    return [ assetsBaseUrl, name ].join('/');
-  }
-
-  const _isInputValid = function(elem) {
+  function _isValidElement(elem) {
     if (typeof elem !== 'string' || elem.length == 0) {
       console.error('Please pass the ID of the DOM element to host WirVsVirusMap as first argument.');
       return false;
@@ -254,7 +255,7 @@
 
     return L.Control.extend({
       onAdd: function(leafletMap) {
-        // TODO: This could be easier.
+        // TODO: May be easier with jQuery.
         const div = L.DomUtil.create('div');
         L.DomUtil.addClass(div, 'leaflet-bar');
         L.DomUtil.addClass(div, 'platforms-control');
@@ -302,10 +303,8 @@
     return mdom;
   }
 
-  let followupHtml = '';
-
-  function Instance(domElementName, actualSettings) {
-    if (!_isInputValid(domElementName))
+  WirVsVirusMap.Instance = function(domElementName, actualSettings) {
+    if (!_isValidElement(domElementName))
       return;
 
     const controls = {};
@@ -329,18 +328,23 @@
       controls.platformsView.addTo(map);
     }
 
-    Utils.loadPlain(hostBaseUrl + '/followup.html').then(
-      html => { followupHtml = html; },
-      err => console.error(err)
-    );
-
     // TODO: Should we return pins-by-id as a result per promise and merge them in hindsight?
     // TODO: Should we wait for all promises or start showing pins one by one?
     const pinsReady = [];
     for (let i = 0; i < settings.platforms.length; i++) {
       const asyncLoad = Utils.loadJson(settings.platforms[i].restBaseUrl + '/pins');
       pinsReady.push(asyncLoad.then(pinsById => {
-        _registerPinIds(pinsById, settings.platforms[i], i);
+        for (let id in pinsById) {
+          if (Pin.isValidInfo(pinsById[id])) {
+            pinsById[id].platformIdx = i;
+
+            // TODO: Silent race condition for clashing IDs.
+            allPinsById[id] = new Pin.Instance(pinsById[id], id, this, {
+              onClickPopup: () => _viewDetailsForPin(id),
+              onClickMarker: () => _mayViewDetailsForPin(id)
+            });
+          }
+        }
       }));
     }
 
@@ -355,18 +359,6 @@
       }
     });
 
-    const _registerPinIds = (pinsById, platform, platformIdx) => {
-      for (let id in pinsById) {
-        if (Pin.isValidInfo(pinsById[id])) {
-          // TODO: Silent race condition for clashing IDs.
-          const onClickPopup = () => _viewDetailsForPin(id);
-          const onClickMarker = () => _mayViewDetailsForPin(id);
-          allPinsById[id] = new Pin.Instance(pinsById[id], id, this, platform, platformIdx,
-            onClickPopup, onClickMarker);
-        }
-      }
-    }
-
     function _viewDetailsForPin(id) {
       if (!allPinsById.hasOwnProperty(id)) {
         console.error("Requested invalid ID");
@@ -375,11 +367,11 @@
 
       _openDetailsPane();
 
-      const pinInfo = allPinsById[id];
-      map.panTo(L.latLng(pinInfo.latlng));
+      const pin = allPinsById[id];
+      map.panTo(pin.latlng);
 
       // TODO: implement and can we pass an element?
-      pinInfo.fetchDetails().then(
+      pin.fetchDetails().then(
         html => dom.paneDetails.attr("srcdoc", html),
         err => {
           console.error("Failed to fetch pin details:", err);
@@ -438,11 +430,11 @@
     this.closeDetailsPane = _closeDetailsPane;
 
     this.leaflet = () => { return map; };
+    this.platform = (idx) => { return settings.platforms[idx]; }
 
     return this;
   }
 
-  WirVsVirusMap.Instance = Instance;
   WirVsVirusMap.Utils = Utils;
 
 })(window.WirVsVirusMap = window.WirVsVirusMap || {}, jQuery, L);
@@ -539,6 +531,13 @@ function isRegionVisible(ags, zoom) {
 
 
 
+
+
+
+  //  function asset(name) {
+  //    const assetsBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/WirVsVirusMap/master/assets';
+  //    return [ assetsBaseUrl, name ].join('/');
+  //  }
 
   //    loadJson('assets/zipcodes.de.json').then(zipCodes => {
   //      const reg = {};

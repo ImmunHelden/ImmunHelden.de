@@ -2,6 +2,11 @@ body {
   background: #fff;
 }
 
+body > div {
+  margin-left: 25px;
+  margin-right: 10px;
+}
+
 div > div {
   margin-bottom: 10px;
 }
