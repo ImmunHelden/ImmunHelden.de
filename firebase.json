@@ -14,12 +14,48 @@
     ],
     "rewrites": [
       {
+        "source": "/verifyHero",
+        "function": "verifyHero"
+      },
+      {
+        "source": "/deleteHero",
+        "function": "deleteHero"
+      },
+      {
+        "source": "/sendExampleMail",
+        "function": "sendExampleMail"
+      },
+      {
+        "source": "/doSendExampleMail",
+        "function": "doSendExampleMail"
+      },
+      {
+        "source": "/parseBlutspendenDe",
+        "function": "parseBlutspendenDe"
+      },
+      {
+        "source": "/renderBlutspendenDe",
+        "function": "renderBlutspendenDe"
+      },
+      {
         "source": "/addImmuneHero",
         "function": "addImmuneHero"
       },
       {
+        "source": "/submitHeldenInfo",
+        "function": "submitHeldenInfo"
+      },
+      {
         "source": "/addStakeHolder",
         "function": "addStakeHolder"
+      },
+      {
+        "source": "/verifyOrg",
+        "function": "verifyOrg"
+      },
+      {
+        "source": "/deleteOrg",
+        "function": "deleteOrg"
       },
       {
         "source": "/getStakeHoldersInZipCodeRangeAsJson",

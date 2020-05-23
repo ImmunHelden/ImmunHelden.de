@@ -3,7 +3,18 @@ const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const rp = require('request-promise');
 const fs = require('fs');
-admin.initializeApp();
+const path = require('path');
+const util = require('util');
+const shortid = require('shortid');
+const crypto = require('crypto');
+const showdown = require('showdown');
+const fillTemplate = require('es6-dynamic-template');
+
+
+admin.initializeApp(functions.config().firebase);
+
+const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
 
 // CORS Express middleware to enable CORS Requests.
 const cors = require('cors')({
@@ -14,7 +25,7 @@ const immuneHeroesTable = '/immuneHeroes'
 const stakeHoldersTable = '/stakeHolders'
 
 
-function toBool(string) {
+function parseBool(string) {
   if (string) {
     switch (string.toLowerCase().trim()) {
       case "true": case "yes": case "1": case "on": return true;
@@ -25,21 +36,125 @@ function toBool(string) {
   return false;
 }
 
+async function renderMessage(template, params) {
+  const baseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/notifications/';
+  const template_markdown = await rp.get({ uri: baseUrl + template });
+
+  const match = /# (.*?)\n(.*)/s.exec(template_markdown);
+  if (match.length !== 3) {
+    console.error('Invalid markdown given. Regex match invalid:', match);
+    throw new Error(`Invalid markdown. Plese follow the example here: https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/notifications/email/hero_welcome.md`);
+  }
+
+  const markdown = fillTemplate(match[2], params);
+  const converter = new showdown.Converter();
+  return {
+    subject: fillTemplate(match[1], params),
+    html: converter.makeHtml(markdown)
+  };
+}
 
 exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
-  const preName = req.query.preName
-  const lastName = req.query.lastName
-  const emailAddress = req.query.emailAddress
-  const zipCode = parseInt(req.query.zipCode)
-  const emailCategory = req.query.emailCategory
-  const result = await admin.database().ref(immuneHeroesTable).push({ preName: preName, lastName: lastName, emailAddress: emailAddress, zipCode: zipCode, emailCategory: emailCategory});
-  res.redirect('../generic.html');
+  if (req.method !== "POST") {
+    res.status(400).send('Please send a POST request');
+    return;
+  }
+
+  const newHeroRef = await admin.database().ref('/heroes').push();
+  newHeroRef.set({
+    email: req.body.email,
+    zipCode: req.body.zipCode
+  });
+
+  // Render E-Mail
+  const msg = await renderMessage('email/de/hero_welcome.md', {
+    link_hero_double_opt_in: `https://immunhelden.de/verifyHero?key=${newHeroRef.key}`,
+    link_hero_opt_out: `https://immunhelden.de/deleteHero?key=${newHeroRef.key}`
+  });
+
+  // Trigger E-Mail
+  admin.firestore().collection('mail').add({
+    to: req.body.email,
+    message: msg
+  });
+
+  res.redirect(`../heldeninfo.html?key=${newHeroRef.key}`);
+});
+
+exports.verifyHero = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET" || !req.query.key) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  const heroRef = admin.database().ref('/heroes/' + req.query.key);
+  heroRef.update({ 'doubleOptIn': true });
+
+  res.redirect("../generic.html");
+});
+
+exports.deleteHero = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET" || !req.query.key) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  const heroRef = admin.database().ref('/heroes/' + req.query.key);
+  await heroRef.remove();
+
+  res.send('Subscription deleted');
+});
+
+exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
+  // Check for POST request
+  if (req.method !== "POST") {
+    res.status(400).send('Please send a POST request');
+    return;
+  }
+
+  //console.log('Eintrag ' + req.body.key + ': ' + req.body.name + ' available ' + req.body.availability + ' and status ' + req.body.status);
+
+  const key = req.body.key;
+  const heroRef = admin.database().ref(`/heroes/${key}`);
+  try {
+    const heroSnapshot = await heroRef.once('value');
+    if (!heroSnapshot)
+      throw new Error(`Unknown heroes key '${key}'`);
+
+    const heroJson = heroSnapshot.toJSON();
+    console.log(`About to update HeldenInfo ${key}:`, heroJson);
+
+    const heroRefChanged = heroRef.update({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      availability: req.body.availability,
+      frequency: req.body.frequency,
+      status: req.body.status
+    });
+
+    res.redirect(`../map.html?registered=${heroJson.zipCode}`);
+
+    await heroRefChanged.then(async () => {
+      const updatedSnapshot = await heroRef.once('value');
+      console.log(`Done updating HeldenInfo ${key}:`, updatedSnapshot.toJSON());
+      return;
+    });
+  } catch (err) {
+    console.error(`Error Message:`, err);
+    res.status(400).send('Invalid request. See function logs for details.');
+  }
 });
 
 exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
-  const address = req.query.address;
-  const zipCode = req.query.zipCode;
-  const city = req.query.city;
+  // Check for POST request
+  if (req.method !== "POST") {
+    res.status(400).send('Please send a POST request');
+    return;
+  }
+
+  const address = req.body.address;
+  const zipCode = req.body.zipCode;
+  const city = req.body.city;
   const country = "Germany";
 
   // LocationIQ query
@@ -90,7 +205,7 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   };
 
   // Kick-off request to LocationIQ and process result.
-  const bestMatch = await requestLatLng(10, 500)
+  const pendingLocationQuery = requestLatLng(10, 500)
     .then(response => {
       if (!hasValidLatLngMatch(response))
         throw new Error(`Invalid response: ${response}`);
@@ -101,34 +216,67 @@ exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
       };
     });
 
-  console.log("Best match:", bestMatch);
+  // Add records to database
+  const stakeholderRef = await admin.database().ref('/stakeholders').push();
+  const accountRef = await admin.database().ref('/accounts').push();
+  const postRef = await admin.database().ref('/posts').push();
 
-  // Add record to database
-  const entry = {
-    "preName": req.query.preName,
-    "lastName": req.query.lastName,
-    "organisation": req.query.organisation,
-    "text": req.query.text,
-    "emailAddress": req.query.emailAddress,
-    "phoneNumber": req.query.phoneNumber,
-    "address": address,
-    "zipCode": zipCode,
-    "city": city,
-    "latitude": bestMatch.lat,
-    "longitude": bestMatch.lon,
-    "showOnMap": false
-  };
+  // Render verification E-Mail
+  const msg = await renderMessage('email/de/org_welcome.md', {
+    prop_org_name: req.body.organization,
+    prop_org_login_first_name: req.body.firstName,
+    link_org_login_double_opt_in: `https://immunhelden.de/verifyOrg?key=${stakeholderRef.key}`,
+    link_org_login_opt_out: `https://immunhelden.de/deleteOrg?key=${stakeholderRef.key}`
+  });
 
+  // Trigger verification E-Mail
+  admin.firestore().collection('mail').add({
+    to: req.body.email,
+    message: msg
+  });
+
+  // Fill records in database
+  stakeholderRef.set({
+    organisation: req.body.organization || '',
+    accounts: [ accountRef.key ],
+    posts: [ postRef.key ]
+  });
+
+  accountRef.set({
+    stakeholder: stakeholderRef.key,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    phone: req.body.phone
+  });
+
+  // Wait for location.
+  const resolvedLocation = await pendingLocationQuery;
+  console.log("Best match:", resolvedLocation);
+
+  postRef.set({
+    stakeholder: stakeholderRef.key,
+    address: address,
+    zipCode: zipCode,
+    city: city,
+    latitude: resolvedLocation.lat,
+    longitude: resolvedLocation.lon,
+    text: req.body.text,
+    showOnMap: false
+  });
+
+  // Forward to verification page.
   // Organizations -> opt-out from display on map
   // Private person -> opt-in to display on map
-  const addToMapDefault = (req.query.organisation.length > 0) ? "true" : "false";
+  const addToMapDefault = (req.body.organization.length > 0) ? "true" : "false";
+  const qs = [
+    'key=' + stakeholderRef.key,
+    'lat=' + resolvedLocation.lat,
+    'lng=' + resolvedLocation.lon,
+    'map-opt-out=' + addToMapDefault
+  ];
 
-  // TODO: For security reasons the key for adjustment should time out!
-  const result = await admin.database().ref(stakeHoldersTable).push(entry);
-  const qs = [ 'key=' + result.key, 'lat=' + bestMatch.lat, 'lng=' + bestMatch.lon,
-               'map-opt-out=' + addToMapDefault ];
-
-  // Let the user verify and adjust the exact pin location.
+  // TODO: For security reasons the key for adjustments should time out!
   res.redirect('../verifyStakeholderPin.html?' + qs.join('&'));
 });
 
@@ -138,11 +286,308 @@ exports.doneVerifyStakeholderPin = functions.https.onRequest(async (req, res) =>
   const key = req.query.key;
   updates[`/stakeHolders/${key}/latitude`] = parseFloat(req.query.exact_lat);
   updates[`/stakeHolders/${key}/longitude`] = parseFloat(req.query.exact_lng);
-  updates[`/stakeHolders/${key}/directContact`] = toBool(req.query.show_on_map);
+  updates[`/stakeHolders/${key}/directContact`] = parseBool(req.query.show_on_map);
 
   // Update database record with confirmed exact pin location.
   admin.database().ref().update(updates);
   res.redirect("../generic.html");
+});
+
+exports.verifyOrg = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET" || !req.query.key) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  const ref = admin.database().ref('/stakeholders/' + req.query.key);
+  ref.update({ 'doubleOptIn': true });
+
+  res.redirect("../generic.html");
+});
+
+exports.deleteOrg = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET" || !req.query.key) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  const ref = admin.database().ref('/stakeholders/' + req.query.key);
+  await ref.remove();
+
+  res.send('Subscription deleted');
+});
+
+exports.sendExampleMail = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET") {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  try {
+    // Render message for preview
+    const msg = await renderMessage(req.query.template, {
+      link_hero_double_opt_in: 'https://immunhelden.de/verifyHero?key=test',
+      link_hero_opt_out: 'https://immunhelden.de/deleteHero?key=test',
+      prop_org_name: 'Test-Organisation',
+      prop_org_login_first_name: 'Test-Vorname',
+      link_org_login_double_opt_in: `https://immunhelden.de/verifyOrg?key=test`,
+      link_org_login_opt_out: `https://immunhelden.de/deleteOrg?key=test`
+    });
+
+    res.send(`
+      <link rel="stylesheet" href="https://newcss.net/new.min.css">
+      <form action="/doSendExampleMail" method="POST">
+        <input type="text" name="template" value="${req.query.template}">
+        <input type="password" name="pass" value="" placeholder="Passwort">
+        <input type="email" name="email" placeholder="Empfänger E-Mail">
+        <input type="submit">
+      </form>
+      <hr>
+      Subject: ${msg.subject}
+      <hr>
+      ${msg.html}
+    `);
+  }
+  catch (err) {
+    res.status(400).send(err.message);
+  }
+});
+
+exports.doSendExampleMail = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "POST" || !req.body.pass || !req.body.email || !req.body.template) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  // For now simple security should be sufficient.
+  const shasum = crypto.createHash('sha1').update(req.body.pass);
+  if (shasum.digest('hex') !== '0ae1588ad4b7568ec2539065fc830cafba9a7d6a') {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  try {
+    // Render message to send
+    const mail = {
+      to: req.body.email,
+      message: await renderMessage(req.body.template, {
+        link_hero_double_opt_in: 'https://immunhelden.de/verifyHero?key=test',
+        link_hero_opt_out: 'https://immunhelden.de/deleteHero?key=test'
+      })
+    };
+
+    admin.firestore().collection('mail').add(mail);
+    res.send('Ok');
+  }
+  catch (err) {
+    res.status(400).send(err.message);
+  }
+});
+
+function escapeHtml(unsafe) {
+  return unsafe
+       .replace(/&/g, "&amp;")
+       .replace(/</g, "&lt;")
+       .replace(/>/g, "&gt;")
+       .replace(/"/g, "&quot;")
+       .replace(/'/g, "&#039;");
+}
+
+exports.parseBlutspendenDe = functions.https.onRequest(async (req, res) => {
+  const html = await rp.get({ uri: "https://www.blutspenden.de/blutspendedienste/" });
+  //const html = await readFile('blutspenden.html', 'utf8');
+  const oneliner = html.replace(/\s+/g, ' ')
+                       .replace(/[ ]?<br[ ]?\/>[ ]?/g, ', ')
+                       .replace(/\n/g, '');
+  const allListItems = oneliner.match(new RegExp(`<li.*?/li>`, 'g'));
+
+  const indicator = new RegExp('data-covid="1"', 'g');
+  const relevantListItems = allListItems.filter(li => li.match(indicator));
+
+  const propCaptures = {
+    title: '<div.*?institutions__title">(.*?)</div>',
+    contact: '<div.*?institutions__contact">(.*?)</div>',
+    address: '<div.*?institutions__address">(.*?)</div>',
+    phone: '<div.*?institutions__phone">.*?"tel://(.*?)".*?</div>',
+    email: '<div.*?institutions__email">.*>(.*?\\(at\\).*?)<.*?</div>',
+    url: '<div.*?institutions__url">.*?"(http[s]?://.*?)".*?</div>'
+  };
+  const excludedProps = new Set(req.query.hasOwnProperty('exclude') ? req.query.exclude.split(',') : []);
+  const selectedProps = Object.keys(propCaptures).filter(name => !excludedProps.has(name));
+  const selectedCaptures = selectedProps.map(name => new RegExp(propCaptures[name]));
+
+  const records = [];
+  const failures = [];
+  for (const li of relevantListItems) {
+    const record = {};
+    for (const [i, capture] of selectedCaptures.entries()) {
+      const groups = [...li.matchAll(capture)];
+      if (groups.length === 0 || !groups[0].hasOwnProperty('length')) {
+        failures.push(`Missing ${selectedProps[i]} in: ${li}`);
+        continue;
+      }
+      if (groups[0].length !== 2) {
+        console.error("For each property, please specify a capture that matches exactly once. " +
+                      `${capture} has ${(groups[0].length - 1)} matches.`);
+        continue;
+      }
+      record[selectedProps[i]] = groups[0][1].trim();
+    }
+    // Assign ID now to keep it consistent across renderings.
+    record.id = shortid.generate();
+    records.push(record);
+  }
+
+  if (!req.query.hasOwnProperty('debug')) {
+    res.json(records).send();
+  } else {
+    const sec = [];
+    sec.push(`${relevantListItems.length} relevant li's out of ${allListItems.length} in total`);
+    sec.push(`${JSON.stringify(records)}`);
+    sec.push(`Failures:\n${escapeHtml(failures.join('\n'))}`);
+    sec.push(`Irrelevant:\n${escapeHtml(allListItems.filter(li => !li.match(indicator)).join('\n'))}`);
+    res.send(`<pre>${sec.join('\n\n\n')}</pre>`);
+  }
+});
+
+exports.renderBlutspendenDe = functions.https.onRequest(async (req, res) => {
+  // Start reading description
+  //const loadJson = readFile('blutspenden-clean.json', 'utf8');
+  const loadJson = rp.get({ uri: 'https://raw.githubusercontent.com/ImmunHelden/WirVsVirusMap/master/plasma_beta/blutspenden-clean.json' });
+
+  // Prepare output directory
+  const outdirPrefix = req.query['outdir-prefix'] || 'tmp';
+  let postfix = 0;
+  while (fs.existsSync(outdirPrefix + postfix))
+    postfix += 1;
+  const outdir = outdirPrefix + postfix;
+
+  // LocationIQ: resolve coordinates for address
+  const sleep = async (ms) => {
+    await new Promise((wakeup, _) => setTimeout(wakeup, ms));
+  };
+  const tryResolve = async (address, retries) => {
+    const STATUS_CODE_RATE_LIMIT_EXCEEDED = 429;
+    for (let i = 0; i < retries; i++) {
+      await sleep(500); // rate limit second
+      try {
+        return await rp.get({
+          uri: "https://eu1.locationiq.com/v1/search.php",
+          json: true,
+          qs: {
+            key: "pk.861b8037ac48a2b23d05c90e89658064",
+            format: "json",
+            q: address
+        }});
+      } catch (err) {
+        // TODO: Handling this, currently causes a function timeout in Firebase.
+        // For now we can simply process a list in 2 steps.
+        //if (err.statusCode === STATUS_CODE_RATE_LIMIT_EXCEEDED &&
+        //    err.error.error === 'Rate Limited Minute') {
+        //  console.warn(err);
+        //  await sleep(60000); // rate limit minute
+        //} else {
+          throw new Error(`Resolution failure for address '${address}': ${err}`);
+        //}
+      }
+    }
+    throw new Error(`Resolution failure for address '${address}': ` +
+                    `Hanging up after trying ${retries} times`);
+  };
+  const requestLatLng = async (address) => {
+    const matches = await tryResolve(address, 3);
+    if (matches.hasOwnProperty("length") && matches.length > 0 &&
+        matches[0].hasOwnProperty("lat") && matches[0].hasOwnProperty("lon")) {
+      return [
+        parseFloat(matches[0].lat),
+        parseFloat(matches[0].lon)
+      ];
+    }
+
+    //throw new Error(`Invalid response: ${matches}`);
+    return null;
+  };
+
+  // Render HTML for a record
+  const renderDetailsHtml = (rec, id) => {
+    const lines = [];
+    lines.push('<link rel="stylesheet" href="main.css">');
+    lines.push('<div>');
+    for (const field of ['title', 'contact', 'address']) {
+      if (rec.hasOwnProperty(field)) {
+        lines.push(`<div class="${field}">${rec[field]}</div>`);
+      }
+    }
+    if (rec.hasOwnProperty('phone')) {
+      const digits = rec.phone.replace(/\D/g,'');
+      const global = digits.replace(/^0/g,'+49');
+      lines.push(`<div class="phone"><a href="tel:${global}">${rec.phone}</a></div>`);
+    }
+    if (rec.hasOwnProperty('email')) {
+      lines.push(`<div class="email"><a href="mailto:${rec.email}">${rec.email}</a></div>`);
+    }
+    if (rec.hasOwnProperty('url')) {
+      lines.push(`<div class="url"><a href="${rec.url}">${rec.url}</a></div>`);
+    }
+    lines.push(`<div class="permalink"><a href="#${id}" target="_parent">Permalink</a></div>`);
+    lines.push('</div>');
+    return lines.join('\n');
+  };
+
+  // Put it all together
+  let outputComplete = true;
+  const detailsHtmls = {};
+  const pinsJson = {};
+  const fileNamePrefix = req.query['id-prefix'] || shortid.generate();
+
+  const records = JSON.parse(await loadJson);
+  try {
+    for (const rec of records) {
+      const id = fileNamePrefix + '-' + rec.id;
+      detailsHtmls[id] = renderDetailsHtml(rec, id);
+
+      if (rec.hasOwnProperty('latlng')) {
+        console.log('Exact location', rec.latlng, 'given for address', rec.address);
+      }
+      else {
+        rec.latlng = await requestLatLng(rec.address);
+        console.log('Resolved', rec.latlng, 'for address', rec.address);
+      }
+      pinsJson[id] = { type: 0, title: rec.title, latlng: rec.latlng };
+    }
+  }
+  catch (err) {
+    console.warn('Processing stopped unexpectedly:', err);
+    outputComplete = false;
+  }
+
+  if (!req.query.hasOwnProperty('debug')) {
+    // Write results to disk and send summary to client
+    fs.mkdirSync(outdir);
+    fs.mkdirSync(path.join(outdir, 'html'));
+
+    const successStr = outputComplete ? 'successfully' : 'partially'
+    let msg = `<h1>Map input rendered ${successStr}</h1>Files written:<br>`;
+
+    await writeFile(path.join(outdir, 'pins'), JSON.stringify(pinsJson));
+    msg += path.join(outdir, 'pins') + '<br>';
+
+    for (const id in detailsHtmls) {
+      await writeFile(path.join(outdir, 'html', id), detailsHtmls[id]);
+      msg += path.join(outdir, 'html', id) + '<br>';
+    }
+
+    res.send(msg);
+  } else {
+    // Dump results and send to client
+    const htmls = [];
+    for (const [id, html] of detailsHtmls.entries()) {
+      htmls.push(`<h1>${entry.name}</h1>\n` +
+                 `${f.details}`);
+    }
+    htmls.push('<hr>' + JSON.stringify(pinsJson));
+    res.send(htmls.join('\n<br>\n'));
+  }
 });
 
 // exports.getImmuneHeroesInZipCodeRangeAsJson = functions.https.onRequest(async (req, res) => {
@@ -515,7 +960,7 @@ exports.getAllImmuneHeroesNutsAsJson = functions.https.onRequest(async (req, res
   // https://ec.europa.eu/eurostat/web/nuts/correspondence-tables/postcodes-and-nuts
   fs.readFile('zip2nuts.json', 'utf8', (err, data) => {
     if (err) throw err;
-    console.log("heroesData: ", heroesData);
+    //console.log("heroesData: ", heroesData);
     const heroes = { ...DEMO_HEROES, ...heroesData.toJSON() };
     const heroesPerNuts = {};
     const zip2nuts = JSON.parse(data);
@@ -782,21 +1227,21 @@ function getSearchZipCodeBounds(searchZipCode) {
 }
 
 //Email
-let mailTransport = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'immune.heroes@gmail.com',
-    pass: ''
-  }
-});
-
+//let mailTransport = nodemailer.createTransport({
+//  service: 'gmail',
+//  auth: {
+//    user: 'immune.heroes@gmail.com',
+//    pass: ''
+//  }
+//});
+//
 async function sendEmailToImmuneHero(immuneHero, stakeHoldersHtmlTable) {
-  const mailOptions = {
-    from: "ImmunHelden",
-    to: immuneHero.emailAddress
-  };
-  mailOptions.subject = 'Hey ImmuneHero: Wir brauchen dich!';
-  mailOptions.text = 'Hey ' + immuneHero.preName + ',\n\nWir brauchen deine Unterstützung!\n\nDein ImmunHelden Team';
-  mailOptions.html = wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, await stakeHoldersHtmlTable);
-  return await mailTransport.sendMail(mailOptions);
+//  const mailOptions = {
+//    from: "ImmunHelden",
+//    to: immuneHero.emailAddress
+//  };
+//  mailOptions.subject = 'Hey ImmuneHero: Wir brauchen dich!';
+//  mailOptions.text = 'Hey ' + immuneHero.preName + ',\n\nWir brauchen deine Unterstützung!\n\nDein ImmunHelden Team';
+//  mailOptions.html = wrapStakeHoldersHtmlTableInBodyWithImmuneHeroInformation(immuneHero, await stakeHoldersHtmlTable);
+//  return await mailTransport.sendMail(mailOptions);
 }

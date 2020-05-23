@@ -1,38 +1,33 @@
 <h1>
-  <img src="material/profile.png" width="120" align="left">
+  <img src="website/images/superhero.png" width="140" align="left">
   ImmunHelden.de
 </h1>
 
 Superhelden gibt es nicht? Jeder denkt nur an sich? Stimmt nicht! Wir verbinden von COVID-19 genesene und damit immune Helfer:innen mit allen, die ihre Unterstützung benötigen.
 <br><br>
 
-Unsere interaktive ImmunHelden Map ermöglicht einen schnellen Überblick und bietet einen direkten Zugang für alle Helfenden:
+## Mission
 
-<a href="material/map_overview.pdf">
-<img src="material/map_animation.gif" alt="ImmunHelden Map" width="400">
-</a>
+Wir prägen den Begriff “ImmunHelden” für Menschen, die von COVID-19 genesen sind und ihre Immunität für die Bewältigung der Corona Pandemie im Sinne des Gemeinwohls nutzen. Unsere Plattform bündelt Angebote zu Tätigkeiten für deren Ausübung Immunität außerordentlich wertvoll ist. Zunächst zeigen wir Möglichkeiten zur Blutspenden für die Antikörperforschung auf. In Zukunft möchten wir unser Angebot auf weitere Tätigkeiten ausdehnen. Dafür entwickeln wir ein Vermittlungsverfahren, das die Identität unserer ImmunHelden schützt und ohne die Speicherung von Gesundheitsdaten auskommt. Denn jeder Genesung geht eine Erkrankung voraus und eine Immunität wird nur durch Ergebnisse klinischer Untersuchungen belegt werden können.
 
 ## Stand
 
-Das Projekt wurde im März 2020 im Rahmen des [#WirVsVirus Hackathons](https://wirvsvirushackathon.org/) der deutschen Bundesregierung entwickelt. Es wurde großer Wert auf den Schutz personenbezogener Daten gelegt.
+Schon heute findet sich auf unserer [interaktiven Karte](https://immunhelden.github.io/WirVsVirusMap/plasma.html) eine große Zahl von Einrichtungen, die eine Spende von Rekonvaleszenten-Plasma ermöglichen:
 
-Auf dem aktuellen Stand könnte ein früher Betatest bereits beginnen, denn die Komponenten zur Eingabe, Speicherung und Darstellung der Nutzerdaten sind bereits verfügbar. Andere Bereiche der [Implementierung sind noch unvollständig](https://github.com/weliveindetail/ImmunHelden.de/issues). Diese könnten jedoch während der Anlaufzeit eines Betatests innerhalb kurzer Zeit ergänzt werden.
+<a href="https://immunhelden.github.io/WirVsVirusMap/plasma.html">
+<img src="material/plasma-map2.png" alt="plasma-map2" height="300">
+</a>
+<br><br><br>
 
-Die Implementierung kann unter [ImmunHelden.de](ImmunHelden.de) anhand von Beipieldaten ausprobiert werden.
+Zukünftige ImmunHelden können sich bei uns registrieren, um über neue Angebote in ihrer Region informiert zu werden. 
 
-## Features
+<img src="material/add_immunehero.png" alt="Frage ImmunHelden an" width="400">
+<br><br><br>
 
-ImmunHelden registrieren sich schnell und mit einem Minimum an personenbezogenen Daten. Im Vermittlungsverfahren wird keine dieser Angaben weitergegeben oder öffentlich angezeigt. Sinn der Registrierung ist es, bei Eingang neuer Hilfsgesuche in der eigenen Region benachrichtig zu werden.
+Organisationen die Unterstützung suchen, können sich registrieren und eine Beispielanzeige formulieren. Für weitere Details werden wir uns in Kürze bei ihnen melden.
 
-<img src="material/add_immunehero.png" alt="Werde ImmunHeld:in" width="400"><br><br><br>
-
-Im Formular zur Registrierung von Hilfesuchenden werden mehr Informationen benötigt. Im ersten Schritt wird das Hilfegesuch und die Kontaktdaten des Ansprechpartners angegeben. Diese werden später an interessierte ImmunHelden in der Nähe weitergeleitet.
-
-<img src="material/add_stakeholder1.png" alt="Frage ImmunHelden an" width="400"><br><br>
-
-Im zweiten Schritt werden die für die Adresse ermittelten Koordinaten überprüft. Die Hilfesuchende kann die Position auf der Karte nachjustieren, um den gewünschten Treffpunkt möglichst genau darzustellen. Außerdem kann sie die Darstellung auf der ImmunHelden Map nach Wunsch abwählen (für Organisationen Opt-out, für Privatpersonen Opt-in).
-
-<img src="material/add_stakeholder2.png" alt="Frage ImmunHelden an" width="400"><br><br>
+<img src="material/add_stakeholder1.png" alt="Frage ImmunHelden an" width="400">
+<br><br>
 
 Natürlich ist unser Angebot an alle ImmunHeld:innen da draußen gerichtet.
 

@@ -1,0 +1,78 @@
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
+  input[type="email"], input[type="text"] {
+    font-family: Raleway, sans-serif; font-size: 1rem;
+    padding: 8px;
+    border: solid 1px; border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.075);
+    border-color: rgba(0, 0, 0, 0.25);
+  }
+  input[type="submit"] {
+    color: #fff; background-color: #ce1b28;
+    font-size: 1.1rem;
+    border: 0;
+    border-radius: 4px;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+  input[type="button"] {
+    border: 0;
+    background: none;
+    text-decoration: underline;
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-top: 2rem;
+  }
+  .overlay-followup {
+    position: absolute;
+    left: 0px; top: 0px; width: 100%; height: 100%;
+    font-family: Raleway, sans-serif; font-size: 14pt;
+    /*background-image: url('images/bkgnd04.jpg');*/
+    background-color: #fff;
+    background-size: cover;
+    background-position: center;
+    display: none; /* on click set to 'flex' */
+    flex-direction: column; justify-content: center; align-items: center;
+    box-sizing: border-box; padding: 2rem; text-align: center;
+    margin: 0;
+  }
+  .overlay-followup > p {
+    margin: 0.5rem 0;
+  }
+  .overlay-followup > form {
+    margin: 1rem 0;
+  }
+  .overlay-followup > form > div {
+    display: inline-block;
+    margin: 5px;
+  }
+  .overlay-followup > form > div > label {
+    display: block;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+</style>
+<script>
+  function close_overlay() {
+    document.getElementById('followup').style.display='none';
+  }
+</script>
+<div id="followup" class="overlay-followup">
+  <p>Sie vermuten an COVID-19 erkrankt und mittlerweile<br>wieder genesen zu sein?</p>
+  <p>Wir informieren Sie, wenn es<br>in Ihrer Region weitere<br>Möglichkeiten gibt um zu helfen.</p>
+  <form>
+    <div>
+      <label for="zipCode">Postleitzahl</label>
+      <input type="text" name="zipCode" style="width: 4rem;" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
+    </div>
+    <div>
+      <label for="email">E-Mail</label>
+      <input type="email" name="email" style="width: 8rem;" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
+    </div>
+    <div>
+      <input type="submit" value="✓" onclick="close_overlay()" disabled>
+    </div>
+    <br>
+    <input type="button" value="← Nein danke" onclick="close_overlay()">
+  </form>
+</div>

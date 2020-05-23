@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ImmunHelden Map</title>
+
+  <link rel="stylesheet" href="../leaflet.css">
+  <script src="../leaflet.min.js"></script>
+  <script src="../../assets/js/jquery.min.js"></script>
+
+  <script src="WirVsVirusMap.js"></script>
+  <link rel="stylesheet" href="WirVsVirusMap.css">
+
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
+
+    @font-face {
+      font-family: 'Noteworthy Light';
+      font-style: normal;
+      font-weight: normal;
+      src: local('Noteworthy Light'), url('../../assets/fonts/Noteworthy-Lt.woff') format('woff');
+    }
+
+    body {
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
+      margin: 0;
+    }
+
+    path {
+      stroke: rgb(136, 136, 136);
+      stroke-opacity: 0.2;
+      stroke-width: 1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: #008000;
+      fill-opacity: 0.025;
+    }
+
+    div.popup-pin td {
+      vertical-align: top;
+    }
+
+    div.popup-pin img.expander {
+      width: auto;
+      height: 1.2rem;
+    }
+
+    div.popup-immuneheroes b {
+      font-size: 1.5rem;
+      color: #d3303b;
+    }
+    div.popup-immuneheroes img {
+      height: 1.2rem;
+      width: auto;
+    }
+    div.popup-clinic img {
+      height: 2rem;
+      float: left;
+    }
+    div.popup-clinic div {
+      padding-left: 2.5rem;
+      padding-bottom: 0.5rem;
+    }
+    .nuts-polygon {
+      fill: #479325;
+      stroke: #479325;
+      stroke-width: 1.5px;
+      stroke-opacity: 0.75;
+      fill-opacity: 0.05;
+      stroke-linecap: round;
+    }
+
+    div#osm-map {
+      position: absolute;
+      left: 0px;
+      top: 44px;
+      width: 100%;
+      height: calc(100% - 44px);
+      z-index: 10010;
+    }
+    header {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 44px;
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
+      display: flex;
+      align-items:center;
+      font-weight: 600;
+      font-size: 1rem;
+      overflow: hidden;
+    }
+    header a:link, header a:visited, header a:hover, header a:active {
+      color: #393939;
+      text-decoration: none;
+      padding: 0 10px;
+    }
+    header a.logo {
+      display: block;
+      height: 1.66rem;
+      flex: none;
+
+      background: url('../../images/superhero.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center left;
+      margin-left: 1rem;
+      padding-left: 2.5rem;
+
+      font-family: 'Noteworthy Light';
+    }
+
+    #platforms table {
+      margin-top: 4px;
+    }
+
+    /*
+    #platforms img {
+      height: 1rem;
+      padding: 0 0.25rem;
+    }
+    #platforms td:first-child {
+      text-align: center;
+      vertical-align: middle;
+    }
+    */
+
+    .beta-ribbon-wrapper {
+      width: 130px;
+      height: 130px;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 10012;
+    }
+    .beta-ribbon {
+      font-weight: bold;
+      text-align: center;
+      transform: rotate(45deg);
+      position: relative;
+      padding: 7px 0;
+      left: 0px;
+      top: 11px;
+      width: 200px;
+      background-color: #ffea94;
+      background-image: linear-gradient(to bottom, #ffea94, #ffea5E);
+    }
+    .beta-ribbon a:link, .beta-ribbon a:visited, .beta-ribbon a:hover, .beta-ribbon a:active {
+      font-size: 18px;
+      text-decoration: none;
+      color: #393939;
+    }
+  </style>
+</head>
+<body>
+  <div class="beta-ribbon-wrapper" id="beta-ribbon">
+    <div class="beta-ribbon">
+      <a target="_blank" href="https://github.com/weliveindetail/WirVsVirusMap">Beta</a>
+    </div>
+  </div>
+
+  <header id="header">
+    <a href="../../" class="logo">ImmunHelden</a>
+    <a href="https://twitter.com/search?q=%23SpendeCOVIDPlasma" target="_blank">
+      #SpendeCOVIDPlasma
+    </a>
+    <a href="https://twitter.com/WirvsVirusHack" target="_blank">
+      <img src="../../images/wirvsvirusSE.png" alt="wirvsvirus" style="height: 40px; margin-top: 2px;">
+    </a>
+  </header>
+
+  <div id="osm-map"></div>
+
+  <script>
+
+    const plasmaPinIcon = {
+      iconUrl: '/maps/plasma/images/marker-icon-blood.png',
+      iconSize: [30, 38],
+      iconAnchor: [15, 37],
+      popupAnchor: [1, -34]
+    };
+
+    const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
+
+    const settings = {
+      embedded: params.hasOwnProperty("embedded"),
+      lockLink: "/maps/plasma", // TODO: For now we only embed from the landing page.
+      zoom: params.hasOwnProperty("zoom") ? parseInt(params.zoom) : 6,
+      platforms: [
+        //{ name: 'ImmunHelden.de',
+        //  sources: [
+          { name: "#SpendeCOVIDPlasma", restBaseUrl: 'https://immunhelden.de/maps/plasma', icon: plasmaPinIcon }
+        //]}
+      ]
+    };
+
+    const map = new WirVsVirusMap.Instance('osm-map', settings);
+
+
+    $(window).on('hashchange', e => {
+      let preselectId = WirVsVirusMap.Utils.parseAnchor(window.location.href);
+      if (preselectId)
+        map.focusPin(preselectId);
+    });
+
+    // interactions
+  </script>
+</body>
+</html>
