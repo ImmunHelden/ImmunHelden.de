@@ -3,6 +3,5 @@ import { useSession } from "../../hooks/use-session"
 
 export const UserInfo = () => {
     const { user } = useSession()
-    console.log("user", user)
-    return <div>Hello, {user?.email}</div>
+    return <h2>Hello, {user?.email}</h2>
 }
