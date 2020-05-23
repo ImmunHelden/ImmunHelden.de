@@ -1068,6 +1068,29 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database
     }
   });
 
+exports.newAccountCreated = functions.auth.user().onCreate(user => {
+    userDoc = {'email': user.email, 'partners' : []}
+    admin.firestore().collection('users').doc(user.uid)
+    .set(userDoc).then(writeResult => {
+        console.log('User Created result:', writeResult);
+        return;
+    }).catch(err => {
+        console.log(err);
+        return;
+    });
+});
+
+exports.accountDeleted = functions.auth.user().onDelete(user => {
+    admin.firestore().collection('users').doc(user.uid).delete().then(res => {
+        console.log('User Deleted result:', res);
+        return;
+    }).catch(err => {
+        console.log(err);
+        return;
+    });
+});
+
+
 //Automatic Email
 exports.notifyImmuneHeroOnCreateImmuneHero = functions.database.ref(immuneHeroesTable + '/{pushId}')
   .onCreate(async (newImmuneHeroSnapShot, context) => {
