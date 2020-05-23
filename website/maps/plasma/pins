@@ -990,5 +990,101 @@
       50.97736765,
       11.3251801307266
     ]
+  },
+  "biolife-EGCgruQQP": {
+    "type": 0,
+    "title": "BioLife Graz Europaplatz",
+    "latlng": [
+      47.0710041,
+      15.418895401446
+    ]
+  },
+  "biolife-Bw38mPeca": {
+    "type": 0,
+    "title": "BioLife Graz Lazarettgürtel",
+    "latlng": [
+      47.060809,
+      15.4268114
+    ]
+  },
+  "biolife-fjQ14y1LV": {
+    "type": 0,
+    "title": "BioLife Innsbruck",
+    "latlng": [
+      47.2597543,
+      11.3760119
+    ]
+  },
+  "biolife-4WCrcoi_68": {
+    "type": 0,
+    "title": "BioLife Linz",
+    "latlng": [
+      48.3096819,
+      14.299509902546
+    ]
+  },
+  "biolife-npdS9LZli": {
+    "type": 0,
+    "title": "BioLife Salzburg",
+    "latlng": [
+      47.8079783,
+      13.047327
+    ]
+  },
+  "biolife-zqbNKTqSf": {
+    "type": 0,
+    "title": "BioLife Wels",
+    "latlng": [
+      48.1566825,
+      14.0219453
+    ]
+  },
+  "biolife-sHl2sJIng": {
+    "type": 0,
+    "title": "BioLife Wien Kirchengasse",
+    "latlng": [
+      48.1997839,
+      16.3526257
+    ]
+  },
+  "biolife-MJ-g1_gmcM": {
+    "type": 0,
+    "title": "BioLife Operngasse",
+    "latlng": [
+      48.1985478,
+      16.366286
+    ]
+  },
+  "biolife-fbVYtT4N_": {
+    "type": 0,
+    "title": "BioLife Donauzentrum",
+    "latlng": [
+      48.2432869,
+      16.4327015
+    ]
+  },
+  "biolife-HjswrTXOO": {
+    "type": 0,
+    "title": "BioLife Favoriten",
+    "latlng": [
+      48.1794608,
+      16.3762642
+    ]
+  },
+  "biolife-I2XxPgsI7": {
+    "type": 0,
+    "title": "BioLife Wiener Neustadt",
+    "latlng": [
+      47.824087,
+      16.2488356340473
+    ]
+  },
+  "biolife-Duk1cnlysE": {
+    "type": 0,
+    "title": "BioLife Klagenfurt",
+    "latlng": [
+      46.624778,
+      14.312264
+    ]
   }
 }
