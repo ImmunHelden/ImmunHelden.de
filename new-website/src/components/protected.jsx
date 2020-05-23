@@ -6,18 +6,18 @@ import { userContext } from "../hooks/use-session"
 
 export const Protected = ({ children, loginUrl }) => {
     const { initializing, user } = useAuth(firebase)
-    const [partners, setPartners] = useState(null)
+    const [partner, setPartner] = useState(null)
 
     useEffect(() => {
-        async function getPartners() {
+        async function getPartner() {
             if (user) {
-                const res = await firebase.firestore().collection("users").doc("iHEgHzEO6Xbdk7cuUfMKtSdIt6q2").get()
+                const res = await firebase.firestore().collection("users").doc(user.uid).get()
                 if (res.exists) {
-                    setPartners(res.data().partners)
+                    setPartner(res.data().partner ?? null)
                 }
             }
         }
-        getPartners()
+        getPartner()
     }, [user])
 
     if (initializing) {
@@ -28,6 +28,5 @@ export const Protected = ({ children, loginUrl }) => {
         navigate(loginUrl)
         return <error>NotLoggedIn</error>
     }
-
-    return <userContext.Provider value={{ user, partners }}>{children}</userContext.Provider>
+    return <userContext.Provider value={{ user, partner }}>{children}</userContext.Provider>
 }

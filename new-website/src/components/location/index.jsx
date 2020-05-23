@@ -1,7 +1,48 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Button, Grid } from "@material-ui/core"
+import { useSession } from "../../hooks/use-session"
+import firebase from "gatsby-plugin-firebase"
+
+function createTableRow({ title = "???", latlng, address = "???", phone = "---", email = "---", contact = "---" }) {
+    return (
+        <tr>
+            <td>{title}</td>
+            <td>{latlng?.latitude ?? "???"}</td>
+            <td>{latlng?.longitude ?? "???"}</td>
+            <td>{address}</td>
+            <td>{phone}</td>
+            <td>{email}</td>
+            <td>{contact}</td>
+        </tr>
+    )
+}
 
 export const LocationOverview = () => {
+    const { partner } = useSession()
+
+    const [entries, setEntries] = useState([])
+
+    useEffect(() => {
+        async function getEntries() {
+            if (partner) {
+                console.log("before", partner)
+                const res = await firebase
+                    .firestore()
+                    .collection("blutspendende")
+                    .where("partnerID", "==", partner)
+                    .get()
+                if (!res.empty) {
+                    const rawEntries = []
+                    res.forEach(doc => rawEntries.push(doc.data()))
+                    setEntries(rawEntries)
+                }
+            }
+        }
+        getEntries()
+    }, [partner])
+
+    console.log(entries)
+
     return (
         <table style={{ width: "100%", margin: "0 10px" }}>
             <tr>
@@ -14,38 +55,7 @@ export const LocationOverview = () => {
                 <th>Kontakt</th>
                 <th></th>
             </tr>
-            <tr>
-                <td>Blutspende am Universitätsklinikum Freiburg</td>
-                <td>48.0066478</td>
-                <td>7.8381151</td>
-                <td>Hugstetter Str. 55, 79106 Freiburg</td>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td>
-                <td>
-                    <Button>✏️</Button>
-                    <Button>❌</Button>
-                </td>
-            </tr>
-            <tr>
-                <td>Blutspendedienst Hamburg-Wandsbek</td>
-                <td>53.5734028</td>
-                <td>10.0669343</td>
-                <td>Quarree 8-10, 22041 Hamburg</td>
-                <td>040 20002200</td>
-                <td>info@blutspendehamburg.de</td>
-                <td>Quarree 2, 3. Obergeschoss</td>
-                <td>
-                    <Grid container>
-                        <Grid item xs={6} component={Button}>
-                            ✏️
-                        </Grid>
-                        <Grid item xs={6} component={Button}>
-                            ❌
-                        </Grid>
-                    </Grid>
-                </td>
-            </tr>
+            {entries.map(entry => createTableRow(entry))}
         </table>
     )
 }
