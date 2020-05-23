@@ -187,7 +187,7 @@
 
     const settings = {
       embedded: params.hasOwnProperty("embedded"),
-      lockLink: params.hasOwnProperty("link") ? decodeURIComponent(params.link) : null,
+      lockLink: "/maps/plasma", // TODO: For now we only embed from the landing page.
       zoom: params.hasOwnProperty("zoom") ? parseInt(params.zoom) : 6,
       platforms: [
         //{ name: 'ImmunHelden.de',
