@@ -1,21 +1,22 @@
 import React, { useState } from "react"
 import { navigate } from "gatsby-plugin-intl"
 import firebase from "gatsby-plugin-firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
 import Login from "./login"
 import Register from "./register"
+import { isNode } from "@firebase/util"
+import { useAuth } from "../../hooks/use-auth"
 
 export const LoginRegisterForm = ({ loginSuccessUrl }) => {
     const [showLogin, setShowLogin] = useState(true)
     const switchScreen = () => setShowLogin(!showLogin)
-    const [user, loading] = useAuthState(firebase.auth())
+    const { initializing, user } = useAuth(firebase)
 
     if (user) {
         navigate(loginSuccessUrl)
     }
 
-    if (loading) {
-        return <h1>LOADING</h1>
+    if (initializing) {
+        return <h1>initializing</h1>
     }
 
     return (
