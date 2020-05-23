@@ -5,8 +5,8 @@ import PropTypes from "prop-types"
 import { AppBar, Toolbar, makeStyles } from "@material-ui/core"
 import { ImmunHeldenLogo } from "../logo"
 import wirVsVirusSolutionEnablerLogo from "../../images/wirvsvirusSE.png"
-import { useAuthState } from "react-firebase-hooks/auth"
 import firebase from "gatsby-plugin-firebase"
+import { useAuth } from "../../hooks/use-auth"
 
 const useStyles = makeStyles(theme => ({
     appBar: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 const HeaderComponent = ({ title }) => {
     const classes = useStyles()
-    const [user] = useAuthState(firebase.auth())
+    const { user } = useAuth(firebase)
 
     const logout = () => firebase.auth().signOut()
 

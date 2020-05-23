@@ -1,7 +1,7 @@
 import React from "react"
 import { Grid } from "@material-ui/core"
 import Layout from "../../components/layout"
-import { LoginRegisterForm } from "../../components/form"
+import { LoginRegisterForm } from "../../components/login-register-form"
 
 export const Login = () => {
     return (

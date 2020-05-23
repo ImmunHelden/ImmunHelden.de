@@ -1,16 +1,19 @@
 import React from "react"
-import { useAuthState } from "react-firebase-hooks/auth"
-import firebase from "gatsby-plugin-firebase"
 import { navigate } from "gatsby-plugin-intl"
+import { useAuth } from "../hooks/use-auth"
+import firebase from "gatsby-plugin-firebase"
+import { userContext } from "../hooks/use-session"
 
 export const Protected = ({ children, loginUrl }) => {
-    const [user, loading] = useAuthState(firebase.auth())
-    if (loading) {
+    const { initializing, user } = useAuth(firebase)
+    if (initializing) {
         return <h1>...</h1>
     }
+
     if (!user) {
         navigate(loginUrl)
-        return <h1>NotLoggedIn</h1>
+        return <error>NotLoggedIn</error>
     }
-    return <div>{children}</div>
+
+    return <userContext.Provider value={{ user }}>{children}</userContext.Provider>
 }
