@@ -1,14 +1,9 @@
 import React from "react"
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox } from "@material-ui/core"
+import { Paper, Grid, TextField, Button } from "@material-ui/core"
 import { Face, Fingerprint } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles"
-import MuiAlert from "@material-ui/lab/Alert"
 import { useForm } from "react-hook-form"
 import firebase from "gatsby-plugin-firebase"
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />
-}
 
 const useStyles = makeStyles(theme => ({
     margin: {
@@ -19,26 +14,21 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-const Register = () => {
+const Register = ({ onError = () => {}, onSuccess = () => {} }) => {
     const classes = useStyles()
     const { register, handleSubmit } = useForm()
 
-    const onSubmit = ({ email, password }) => {
+    const onSubmitRegister = ({ email, password }) => {
         firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
-            .then(() => <Alert severity="success">Account Created! Please verify Email!</Alert>)
-            .catch(error => {
-                const errorCode = error.code
-                const errorMessage = error.message
-                console.log({ errorCode, errorMessage })
-                return <Alert severity="error">Something went wrong please try again later!</Alert>
-            })
+            .then(user => onSuccess(user))
+            .catch(error => onError(error.code, error.message))
     }
 
     return (
         <Paper className={classes.padding}>
-            <form onSubmit={handleSubmit(onSubmit)} className={classes.margin}>
+            <form onSubmit={handleSubmit(onSubmitRegister)} className={classes.margin}>
                 <Grid container spacing={8} alignItems="flex-end">
                     <Grid item>
                         <Face />

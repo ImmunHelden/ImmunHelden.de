@@ -1,9 +1,8 @@
-import React, { useState } from "react"
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox } from "@material-ui/core"
+import React from "react"
+import { Paper, Grid, TextField, Button } from "@material-ui/core"
 import { Face, Fingerprint } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles"
 import { useForm } from "react-hook-form"
-import { navigate } from "gatsby-plugin-intl"
 import firebase from "gatsby-plugin-firebase"
 
 const useStyles = makeStyles(theme => ({
@@ -15,29 +14,16 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-const Login = ({ successUrl = "/" }) => {
+const Login = ({ onError = () => {}, onSuccess = () => {} }) => {
     const classes = useStyles()
     const { register, handleSubmit } = useForm()
-    const [errorMessage, setErrorMessage] = useState(null)
 
     const onSubmit = ({ email, password }) => {
-        setErrorMessage(null)
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .catch(error => {
-                const errorCode = error.code
-                const errorMessage = error.message
-                if (errorCode === "auth/wrong-password" || errorCode === "auth/user-not-found") {
-                    setErrorMessage("Wrong email or password.")
-                } else {
-                    setErrorMessage(errorMessage)
-                }
-                console.log(error)
-            })
-            .then(() => {
-                navigate(successUrl)
-            })
+            .then(user => onSuccess(user))
+            .catch(error => onError(error.code, error.message))
     }
 
     return (
@@ -76,7 +62,6 @@ const Login = ({ successUrl = "/" }) => {
                         />
                     </Grid>
                 </Grid>
-                {errorMessage && <span style={{ color: "red" }}>{errorMessage}</span>}
                 <Grid container justify="center" style={{ marginTop: "10px" }}>
                     <Button type="submit" variant="outlined" color="primary" style={{ textTransform: "none" }}>
                         Login

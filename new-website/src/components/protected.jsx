@@ -33,13 +33,9 @@ export const Protected = ({ children, loginUrl }) => {
         return <h1>...</h1>
     }
 
-    if (!user) {
+    if (!user || !user.emailVerified) {
         navigate(loginUrl)
         return <Alert severity="error">You are not logged in!</Alert>
-    }
-                                   
-    if (!user.emailVerified) {
-        return <Alert severity="error">Email address is not verified!</Alert>
     }
 
     return <userContext.Provider value={{ user, partner }}>{children}</userContext.Provider>
