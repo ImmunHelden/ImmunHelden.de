@@ -135,6 +135,21 @@
 
       font-family: 'Noteworthy Light';
     }
+    header a.subscribe {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 44px;
+      height: 44px;
+      background: #fff;
+      padding: 0.5rem;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    header a.subscribe img {
+      width: auto;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
@@ -145,6 +160,9 @@
     </a>
     <a href="https://twitter.com/WirvsVirusHack" target="_blank">
       <img src="../../images/wirvsvirusSE.png" alt="wirvsvirus" style="height: 40px; margin-top: 2px;">
+    </a>
+    <a href="javascript:void(0)" onclick="showSubscribeInDetailsPane()" class="subscribe">
+      <img src="../images/subscribe.png" alt="subscribe">
     </a>
   </header>
 
@@ -173,7 +191,7 @@
       platforms: [
         //{ name: 'ImmunHelden.de',
         //  sources: [
-          { name: "#SpendeCOVIDPlasma", restBaseUrl: 'https://immunhelden.de/maps/plasma', icon: plasmaPinIcon }
+          { name: "#SpendeCOVIDPlasma", restBaseUrl: 'http://localhost:5000/maps/plasma', icon: plasmaPinIcon }
         //]}
       ],
       selectPlatformsControl: !params.hasOwnProperty("embedded")
@@ -181,12 +199,15 @@
 
     const map = new WirVsVirusMap.Instance('osm-map', settings);
 
-
     $(window).on('hashchange', e => {
       let preselectId = WirVsVirusMap.Utils.parseAnchor(window.location.href);
       if (preselectId)
         map.focusPin(preselectId);
     });
+
+    function showSubscribeInDetailsPane() {
+      map.openDetailsPane('followup.html');
+    }
 
     // interactions
   </script>
