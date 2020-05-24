@@ -1069,7 +1069,7 @@ exports.notifyImmuneHeroesInZipCodeRangeOnCreateStakeHolder = functions.database
   });
 
 exports.newAccountCreated = functions.auth.user().onCreate(user => {
-    userDoc = {'email': user.email, 'partner' : null}
+    userDoc = {'partner' : null}
     admin.firestore().collection('users').doc(user.uid)
     .set(userDoc).then(writeResult => {
         console.log('User Created result:', writeResult);
