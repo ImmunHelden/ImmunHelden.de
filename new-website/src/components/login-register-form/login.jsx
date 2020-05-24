@@ -4,6 +4,7 @@ import { Face, Fingerprint } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/styles"
 import { useForm } from "react-hook-form"
 import firebase from "gatsby-plugin-firebase"
+import LoginSVG from "../../images/svg/undraw_Login_v483.svg"
 
 const useStyles = makeStyles(theme => ({
     margin: {
@@ -29,7 +30,15 @@ const Login = ({ onError = () => {}, onSuccess = () => {} }) => {
     return (
         <Paper className={classes.padding}>
             <form onSubmit={handleSubmit(onSubmit)} className={classes.margin}>
-                <Grid container spacing={8} alignItems="flex-end">
+                <Grid container direction="column" justify="center" alignContent="center">
+                    <Grid item>
+                        <h1>Sign in to ImmunHelden</h1>
+                    </Grid>
+                    <Grid item style={{ textAlign: "center" }}>
+                        <LoginSVG style={{ height: "auto", width: "10rem" }} />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} alignItems="flex-end">
                     <Grid item>
                         <Face />
                     </Grid>
@@ -46,7 +55,7 @@ const Login = ({ onError = () => {}, onSuccess = () => {} }) => {
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={8} alignItems="flex-end">
+                <Grid container spacing={2} alignItems="flex-end">
                     <Grid item>
                         <Fingerprint />
                     </Grid>

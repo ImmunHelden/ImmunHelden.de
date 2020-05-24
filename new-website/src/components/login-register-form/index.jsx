@@ -52,10 +52,10 @@ const screens = {
     VERIFY: "verify",
 }
 
+const isUserEmailVerified = user => user?.emailVerified
+
 export const LoginRegisterForm = ({ loginSuccessUrl }) => {
     const [showScreen, setShowScreen] = useState(screens.LOGIN)
-    const switchToLogin = () => setShowScreen(screens.LOGIN)
-    const switchToRegister = () => setShowScreen(screens.REGISTER)
     const { user } = useAuth(firebase)
     const [alert, setAlert] = useState({
         open: false,
@@ -63,15 +63,24 @@ export const LoginRegisterForm = ({ loginSuccessUrl }) => {
         severity: "error",
     })
 
-    if (user) {
-        if (user.emailVerified) {
-            navigate(loginSuccessUrl)
+    const switchToLogin = () => showScreen !== screens.LOGIN && setShowScreen(screens.LOGIN)
+    const switchToRegister = () => showScreen !== screens.REGISTER && setShowScreen(screens.REGISTER)
+    const switchToVerify = () => showScreen !== screens.VERIFY && setShowScreen(screens.VERIFY)
+
+    if (!user) {
+        if (showScreen === screens.VERIFY) {
+            switchToLogin()
         }
-        if (showScreen !== screens.VERIFY) {
-            setShowScreen(screens.VERIFY)
+    } else {
+        if (isUserEmailVerified(user)) {
+            navigate(loginSuccessUrl)
+            return <p>...</p>
+        }
+
+        if (!isUserEmailVerified(user) && showScreen !== screens.VERIFY) {
+            switchToVerify()
         }
     }
-
     const onError = (code, message) => {
         setAlert({
             open: true,
