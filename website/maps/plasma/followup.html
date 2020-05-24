@@ -15,6 +15,9 @@
     width: 2.2rem;
     height: 2.2rem;
   }
+  input[type="submit"]:disabled {
+    opacity: 0.5;
+  }
   input[type="button"] {
     border: 0;
     background: none;
@@ -31,7 +34,7 @@
     background-color: #fff;
     background-size: cover;
     background-position: center;
-    display: none; /* on click set to 'flex' */
+    display: flex;
     flex-direction: column; justify-content: center; align-items: center;
     box-sizing: border-box; padding: 2rem; text-align: center;
     margin: 0;
@@ -60,7 +63,7 @@
 <div id="followup" class="overlay-followup">
   <p>Sie vermuten an COVID-19 erkrankt und mittlerweile<br>wieder genesen zu sein?</p>
   <p>Wir informieren Sie, wenn es<br>in Ihrer Region weitere<br>Möglichkeiten gibt um zu helfen.</p>
-  <form>
+  <form action="/addImmuneHero" method="POST">
     <div>
       <label for="zipCode">Postleitzahl</label>
       <input type="text" name="zipCode" style="width: 4rem;" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
@@ -70,8 +73,22 @@
       <input type="email" name="email" style="width: 8rem;" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
     </div>
     <div>
-      <input type="submit" value="✓" onclick="close_overlay()" disabled>
+      <input type="submit" id="submitHero" value="✓" disabled>
     </div>
+    <div>
+      <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
+        <input type="checkbox" id="confirmedHero" onchange="allowSubmitHero()" style="margin-left: -20px;" required>
+        Ich habe die <a href="https://immunhelden.de/datenschutz.html">Datenschutzerklärung</a> verstanden und möchte informiert werden, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
+      </label>
+    </div>
+    <script>
+      function allowSubmitHero() {
+        const confirmed = document.getElementById('confirmedHero').checked;
+        const button = document.getElementById('submitHero');
+        button.disabled = !confirmed;
+        button.title = confirmed ? 'Los gehts!' : 'Bitte Datenschutzbestimmungen akzeptieren';
+      }
+    </script>
     <br>
     <input type="button" value="← Nein danke" onclick="close_overlay()">
   </form>

@@ -123,10 +123,10 @@
   // Follow-up dialog shows up in the details pane after clicking an external
   // link. So when the user comes back, they have the chance to sign-up in the
   // hindsight. For now it's specific to the host (not the platform).
-  let followupHtml = '';
+  let followupDialog = null;
 
   Utils.loadPlain(hostBaseUrl + '/followup.html').then(
-    html => { followupHtml = html; },
+    html => { followupDialog = $(html); },
     err => console.error(err)
   );
 
@@ -187,9 +187,9 @@
         '</div>');
 
       details.find('a').each((i, elem) => Pin._transformLink(elem));
-      details.append(followupHtml);
+      followupDialog.appendTo(details).css('display', 'none');
 
-      // Return as HTML as it goes into the iframe.
+      // Return as HTML, because it goes into the iframe.
       return details.html();
     },
 
@@ -429,6 +429,14 @@
     this.togglePlatform = togglePlatform;
     this.viewDetailsForPin = _viewDetailsForPin;
     this.closeDetailsPane = _closeDetailsPane;
+
+    this.openDetailsPane = (url) => {
+      _openDetailsPane();
+      Utils.loadPlain(url).then(
+        html => dom.paneDetails.attr("srcdoc", html),
+        err => console.error(err)
+      );
+    };
 
     this.leaflet = () => { return map; };
     this.platform = (idx) => { return settings.platforms[idx]; }
