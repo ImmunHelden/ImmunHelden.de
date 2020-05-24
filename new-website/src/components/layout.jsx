@@ -32,6 +32,7 @@ const Layout = ({ children }) => {
             <Header title={data.site.siteMetadata.title} />
             <main style={{ flexGrow: 1 }}>{children}</main>
             <footer></footer>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         </div>
     )
 }

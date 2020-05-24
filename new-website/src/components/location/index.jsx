@@ -1,61 +1,146 @@
 import React, { useEffect, useState } from "react"
-import { Button, Grid } from "@material-ui/core"
 import { useSession } from "../../hooks/use-session"
 import firebase from "gatsby-plugin-firebase"
+import MaterialTable from "material-table"
+import "@material-ui/icons"
 
-function createTableRow({ title = "???", latlng, address = "???", phone = "---", email = "---", contact = "---" }) {
-    return (
-        <tr>
-            <td>{title}</td>
-            <td>{latlng?.latitude ?? "???"}</td>
-            <td>{latlng?.longitude ?? "???"}</td>
-            <td>{address}</td>
-            <td>{phone}</td>
-            <td>{email}</td>
-            <td>{contact}</td>
-        </tr>
-    )
+async function fetchEntries(partner) {
+    if (!partner) {
+        return []
+    }
+    const res = await firebase.firestore().collection("blutspendende").where("partnerID", "==", partner).get()
+    if (res.empty) {
+        return []
+    }
+    return res.docs.reduce((prev, doc) => mapEntry(prev, { ...doc.data(), id: doc.id }), [])
+}
+
+function mapEntry(prev, doc) {
+    const { title = "NA", latlng = {}, address = "NA", phone = "NA", email = "NA", contact = "NA", id = "NA" } = doc
+    const { latitude, longitude } = latlng
+    return [
+        ...prev,
+        {
+            title,
+            latitude,
+            longitude,
+            latlng,
+            address,
+            phone,
+            email,
+            contact,
+            id,
+        },
+    ]
 }
 
 export const LocationOverview = () => {
     const { partner } = useSession()
-
-    const [entries, setEntries] = useState([])
+    const [state, setState] = useState({ data: [] })
 
     useEffect(() => {
         async function getEntries() {
             if (partner) {
-                console.log("before", partner)
-                const res = await firebase
-                    .firestore()
-                    .collection("blutspendende")
-                    .where("partnerID", "==", partner)
-                    .get()
-                if (!res.empty) {
-                    const rawEntries = []
-                    res.forEach(doc => rawEntries.push(doc.data()))
-                    setEntries(rawEntries)
-                }
+                const entries = await fetchEntries(partner)
+                setState(prevState => ({ ...prevState, data: entries }))
             }
         }
         getEntries()
     }, [partner])
 
-    console.log(entries)
+    const updateRow = (newData, oldData) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const { id, latitude, longitude, ...data } = newData
+                const latlng = new firebase.firestore.GeoPoint(latitude, longitude)
+                await firebase
+                    .firestore()
+                    .collection("blutspendende")
+                    .doc(id)
+                    .update({ ...data, latlng })
+
+                setTimeout(() => {
+                    resolve()
+                    if (oldData) {
+                        setState(prevState => {
+                            const data = [...prevState.data]
+                            data[data.indexOf(oldData)] = newData
+                            return { ...prevState, data }
+                        })
+                    }
+                }, 600)
+            } catch (err) {
+                console.error(err.message)
+                reject()
+            }
+        })
+    }
+    const addRow = newData => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const { id, latitude, longitude, ...rest } = newData
+                const latlng = new firebase.firestore.GeoPoint(parseFloat(latitude), parseFloat(longitude))
+                const newDocument = await firebase
+                    .firestore()
+                    .collection("blutspendende")
+                    .add({ ...rest, latlng, partnerID: partner })
+
+                setTimeout(() => {
+                    resolve()
+                    setState(prevState => ({
+                        ...prevState,
+                        data: mapEntry([...prevState.data], { ...rest, latlng, id: newDocument.id }),
+                    }))
+                }, 600)
+            } catch (err) {
+                console.error(err.message)
+                reject()
+            }
+        })
+    }
+    const deleteRow = oldData => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const { id } = oldData
+                await firebase.firestore().collection("blutspendende").doc(id).delete()
+                setTimeout(() => {
+                    resolve()
+                    setState(prevState => {
+                        const data = [...prevState.data]
+                        data.splice(data.indexOf(oldData), 1)
+                        return { ...prevState, data }
+                    })
+                }, 600)
+            } catch (err) {
+                console.error(err.message)
+                reject()
+            }
+        })
+    }
 
     return (
-        <table style={{ width: "100%", margin: "0 10px" }}>
-            <tr>
-                <th>Title</th>
-                <th>Latitude</th>
-                <th>Langitude</th>
-                <th>Adresse</th>
-                <th>Telefon</th>
-                <th>Email</th>
-                <th>Kontakt</th>
-                <th></th>
-            </tr>
-            {entries.map(entry => createTableRow(entry))}
-        </table>
+        <>
+            <div style={{ maxWidth: "100%" }}>
+                <MaterialTable
+                    columns={[
+                        { title: "ID", field: "id", hidden: "true" },
+                        { title: "Title", field: "title" },
+                        { title: "Latitude", field: "latitude", type: "numeric" },
+                        { title: "Langitude", field: "longitude", type: "numeric" },
+                        { title: "Adresse", field: "address" },
+                        { title: "Telefon", field: "phone" },
+                        { title: "Email", field: "email" },
+                        { title: "Kontakt", field: "contact" },
+                    ]}
+                    data={state.data}
+                    title="Locations"
+                    editable={{
+                        onRowAdd: addRow,
+                        onRowUpdate: updateRow,
+                        onRowDelete: deleteRow,
+                    }}
+                />
+            </div>
+        </>
     )
 }
