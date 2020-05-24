@@ -3,6 +3,11 @@ import { navigate } from "gatsby-plugin-intl"
 import { useAuth } from "../hooks/use-auth"
 import firebase from "gatsby-plugin-firebase"
 import { userContext } from "../hooks/use-session"
+import MuiAlert from "@material-ui/lab/Alert"
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />
+}
 
 export const Protected = ({ children, loginUrl }) => {
     const { initializing, user } = useAuth(firebase)
@@ -11,9 +16,13 @@ export const Protected = ({ children, loginUrl }) => {
     useEffect(() => {
         async function getPartner() {
             if (user) {
-                const res = await firebase.firestore().collection("users").doc(user.uid).get()
-                if (res.exists) {
-                    setPartner(res.data().partner ?? null)
+                try {
+                    const res = await firebase.firestore().collection("users").doc(user.uid).get()
+                    if (res.exists) {
+                        setPartner(res.data().partner ?? null)
+                    }
+                } catch (err) {
+                    console.log(err.message, user.uid)
                 }
             }
         }
@@ -26,7 +35,11 @@ export const Protected = ({ children, loginUrl }) => {
 
     if (!user) {
         navigate(loginUrl)
-        return <error>NotLoggedIn</error>
+        return <Alert severity="error">You are not logged in!</Alert>
+    }
+
+    if (!user.emailVerified) {
+        return <Alert severity="error">Email address is not verified!</Alert>
     }
     return <userContext.Provider value={{ user, partner }}>{children}</userContext.Provider>
 }
