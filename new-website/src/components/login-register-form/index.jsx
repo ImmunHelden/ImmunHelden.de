@@ -5,7 +5,7 @@ import Login from "./login"
 import Register from "./register"
 import { useAuth } from "../../hooks/use-auth"
 import MuiAlert from "@material-ui/lab/Alert"
-import { Snackbar } from "@material-ui/core"
+import { Snackbar, Button } from "@material-ui/core"
 import Verify from "./verify"
 
 function Alert({ open, severity, message, onClose }) {
@@ -112,13 +112,19 @@ export const LoginRegisterForm = ({ loginSuccessUrl }) => {
             {showScreen === screens.LOGIN && [
                 <Login key="login" onSuccess={onSuccess} onError={onError} />,
                 <div key="doNotHaveAccountKey">
-                    Don't have an Account? <a onClick={switchToRegister}>Sign up</a>
+                    Don't have an Account?{" "}
+                    <Button variant="text" onClick={switchToRegister}>
+                        Sign up
+                    </Button>
                 </div>,
             ]}
             {showScreen === screens.REGISTER && [
                 <Register key="register" onError={onError} onSuccess={onSuccess} />,
                 <div key="doHaveAccountKey">
-                    Already have an Account? <a onClick={switchToLogin}>Sign in</a>
+                    Already have an Account?{" "}
+                    <Button variant="text" onClick={switchToLogin}>
+                        Sign in
+                    </Button>
                 </div>,
             ]}
             {showScreen === screens.VERIFY && <Verify key="verify" onError={onError} onSuccess={onVerifySuccess} />}
