@@ -19,7 +19,7 @@ const FIVE_MIN = 5 * 60 * 1000
 const isSpamProtectionActive = verifiedLast => new Date() - new Date(verifiedLast) <= FIVE_MIN
 
 const Verify = ({ onError = () => {}, onSuccess = () => {} }) => {
-    const { user } = useAuth(firebase)
+    const { user, signOut } = useAuth(firebase)
     const [verifiedLast, setVerifiedLast] = usePersistedState("lastVerifySend")
     const classes = useStyles()
     const email = user?.email ?? "..."
@@ -72,6 +72,9 @@ const Verify = ({ onError = () => {}, onSuccess = () => {} }) => {
                 <Grid container justify="center" style={{ marginTop: "10px" }}>
                     <Button variant="outlined" color="primary" onClick={sendEmail}>
                         Resend Email
+                    </Button>
+                    <Button color="primary" onClick={signOut}>
+                        Not my email
                     </Button>
                 </Grid>
             </div>
