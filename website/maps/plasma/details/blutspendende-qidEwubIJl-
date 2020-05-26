@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="main.css">
 <div>
 <div class="title">Haema Blutspendezentrum Dresden-World Trade Center</div>
-<div class="contact">Haema Blutspendezentrum Dresden-World Trade Center, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770</div>
+<div class="contact">Telefon bundesweit: 0800 9779770</div>
 <div class="address">Rosenstrasse 30, 01067 Dresden</div>
 <div class="phone"><a href="tel:+493514079250">0351 4079250</a></div>
-<div class="url"><a href="http://www.haema.de/blutspendezentren/sachsen/dresden-world-trade-center.html">http://www.haema.de/blutspendezentren/sachsen/dresden-world-trade-center.html</a></div>
+<div class="email"><a href="mailto:covid19@haema.de">covid19@haema.de</a></div>
+<div class="url"><a href="https://www.haema.de/blutspendedienst.html">Webseite</a></div>
 <div class="permalink"><a href="#blutspendende-qidEwubIJl-" target="_parent">Permalink</a></div>
 </div>

@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="main.css">
 <div>
 <div class="title">Haema Blutspendezentrum Berlin-Hellersdorf</div>
-<div class="contact">Haema Blutspendezentrum Berlin-Hellersdorf, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770</div>
+<div class="contact">Telefon bundesweit: 0800 9779770</div>
 <div class="address">Marktplatz Center Hellersdorf Peter-Weiss-Gasse 1, 12627 Berlin</div>
 <div class="phone"><a href="tel:+4930992550">030-992550</a></div>
-<div class="url"><a href="http://www.haema.de/blutspendezentren/berlin/berlin-hellersdorf.html">http://www.haema.de/blutspendezentren/berlin/berlin-hellersdorf.html</a></div>
+<div class="email"><a href="mailto:covid19@haema.de">covid19@haema.de</a></div>
+<div class="url"><a href="https://www.haema.de/blutspendedienst.html">Webseite</a></div>
 <div class="permalink"><a href="#blutspendende-ZHQyKukzfsY" target="_parent">Permalink</a></div>
 </div>

@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="main.css">
 <div>
 <div class="title">Blutspendedienst der Universitätsmedizin Göttingen</div>
-<div class="contact">Abteilung Transfusionsmedizin, RKP-Spende (COVID-19) Mail: tfm@med.uni-goettingen.de, RKP-Spende (COVID-19) Telefon: 0551 / 39 22750</div>
+<div class="contact">Abteilung Transfusionsmedizin</div>
 <div class="address">Robert-Koch-Str. 40, 37075 Göttingen</div>
-<div class="phone"><a href="tel:+495513966899">0551 3966899</a></div>
-<div class="url"><a href="http://www.blutspende-goettingen.de/">http://www.blutspende-goettingen.de/</a></div>
+<div class="phone"><a href="tel:+495513922750">0551 39 22750</a></div>
+<div class="email"><a href="mailto:tfm@med.uni-goettingen.de">tfm@med.uni-goettingen.de</a></div>
+<div class="url"><a href="http://www.blutspende-goettingen.de/covid.html">Webseite</a></div>
 <div class="permalink"><a href="#blutspendende-PCpI8pISvDl" target="_parent">Permalink</a></div>
 </div>

@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="main.css">
 <div>
 <div class="title">Blutspendedienst am Universitätsklinikum des Saarlandes Homburg</div>
-<div class="contact">Gebäude 1, RKP-Spende (COVID-19) Mail: haemostaseologie@uks.eu, hermann.eichler@uks.eu, RKP-Spende (COVID-19) Telefon: 06841-16-22530</div>
+<div class="contact">Gebäude 1, Telefon RKP-Spende: 06841-16-22530</div>
 <div class="address">Ringstraße 52, 66421 Homburg</div>
 <div class="phone"><a href="tel:+4968411622540">06841 1622540</a></div>
-<div class="url"><a href="http://www.uniklinikum-saarland.de/einrichtungen/kliniken_institute/chirurgie/haemostaseologie/infos_fuer_blutspender/oeffnungszeiten_blutspende/">http://www.uniklinikum-saarland.de/einrichtungen/kliniken_institute/chirurgie/haemostaseologie/infos_fuer_blutspender/oeffnungszeiten_blutspende/</a></div>
+<div class="email"><a href="mailto:haemostaseologie@uks.eu">haemostaseologie@uks.eu</a></div>
+<div class="url"><a href="https://www.uniklinikum-saarland.de/de/einrichtungen/kliniken_institute/chirurgie/haemostaseologie/infos_fuer_blutspender/plasma_spende_covid_19/">Webseite</a></div>
 <div class="permalink"><a href="#blutspendende-dBBpkOgvtUi" target="_parent">Permalink</a></div>
 </div>
