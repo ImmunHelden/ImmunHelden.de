@@ -19,6 +19,13 @@ div > div.title {
   font-size: 2rem;
 }
 
+div > div.email {
+  background-image: url(images/symbol-email.png);
+  background-repeat: no-repeat;
+  background-size: 1.1rem;
+  padding-left: 22px;
+}
+
 div > div.phone {
   background-image: url(images/symbol-phone.png);
   background-repeat: no-repeat;
@@ -28,6 +35,13 @@ div > div.phone {
 
 div > div.url {
   background-image: url(images/symbol-website.png);
+  background-repeat: no-repeat;
+  background-size: 1.1rem;
+  padding-left: 22px;
+}
+
+div > div.permalink {
+  background-image: url(images/symbol-permalink.png);
   background-repeat: no-repeat;
   background-size: 1.1rem;
   padding-left: 22px;
