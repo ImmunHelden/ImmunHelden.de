@@ -66,57 +66,64 @@
   },
   {
     "title": "Haema Blutspendezentrum München",
-    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Dachauer Straße 70, 80335 München",
     "phone": "089 547265990",
-    "url": "http://www.haema.de/blutspendezentren/bayern/muenchen.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "t-3d_3U4dY"
   },
   {
     "title": "Haema Blutspendezentrum Nürnberg",
-    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Aufseßplatz 21, 90459 Nürnberg",
     "phone": "0911 2342980",
-    "url": "https://www.haema.de/blut-plasmaspendezentren/bayern/nuernberg.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "i-Yi_hPTRF"
   },
   {
     "title": "Haema Blutspendezentrum Regensburg",
-    "contact": "Haema Blutspendedienst im Facharztzentrum Regensburg, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Hildegard-von-Bingen-Straße 1, 93053 Regensburg",
     "phone": "0941 2808970",
-    "url": "http://www.haema.de/blutspendezentren/bayern/regensburg.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "34u7uh_LTK"
   },
   {
     "title": "Haema Plasmaspendezentrum Augsburg",
-    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Philippine-Welser-Straße 8, 86150 Augsburg",
     "phone": "0821 21700Haema Plasmaspendezentrum Augsburg70",
-    "url": "https://www.haema.de/blutspendezentren/bayern/augsburg.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "fqPnyLnx-G"
   },
   {
     "title": "Haema Plasmaspendezentrum Bayreuth",
-    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Spinnereistraße 5 b, 95445 Bayreuth",
     "phone": "0921 4040",
-    "url": "https://www.haema.de/blutspendezentren/bayern/bayreuth.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "gBUmuQwnq3"
   },
   {
     "title": "Haema Plasmaspendezentrum Fürth",
-    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Hallstraße 9, 90762 Fürth",
-    "url": "https://www.haema.de/blutspendezentren/bayern/fuerth.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "zYEcOvp6-eU"
   },
   {
     "title": "Haema Plasmaspendezentrum Ingolstadt",
-    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Rathausplatz 11, 85049 Ingolstadt",
     "phone": "0841 934140",
-    "url": "https://www.haema.de/blutspendezentren/bayern/ingolstadt.html?nomob=1",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "0YwbxNGxkDg"
   },
   {
@@ -160,50 +167,56 @@
   },
   {
     "title": "Haema Blutspendezentrum Berlin-Charlottenburg",
-    "contact": "Wilmersdorfer Arcaden 4.OG, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Wilmersdorfer Straße 54, 10627 Berlin",
     "phone": "030 688383620",
-    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-charlottenburg.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "WNtaq3OGWTj"
   },
   {
     "title": "Haema Blutspendezentrum Berlin-Hellersdorf",
-    "contact": "Haema Blutspendezentrum Berlin-Hellersdorf, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Marktplatz Center Hellersdorf Peter-Weiss-Gasse 1, 12627 Berlin",
     "phone": "030-992550",
-    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-hellersdorf.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "ZHQyKukzfsY"
   },
   {
     "title": "Haema Blutspendezentrum Berlin-Marzahn",
-    "contact": "Haema Blutspendezentrum Berlin-Marzahn, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Havemann Str. 12b, 12689 Berlin",
     "phone": "030-936410",
-    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-marzahn.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "o-Olcy8zd9L"
   },
   {
     "title": "Haema Blutspendezentrum Berlin-Prenzlauer Berg",
-    "contact": "Haema Blutspendezentrum Berlin-Prenzlauer Berg, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Landsberger Allee 117, 10407 Berlin",
     "phone": "030 457997",
-    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-prenzlauer-berg.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "Uc_GXlnFQiQ"
   },
   {
     "title": "Haema Blutspendezentrum Berlin-Tegel",
-    "contact": "Gesundheitszentrum am Borsigturm, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Berliner Straße 25, 13507 Berlin",
     "phone": "030-4374360",
-    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-tegel.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "GM37mbS8SUM"
   },
   {
     "title": "Haema Blutspendezentrum Berlin-Wedding",
-    "contact": "Haema Blutspendedienst im Gesundbrunnen-Center, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Badstraße 4a, 13357 Berlin",
     "phone": "030-497689210",
-    "url": "http://www.haema.de/blutspendezentren/berlin/berlin-wedding.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "esrZeurKU6O"
   },
   {
@@ -224,26 +237,29 @@
   },
   {
     "title": "Haema Blutspendezentrum Brandenburg an der Havel",
-    "contact": "Haema Blutspendezentrum Brandenburg an der Havel, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Kirchhofstraße 1-2, 14776 Brandenburg an der Havel",
     "phone": "03381-3967530",
-    "url": "http://www.haema.de/blutspendezentren/brandenburg/brandenburg-an-der-havel.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "RG6zty5af5z"
   },
   {
     "title": "Haema Blutspendezentrum Frankfurt (Oder)",
-    "contact": "Haema Blutspendezentrum Frankfurt (Oder), RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Karl-Marx-Straße 2, 15230 Frankfurt (Oder)",
     "phone": "0335 86911820",
-    "url": "http://www.haema.de/blutspendezentren/brandenburg/frankfurt-oder.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "K2lObYAjKbL"
   },
   {
     "title": "Haema Blutspendezentrum Potsdam",
-    "contact": "Haema Blutspendedienst am Stern-Center, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Nuthestraße 1, 14480 Potsdam",
     "phone": "0331-29704130",
-    "url": "http://www.haema.de/blutspendezentren/brandenburg/potsdam.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "d6w6qjQp8qS"
   },
   {
@@ -360,18 +376,20 @@
   },
   {
     "title": "Haema Blutspendezentrum Rostock",
-    "contact": "Haema Blutspendedeinst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "DEUTSCHE-MED-Platz 2, 18057 Rostock",
     "phone": "0381-877600",
-    "url": "http://www.haema.de/blutspendezentren/mecklenburg-vorpommern/rostock.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "NERI44JW-4M"
   },
   {
     "title": "Haema Blutspendezentrum Schwerin",
-    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Friedrichstraße 18, 19055 Schwerin",
     "phone": "0385-20271720",
-    "url": "http://www.haema.de/blutspendezentren/mecklenburg-vorpommern/schwerin.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "HKEvz2lIkIJ"
   },
   {
@@ -516,34 +534,38 @@
   },
   {
     "title": "Haema Blutspendezentrum Bonn",
-    "contact": "Haema Blutspendezentrum Bonn, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Poststr. 19, 53111 Bonn",
     "phone": "0228-8509740",
-    "url": "http://www.haema.de/blutspendezentren/nordrhein-westfalen/bonn.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "33W45wyVj8w"
   },
   {
     "title": "Haema Blutspendezentrum Dortmund",
-    "contact": "Haema Blutspendezentrum Dortmund, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Ostenhellweg 50-52, 44135 Dortmund",
     "phone": "0231-28225320",
-    "url": "http://www.haema.de/blutspendezentren/nordrhein-westfalen/dortmund.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "Uhu4XlpBelG"
   },
   {
     "title": "Haema Blutspendezentrum Essen",
-    "contact": "Haema Blutspendezentrum Essen, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Kettwiger Straße 64, 45127 Essen",
     "phone": "0201-94604600",
-    "url": "http://www.haema.de/blutspendezentren/nordrhein-westfalen/essen.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "cEnqDbJa1L9"
   },
   {
     "title": "Haema Blutspendezentrum Hamm",
-    "contact": "Haema Blutspendedienst in der City Galerie, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Westring 2, 59065 Hamm",
     "phone": "02381-9299290",
-    "url": "http://www.haema.de/blutspendezentren/nordrhein-westfalen/hamm.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "OcbzZGM0bPz"
   },
   {
@@ -667,99 +689,111 @@
     "id": "R0lJIK3VQMN"
   },
   {
-    "title": "HAEMA Dresden Elbepark",
-    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "title": "Haema Blutspendezentrum Dresden Elbepark",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Lommatzscher Straße 82, 01139 Dresden",
     "phone": "0351 20 28 700",
-    "url": "https://www.haema.de/spendezentren/sachsen/dresden-elbepark.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "erBCWbPn83P"
   },
   {
     "title": "Haema Blutspendezentrum Chemnitz",
-    "contact": "Haema Blutspendezentrum Chemnitz, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Markt 5, 09111 Chemnitz",
     "phone": "0371-6662750",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/chemnitz.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "bquETJI236k"
   },
   {
     "title": "Haema Blutspendezentrum Dresden-Fetscherplatz",
-    "contact": "Haema Blutspendezentrum Dresden-Fetscherplatz",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Fetscherplatz 2a, 01307 Dresden",
     "phone": "0351 2166810",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/dresden-fetscherplatz.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "YJ5WXjK-Kw2"
   },
   {
     "title": "Haema Blutspendezentrum Dresden-World Trade Center",
-    "contact": "Haema Blutspendezentrum Dresden-World Trade Center, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Rosenstrasse 30, 01067 Dresden",
     "phone": "0351 4079250",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/dresden-world-trade-center.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "qidEwubIJl-"
   },
   {
     "title": "Haema Blutspendezentrum Freiberg",
-    "contact": "Haema Blutspendezentrum Freiberg, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Bahnhofstr. 40-42, 09599 Freiberg",
     "phone": "03731 5895940",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/freiberg.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "NrGdeFgEqKx"
   },
   {
     "title": "Haema Blutspendezentrum Grimma",
-    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Käthe-Kollwitz-Straße 6, 04668 Grimma",
     "phone": "03437-707650",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/grimma.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "dgbXgHuAuz6"
   },
   {
     "title": "Haema Blutspendezentrum Görlitz",
-    "contact": "Haema Blutspendezentrum Görlitz, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "An der Frauenkirche 12, 02826 Görlitz",
     "phone": "03581 877780",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/goerlitz.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "nuV53uZjrsc"
   },
   {
     "title": "Haema Blutspendezentrum Leipzig-Connewitz",
-    "contact": "Haema Blutspendedienst Connewitz, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Karl-Liebknecht-Straße 153-155, 04277 Leipzig",
     "phone": "0341-3037680",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/leipzig-connewitz.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "8xhY3z7WoA1"
   },
   {
     "title": "Haema Blutspendezentrum Leipzig-Gohlis",
-    "contact": "Haema Blutspendedienst in den Gohlis Arkaden, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Lützowstraße 11, 04155 Leipzig",
     "phone": "0341-5830950",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/leipzig-gohlis-arkaden.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "-gQBhUwnAnG"
   },
   {
     "title": "Haema Blutspendezentrum Leipzig-Markt",
-    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Markt 9, 04109 Leipzig",
     "phone": "0341-2120060",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/leipzig-markt.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "Z9ksYEFpV_A"
   },
   {
     "title": "Haema Blutspendezentrum Plauen",
-    "contact": "Haema Blutspendedienst am Klostermarkt, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Oberer Steinweg 10, 08523 Plauen",
     "phone": "03741-280740",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/plauen.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "K7gt1qdu_Pi"
   },
   {
     "title": "Haema Blutspendezentrum Zwickau",
-    "contact": "Haema Blutspendedienst in den Zwickau-Arcaden, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Marienstraße 3/1, 08056 Zwickau",
     "phone": "0375-2721940",
-    "url": "http://www.haema.de/blutspendezentren/sachsen/zwickau.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "Fi9f8KsD3V6"
   },
   {
@@ -771,10 +805,11 @@
   },
   {
     "title": "Haema Blutspendezentrum Halle (Saale)",
-    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Neustädter Passage 17 A, 06122 Halle (Saale)",
     "phone": "0345-6857940",
-    "url": "http://www.haema.de/blutspendezentren/sachsen-anhalt/hallesaale.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "_4g6is8jWtz"
   },
   {
@@ -819,10 +854,11 @@
   },
   {
     "title": "Haema Blutspendezentrum Lübeck",
-    "contact": "Haema Blutspendedeinst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Sandstraße 1-15, 23552 Lübeck",
     "phone": "0451-98930110",
-    "url": "http://www.haema.de/blutspendezentren/schleswig-holstein/luebeck.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "ELgEIyQt6CE"
   },
   {
@@ -844,40 +880,44 @@
   },
   {
     "title": "Haema Blutspendezentrum Erfurt",
-    "contact": "Haema Blutspendezentrum Erfurt, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Lachsgasse 3, 99084 Erfurt",
     "phone": "0361-6441120",
-    "url": "http://www.haema.de/blutspendezentren/thueringen/erfurt.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "-h_km0ggCRZ"
   },
   {
     "title": "Haema Blutspendezentrum Gera",
-    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Breitscheidstraße 1-5, 07545 Gera",
     "phone": "0365-5520680",
-    "url": "http://www.haema.de/blutspendezentren/thueringen/gera.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "GBmwzZbcD9J"
   },
   {
     "title": "Haema Blutspendezentrum Gotha",
-    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Oststraße 51, 99867 Gotha",
     "phone": "03621-733770",
-    "url": "http://www.haema.de/blutspendezentren/thueringen/gotha.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "qNU6IBiK4Aj"
   },
   {
     "title": "Haema Blutspendezentrum Jena",
-    "contact": "RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Goethestraße 3a, 07743 Jena",
     "id": "tyVdosrWoxg"
   },
   {
     "title": "Haema Blutspendezentrum Weimar",
-    "contact": "Haema Blutspendedienst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770",
+    "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Steubenstraße 15, 99423 Weimar",
     "phone": "03643-4581630",
-    "url": "http://www.haema.de/blutspendezentren/thueringen/weimar.html",
+    "email": "covid19@haema.de",
+    "url": "https://www.haema.de/blutspendedienst.html",
     "id": "Av5vJ0hoV7n"
   }
 ]
