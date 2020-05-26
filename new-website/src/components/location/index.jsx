@@ -3,6 +3,7 @@ import { useSession } from "../../hooks/use-session"
 import firebase from "gatsby-plugin-firebase"
 import MaterialTable from "material-table"
 import "@material-ui/icons"
+import { Grid, Paper } from "@material-ui/core"
 
 async function fetchEntries(partner) {
     if (!partner) {
@@ -119,28 +120,32 @@ export const LocationOverview = () => {
     }
 
     return (
-        <>
-            <div style={{ maxWidth: "100%" }}>
-                <MaterialTable
-                    columns={[
-                        { title: "ID", field: "id", hidden: "true" },
-                        { title: "Title", field: "title" },
-                        { title: "Latitude", field: "latitude", type: "numeric" },
-                        { title: "Langitude", field: "longitude", type: "numeric" },
-                        { title: "Adresse", field: "address" },
-                        { title: "Telefon", field: "phone" },
-                        { title: "Email", field: "email" },
-                        { title: "Kontakt", field: "contact" },
-                    ]}
-                    data={state.data}
-                    title="Locations"
-                    editable={{
-                        onRowAdd: addRow,
-                        onRowUpdate: updateRow,
-                        onRowDelete: deleteRow,
-                    }}
-                />
-            </div>
-        </>
+        <Grid container justify="center" spacing={0} style={{ height: "100%" }}>
+            <Grid item xs={12} lg={10}>
+                <Paper style={{ maxWidth: "100%" }}>
+                    <h1>Locations</h1>
+                    <MaterialTable
+                        style={{ boxShadow: "0px 0px 0px rgba(0,0,0,0.0)", backgroundColor: "transparent" }}
+                        columns={[
+                            { title: "ID", field: "id", hidden: true },
+                            { title: "Title", field: "title" },
+                            { title: "Latitude", field: "latitude", type: "numeric" },
+                            { title: "Langitude", field: "longitude", type: "numeric" },
+                            { title: "Adresse", field: "address" },
+                            { title: "Telefon", field: "phone" },
+                            { title: "Email", field: "email" },
+                            { title: "Kontakt", field: "contact" },
+                        ]}
+                        data={state.data}
+                        title=""
+                        editable={{
+                            onRowAdd: addRow,
+                            onRowUpdate: updateRow,
+                            onRowDelete: deleteRow,
+                        }}
+                    />
+                </Paper>
+            </Grid>
+        </Grid>
     )
 }
