@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="main.css">
 <div>
 <div class="title">DRK-Blutspendedienst Berlin</div>
-<div class="contact">Institut für Transfusionsmedizin Berlin, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11</div>
+<div class="contact">Institut für Transfusionsmedizin Berlin, Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11</div>
 <div class="address">Hindenburgdamm 30 A, 12203 Berlin</div>
 <div class="phone"><a href="tel:+4930806810">030 806810</a></div>
-<div class="url"><a href="https://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-berlin.php">https://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-berlin.php</a></div>
+<div class="email"><a href="mailto:info@blutspende-nordost.de">info@blutspende-nordost.de</a></div>
+<div class="url"><a href="https://www.blutspende-nordost.de/rkp/">Webseite</a></div>
 <div class="permalink"><a href="#blutspendende-SsUTW0dcf-E" target="_parent">Permalink</a></div>
 </div>

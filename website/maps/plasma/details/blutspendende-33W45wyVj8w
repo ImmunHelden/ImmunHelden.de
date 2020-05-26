@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="main.css">
 <div>
 <div class="title">Haema Blutspendezentrum Bonn</div>
-<div class="contact">Haema Blutspendezentrum Bonn, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770</div>
+<div class="contact">Telefon bundesweit: 0800 9779770</div>
 <div class="address">Poststr. 19, 53111 Bonn</div>
 <div class="phone"><a href="tel:+492288509740">0228-8509740</a></div>
-<div class="url"><a href="http://www.haema.de/blutspendezentren/nordrhein-westfalen/bonn.html">http://www.haema.de/blutspendezentren/nordrhein-westfalen/bonn.html</a></div>
+<div class="email"><a href="mailto:covid19@haema.de">covid19@haema.de</a></div>
+<div class="url"><a href="https://www.haema.de/blutspendedienst.html">Webseite</a></div>
 <div class="permalink"><a href="#blutspendende-33W45wyVj8w" target="_parent">Permalink</a></div>
 </div>

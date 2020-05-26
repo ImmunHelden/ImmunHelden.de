@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="main.css">
 <div>
 <div class="title">Haema Blutspendezentrum Rostock</div>
-<div class="contact">Haema Blutspendedeinst, RKP-Spende (COVID-19) Mail: covid19@haema.de, RKP-Spende (COVID-19) Telefon: 0800 9779770</div>
+<div class="contact">Telefon bundesweit: 0800 9779770</div>
 <div class="address">DEUTSCHE-MED-Platz 2, 18057 Rostock</div>
 <div class="phone"><a href="tel:+49381877600">0381-877600</a></div>
-<div class="url"><a href="http://www.haema.de/blutspendezentren/mecklenburg-vorpommern/rostock.html">http://www.haema.de/blutspendezentren/mecklenburg-vorpommern/rostock.html</a></div>
+<div class="email"><a href="mailto:covid19@haema.de">covid19@haema.de</a></div>
+<div class="url"><a href="https://www.haema.de/blutspendedienst.html">Webseite</a></div>
 <div class="permalink"><a href="#blutspendende-NERI44JW-4M" target="_parent">Permalink</a></div>
 </div>
