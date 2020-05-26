@@ -194,6 +194,11 @@
           background: #f4f4f4e4;
         }
 
+        section#youknow div.description {
+          text-align: right;
+          padding-right: 0;
+        }
+
         section#plasma iframe {
           border: 0;
           height: 100%;
@@ -261,6 +266,9 @@
         section#youknow div.content {
           width: 100%;
           padding: 2rem 0;
+        }
+        section#youknow div.description {
+          padding: 0 2rem;
         }
 
         section#plasma {
@@ -473,19 +481,30 @@
 
       <section id="youknow">
         <div class="content">
-          <a href="javascript:loadYouKnowVideo()" id="youknow-placeholder"></a>
+          <div class="description" style="flex: 1;">
+            <h2>
+              Mit Heldentaten durch die Corona Pandemie
+            </h2>
+          </div>
+          <div style="flex: 5;">
+            <a href="javascript:loadYouKnowVideo()" id="youknow-placeholder"></a>
+          </div>
         </div>
         <script>
+          var youknowVidElem = $("#youknow-placeholder");
+          var youknowContentRatio = 2.1;
           function loadYouKnowVideo() {
             $('#youknow > div.content').html(
               '<iframe id="youknow-video" src="https://www.youtube-nocookie.com/embed/fyPF3RUv00A?html5=1&autoplay=1"' +
               '        allowfullscreen="1" frameborder="0" title="YouTube video player"' +
               '        allow="autoplay; picture-in-picture"></iframe>');
+            // On resize scale the new element with its 16/9 ratio.
+            youknowVidElem = $("#youknow-video");
+            youknowContentRatio = 1.78;
             fitVideoHeight();
           }
           function fitVideoHeight() {
-            var width = $("#youknow > div.content").width();
-            $("#youknow > div.content").height(width / 1.78);
+            youknowVidElem.height(youknowVidElem.width() / youknowContentRatio);
           }
           $(window).resize(fitVideoHeight);
           fitVideoHeight();
