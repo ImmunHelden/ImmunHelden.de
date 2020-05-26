@@ -76,8 +76,8 @@ exports.parse = functions.https.onRequest(async (req, res) => {
 
 exports.render = functions.https.onRequest(async (req, res) => {
   // Start reading description
-  const loadJson = readFile('austria.json', 'utf8');
-  //const loadJson = rp.get({ uri: 'https://raw.githubusercontent.com/ImmunHelden/WirVsVirusMap/master/plasma_beta/blutspenden-clean.json' });
+  const loadJson = readFile('blutspenden-clean.json', 'utf8');
+  //const loadJson = rp.get({ uri: 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data/blutspenden.de/blutspenden-clean.json' });
 
   // Prepare output directory
   const outdirPrefix = req.query['outdir-prefix'] || 'tmp';
@@ -132,6 +132,17 @@ exports.render = functions.https.onRequest(async (req, res) => {
     return null;
   };
 
+  const streamlinePhone = (str) => {
+    const digits = str.replace(/\D/g,'');
+    if (str.charAt(0) == '+')
+      return '+' + digits;
+    if (str.startsWith('00'))
+      return '+' + str.substring(2);
+    if (str.charAt(0) == '0') // German number
+      return '+49' + str.substring(1);
+    throw new Error('Unrecognized format in phone number: ' + str);
+  };
+
   // Render HTML for a record
   const renderDetailsHtml = (rec, id) => {
     const lines = [];
@@ -142,15 +153,16 @@ exports.render = functions.https.onRequest(async (req, res) => {
       }
     }
     if (rec.hasOwnProperty('phone')) {
+      const prefix = (rec.phone.charAt(0) == '+' || rec.phone.startsWith('00')) ? '+' : null;
       const digits = rec.phone.replace(/\D/g,'');
-      const global = digits.replace(/^0/g,'+49');
-      lines.push(`<div class="phone"><a href="tel:${global}">${rec.phone}</a></div>`);
+      const international = prefix ? prefix + digits : digits.replace(/^0/g,'+49');
+      lines.push(`<div class="phone"><a href="tel:${international}">${rec.phone}</a></div>`);
     }
     if (rec.hasOwnProperty('email')) {
       lines.push(`<div class="email"><a href="mailto:${rec.email}">${rec.email}</a></div>`);
     }
     if (rec.hasOwnProperty('url')) {
-      lines.push(`<div class="url"><a href="${rec.url}">${rec.url}</a></div>`);
+      lines.push(`<div class="url"><a href="${rec.url}">Webseite</a></div>`);
     }
     lines.push(`<div class="permalink"><a href="#${id}" target="_parent">Permalink</a></div>`);
     lines.push('</div>');
@@ -179,7 +191,7 @@ exports.render = functions.https.onRequest(async (req, res) => {
         rec.latlng = await requestLatLng(rec.address);
         console.log('Resolved', rec.latlng, 'for address', rec.address);
       }
-      pinsJson[id] = { type: 0, title: rec.title, latlng: rec.latlng };
+      pinsJson[id] = { title: rec.title, latlng: rec.latlng };
     }
   }
   catch (err) {
