@@ -1,10 +1,10 @@
-import React from "react"
+import React, { useCallback } from "react"
 import { isNode } from "@firebase/util"
 
 export const useAuth = firebase => {
-    const signOut = () => {
+    const signOut = useCallback(() => {
         firebase.auth().signOut()
-    }
+    }, [firebase])
 
     const [state, setState] = React.useState(() => {
         if (isNode()) {
@@ -14,16 +14,19 @@ export const useAuth = firebase => {
         return { initializing: !user, user, signOut }
     })
 
-    function onChange(user) {
-        setState({ initializing: false, user, signOut })
-    }
+    const onChange = useCallback(
+        user => {
+            setState({ initializing: false, user, signOut })
+        },
+        [signOut]
+    )
 
     React.useEffect(() => {
         // listen for auth state changes
         const unsubscribe = firebase.auth().onAuthStateChanged(onChange)
         // unsubscribe to the listener when unmounting
         return () => unsubscribe()
-    }, [firebase])
+    }, [firebase, onChange])
 
     return state
 }

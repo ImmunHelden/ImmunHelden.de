@@ -56,6 +56,7 @@ const isUserEmailVerified = user => user?.emailVerified
 
 export const LoginRegisterForm = ({ loginSuccessUrl }) => {
     const [showScreen, setShowScreen] = useState(screens.LOGIN)
+
     const { user } = useAuth(firebase)
     const [alert, setAlert] = useState({
         open: false,

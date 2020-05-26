@@ -50,7 +50,6 @@ const Login = ({ onError = () => {}, onSuccess = () => {} }) => {
                             name="email"
                             inputRef={register({ required: true })}
                             fullWidth
-                            autoFocus
                             required
                         />
                     </Grid>
