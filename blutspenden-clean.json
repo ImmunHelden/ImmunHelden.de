@@ -49,14 +49,6 @@
     "id": "E7DfrDX1Eg"
   },
   {
-    "title": "Octapharma Plasma Mannheim",
-    "address": "Heinrich-von-Stephan-Str. 5, 68161 Mannheim",
-    "phone": "0621 8191090",
-    "email": "pzman-mannheim@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/mannheim",
-    "id": "vUsdpOKfQJ"
-  },
-  {
     "title": "Blutspende Uniklinik Würzburg",
     "contact": "Institut für Klinische Transfusionsmedizin und Hämotherapie des Universitätsklinikums Würzburg, RKP-Spende (COVID-19) Mail: transfusionsmedizin@ukw.de, RKP-Spende (COVID-19) Telefon: 0931/201-31375",
     "address": "Oberdürrbacher Str. 6, 97080 Würzburg",
@@ -215,22 +207,6 @@
     "id": "esrZeurKU6O"
   },
   {
-    "title": "Octapharma Plasma Berlin-Köpenick",
-    "address": "Pablo-Neruda-Straße 2-4, 12559 Berlin-Köpenick",
-    "phone": "030 64387820",
-    "email": "pzman-koepenick@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/berlin-koepenick",
-    "id": "1NDi6NInegX"
-  },
-  {
-    "title": "Octapharma Plasma Berlin-Spandau",
-    "address": "Streitstraße 13, 13587 Berlin",
-    "phone": "030 30105920",
-    "email": "pzman-spandau@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/berlin-spandau",
-    "id": "XkZTpyBYUdc"
-  },
-  {
     "title": "DRK-Blut- und Plasmaspendedienst Cottbus",
     "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
     "address": "Thiemstraße 105, 03050 Cottbus",
@@ -269,14 +245,6 @@
     "phone": "0331-29704130",
     "url": "http://www.haema.de/blutspendezentren/brandenburg/potsdam.html",
     "id": "d6w6qjQp8qS"
-  },
-  {
-    "title": "Octapharma Plasma Potsdam",
-    "address": "Babelsberger Str. 16, 14473 Potsdam",
-    "phone": "0331 5816590",
-    "email": "pzman-potsdam@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/potsdam",
-    "id": "SOjVN7RmFw5"
   },
   {
     "title": "Blutspende Albertinen Haus Hamburg",
@@ -579,14 +547,6 @@
     "id": "OcbzZGM0bPz"
   },
   {
-    "title": "Octapharma Plasma Aachen",
-    "address": "Peterstraße 20-24, 52062 Aachen",
-    "phone": "0241 4001550",
-    "email": "pzman-aachen@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/aachen",
-    "id": "XsYEZguyyzj"
-  },
-  {
     "title": "Universitärer Blutspendedienst OWL - Bad Oeynhausen",
     "contact": "Institut für Laboratoriums- und Transfusionsmedizin des Herz- und Diabeteszentrums NRW (HDZ NRW), RKP-Spende (COVID-19) Mail: corona@blutspendedienst-owl.de, RKP-Spende (COVID-19) Telefon: 05731 97-2400 (werktags von 10-19 Uhr)",
     "address": "Georgstraße 11, 32545 Bad Oeynhausen",
@@ -801,11 +761,6 @@
     "phone": "0375-2721940",
     "url": "http://www.haema.de/blutspendezentren/sachsen/zwickau.html",
     "id": "Fi9f8KsD3V6"
-  },
-  {
-    "title": "Octapharma Plasma Dresden",
-    "address": "Altmarkt-Galerie, Webergasse 1, 01067 Dresden",
-    "id": "lY5XAh8lf_q"
   },
   {
     "title": "Plasmavita Chemnitz Center",
