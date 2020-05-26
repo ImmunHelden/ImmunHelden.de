@@ -58,24 +58,8 @@
         "function": "deleteOrg"
       },
       {
-        "source": "/getStakeHoldersInZipCodeRangeAsJson",
-        "function": "getStakeHoldersInZipCodeRangeAsJson"
-      },
-      {
-        "source": "/getAllStakeHoldersAsJson",
-        "function": "getAllStakeHoldersAsJson"
-      },
-      {
-        "source": "/getAllImmuneHeroesNutsAsJson",
-        "function": "getAllImmuneHeroesNutsAsJson"
-      },
-      {
         "source": "/doneVerifyStakeholderPin",
         "function": "doneVerifyStakeholderPin"
-      },
-      {
-        "source": "/contactStakeholder",
-        "function": "contactStakeholder"
       },
       {
         "source": "/maps/sample/pins",
@@ -111,10 +95,6 @@
       {
         "source": "/addStakeHolder",
         "function": "addStakeHolder"
-      },
-      {
-        "source": "/getStakeHoldersInZipCodeRangeAsJson",
-        "function": "getStakeHoldersInZipCodeRangeAsJson"
       },
       {
         "source": "/getAllStakeHoldersAsJson",
