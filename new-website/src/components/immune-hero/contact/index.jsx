@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 export const ImmuneHeroContactFrom = () => {
     const classes = useStyles()
-    const { register, handleSubmit, formState } = useForm()
+    const { register } = useForm()
 
     return (
         <Grid item md={7} lg={4} xs={12} className={classes.container}>

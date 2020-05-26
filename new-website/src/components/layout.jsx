@@ -3,13 +3,6 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import "./layout.css"
 import Header from "./header/index"
-import styled from "styled-components"
-
-const MainContent = styled.main`
-    top: 3.25rem;
-    position: relative;
-    flex-grow: 1;
-`
 
 const Layout = ({ children }) => {
     const data = useStaticQuery(graphql`

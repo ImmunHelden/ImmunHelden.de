@@ -49,7 +49,6 @@ const Register = ({ onError = () => {}, onSuccess = () => {} }) => {
                             type="email"
                             name="email"
                             fullWidth
-                            autoFocus
                             required
                             inputRef={register({ required: true })}
                         />
