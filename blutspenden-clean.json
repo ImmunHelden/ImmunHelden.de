@@ -12,7 +12,7 @@
     "contact": "IKTZ Heidelberg gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
     "address": "Im Neuenheimer Feld 583, 69120 Heidelberg",
     "phone": "06221 650510",
-    "url": "https://www.iktz-hd.de/blutspende/wann-kann-ich-spenden/",
+    "url": "https://www.blutspende.de/rkp/",
     "id": "EkTtPs-tZl"
   },
   {
@@ -29,7 +29,7 @@
     "contact": "DRK Blutspendedienst Baden-Württemberg-Hessen gGmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
     "address": "Helmholtzstr. 10, 89081 Ulm",
     "phone": "0731 1500",
-    "url": "http://www.blutspende.de/ueber-uns/institute-einrichtungen/ulm/institut-ulm.php",
+    "url": "https://www.blutspende.de/rkp/",
     "id": "tXWFCOHfH6"
   },
   {
@@ -37,7 +37,7 @@
     "contact": "DRK-Blutspendedienst Baden-Württemberg-Hessen gGmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
     "address": "Gunzenbachstr. 35, 76530 Baden-Baden",
     "phone": "07221 2140",
-    "url": "http://www.blutspende.de/ueber-uns/institute-einrichtungen/baden-baden/institut-baden-baden.php",
+    "url": "https://www.blutspende.de/rkp/",
     "id": "ED5AQh9lxj"
   },
   {
@@ -45,20 +45,21 @@
     "contact": "DRK-Blutspendedienst Baden-Württemberg-Hessen gGmbH, RKP-Spende (COVID-19) Mail: info@blutspende.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
     "address": "Friedrich-Ebertstr. 107, 68167 Mannheim",
     "phone": "0621 37060",
-    "url": "http://www.blutspende.de/ueber-uns/institute-einrichtungen/mannheim/institut-mannheim.php",
+    "url": "https://www.blutspende.de/rkp/",
     "id": "E7DfrDX1Eg"
   },
   {
     "title": "Blutspende Uniklinik Würzburg",
-    "contact": "Institut für Klinische Transfusionsmedizin und Hämotherapie des Universitätsklinikums Würzburg, RKP-Spende (COVID-19) Mail: transfusionsmedizin@ukw.de, RKP-Spende (COVID-19) Telefon: 0931/201-31375",
+    "contact": "Institut für Klinische Transfusionsmedizin und Hämotherapie",
     "address": "Oberdürrbacher Str. 6, 97080 Würzburg",
-    "phone": "0931 20131230",
-    "url": "http://www.transfusionsmedizin.ukw.de/spender/blutspender.html",
+    "phone": "0931 20131375",
+    "email": "transfusionsmedizin@ukw.de",
+    "url": "https://www.ukw.de/transfusionsmedizin/aktuelle-meldungen/detail/news/rk-plasmaprogramm-fuer-covid-19-patienten-1/",
     "id": "v5AN-N5qeC"
   },
   {
     "title": "Blutspendedienst München",
-    "contact": "Blutspendedienst Bayerisches Rotes Kreuz gGmbH, RKP-Spende (COVID-19) Mail: Kontaktaufnahme über Homepage: http://www.blutspendedienst.com/",
+    "contact": "Bayerisches Rotes Kreuz gGmbH, RKP-Spende möglich ab 03.06.2020",
     "address": "Herzog-Heinrich-Str. 4, 80336 München",
     "phone": "089 53990",
     "url": "http://www.blutspendedienst.com/blutspendedienst/institut-muenchen",
@@ -95,7 +96,7 @@
     "title": "Haema Plasmaspendezentrum Augsburg",
     "contact": "Telefon bundesweit: 0800 9779770",
     "address": "Philippine-Welser-Straße 8, 86150 Augsburg",
-    "phone": "0821 21700Haema Plasmaspendezentrum Augsburg70",
+    "phone": "0821 21700",
     "email": "covid19@haema.de",
     "url": "https://www.haema.de/blutspendedienst.html",
     "id": "fqPnyLnx-G"
@@ -127,42 +128,44 @@
     "id": "0YwbxNGxkDg"
   },
   {
-    "title": "Institut für Transfusions­medizin und Hämostaseologie",
-    "contact": "RKP-Spende (COVID-19) Mail: plasmaspende@uk-augsburg.de, RKP-Spende (COVID-19) Telefon: 0821-400-3868",
+    "title": "Institut für Transfusionsmedizin und Hämostaseologie",
     "address": "Stenglinstr. 2, 86156 Augsburg",
     "phone": "0821 40001",
-    "email": "info@uk-augsburg.de",
+    "email": "plasmaspende@uk-augsburg.de",
     "url": "https://www.uk-augsburg.de/kliniken-und-institute/institut-fuer-transfusionsmedizin-und-haemostaseologie/ueberblick.html",
     "id": "6a5FJA8LYnd"
   },
   {
     "title": "Plasmazentrum Würzburg",
-    "contact": "Kontaktaufnahme über Homepage: http://www.blutspendedienst.com/",
+    "contact": "RKP-Spende möglich ab 03.06.2020, Kontaktaufnahme über http://www.blutspendedienst.com",
     "address": "Virchowstraße 22, 97072 Würzburg",
     "id": "MNXcuRsCohA"
   },
   {
     "title": "Blutspende am Campus Virchow-Klinikum Wedding",
-    "contact": "ZTB Zentrum für Transfusionsmedizin und Zelltherapie Berlin gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: RKP-Spende@charite.de",
+    "contact": "Zentrum für Transfusionsmedizin und Zelltherapie Berlin gGmbH",
     "address": "Augustenburger Platz 1, 13353 Berlin",
-    "phone": "030-450553899",
-    "url": "http://www.ztb-blutspende.de",
+    "phone": "030 450 624 103",
+    "email": "RKP-Spende@charite.de",
+    "url": "https://immunologie.charite.de/coronavirus_sars_cov_2/",
     "id": "YxCmgS8qPZ1"
   },
   {
     "title": "Blutspende an der Charité - Campus Mitte",
-    "contact": "ZTB Zentrum für Transfusionsmedizin und Zelltherapie Berlin gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: RKP-Spende@charite.de",
+    "contact": "Zentrum für Transfusionsmedizin und Zelltherapie Berlin gGmbH",
     "address": "Schumannstraße 22, 10117 Berlin",
-    "phone": "030-450525167",
-    "url": "https://www.ztb-blutspende.de/",
+    "phone": "030 450 624 103",
+    "email": "RKP-Spende@charite.de",
+    "url": "https://immunologie.charite.de/coronavirus_sars_cov_2/",
     "id": "UtoJG9Jpuku"
   },
   {
     "title": "DRK-Blutspendedienst Berlin",
-    "contact": "Institut für Transfusionsmedizin Berlin, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Institut für Transfusionsmedizin Berlin, Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Hindenburgdamm 30 A, 12203 Berlin",
     "phone": "030 806810",
-    "url": "https://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-berlin.php",
+    "email": "https://www.blutspende-nordost.de/rkp/",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "SsUTW0dcf-E"
   },
   {
@@ -221,18 +224,20 @@
   },
   {
     "title": "DRK-Blut- und Plasmaspendedienst Cottbus",
-    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Thiemstraße 105, 03050 Cottbus",
     "phone": "0355 49950",
-    "url": "https://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-cottbus.php",
+    "email": "https://www.blutspende-nordost.de/rkp/",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "VcOJE6_m1Tx"
   },
   {
     "title": "DRK-Blut- und Plasmaspendedienst Potsdam",
-    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Charlottenstr. 72, 14467 Potsdam",
     "phone": "0331 28460",
-    "url": "https://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-potsdam.php",
+    "email": "https://www.blutspende-nordost.de/rkp/",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "cYWqmLdyP3E"
   },
   {
@@ -314,27 +319,19 @@
     "id": "8KtY3K5Szo9"
   },
   {
-    "title": "Institut für Transfusionsmedizin, Universitätsklinikum Hamburg-Eppendorf",
-    "contact": "RKP-Spende (COVID-19) Mail: Covid19plasma@uke.de, RKP-Spende (COVID-19) Telefon: 040/7410 – 52616, RKP-Spende (COVID-19) Website: blutsgeschwister.net",
-    "address": "Martinistraße 52, 20246 Hamburg",
-    "phone": "040 741052616",
-    "url": "https://www.uke.de/kliniken-institute/institute/transfusionsmedizin/index.html",
-    "id": "GWKQ7wHAowa"
-  },
-  {
     "title": "Universitätsklinikum Hamburg Eppendorf",
-    "contact": "Blutspendedienst im UKE - Haus Ost 38, RKP-Spende (COVID-19) Mail: Covid19plasma@uke.de, RKP-Spende (COVID-19) Telefon: 040 / 7410 – 52616",
+    "contact": "Blutspendedienst im UKE - Haus Ost 38, Fragebogen zur RKP-Spende: https://redcap-survey.fit.uke.de/surveys/?s=TRHHM8W739",
     "address": "Martinistraße 52, 20246 Hamburg",
     "phone": "040 741052616",
+    "email": "Covid19plasma@uke.de",
     "url": "http://www.blutsgeschwister.net",
     "id": "o5v5Qyq44dv"
   },
   {
     "title": "Blutspende Marburg",
-    "contact": "Blutspende Marburg, RKP-Spende (COVID-19) Mail: www.ukgm.de/blutspende, RKP-Spende (COVID-19) Telefon: 06421/58-64492",
     "address": "Conradisstraße 5, 35043 Marburg",
     "phone": "06421 5864492",
-    "url": "http://www.ukgm.de/ugm_2/deu/umr_tra/7308.html",
+    "url": "https://www.ukgm.de/ugm_2/deu/ugi_tra/PDF/Patienten_nach_COVID-19_als_Plasmaspender_gesucht.pdf",
     "id": "hL2xlzmVWCY"
   },
   {
@@ -361,10 +358,10 @@
     "id": "uRk8MBY80nw"
   },
   {
-    "title": "Universitätsklinikum Giessen",
+    "title": "Universitätsklinikum Gießen",
     "address": "Langhansstraße 7, 35385 Gießen",
     "phone": "0641/985-41506",
-    "url": "http://www.ukgm.de/blutspende",
+    "url": "https://www.ukgm.de/ugm_2/deu/ugi_tra/PDF/Patienten_nach_COVID-19_als_Plasmaspender_gesucht.pdf",
     "id": "ysThYBLKlhd"
   },
   {
@@ -403,19 +400,12 @@
   },
   {
     "title": "Blutspendedienst der Universitätsmedizin Göttingen",
-    "contact": "Abteilung Transfusionsmedizin, RKP-Spende (COVID-19) Mail: tfm@med.uni-goettingen.de, RKP-Spende (COVID-19) Telefon: 0551 / 39 22750",
+    "contact": "Abteilung Transfusionsmedizin",
     "address": "Robert-Koch-Str. 40, 37075 Göttingen",
-    "phone": "0551 3966899",
-    "url": "http://www.blutspende-goettingen.de/",
+    "phone": "0551 39 22750",
+    "email": "tfm@med.uni-goettingen.de",
+    "url": "http://www.blutspende-goettingen.de/covid.html",
     "id": "PCpI8pISvDl"
-  },
-  {
-    "title": "Blutspendedienst der Universitätsmedizin Göttingen",
-    "contact": "Abteilung Transfusionsmedizin, am Campus, RKP-Spende (COVID-19) Mail: tfm@med.uni-goettingen.de, RKP-Spende (COVID-19) Telefon: 0551 / 39 22750",
-    "address": "Weender Landstr. 1, 37073 Göttingen",
-    "phone": "0551 9176899",
-    "url": "http://www.blutspende-goettingen.de",
-    "id": "O6B-DIdOV13"
   },
   {
     "title": "Klinikum Wolfsburg",
@@ -444,9 +434,10 @@
   },
   {
     "title": "Blutspende am Universitätsklinikum Münster",
-    "contact": "UKM Blutspende, RKP-Spende (COVID-19) Mail: COVID19.Plasma@ukmuenster.de",
     "address": "Albert-Schweitzer-Campus 1 / Gebäude D 11, 48149 Münster",
-    "url": "http://www.ukm-blutspende.de",
+    "phone": "0251 – 83 58000",
+    "email": "coronaplasma@ukmuenster.de",
+    "url": "https://ukm-blutspende.de/index.php?id=rekonvaleszentenplasma",
     "id": "gLsLj0i5zmY"
   },
   {
@@ -470,7 +461,7 @@
     "title": "Blutspendedienst des Uniklinikums Bonn (UKB)",
     "contact": "Venusberg-Campus 1 Gebäude 43",
     "address": "Venusberg-Campus 1, 53127 Bonn",
-    "phone": "0228-28715174",
+    "phone": "0228-287-14780",
     "email": "blutspende@ukbonn.de",
     "url": "https://www.ukbonn.de/42256BC8002AF3E7/direct/blutspende",
     "id": "txvzoFOYbmR"
@@ -527,7 +518,7 @@
   {
     "title": "DRK Zentrum für Transfusionsmedizin Münster",
     "address": "Sperlichstraße 15, 48151 Münster",
-    "phone": "0251 709277",
+    "phone": "0251 7090",
     "email": "muenster@bsdwest.de",
     "url": "https://www.blutspendedienst-west.de/blutspendedienst/standorte/muenster",
     "id": "niJaRONxBKk"
@@ -626,10 +617,11 @@
   },
   {
     "title": "Blutspendedienst am Universitätsklinikum des Saarlandes Homburg",
-    "contact": "Gebäude 1, RKP-Spende (COVID-19) Mail: haemostaseologie@uks.eu, hermann.eichler@uks.eu, RKP-Spende (COVID-19) Telefon: 06841-16-22530",
+    "contact": "Gebäude 1, Telefon RKP-Spende: 06841-16-22530",
     "address": "Ringstraße 52, 66421 Homburg",
     "phone": "06841 1622540",
-    "url": "http://www.uniklinikum-saarland.de/einrichtungen/kliniken_institute/chirurgie/haemostaseologie/infos_fuer_blutspender/oeffnungszeiten_blutspende/",
+    "email": "haemostaseologie@uks.eu",
+    "url": "https://www.uniklinikum-saarland.de/de/einrichtungen/kliniken_institute/chirurgie/haemostaseologie/infos_fuer_blutspender/plasma_spende_covid_19/",
     "id": "dBBpkOgvtUi"
   },
   {
@@ -637,55 +629,55 @@
     "contact": "Blutspende Uniklinik Leipzig, RKP-Spende (COVID-19) Telefon: 0341-9725393",
     "address": "Johannisallee 32, 04103 Leipzig",
     "phone": "03 41-9725410",
-    "url": "http://www.blutbank.uniklinikum-leipzig.de/blutbank2012.site,postext,ueber-das-institut.html",
+    "url": "https://blutbank.uniklinikum-leipzig.de/blutbank2012.site,postext,aktuelles,a_id,2937.html",
     "id": "CkPPZppfaQN"
   },
   {
     "title": "DRK-Blutspendedienst Chemnitz",
-    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Zeisigwaldstraße 103, 09130 Chemnitz",
     "phone": "0371-432200",
-    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-chemnitz.php",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "nDfXXm4DC8K"
   },
   {
     "title": "DRK-Blutspendedienst Dresden",
-    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Blasewitzer Straße 68 / 70, 01307 Dresden",
     "phone": "0351-4450800",
-    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-dresden.php",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "SlVJbZ_js5n"
   },
   {
     "title": "DRK-Blutspendedienst Görlitz",
-    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Zeppelinstraße 43, 02828 Görlitz",
     "phone": "03581-321150",
-    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-goerlitz.php",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "0GSKtNezGIR"
   },
   {
     "title": "DRK-Blutspendedienst Leipzig",
-    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Prager Str. 13, 04317 Leipzig",
     "phone": "0341-30391442",
-    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-leipzig.php",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "E0bMDZlpLxJ"
   },
   {
     "title": "DRK-Blutspendedienst Plauen",
-    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Röntgenstraße 2a, 08529 Plauen",
     "phone": "03741-40700",
-    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-plauen.php",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "dQaaVxSAW-n"
   },
   {
     "title": "DRK-Blutspendedienst Zwickau",
-    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Karl-Keil Straße 33a, 08060 Zwickau",
     "phone": "0375 5015810",
-    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/blutspende-plasmaspende-zwickau.php",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "R0lJIK3VQMN"
   },
   {
@@ -821,7 +813,7 @@
   },
   {
     "title": "Uni-Blutbank Magdeburg",
-    "contact": "Institut für Transfusionsmedizin und Immunhämatologie mit Blutbank, RKP-Spende (COVID-19) Mail: transmed@ovgu.de",
+    "contact": "Institut für Transfusionsmedizin und Immunhämatologie",
     "address": "Leipziger Str. 44, 39120 Magdeburg",
     "phone": "0391-6713939",
     "email": "transmed@ovgu.de",
@@ -846,10 +838,10 @@
   },
   {
     "title": "DRK-Blutspendedienst Schleswig",
-    "contact": "DRK-Blutspendedienst Nord-Ost gemeinnützige GmbH, RKP-Spende (COVID-19) Mail: info@blutspende-nordost.de, RKP-Spende (COVID-19) Telefon: 0800-11 949 11",
+    "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Rote Kreuz-Weg 5, 24837 Schleswig",
     "phone": "04621-96740",
-    "url": "http://www.blutspende-nordost.de/blutspende/termine-zur-blutspende/institut-schleswig.php",
+    "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "pNvWOf0cH3Z"
   },
   {
