@@ -73,10 +73,10 @@
 
     div#osm-map {
       position: absolute;
-      left: 0px;
+      left: 0;
+      right: 0;
       top: 44px;
-      width: 100%;
-      height: calc(100% - 44px);
+      bottom: 0;
       z-index: 10010;
     }
     header {
@@ -114,7 +114,7 @@
   </style>
 </head>
 <body>
-  <header id="header">
+  <header>
     <a href="../../" class="logo">ImmunHelden</a>
     <a href="https://twitter.com/search?q=%23SpendeCOVIDPlasma" target="_blank">
       #SpendeCOVIDPlasma
@@ -137,6 +137,11 @@
 
     const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
 
+    if (params.embedded) {
+      $('header').hide();
+      $('#osm-map').css('top', 0);
+    }
+
     const settings = {
       embedded: params.hasOwnProperty("embedded"),
       lockLink: "/maps/plasma", // TODO: For now we only embed from the landing page.
@@ -146,7 +151,8 @@
         //  sources: [
           { name: "#SpendeCOVIDPlasma", restBaseUrl: 'https://immunhelden.de/maps/plasma', icon: plasmaPinIcon }
         //]}
-      ]
+      ],
+      selectPlatformsControl: !params.hasOwnProperty("embedded")
     };
 
     const map = new WirVsVirusMap.Instance('osm-map', settings);

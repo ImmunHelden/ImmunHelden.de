@@ -116,7 +116,8 @@
         { name: 'Default', restBaseUrl: hostBaseUrl, icon: defaultIcon }
       //]
       //}
-    ]
+    ],
+    selectPlatformsControl: true
   };
 
   // Follow-up dialog shows up in the details pane after clicking an external
@@ -322,7 +323,7 @@
     settings.baseLayer.addTo(map);
 
     // TODO: Setting/condition for displaying the control for platform selection.
-    if (true) {
+    if (settings.selectPlatformsControl) {
       L.Control.Platforms = _makePlatformsControl(this, settings.platforms);
       controls.platformsView = new L.Control.Platforms({ position: 'bottomleft' });
       controls.platformsView.addTo(map);
