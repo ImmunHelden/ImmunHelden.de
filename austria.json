@@ -3,74 +3,86 @@
     "title": "BioLife Graz Europaplatz",
     "address": "Europaplatz 20, 8020 Graz, Austria",
     "phone": "+43 316 339331",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-EGCgruQQP"
   },
   {
     "title": "BioLife Graz Lazarettgürtel",
     "address": "Lazarettgürtel 55, 8020 Graz, Austria",
     "phone": "+43 316 232500",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-Bw38mPeca"
   },
   {
     "title": "BioLife Innsbruck",
     "address": "Mitterweg 16, 6020 Innsbruck, Austria",
     "phone": "+43 512 274332",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-fjQ14y1LV"
   },
   {
     "title": "BioLife Linz",
     "address": "Gruberstraße 23, 4020 Linz, Austria",
     "phone": "+43 732 790013",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-4WCrcoi_68"
   },
   {
     "title": "BioLife Salzburg",
     "address": "Paracelsusstraße 6, 5020 Salzburg, Austria",
     "phone": "+43 662 877652",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-npdS9LZli"
   },
   {
     "title": "BioLife Wels",
     "address": "Pollheimerstraße 15, 4600 Wels, Austria",
     "phone": "+43 7242 43636",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-zqbNKTqSf"
   },
   {
     "title": "BioLife Wien Kirchengasse",
     "address": "Kirchengasse 3, 1070 Wien, Austria",
     "phone": "+43 1 52109",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-sHl2sJIng"
   },
   {
     "title": "BioLife Operngasse",
     "address": "Operngasse 17-21, 1040 Wien, Austria",
     "phone": "+43 1 2532538",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-MJ-g1_gmcM"
   },
   {
     "title": "BioLife Donauzentrum",
     "contact": "Siebeckstraße 7, Stiege III, 3. Stock",
     "address": "Siebeckstraße 7, 1220 Wien, Austria",
     "phone": "+43 1 2024787",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-fbVYtT4N_"
   },
   {
     "title": "BioLife Favoriten",
     "contact": "Favoritenstraße 93, 5. Stock",
     "address": "Favoritenstraße 93, 1100 Wien, Austria",
     "phone": "+43 1 6031514",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-HjswrTXOO"
   },
   {
     "title": "BioLife Wiener Neustadt",
     "address": "Pottendorferstraße 15-23, 2700 Wr. Neustadt, Austria",
     "phone": "+43 2622 25577",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-I2XxPgsI7"
   },
   {
     "title": "BioLife Klagenfurt",
     "address": "Lichtenfelsgasse 1-3, 9020 Klagenfurt, Austria",
     "phone": "+43 463 507200",
-    "url": "http://www.plasmazentrum.at/covid19lebensretter/"
+    "url": "http://www.plasmazentrum.at/covid19lebensretter/",
+    "id": "biolife-Duk1cnlysE"
   }
 ]
