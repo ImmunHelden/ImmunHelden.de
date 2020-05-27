@@ -11903,10 +11903,10 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.1.1.tgz#0becf31e3812fa70dc231e259f40d892d4767900"
   integrity sha512-SCsAORWK59BvauR2L1BTdjQbJcSGJJz03U0awektk2hshLKrITDDFTlgGCqIZpTDlPC/NFlZee6xTMzXPVLiHw==
 
-react-firebase-hooks@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/react-firebase-hooks/-/react-firebase-hooks-2.1.1.tgz#7180b86e4bd8e33699003a41e6d33f280a54319a"
-  integrity sha512-6ZvAUa5q1JJrTQxCEKCXrP6S/en3B65RAYRYHbbjUh9f1BgKPsxkdaGGBPhGKuVSLUrVqTm8PtpZ/LCtAFogKA==
+react-firebase-hooks@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-firebase-hooks/-/react-firebase-hooks-2.2.0.tgz#a2cea46d3da94619e8a316b85173638698ef7d2b"
+  integrity sha512-bwBaCYa8M+bpTqD0masAPGDTzxiTkGbyxv363hyR+NeNH1HbezPll6G7aMIGl+7OOYRPzfdmpkk72zc3VgXfEw==
 
 react-helmet@^6.0.0:
   version "6.0.0"

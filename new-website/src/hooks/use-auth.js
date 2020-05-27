@@ -8,7 +8,7 @@ export const useAuth = firebase => {
 
     const [state, setState] = React.useState(() => {
         if (isNode()) {
-            return { initializing: false, user: null }
+            return { initializing: false, user: null, signOut }
         }
         const user = firebase.auth().currentUser
         return { initializing: !user, user, signOut }
