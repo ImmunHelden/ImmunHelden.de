@@ -7,19 +7,24 @@ import { Grid, Paper } from "@material-ui/core"
 import { LocationTable } from "./location-table"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { mapLocation } from "../../util/location"
+import { isNode } from "@firebase/util"
 
-export const LocationOverview = () => {
-    const { partner } = useSession()
-    const [collection] = useCollection(
+const useLocationCollection = partner => {
+    if (isNode()) return [undefined, undefined, undefined]
+    const [collection, loading, error] = useCollection(
         firebase.firestore().collection("blutspendende").where("partnerID", "==", partner),
         {
             snapshotListenOptions: { includeMetadataChanges: true },
         }
     )
-
     const locations =
         collection?.docs?.reduce((prev, doc) => mapLocation(prev, { ...doc.data(), id: doc.id }), []) ?? []
+    return [locations, loading, error]
+}
 
+export const LocationOverview = () => {
+    const { partner } = useSession()
+    const [locations] = useLocationCollection(partner)
     return (
         <Grid container justify="center" spacing={0} style={{ height: "100%" }}>
             <Grid item xs={12} lg={10}>
