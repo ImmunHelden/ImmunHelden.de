@@ -164,7 +164,7 @@
     "contact": "Institut für Transfusionsmedizin Berlin, Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Hindenburgdamm 30 A, 12203 Berlin",
     "phone": "030 806810",
-    "email": "https://www.blutspende-nordost.de/rkp/",
+    "email": "info@blutspende-nordost.de",
     "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "SsUTW0dcf-E"
   },
@@ -227,7 +227,7 @@
     "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Thiemstraße 105, 03050 Cottbus",
     "phone": "0355 49950",
-    "email": "https://www.blutspende-nordost.de/rkp/",
+    "email": "info@blutspende-nordost.de",
     "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "VcOJE6_m1Tx"
   },
@@ -236,7 +236,7 @@
     "contact": "Telefon RKP-Spende bei DRK Nord-Ost gGmbH: 0800-11 949 11",
     "address": "Charlottenstr. 72, 14467 Potsdam",
     "phone": "0331 28460",
-    "email": "https://www.blutspende-nordost.de/rkp/",
+    "email": "info@blutspende-nordost.de",
     "url": "https://www.blutspende-nordost.de/rkp/",
     "id": "cYWqmLdyP3E"
   },
@@ -269,17 +269,18 @@
   },
   {
     "title": "Blutspende Albertinen Haus Hamburg",
-    "contact": "RKP-Spende (COVID-19) Mail: Covid19plasma@uke.de, RKP-Spende (COVID-19) Telefon: 040 / 5581 – 1374",
     "address": "Sellhopsweg 18-22, 22459 Hamburg",
     "phone": "040 55811374",
+    "email": "Covid19plasma@uke.de",
     "url": "http://blutsgeschwister.net",
     "id": "vcLxJhVaw_p"
   },
   {
     "title": "Blutspende am Campus Universität Hamburg",
-    "contact": "RKP-Spende (COVID-19) Mail: Covid19plasma@uke.de, RKP-Spende (COVID-19) Telefon: 040 / 7410 – 52616",
-    "address": "Von-Melle-Park 5, EG, Zimmer 0076 B, 20146 Hamburg",
+    "contact": "EG, Zimmer 0076 B",
+    "address": "Von-Melle-Park 5, 20146 Hamburg",
     "phone": "040 741052616",
+    "email": "Covid19plasma@uke.de",
     "url": "http://www.blutsgeschwister.net",
     "id": "dAUQ55ApMwK"
   },
