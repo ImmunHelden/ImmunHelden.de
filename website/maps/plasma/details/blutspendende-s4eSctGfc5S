@@ -1,10 +1,9 @@
-<link rel="stylesheet" href="main.css">
 <div>
 <div class="title">Uni-Blutbank Magdeburg</div>
-<div class="contact">Institut für Transfusionsmedizin und Immunhämatologie mit Blutbank, RKP-Spende (COVID-19) Mail: transmed@ovgu.de</div>
+<div class="contact">Institut für Transfusionsmedizin und Immunhämatologie</div>
 <div class="address">Leipziger Str. 44, 39120 Magdeburg</div>
 <div class="phone"><a href="tel:+493916713939">0391-6713939</a></div>
 <div class="email"><a href="mailto:transmed@ovgu.de">transmed@ovgu.de</a></div>
-<div class="url"><a href="http://www.blutspende-magdeburg.de">http://www.blutspende-magdeburg.de</a></div>
+<div class="url"><a href="http://www.blutspende-magdeburg.de">Webseite</a></div>
 <div class="permalink"><a href="#blutspendende-s4eSctGfc5S" target="_parent">Permalink</a></div>
 </div>

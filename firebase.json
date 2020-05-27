@@ -58,47 +58,19 @@
         "function": "deleteOrg"
       },
       {
-        "source": "/getStakeHoldersInZipCodeRangeAsJson",
-        "function": "getStakeHoldersInZipCodeRangeAsJson"
-      },
-      {
-        "source": "/getAllStakeHoldersAsJson",
-        "function": "getAllStakeHoldersAsJson"
-      },
-      {
-        "source": "/getAllImmuneHeroesNutsAsJson",
-        "function": "getAllImmuneHeroesNutsAsJson"
-      },
-      {
         "source": "/doneVerifyStakeholderPin",
         "function": "doneVerifyStakeholderPin"
       },
       {
-        "source": "/contactStakeholder",
-        "function": "contactStakeholder"
-      },
-      {
-        "source": "/demo/pins",
+        "source": "/maps/sample/pins",
         "function": "pin_locations"
       },
       {
-        "source": "/demo/regions",
+        "source": "/maps/sample/regions",
         "function": "regions"
       },
       {
-        "source": "/demo/details_html",
-        "function": "details_html"
-      },
-      {
-        "source": "/map/pins",
-        "function": "pin_locations"
-      },
-      {
-        "source": "/map/regions",
-        "function": "regions"
-      },
-      {
-        "source": "/map/details_html",
+        "source": "/maps/sample/details/*",
         "function": "details_html"
       },
       {
@@ -123,10 +95,6 @@
       {
         "source": "/addStakeHolder",
         "function": "addStakeHolder"
-      },
-      {
-        "source": "/getStakeHoldersInZipCodeRangeAsJson",
-        "function": "getStakeHoldersInZipCodeRangeAsJson"
       },
       {
         "source": "/getAllStakeHoldersAsJson",

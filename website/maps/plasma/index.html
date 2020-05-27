@@ -3,6 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren? Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen." />
+  <meta name="keywords" content="Helden COVID-19 Immunität Corona RPK-Plasma Spende Blutplasma WirVsVirus Community" />
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Nutze Deine Immunität zum Wohle aller"/>
+  <meta property="og:description" content="Hier findest Du eine Einrichtung zur Spende von COVID-19 Plasma in Deiner Nähe."/>
+  <meta property="og:url" content="https://immunhelden.de"/>
+  <meta property="og:image" content="https://immunhelden.de/maps/plasma/images/preview_de_at.png"/>
+  <meta property="og:updated_time" content="2020-05-28T15:00:00-02:00" />
+  <meta property="og:image:width" content="800" />
+  <meta property="og:image:height" content="875" />
+
+  <meta name="twitter:card" content="player">
+  <meta name="twitter:site" content="@ImmunHelden">
+  <meta name="twitter:url" content="https://immunhelden.de"/>
+  <meta name="twitter:title" content="Nutze Deine Immunität zum Wohle aller">
+  <meta name="twitter:description" content="Hier findest Du eine Einrichtung zur Spende von COVID-19 Plasma in Deiner Nähe.">
+  <meta name="twitter:image" content="https://immunhelden.de/maps/plasma/images/preview_de_at.png">
+  <meta name="twitter:image:alt" content="https://www.youtube.com/watch?v=fyPF3RUv00A">
+  <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/fyPF3RUv00A?html5=1">
+  <meta name="twitter:player:width" content="800">
+  <meta name="twitter:player:height" content="875">
+
   <title>ImmunHelden Map</title>
 
   <link rel="stylesheet" href="../leaflet.css">
@@ -73,10 +97,10 @@
 
     div#osm-map {
       position: absolute;
-      left: 0px;
+      left: 0;
+      right: 0;
       top: 44px;
-      width: 100%;
-      height: calc(100% - 44px);
+      bottom: 0;
       z-index: 10010;
     }
     header {
@@ -111,58 +135,10 @@
 
       font-family: 'Noteworthy Light';
     }
-
-    #platforms table {
-      margin-top: 4px;
-    }
-
-    /*
-    #platforms img {
-      height: 1rem;
-      padding: 0 0.25rem;
-    }
-    #platforms td:first-child {
-      text-align: center;
-      vertical-align: middle;
-    }
-    */
-
-    .beta-ribbon-wrapper {
-      width: 130px;
-      height: 130px;
-      overflow: hidden;
-      position: fixed;
-      top: 0;
-      right: 0;
-      z-index: 10012;
-    }
-    .beta-ribbon {
-      font-weight: bold;
-      text-align: center;
-      transform: rotate(45deg);
-      position: relative;
-      padding: 7px 0;
-      left: 0px;
-      top: 11px;
-      width: 200px;
-      background-color: #ffea94;
-      background-image: linear-gradient(to bottom, #ffea94, #ffea5E);
-    }
-    .beta-ribbon a:link, .beta-ribbon a:visited, .beta-ribbon a:hover, .beta-ribbon a:active {
-      font-size: 18px;
-      text-decoration: none;
-      color: #393939;
-    }
   </style>
 </head>
 <body>
-  <div class="beta-ribbon-wrapper" id="beta-ribbon">
-    <div class="beta-ribbon">
-      <a target="_blank" href="https://github.com/weliveindetail/WirVsVirusMap">Beta</a>
-    </div>
-  </div>
-
-  <header id="header">
+  <header>
     <a href="../../" class="logo">ImmunHelden</a>
     <a href="https://twitter.com/search?q=%23SpendeCOVIDPlasma" target="_blank">
       #SpendeCOVIDPlasma
@@ -185,6 +161,11 @@
 
     const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
 
+    if (params.embedded) {
+      $('header').hide();
+      $('#osm-map').css('top', 0);
+    }
+
     const settings = {
       embedded: params.hasOwnProperty("embedded"),
       lockLink: "/maps/plasma", // TODO: For now we only embed from the landing page.
@@ -194,7 +175,8 @@
         //  sources: [
           { name: "#SpendeCOVIDPlasma", restBaseUrl: 'https://immunhelden.de/maps/plasma', icon: plasmaPinIcon }
         //]}
-      ]
+      ],
+      selectPlatformsControl: !params.hasOwnProperty("embedded")
     };
 
     const map = new WirVsVirusMap.Instance('osm-map', settings);

@@ -4,8 +4,30 @@
     <title>ImmunHelden</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+
+    <meta name="description" content="Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren? Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen." />
+    <meta name="keywords" content="Helden COVID-19 Immunität Corona RPK-Plasma Spende Blutplasma WirVsVirus Community" />
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Nutze Deine Immunität zum Wohle aller"/>
+    <meta property="og:description" content="Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren? Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen."/>
+    <meta property="og:url" content="https://immunhelden.de"/>
+    <meta property="og:image" content="https://immunhelden.de/images/banner_square.png"/>
+    <meta property="og:updated_time" content="2020-05-28T14:00:00-02:00" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="800" />
+
+    <meta name="twitter:card" content="player">
+    <meta name="twitter:site" content="@ImmunHelden">
+    <meta name="twitter:url" content="https://immunhelden.de"/>
+    <meta name="twitter:title" content="Nutze Deine Immunität zum Wohle aller">
+    <meta name="twitter:description" content="Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren? Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen.">
+    <meta name="twitter:image" content="https://immunhelden.de/images/banner_square.png">
+    <meta name="twitter:image:alt" content="https://www.youtube.com/watch?v=fyPF3RUv00A">
+    <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/fyPF3RUv00A?html5=1">
+    <meta name="twitter:player:width" content="800">
+    <meta name="twitter:player:height" content="600">
+
     <script src="assets/js/jquery.min.js"></script>
     <script async src="https://webcomponent.coverified.info/build/embed.js"></script>
 
@@ -194,6 +216,11 @@
           background: #f4f4f4e4;
         }
 
+        section#youknow div.description {
+          text-align: right;
+          padding-right: 0;
+        }
+
         section#plasma iframe {
           border: 0;
           height: 100%;
@@ -261,6 +288,9 @@
         section#youknow div.content {
           width: 100%;
           padding: 2rem 0;
+        }
+        section#youknow div.description {
+          padding: 0 2rem;
         }
 
         section#plasma {
@@ -473,19 +503,30 @@
 
       <section id="youknow">
         <div class="content">
-          <a href="javascript:loadYouKnowVideo()" id="youknow-placeholder"></a>
+          <div class="description" style="flex: 1;">
+            <h2>
+              Mit Heldentaten durch die Corona Pandemie
+            </h2>
+          </div>
+          <div style="flex: 5;">
+            <a href="javascript:loadYouKnowVideo()" id="youknow-placeholder"></a>
+          </div>
         </div>
         <script>
+          var youknowVidElem = $("#youknow-placeholder");
+          var youknowContentRatio = 2.1;
           function loadYouKnowVideo() {
             $('#youknow > div.content').html(
               '<iframe id="youknow-video" src="https://www.youtube-nocookie.com/embed/fyPF3RUv00A?html5=1&autoplay=1"' +
               '        allowfullscreen="1" frameborder="0" title="YouTube video player"' +
               '        allow="autoplay; picture-in-picture"></iframe>');
+            // On resize scale the new element with its 16/9 ratio.
+            youknowVidElem = $("#youknow-video");
+            youknowContentRatio = 1.78;
             fitVideoHeight();
           }
           function fitVideoHeight() {
-            var width = $("#youknow > div.content").width();
-            $("#youknow > div.content").height(width / 1.78);
+            youknowVidElem.height(youknowVidElem.width() / youknowContentRatio);
           }
           $(window).resize(fitVideoHeight);
           fitVideoHeight();
