@@ -4,5 +4,11 @@
     "joinLaneTitle": "Mitmachen",
     "joinLaneOfferHelp": "Ich möchte Immunheld:in werden",
     "joinLaneNeedHelp": "Ich brauche eine Immunheld:in",
-    "joinLaneFAQ": "Häufige Fragen und Kontakt"
+    "joinLaneFAQ": "Häufige Fragen und Kontakt",
+    "dpAgreementText": "Ich habe die <a>Datenschutzerklärung</a> verstanden und möchte informiert, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.",
+    "introTitle": "Ich bin immun, was kann ich tun?",
+    "introDescription": "Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren?\n\nDann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen.\n",
+    "postCodeShort": "PLZ",
+    "email": "Email",
+    "letsGoButtonText": "✔️ Los gehts!"
 }

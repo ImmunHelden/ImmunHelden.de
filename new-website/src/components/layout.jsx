@@ -3,12 +3,6 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import "./layout.css"
 import Header from "./header/index"
-import styled from "styled-components"
-
-const MainContent = styled.main`
-    top: 3.25rem;
-    position: relative;
-`
 
 const Layout = ({ children }) => {
     const data = useStaticQuery(graphql`
@@ -21,13 +15,18 @@ const Layout = ({ children }) => {
         }
     `)
     return (
-        <>
+        <div
+            style={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+            }}
+        >
             <Header title={data.site.siteMetadata.title} />
-            <div>
-                <MainContent>{children}</MainContent>
-                <footer></footer>
-            </div>
-        </>
+            <main style={{ flexGrow: 1 }}>{children}</main>
+            <footer></footer>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        </div>
     )
 }
 

@@ -4,13 +4,14 @@ import Img from "gatsby-image"
 import styled from "styled-components"
 
 const StyledImg = styled(Img)`
-    height: 35rem;
+    height: 42rem;
     z-index: 1;
+    transform: rotateY(180deg);
 `
 
 const Gradient = styled.div`
-    background-image: linear-gradient(rgba(27, 69, 206, 0.25), rgba(206, 27, 40, 0.25));
-    height: 35rem;
+    background-image: linear-gradient(90deg, transparent, #ffffff80);
+    height: 42rem;
     width: 100%;
     z-index: 2;
     position: absolute;
