@@ -1,9 +1,6 @@
 import React, { useState } from "react"
 import firebase from "gatsby-plugin-firebase"
 import MaterialTable from "material-table"
-import { mapLocation } from "../../util/location"
-import { useCollection } from "react-firebase-hooks/firestore"
-function mapEntry() {}
 
 export const LocationTable = ({ partner, locations = [] }) => {
     const [state, setState] = useState({ data: [...locations] })
@@ -18,7 +15,7 @@ export const LocationTable = ({ partner, locations = [] }) => {
             .firestore()
             .collection("blutspendende")
             .doc(id)
-            .update({ ...rest, latlng: geoPoint, latlng })
+            .update({ ...rest, latlng: geoPoint })
     }
 
     const onRowAdd = ({ id, latlng, ...rest }) => {
