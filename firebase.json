@@ -152,6 +152,18 @@
     ],
     "rewrites": [
       {
+        "source": "/addImmuneHeroEU",
+        "function": "addImmuneHeroEU"
+      },
+      {
+        "source": "/confirmImmuneHeroEU",
+        "function": "confirmImmuneHeroEU"
+      },
+      {
+        "source": "/removeImmuneHeroEU",
+        "function": "removeImmuneHeroEU"
+      },
+      {
         "source": "/addImmuneHero",
         "function": "addImmuneHero"
       },

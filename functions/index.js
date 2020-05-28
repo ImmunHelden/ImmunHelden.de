@@ -131,6 +131,75 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
   }
 });
 
+exports.addImmuneHeroEU = functions.https.onRequest(async (req, res) => {
+  try {
+    if (req.method !== "POST" || !parseBool(req.body.datenschutz))
+      throw 'Invalid request';
+
+    const hero = await admin.firestore().collection('heroes').add({
+      email: req.body.email,
+      zipCode: req.body.zipCode,
+      countryCode: req.body.countryCode,
+    });
+
+    // Render E-Mail
+    const msg = await messageTemplates.render('email/en/hero_welcome.md', {
+      link_hero_double_opt_in: `https://immunhelden.eu/confirmImmuneHeroEU?id=${hero.id}`,
+      link_hero_opt_out: `https://immunhelden.eu/removeImmuneHeroEU?id=${hero.id}`
+    });
+
+    // Trigger E-Mail
+    admin.firestore().collection('mail').add({
+      to: req.body.email,
+      message: msg
+    });
+
+    res.redirect('../?subscribe=singleOptIn');
+  }
+  catch (err) {
+    console.error(err);
+    res.redirect('../?subscribe=fail');
+  }
+});
+
+exports.confirmImmuneHeroEU = functions.https.onRequest(async (req, res) => {
+  try {
+    if (req.method !== "GET" || !req.query.hasOwnProperty('id'))
+      throw 'Invalid request';
+
+    const ref = admin.firestore().collection('heroes').doc(req.query.id);
+    const doc = await ref.get();
+    if (!doc.exists)
+      throw `Cannot find hero with ID ${req.query.id}`;
+
+    ref.update({ doubleOptIn: true });
+    res.redirect('../?subscribe=doubleOptIn');
+  }
+  catch (err) {
+    console.error(err);
+    res.status(400).send(`Error: ${err}`);
+  }
+});
+
+exports.removeImmuneHeroEU = functions.https.onRequest(async (req, res) => {
+  try {
+    if (req.method !== "GET" || !req.query.hasOwnProperty('id'))
+      throw 'Invalid request';
+
+    const ref = admin.firestore().collection('heroes').doc(req.query.id);
+    const doc = await ref.get();
+    if (!doc.exists)
+      throw `Cannot find hero with ID ${req.query.id}`;
+
+    ref.delete();
+    res.redirect('../?subscribe=optOut');
+  }
+  catch (err) {
+    console.error(err);
+    res.status(400).send(`Error: ${err}`);
+  }
+});
+
 exports.addStakeHolder = functions.https.onRequest(async (req, res) => {
   // Check for POST request
   if (req.method !== "POST") {

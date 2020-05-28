@@ -445,7 +445,7 @@
             <p>You recovered from COVID-19 and now you want to use your immunity for the benefit of the public good?</p>
             <p>Join our community and become an immune hero! We keep you updated about ways to help in your area.</p>
 
-            <form action="/addImmuneHeroEU" method="POST">
+            <form action="/addImmuneHeroEU" method="POST" id="subscribe">
               <div>
                 <label for="countryCode">Country</label>
                 <select name="countryCode" style="width: 4rem;" id="countryCode" required>
@@ -518,6 +518,32 @@
                 </label>
               </div>
             </form>
+
+            <script>
+              function subscriptionMessage(state) {
+                switch (state) {
+                  case 'singleOptIn':
+                    return '✓ Subscribed to ImmunHelden Updates. Please check you inbox and confirm your email address.';
+                  case 'doubleOptIn':
+                    return '✓ Thanks for confirming your email address. You will receive your first ImmunHelden Update soon.';
+                  case 'optOut':
+                    return '✓ Unsubscribed from ImmunHelden Updates.';
+                  default:
+                    return 'Something went wrong! Please <a href="#questions">get in touch and tell us what happened</a>, so we can fix it asap!';
+                }
+              }
+
+              const regex = /[?&]([^=#]+)=([^&#]*)/g;
+              let params = {};
+              let match;
+              while(match = regex.exec(window.location.href)) {
+                params[match[1]] = match[2];
+              }
+
+              if (params.hasOwnProperty('subscribe')) {
+                $('#subscribe').html('<b>' + subscriptionMessage(params.subscribe) + '</b>');
+              }
+            </script>
           </div>
         </div>
         <div class="padding right"></div>
