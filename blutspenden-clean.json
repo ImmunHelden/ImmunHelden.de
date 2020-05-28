@@ -570,46 +570,6 @@
     "id": "blutspendende-n3bytWa2Cyn"
   },
   {
-    "title": "octapharma Plasma Hagen",
-    "address": "Hohenzollernstraße 5, 58095 Hagen",
-    "phone": "02331 348810",
-    "email": "pzman-hagen@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/hagen",
-    "id": "blutspendende-8NJeZlFMcUo"
-  },
-  {
-    "title": "octapharma Plasma Krefeld",
-    "address": "Petersstraße 122, Behnisch Haus, 47798 Krefeld",
-    "phone": "02151 569050",
-    "email": "pzman-krefeld@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/krefeld",
-    "id": "blutspendende-2RyU6m0a1QM"
-  },
-  {
-    "title": "octapharma Plasma Mönchengladbach",
-    "address": "Lürriper Str. 11, 41065 Mönchengladbach",
-    "phone": "02161 463430",
-    "email": "pzman-moenchengladbach@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/moenchengladbach",
-    "id": "blutspendende-teV-I29_GM0"
-  },
-  {
-    "title": "octapharma Plasma Oberhausen",
-    "address": "Concordiastraße 32, 46049 Oberhausen",
-    "phone": "0208 9418770",
-    "email": "pzman-oberhausen@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/oberhausen",
-    "id": "blutspendende-RmDSAk8xXGx"
-  },
-  {
-    "title": "octapharma Plasma Koblenz",
-    "address": "Löhrstraße 23, 56068 Koblenz",
-    "phone": "0261 973760",
-    "email": "pzman-koblenz@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/koblenz",
-    "id": "blutspendende-6uCcTL93Muz"
-  },
-  {
     "title": "Blutspendedienst am Universitätsklinikum des Saarlandes Homburg",
     "contact": "Gebäude 1, Telefon RKP-Spende: 06841-16-22530",
     "address": "Ringstraße 52, 66421 Homburg",
@@ -799,14 +759,6 @@
     "email": "transmed@ovgu.de",
     "url": "http://www.blutspende-magdeburg.de",
     "id": "blutspendende-s4eSctGfc5S"
-  },
-  {
-    "title": "octapharma Plasma Dessau",
-    "address": "Kavalierstraße 49, Rathaus-Center, 06844 Dessau",
-    "phone": "0340 216410",
-    "email": "pzman-dessau@octapharmaplasma.de",
-    "url": "https://www.octapharmaplasma.de/standorte/dessau",
-    "id": "blutspendende-Rd_vCHuV5_a"
   },
   {
     "title": "UKSH Blutspendezentrum am Campus Lübeck",
