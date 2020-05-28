@@ -817,5 +817,12 @@
       46.624778,
       14.312264
     ]
+  },
+  "de-drk-nstob-dessau": {
+    "title": "DRK-Blutspendedienst Dessau",
+    "latlng": [
+      51.814098,
+      12.1995
+    ]
   }
 }
