@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import firebase from "gatsby-plugin-firebase"
 import MaterialTable from "material-table"
+import { LOCATION_COLLECTION } from "."
 
 export const LocationTable = ({ partner, locations = [] }) => {
     const [state, setState] = useState({ data: [...locations] })
@@ -13,7 +14,7 @@ export const LocationTable = ({ partner, locations = [] }) => {
         const geoPoint = new firebase.firestore.GeoPoint(parseFloat(latlng.latitude), parseFloat(latlng.longitude))
         return firebase
             .firestore()
-            .collection("blutspendende")
+            .collection(LOCATION_COLLECTION)
             .doc(id)
             .update({ ...rest, latlng: geoPoint })
     }
@@ -22,7 +23,7 @@ export const LocationTable = ({ partner, locations = [] }) => {
         const geoPoint = new firebase.firestore.GeoPoint(parseFloat(latlng.latitude), parseFloat(latlng.longitude))
         return firebase
             .firestore()
-            .collection("blutspendende")
+            .collection(LOCATION_COLLECTION)
             .add({ ...rest, latlng: geoPoint, partnerID: partner })
             .catch(err => console.log(err.message))
     }
@@ -30,7 +31,7 @@ export const LocationTable = ({ partner, locations = [] }) => {
     const onRowDelete = ({ id }) =>
         firebase
             .firestore()
-            .collection("blutspendende")
+            .collection(LOCATION_COLLECTION)
             .doc(id)
             .delete()
             .catch(err => console.log(err.message))

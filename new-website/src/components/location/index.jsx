@@ -8,6 +8,8 @@ import { useCollection } from "react-firebase-hooks/firestore"
 import { mapLocation } from "../../util/location"
 import { isNode } from "@firebase/util"
 
+export const LOCATION_COLLECTION = "plasma"
+
 /**
  * Fixes the issue with building the pages since
  * Firebase is not available during build time in nodejs
@@ -17,7 +19,7 @@ const getQuery = partner => {
     if (isNode()) {
         return null
     }
-    return firebase.firestore().collection("blutspendende").where("partnerID", "==", partner)
+    return firebase.firestore().collection(LOCATION_COLLECTION).where("partnerID", "==", partner)
 }
 
 export const LocationOverview = () => {
