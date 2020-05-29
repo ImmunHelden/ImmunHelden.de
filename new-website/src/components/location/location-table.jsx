@@ -10,21 +10,19 @@ export const LocationTable = ({ partner, locations = [] }) => {
         setState({ data: [...locations] })
     }, [locations])
 
-    const onRowUpdate = ({ id, latlng, ...rest }) => {
-        const geoPoint = new firebase.firestore.GeoPoint(parseFloat(latlng.latitude), parseFloat(latlng.longitude))
+    const onRowUpdate = ({ id, ...rest }) => {
         return firebase
             .firestore()
             .collection(LOCATION_COLLECTION)
             .doc(id)
-            .update({ ...rest, latlng: geoPoint })
+            .update({ ...rest })
     }
 
-    const onRowAdd = ({ id, latlng, ...rest }) => {
-        const geoPoint = new firebase.firestore.GeoPoint(parseFloat(latlng.latitude), parseFloat(latlng.longitude))
+    const onRowAdd = ({ id, ...rest }) => {
         return firebase
             .firestore()
             .collection(LOCATION_COLLECTION)
-            .add({ ...rest, latlng: geoPoint, partnerID: partner })
+            .add({ ...rest, partnerID: partner })
             .catch(err => console.log(err.message))
     }
 
@@ -42,8 +40,6 @@ export const LocationTable = ({ partner, locations = [] }) => {
             columns={[
                 { title: "ID", field: "id", hidden: true },
                 { title: "Title", field: "title" },
-                { title: "Latitude", field: "latlng.latitude", type: "numeric" },
-                { title: "Longitude", field: "latlng.longitude", type: "numeric" },
                 { title: "Adresse", field: "address" },
                 { title: "Telefon", field: "phone" },
                 { title: "Email", field: "email" },
