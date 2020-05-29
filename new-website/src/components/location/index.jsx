@@ -30,7 +30,7 @@ export const LocationOverview = () => {
     const locations =
         collection?.docs?.reduce((prev, doc) => mapLocation(prev, { ...doc.data(), id: doc.id }), []) ?? []
     return (
-        <Grid container justify="center" spacing={0} style={{ height: "100%" }}>
+        <Grid container justify="center" spacing={0}>
             <Grid item xs={12} lg={10}>
                 <Paper style={{ maxWidth: "100%" }}>
                     <h1>Locations</h1>
