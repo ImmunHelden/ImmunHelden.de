@@ -42,13 +42,6 @@
     <style>
       @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
 
-      @font-face {
-        font-family: 'Noteworthy Light';
-        font-style: normal;
-        font-weight: normal;
-        src: local('Noteworthy Light'), url('assets/fonts/Noteworthy-Lt.woff') format('woff');
-      }
-
       body {
         font-family: "Raleway", Arial, Helvetica, sans-serif;
         line-height: 1.55rem;
@@ -139,8 +132,7 @@
       }
 
       header a.logo {
-        font-family: 'Noteworthy Light';
-        background: url('images/superhero.png');
+        background: url('images/logo_default.png');
         background-size: contain;
         background-repeat: no-repeat;
         display: block;
@@ -162,8 +154,8 @@
 
       @media only screen and (min-width: 600px) {
         header {
-          width: 7rem;
-          height: 11rem;
+          min-width: 12rem;
+          height: 9rem;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -171,15 +163,14 @@
         header a.logo {
           margin-top: 1rem;
           padding-top: 5.25rem;
-          background-size: 5rem;
           background-position: top center;
-          width: 100%;
-          text-align: center;
+          width: 10rem;
         }
         header a.wirvsvirus {
-          width: 6rem;
-          height: 2.5rem;
-          padding-top: 0.33rem;
+          width: 11rem;
+          height: 2.25rem;
+          margin-top: -0.2rem;
+          background-position: right;
         }
 
         section div.content {
@@ -209,7 +200,7 @@
           padding: 2rem;
           padding-right: 0;
           margin: 3rem 0;
-          margin-left: 20%;
+          margin-left: 10%;
           border-radius: 2rem 0 0 2rem;
           background-color: #f4f4f4e4;
         }
@@ -251,12 +242,10 @@
         }
 
         header a.logo {
-          height: 1.66rem;
-          line-height: 1.66rem;
-          font-size: 1.33rem;
+          width: 3.5rem;
+          height: 2.8rem;
           margin-left: 1rem;
-          padding-left: 2.5rem;
-          background-position: center left;
+          background-position: center;
         }
 
         header a.wirvsvirus {
@@ -462,7 +451,7 @@
         <div class="padding"></div>
         <div class="content">
           <header>
-            <a href="/" class="logo">ImmunHelden</a>
+            <a href="/" class="logo"></a>
             <a href="https://twitter.com/WirvsVirusHack" target="_blank" class="wirvsvirus"></a>
           </header>
 
