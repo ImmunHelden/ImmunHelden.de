@@ -463,7 +463,8 @@
             <p>Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren?</p>
             <p>Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen.</p>
 
-            <form action="/addImmuneHero" method="POST">
+            <form action="/addImmuneHero" method="POST" id="subscribe">
+              <input type="hidden" name="countryCode" value=".de">
               <div>
                 <label for="zipCode">Postleitzahl</label>
                 <input type="text" name="zipCode" style="width: 5rem;" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
@@ -471,20 +472,38 @@
               <div>
                 <label for="email">E-Mail</label>
                 <input type="email" name="email" style="width: 8rem;" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
-                <input type="submit" value="Los gehts!" id="submitHero" title="Bitte Datenschutzbestimmungen akzeptieren" disabled>
+                <input type="submit" value="Los gehts!" id="submitHero" title="Bitte Datenschutzbestimmungen akzeptieren">
               </div>
               <div>
                 <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
-                  <input type="checkbox" id="confirmedHero" onchange="allowSubmitHero()" style="margin-left: -20px;">
+                  <input type="checkbox" name="datenschutz" id="confirmedHero" style="margin-left: -20px;" required>
                   Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und möchte informiert werden, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
                 </label>
               </div>
             </form>
             <script>
-              function allowSubmitHero() {
-                const confirmed = $('#confirmedHero').is(':checked');
-                $('#submitHero').prop('disabled', !confirmed);
-                $('#submitHero').prop('title', confirmed ? 'Los gehts!' : 'Bitte Datenschutzbestimmungen akzeptieren');
+              function subscriptionMessage(state) {
+                switch (state) {
+                  case 'singleOptIn':
+                    return '✓ ImmunHelden Updates erfolgreich abonniert. Wir haben Dir eine E-Mail gesendet. Bitte schau rein und bestätige Deine E-Mail Adresse.';
+                  case 'doubleOptIn':
+                    return '✓ Danke dass Du Deine E-Mail Adresse bestätigt hast. Bald werden die ersten ImmunHelden Updates in Deinem Posteingang landen.';
+                  case 'optOut':
+                    return '✓ Dein Abonnement für die ImmunHelden Updates ist beendet. Deine Kontaktdaten wurden gelöscht.';
+                  default:
+                    return 'Irgendwas ist schief gelaufen! Bitte <a href="#questions">schreib uns</a> und erkläre kurz was passiert ist, sodass wir den Fehler schnell beheben können!';
+                }
+              }
+
+              const regex = /[?&]([^=#]+)=([^&#]*)/g;
+              let params = {};
+              let match;
+              while(match = regex.exec(window.location.href)) {
+                params[match[1]] = match[2];
+              }
+
+              if (params.hasOwnProperty('subscribe')) {
+                $('#subscribe').html('<b>' + subscriptionMessage(params.subscribe) + '</b>');
               }
             </script>
           </div>
@@ -589,20 +608,14 @@
             <form>
               <textarea id="message" rows="6" placeholder="Gibt hier deine Anfrage ein" required></textarea>
               <input type="text" id="contact" style="width: 100%; margin-bottom: 5px;" placeholder="Email / Telefon" required>
-              <input type="submit" value="Senden" id="submitQuestion" onclick="sendSupportRequest()" disabled>
+              <input type="submit" value="Senden" id="submitQuestion" onclick="sendSupportRequest()">
 
               <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
-                <input type="checkbox" id="confirmedQuestion" onchange="allowSubmitQuestion()" style="margin-left: -20px;">
+                <input type="checkbox" id="confirmedQuestion" style="margin-left: -20px;">
                 Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und stimme zu, dass meine Kontaktdaten für die Beantwortung meiner Frage gespeichert und genutzt werden dürfen.
               </label>
             </form>
             <script>
-              function allowSubmitQuestion() {
-                const confirmed = $('#confirmedQuestion').is(':checked');
-                $('#submitQuestion').prop('disabled', !confirmed);
-                $('#submitQuestion').prop('title', confirmed ? 'Los gehts!' : 'Bitte Datenschutzbestimmungen akzeptieren');
-              }
-
               // Apparently, the Slack API endpoint fails to return an Access-Control-Allow-Headers response
               // header that contains Content-Type in its value. Thus, the browsers CORS preflight OPTIONS
               // request fails, if our request included the field contentType: 'application/json'. Not sure
@@ -611,6 +624,16 @@
               var baseUrl = 'https://hooks.slack.com/services/';
 
               function sendSupportRequest() {
+                if ($('#contact').val().length == 0) {
+                  if (!confirm("Du hast keine E-Mail Adresse hinterlegt. Das ist ok, aber bedenke, dass wir Dir dann nicht anworten können. Bist du sicher?")) {
+                    return;
+                  }
+                }
+
+                if (!$('#contactForm')[0].checkValidity()) {
+                  return;
+                }
+
                 // Avoid double-submit
                 $('#submitQuestion').prop('disabled', true);
 
