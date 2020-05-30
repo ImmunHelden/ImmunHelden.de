@@ -110,11 +110,11 @@
         box-sizing: border-box;
       }
 
-      section#organizations {
+      section#partner {
         background: linear-gradient(90deg, #c4deb7, #c4deb788);
       }
 
-      section#organizations div.illustration {
+      section#partner div.illustration {
         flex: none;
         justify-content: top;
       }
@@ -300,10 +300,10 @@
           width: 100%;
         }
 
-        section#organizations div.content {
+        section#partner div.content {
           flex-direction: column-reverse;
         }
-        section#organizations div.illustration {
+        section#partner div.illustration {
           display: none;
         }
 
@@ -611,7 +611,7 @@
               <input type="submit" value="Senden" id="submitQuestion" onclick="sendSupportRequest()">
 
               <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
-                <input type="checkbox" id="confirmedQuestion" style="margin-left: -20px;">
+                <input type="checkbox" id="confirmedQuestion" style="margin-left: -20px;" required>
                 Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und stimme zu, dass meine Kontaktdaten für die Beantwortung meiner Frage gespeichert und genutzt werden dürfen.
               </label>
             </form>
@@ -671,7 +671,7 @@
         </div>
       </section>
 
-      <section id="organizations">
+      <section id="partner">
         <div class="content">
           <div class="illustration">
             <img src="images/together.png" alt="together" style="width: 10rem;">
@@ -680,74 +680,11 @@
             <h2>
               Frage ImmunHelden an
             </h2>
-            Suchst Du oder Deine Organisation Unterstützung?
-            Möchstest Du eine ImmunHeld:in für eine Tätigkeit finden?
-            Dann macht mit und registriere Dich schon vorab hier.
-
-            <form action="/addStakeHolder" method="POST">
-              <h3>Wo wird Hilfe gebraucht?</h3>
-              <div>
-                <label for="stakeholderAddress">Straße, Hausnummer</label>
-                <input type="text" name="address" id="stakeholderAddress" maxlength="100" required>
-              </div>
-              <div>
-                <label for="stakeholderZip">Postleitzahl</label>
-                <input type="text" name="zipCode" id="stakeholderZip" maxlength="5" class="zipCode"
-                        pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
-              </div>
-              <div>
-                <label for="stakeholderCity">Stadt</label>
-                <input type="text" name="city" id="stakeholderCity" maxlength="40" required>
-              </div>
-              <div style="display: block;">
-                <label for="stakeholderMessage">
-                  Kurze Beschreibung
-                </label>
-                <textarea name="text" id="stakeholderMessage" rows="6"
-                          placeholder="Was ist zu tun? Gibt es besondere Anforderungen? Geht es um eine einmalige oder eine regelmäßige Tätigkeit?" required></textarea>
-              </div>
-
-              <h3>Ansprechpartner</h3>
-              <div>
-                <label for="stakeholderFirstName">Vorname</label>
-                <input type="text" name="firstName" id="stakeholderFirstName" maxlength="40"
-                      title="Vorname des Ansprechpartners" required>
-              </div>
-              <div>
-                <label for="stakeholderLastName">Nachname</label>
-                <input type="text" name="lastName" id="stakeholderLastName" maxlength="40"
-                      title="Nachname des Ansprechpartners" required>
-              </div>
-              <div>
-                <label for="stakeholderOrg">Organisation (optional)</label>
-                <input type="text" name="organization" id="stakeholderOrg" maxlength="40">
-              </div>
-              <br>
-              <div>
-                <label for="stakeholderEmail">E-Mail</label>
-                <input type="email" name="email" id="stakeholderEmail" maxlength="100"
-                      pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Email Adresse des Ansprechpartners" required>
-              </div>
-              <div>
-                <label for="stakeholderPhone">Telefon</label>
-                <input type="text" name="phone" id="stakeholderPhone" maxlength="16"
-                      pattern="[0-9\s\+]+" title="Telefonnummer des Ansprechpartners" required>
-              </div>
-
-              <input type="submit" value="Senden" id="submitStakeholder" disabled>
-
-              <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
-                <input type="checkbox" id="confirmedStakeholder" onchange="allowSubmitStakeholder()" style="margin-left: -20px;">
-                Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und stimme zu, dass meine Kontaktdaten gespeichert und genutzt werden dürfen, um mich für Rückfragen zu kontaktieren und mich mit Personen in Kontakt zu bringen, die sich auf dieser Seite als Helfer:innen registriert haben.
-              </label>
-            </form>
-            <script>
-              function allowSubmitStakeholder() {
-                const confirmed = $('#confirmedStakeholder').is(':checked');
-                $('#submitStakeholder').prop('disabled', !confirmed);
-                $('#submitStakeholder').prop('title', confirmed ? 'Los gehts!' : 'Bitte Datenschutzbestimmungen akzeptieren');
-              }
-            </script>
+            <p>
+              Suchst Du oder Deine Organisation Unterstützung?
+              Möchstest Du eine ImmunHeld:in für eine Tätigkeit finden?
+              Dann mach mit und <a href="https://dev.immunhelden.de/partner/login/">registriere Dich hier</a>.
+            </p>
           </div>
         </div>
       </section>
