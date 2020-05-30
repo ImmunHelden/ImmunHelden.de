@@ -42,6 +42,14 @@
         "function": "addImmuneHero"
       },
       {
+        "source": "/confirmImmuneHero",
+        "function": "confirmImmuneHeroEU"
+      },
+      {
+        "source": "/removeImmuneHero",
+        "function": "removeImmuneHeroEU"
+      },
+      {
         "source": "/submitHeldenInfo",
         "function": "submitHeldenInfo"
       },
