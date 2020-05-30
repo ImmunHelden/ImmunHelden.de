@@ -5,13 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-    <meta name="description" content="Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren? Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen." />
-    <meta name="keywords" content="Helden COVID-19 Immunität Corona RPK-Plasma Spende Blutplasma WirVsVirus Community" />
+    <meta name="description" content="You recovered from COVID-19 and now you want to use your immunity for the benefit of the public good? Join our community and become an immune hero! We keep you updated about ways to help in your area." />
+    <meta name="keywords" content="hero heroes COVID-19 immunity Corona convalescence donation donate blood plasma WirVsVirus community" />
 
     <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Nutze Deine Immunität zum Wohle aller"/>
-    <meta property="og:description" content="Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren? Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen."/>
-    <meta property="og:url" content="https://immunhelden.de"/>
+    <meta property="og:title" content="Use your immunity for the benefit of everyone"/>
+    <meta property="og:description" content="You recovered from COVID-19 and now you want to use your immunity for the benefit of the public good? Join our community and become an immune hero! We keep you updated about ways to help in your area."/>
+    <meta property="og:url" content="https://immunhelden.eu"/>
     <meta property="og:image" content="https://immunhelden.de/images/logo_square.png"/>
     <meta property="og:updated_time" content="2020-05-28T18:00:00-02:00" />
     <meta property="og:image:width" content="987" />
@@ -19,14 +19,14 @@
 
     <meta name="twitter:card" content="player">
     <meta name="twitter:site" content="@ImmunHelden">
-    <meta name="twitter:url" content="https://immunhelden.de"/>
-    <meta name="twitter:title" content="Nutze Deine Immunität zum Wohle aller">
-    <meta name="twitter:description" content="Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren? Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen.">
+    <meta name="twitter:url" content="https://immunhelden.eu"/>
+    <meta name="twitter:title" content="Use your immunity for the benefit of everyone">
+    <meta name="twitter:description" content="You recovered from COVID-19 and now you want to help others? Join our community and become an immune hero! We keep you updated about ways to help in your area.">
     <meta name="twitter:image" content="https://immunhelden.de/images/logo_square.png">
     <meta name="twitter:image:width" content="987" />
     <meta name="twitter:image:height" content="987" />
-    <meta name="twitter:image:alt" content="https://www.youtube.com/watch?v=fyPF3RUv00A">
-    <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/fyPF3RUv00A?html5=1">
+    <meta name="twitter:image:alt" content="https://www.youtube.com/watch?v=61HJz_PGbiI">
+    <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/61HJz_PGbiI?html5=1">
     <meta name="twitter:player:width" content="800">
     <meta name="twitter:player:height" content="600">
 
@@ -41,6 +41,13 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <style>
       @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
+
+      @font-face {
+        font-family: 'Noteworthy Light';
+        font-style: normal;
+        font-weight: normal;
+        src: local('Noteworthy Light'), url('assets/fonts/Noteworthy-Lt.woff') format('woff');
+      }
 
       body {
         font-family: "Raleway", Arial, Helvetica, sans-serif;
@@ -76,6 +83,7 @@
 
       section#youknow {
         padding: 2rem;
+        padding-top: 4rem;
       }
       section#youknow div.content {
         background-repeat: no-repeat;
@@ -110,11 +118,11 @@
         box-sizing: border-box;
       }
 
-      section#partner {
+      section#organizations {
         background: linear-gradient(90deg, #c4deb7, #c4deb788);
       }
 
-      section#partner div.illustration {
+      section#organizations div.illustration {
         flex: none;
         justify-content: top;
       }
@@ -132,7 +140,8 @@
       }
 
       header a.logo {
-        background: url('images/logo_default.png');
+        font-family: 'Noteworthy Light';
+        background: url('images/superhero.png');
         background-size: contain;
         background-repeat: no-repeat;
         display: block;
@@ -278,7 +287,7 @@
         }
         section#youknow div.content {
           width: 100%;
-          padding: 2rem 0;
+          padding: 4rem 0 2rem 0;
         }
         section#youknow div.description {
           padding: 0 2rem;
@@ -300,10 +309,10 @@
           width: 100%;
         }
 
-        section#partner div.content {
+        section#organizations div.content {
           flex-direction: column-reverse;
         }
-        section#partner div.illustration {
+        section#organizations div.illustration {
           display: none;
         }
 
@@ -374,6 +383,14 @@
         font-weight: 300;
         margin-top: 2rem;
       }
+      select {
+        font-family: Raleway, sans-serif;
+        font-size: 1rem;
+        padding: 7px;
+        border-radius: 4px;
+        border: solid 1px rgba(0, 0, 0, 0.25);
+        background-color: rgba(0, 0, 0, 0.075);
+      }
       .overlay-followup {
         position: absolute;
         left: 0px; top: 0px; width: 100%; height: 100%;
@@ -424,41 +441,97 @@
 
           <div class="sign-up">
             <h2>
-              <div style="display: inline-block;">Ich bin immun,</div>
-              <div style="display: inline-block;">was kann ich tun?</div>
+              <div style="display: inline-block;">I am immune,</div>
+              <div style="display: inline-block;">how can I help?</div>
             </h2>
-            <p>Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren?</p>
-            <p>Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen.</p>
+            <p>You recovered from COVID-19 and now you want to use your immunity for the benefit of the public good?</p>
+            <p>Join our community and become an immune hero! We keep you updated about ways to help in your area.</p>
 
-            <form action="/addImmuneHero" method="POST" id="subscribe">
-              <input type="hidden" name="countryCode" value=".de">
+            <form action="/addImmuneHeroEU" method="POST" id="subscribe">
               <div>
-                <label for="zipCode">Postleitzahl</label>
-                <input type="text" name="zipCode" style="width: 5rem;" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
+                <label for="countryCode">Country</label>
+                <select name="countryCode" style="width: 4rem;" id="countryCode" required>
+                  <option value=""></option>
+                  <option value=".ad">.ad</option>
+                  <option value=".al">.al</option>
+                  <option value=".at">.at</option>
+                  <option value=".ba">.ba</option>
+                  <option value=".be">.be</option>
+                  <option value=".bg">.bg</option>
+                  <option value=".by">.by</option>
+                  <option value=".ch">.ch</option>
+                  <option value=".cy">.cy</option>
+                  <option value=".cz">.cz</option>
+                  <option value=".de">.de</option>
+                  <option value=".dk">.dk</option>
+                  <option value=".ee">.ee</option>
+                  <option value=".es">.es</option>
+                  <option value=".eu">.eu</option>
+                  <option value=".fi">.fi</option>
+                  <option value=".fo">.fo</option>
+                  <option value=".fr">.fr</option>
+                  <option value=".gg">.gg</option>
+                  <option value=".gi">.gi</option>
+                  <option value=".gr">.gr</option>
+                  <option value=".hr">.hr</option>
+                  <option value=".hu">.hu</option>
+                  <option value=".ie">.ie</option>
+                  <option value=".is">.is</option>
+                  <option value=".it">.it</option>
+                  <option value=".je">.je</option>
+                  <option value=".li">.li</option>
+                  <option value=".lt">.lt</option>
+                  <option value=".lu">.lu</option>
+                  <option value=".lv">.lv</option>
+                  <option value=".mc">.mc</option>
+                  <option value=".md">.md</option>
+                  <option value=".me">.me</option>
+                  <option value=".mk">.mk</option>
+                  <option value=".mt">.mt</option>
+                  <option value=".nl">.nl</option>
+                  <option value=".no">.no</option>
+                  <option value=".pl">.pl</option>
+                  <option value=".pt">.pt</option>
+                  <option value=".ro">.ro</option>
+                  <option value=".rs">.rs</option>
+                  <option value=".se">.se</option>
+                  <option value=".si">.si</option>
+                  <option value=".sk">.sk</option>
+                  <option value=".sm">.sm</option>
+                  <option value=".tr">.tr</option>
+                  <option value=".ua">.ua</option>
+                  <option value=".ua">.uk</option>
+                  <option value=".va">.va</option>
+                </select>
+              </div>
+              <div>
+                <label for="zipCode">ZIP code</label>
+                <input type="text" name="zipCode" style="width: 5rem;" id="zipCode" maxlength="10" title="Your local area code" required>
               </div>
               <div>
                 <label for="email">E-Mail</label>
-                <input type="email" name="email" style="width: 8rem;" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
-                <input type="submit" value="Los gehts!" id="submitHero" title="Bitte Datenschutzbestimmungen akzeptieren">
+                <input type="email" name="email" style="width: 8rem;" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Your email address" required>
+                <input type="submit" value="Go!" id="submitHero" title="Please confirm the Data Privacy Statement">
               </div>
               <div>
                 <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
                   <input type="checkbox" name="datenschutz" id="confirmedHero" style="margin-left: -20px;" required>
-                  Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und möchte informiert werden, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
+                  I confirm to have read and understood the <a href="https://immunhelden.de/datenschutz.html">Data Privacy Statement</a> and I want to be informed about ways to help in my area. My data will not be disclosed to anyone.
                 </label>
               </div>
             </form>
+
             <script>
               function subscriptionMessage(state) {
                 switch (state) {
                   case 'singleOptIn':
-                    return '✓ ImmunHelden Updates erfolgreich abonniert. Wir haben Dir eine E-Mail gesendet. Bitte schau rein und bestätige Deine E-Mail Adresse.';
+                    return '✓ Subscribed to ImmunHelden Updates. Please check you inbox and confirm your email address.';
                   case 'doubleOptIn':
-                    return '✓ Danke dass Du Deine E-Mail Adresse bestätigt hast. Bald werden die ersten ImmunHelden Updates in Deinem Posteingang landen.';
+                    return '✓ Thanks for confirming your email address. You will receive your first ImmunHelden Update soon.';
                   case 'optOut':
-                    return '✓ Dein Abonnement für die ImmunHelden Updates ist beendet. Deine Kontaktdaten wurden gelöscht.';
+                    return '✓ Unsubscribed from ImmunHelden Updates.';
                   default:
-                    return 'Irgendwas ist schief gelaufen! Bitte <a href="#questions">schreib uns</a> und erkläre kurz was passiert ist, sodass wir den Fehler schnell beheben können!';
+                    return 'Something went wrong! Please <a href="#questions">get in touch and tell us what happened</a>, so we can fix it asap!';
                 }
               }
 
@@ -478,11 +551,61 @@
         <div class="padding right"></div>
       </section>
 
+      <style>
+        section.signUpEU {
+          background: #ffe73b;
+          padding: 0;
+        }
+        section.signUpEU div.content2 {
+          justify-content: center;
+          max-width: 60rem;
+          font-size: 2.2rem;
+          text-align: center;
+          line-height: 2.75rem;
+          overflow: hidden;
+        }
+        #scrollBoxSignUp {
+          display: block;
+          padding: 0;
+        }
+        #scrollBoxSignUp a {
+          text-decoration: underline;
+        }
+        #scrollBoxSignUp ul {
+          padding: 0;
+          /*
+          margin: 0;
+          width: 60rem;
+          height: 10rem;
+          overflow: hidden;*/
+        }
+        #scrollBoxSignUp ul li {
+          display: inline-block;
+          text-align: center;
+          padding: 2rem;
+          font-size: 2rem;
+          line-height: 2.5rem;
+          /*width: 60rem;
+          height: 6rem;*/
+        }
+      </style>
+
+      <section class="signUpEU">
+        <div id="scrollBoxSignUp" class="scroll-text">
+          <ul>
+            <li>
+              We are building a map of COVID-19 plasma donation centres across the EU.
+              <a href="https://dev.immunhelden.de/de/partner/login/">Sign up now</a> and add locations in your country!
+            </li>
+          </ul>
+        </div>
+      </section>
+
       <section id="youknow">
         <div class="content">
           <div class="description" style="flex: 1;">
             <h2>
-              Mit Heldentaten durch die Corona Pandemie
+              Use your immunity for the benefit of everyone
             </h2>
           </div>
           <div style="flex: 5;">
@@ -494,7 +617,7 @@
           var youknowContentRatio = 2.1;
           function loadYouKnowVideo() {
             $('#youknow > div.content').html(
-              '<iframe id="youknow-video" src="https://www.youtube-nocookie.com/embed/fyPF3RUv00A?html5=1&autoplay=1"' +
+              '<iframe id="youknow-video" src="https://www.youtube-nocookie.com/embed/61HJz_PGbiI?html5=1&autoplay=1"' +
               '        allowfullscreen="1" frameborder="0" title="YouTube video player"' +
               '        allow="autoplay; picture-in-picture"></iframe>');
             // On resize scale the new element with its 16/9 ratio.
@@ -541,20 +664,20 @@
         <div class="content">
           <div style="flex: 1;">
             <iframe sandbox="allow-scripts allow-top-navigation allow-same-origin"
-                    src="/maps/plasma/?zoom=5&amp;embedded=true"></iframe>
+                    src="https://immunhelden.de/maps/plasma/?zoom=5&amp;embedded=true"></iframe>
           </div>
           <div class="description" style="flex: 1;">
             <h2>
-              Blutplasmaspende
+              Plasma Donation
             </h2>
             <p>
-              Während deines Kampfes gegen COVID-19 hat dein Immunsystem Antikörper gegen das Virus gebildet. Sie haben dir geholfen, das Virus zu besiegen und finden sich nun in deinem Blutplasma.
+              Throughout your battle against COVID-19, your immune system developed antibodies against the virus. helped you to conquer the virus and now they are in your blood plasma.
             </p>
             <p>
-              Wenn du alle gesundheitlichen Kriterien erfüllst, kannst du mit deiner Spende schwer Erkrankten im Kampf gegen COVID-19 helfen. Oder einen Beitrag zur Forschung über Antikörper leisten.
+              If you fulfill all of the health criteria, then you can help those who are seriously ill to combat COVID-19 by making a donation. Or contribute to research efforts on antibodies.
             </p>
             <p>
-              Eine passende Spendeeinrichtung in Deiner Nähe findest du auf unserer <a href="/maps/plasma/">ImmunHelden Map</a>.
+              Our <a href="https://immunhelden.de/maps/plasma/">ImmunHelden Map</a> can help you find a suitable facility for plasma donations in your area.
             </p>
           </div>
         </div>
@@ -564,22 +687,22 @@
         <div class="content">
           <div style="flex: 2;">
             <h2>
-              Häufige Fragen
+              Frequently asked questions
             </h2>
             <p>
-              Aufmerksam verfolgen wir den aktuellen Stand der Forschung zur Immunität gegen das neuartige Corona Virus. Viele Fragen beantwortet <a href="faq.html">unsere FAQ</a>.
+              We are closely following the current state of research on immunity against the novel corona virus. Our <a href="https://immunhelden.de/faq.html">Our FAQ</a> can answer many questions.
             </p>
           </div>
           <div style="flex: 4;">
-            <p>Hast du eine Frage? Dann schreib uns direkt und wir melden uns bei dir!</p>
-            <form>
-              <textarea id="message" rows="6" placeholder="Gibt hier deine Anfrage ein" required></textarea>
-              <input type="text" id="contact" style="width: 100%; margin-bottom: 5px;" placeholder="Email / Telefon" required>
+            <p>You have another question or want ot get in touch? Leave us a message and we will get back to you soon!</p>
+            <form id="contactForm">
+              <textarea id="message" rows="6" placeholder="Type your message here" required></textarea>
+              <input type="text" id="contact" style="width: 100%; margin-bottom: 5px;" placeholder="Your email address">
               <input type="submit" value="Senden" id="submitQuestion" onclick="sendSupportRequest()">
 
               <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
                 <input type="checkbox" id="confirmedQuestion" style="margin-left: -20px;" required>
-                Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> verstanden und stimme zu, dass meine Kontaktdaten für die Beantwortung meiner Frage gespeichert und genutzt werden dürfen.
+                I confirm to have read and understood the <a href="https://immunhelden.de/datenschutz.html">Data Privacy Statement</a>. My concat data will be used solely for following up on my message.
               </label>
             </form>
             <script>
@@ -592,7 +715,7 @@
 
               function sendSupportRequest() {
                 if ($('#contact').val().length == 0) {
-                  if (!confirm("Du hast keine E-Mail Adresse hinterlegt. Das ist ok, aber bedenke, dass wir Dir dann nicht anworten können. Bist du sicher?")) {
+                  if (!confirm("You didn't write down your email address. This is ok, we just cannot get back to you for a followup. Are you sure?")) {
                     return;
                   }
                 }
@@ -611,8 +734,8 @@
                                 kkl('T012TN47R7K', 8) + '/' +
                                 kkl('zBl73CY5pLsDH8TUgZSzsXtp', 1),
                   data: JSON.stringify({
-                    "text": "*Anfrage:*\n" + $("#message").val() + "\n" +
-                            "*Kontakt:* " + $("#contact").val()
+                    "text": "*Request:*\n" + $("#message").val() + "\n" +
+                            "*Contact:* " + $("#contact").val()
                   })
                 };
 
@@ -637,32 +760,14 @@
           </div>
         </div>
       </section>
-
-      <section id="partner">
-        <div class="content">
-          <div class="illustration">
-            <img src="images/together.png" alt="together" style="width: 10rem;">
-          </div>
-          <div class="description">
-            <h2>
-              Frage ImmunHelden an
-            </h2>
-            <p>
-              Suchst Du oder Deine Organisation Unterstützung?
-              Möchstest Du eine ImmunHeld:in für eine Tätigkeit finden?
-              Dann mach mit und <a href="https://dev.immunhelden.de/partner/login/">registriere Dich hier</a>.
-            </p>
-          </div>
-        </div>
-      </section>
     </div>
 
     <section id="footer">
       <div class="content">
         <div style="margin-top: 1.5rem">
           <ul class="alt">
-            <li><a href="impressum.html">Impressum</a></li>
-            <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+            <li><a href="https://immunhelden.de/impressum.html">Impressum</a></li>
+            <li><a href="https://immunhelden.de/datenschutz.html">Datenschutzerklärung</a></li>
             <li>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a></li>
           </ul>
         </div>
