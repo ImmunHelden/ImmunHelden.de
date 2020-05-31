@@ -389,7 +389,7 @@
     "address": "Brandenburger Straße 21, 26133 Oldenburg",
     "phone": "0441 9440118",
     "email": "plasma@bsd-nstob.de",
-    "url": "http://www.blutspende-nstob.de/Indoor/Blutspendedienst/Institute/Oldenburg/",
+    "url": "https://www.blutspende-leben.de/ueber-uns/standorte/institut-bremen-oldenburg-standort-oldenburg",
     "id": "blutspendende-kEsFRxO1Ytv"
   },
   {
@@ -843,5 +843,12 @@
     "email": "covid19@haema.de",
     "url": "https://www.haema.de/blutspendedienst.html",
     "id": "blutspendende-Av5vJ0hoV7n"
+  },
+  {
+    "title": "DRK-Blutspendedienst Dessau",
+    "address": "Altener Damm 50, 06847 Dessau",
+    "phone": "0340 541 410",
+    "url": "https://www.blutspende-leben.de/ueber-uns/standorte/institut-dessau",
+    "id": "de-drk-nstob-dessau"
   }
 ]
