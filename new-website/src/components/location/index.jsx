@@ -19,7 +19,7 @@ const getQuery = partner => {
     if (isNode()) {
         return null
     }
-    return firebase.firestore().collection(LOCATION_COLLECTION).where("partnerID", "==", partner)
+    return firebase.firestore().collection(LOCATION_COLLECTION).where("partnerId", "==", partner)
 }
 
 export const LocationOverview = () => {

@@ -22,7 +22,7 @@ export const LocationTable = ({ partner, locations = [] }) => {
         return firebase
             .firestore()
             .collection(LOCATION_COLLECTION)
-            .add({ ...rest, partnerID: partner })
+            .add({ ...rest, partnerId: partner })
             .catch(err => console.log(err.message))
     }
 
