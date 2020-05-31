@@ -46,7 +46,7 @@ function readableErrorMessage(code, message) {
     return `${code} - ${message}`
 }
 
-const screens = {
+export const screens = {
     LOGIN: "login",
     REGISTER: "register",
     VERIFY: "verify",
@@ -54,8 +54,8 @@ const screens = {
 
 const isUserEmailVerified = user => user?.emailVerified
 
-export const LoginRegisterForm = ({ loginSuccessUrl }) => {
-    const [showScreen, setShowScreen] = useState(screens.LOGIN)
+export const LoginRegisterForm = ({ loginSuccessUrl, screen = screens.LOGIN }) => {
+    const [showScreen, setShowScreen] = useState(screen)
 
     const { user } = useAuth(firebase)
     const [alert, setAlert] = useState({
