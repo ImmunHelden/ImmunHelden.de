@@ -11,5 +11,10 @@
     "postCodeShort": "PLZ",
     "email": "Email",
     "letsGoButtonText": "✔️ lets go!",
-    "partnerLocationsTitle": "Your locations on the map"
+    "partnerLocationsTitle": "Your locations on the map",
+    "locationTable_Title": "Title",
+    "locationTable_Address": "Address",
+    "locationTable_Phone": "Phonenumber",
+    "locationTable_Email": "Email",
+    "locationTable_Contact": "Contact"
 }
