@@ -227,3 +227,32 @@ exports.render = functions.https.onRequest(async (req, res) => {
     res.send(htmls.join('\n<br>\n'));
   }
 });
+
+exports.importJson = async function(db, collection, url, partnerId) {
+  try {
+    const json = await rp.get({ uri: url, json: true });
+    if (!json.hasOwnProperty('length')) {
+      console.error(`Error loading '${url}':`, json);
+      return;
+    }
+
+    console.log(`${url} provides dataset with ${json.length} entries`)
+    for (const entry of json) {
+      const doc = await db.collection(collection).doc(entry.id).get();
+      if (doc.exists) {
+        console.log(`${entry.id} exists. No overwrite.`);
+      } else {
+        const id = entry.id;
+        delete entry.id;
+        if (partnerId) {
+          entry.partnerId = partnerId;
+        }
+        console.log(`Add document ${id}:`, entry);
+        await doc.ref.set(entry);
+      }
+    }
+  }
+  catch (err) {
+    console.error(`Error importing '${url}' into collection '${collection}':`, err);
+  }
+}
