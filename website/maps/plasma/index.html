@@ -39,60 +39,9 @@
   <style>
     @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
 
-    @font-face {
-      font-family: 'Noteworthy Light';
-      font-style: normal;
-      font-weight: normal;
-      src: local('Noteworthy Light'), url('../../assets/fonts/Noteworthy-Lt.woff') format('woff');
-    }
-
     body {
       font-family: "Raleway", Arial, Helvetica, sans-serif;
       margin: 0;
-    }
-
-    path {
-      stroke: rgb(136, 136, 136);
-      stroke-opacity: 0.2;
-      stroke-width: 1;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      fill: #008000;
-      fill-opacity: 0.025;
-    }
-
-    div.popup-pin td {
-      vertical-align: top;
-    }
-
-    div.popup-pin img.expander {
-      width: auto;
-      height: 1.2rem;
-    }
-
-    div.popup-immuneheroes b {
-      font-size: 1.5rem;
-      color: #d3303b;
-    }
-    div.popup-immuneheroes img {
-      height: 1.2rem;
-      width: auto;
-    }
-    div.popup-clinic img {
-      height: 2rem;
-      float: left;
-    }
-    div.popup-clinic div {
-      padding-left: 2.5rem;
-      padding-bottom: 0.5rem;
-    }
-    .nuts-polygon {
-      fill: #479325;
-      stroke: #479325;
-      stroke-width: 1.5px;
-      stroke-opacity: 0.75;
-      fill-opacity: 0.05;
-      stroke-linecap: round;
     }
 
     div#osm-map {
@@ -119,51 +68,32 @@
     header a:link, header a:visited, header a:hover, header a:active {
       color: #393939;
       text-decoration: none;
-      padding: 0 10px;
     }
     header a.logo {
-      display: block;
-      height: 1.66rem;
-      flex: none;
-
-      background: url('../../images/superhero.png');
+      width: 4rem;
+      height: 2rem;
+      padding: 0 0.5rem;
+      background: url(../../images/logo_default.png);
       background-size: contain;
       background-repeat: no-repeat;
-      background-position: center left;
-      margin-left: 1rem;
-      padding-left: 2.5rem;
-
-      font-family: 'Noteworthy Light';
+      background-position: center;
     }
     header a.subscribe {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 44px;
-      height: 44px;
-      background: #fff;
-      padding: 0.5rem;
-      margin: 0;
-      box-sizing: border-box;
-    }
-    header a.subscribe img {
-      width: auto;
-      height: 100%;
+      width: 2rem;
+      height: 2rem;
+      padding: 0 0.5rem;
+      background: url(../images/subscribe.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   </style>
 </head>
 <body>
   <header>
-    <a href="../../" class="logo">ImmunHelden</a>
-    <a href="https://twitter.com/search?q=%23SpendeCOVIDPlasma" target="_blank">
-      #SpendeCOVIDPlasma
-    </a>
-    <a href="https://twitter.com/WirvsVirusHack" target="_blank">
-      <img src="../../images/wirvsvirusSE.png" alt="wirvsvirus" style="height: 40px; margin-top: 2px;">
-    </a>
-    <a href="javascript:void(0)" onclick="showSubscribeInDetailsPane()" class="subscribe">
-      <img src="../images/subscribe.png" alt="subscribe">
-    </a>
+    <a href="../../" class="logo" style="flex: initial;"></a>
+    <p style="flex: auto;">Blutplasmaspende</p>
+    <a href="javascript:void(0)" onclick="showSubscribeInDetailsPane()" class="subscribe" style="flex: initial;"></a>
   </header>
 
   <div id="osm-map"></div>
