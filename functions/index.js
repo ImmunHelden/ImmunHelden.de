@@ -16,6 +16,18 @@ exports.renderFaq = messageTemplates.renderFaq;
 
 admin.initializeApp(functions.config().firebase);
 
+// Import JSON data for plasma locations. Admin use only.
+// Run locally with service account connected:
+//
+// % export GOOGLE_APPLICATION_CREDENTIALS=/Users/staefsn/.ssh/immunhelden-b4cf6fd1620c.json
+// % firebase serve --host 0.0.0.0
+//
+(async () => {
+  const dataBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data';
+  await toolsBlutspendenDe.importJson(admin.firestore(), 'plasma', `${dataBaseUrl}/blutspenden.de/blutspenden-clean.json`, 'SM9fYu3nXzkxURTpCOQ2');
+  await toolsBlutspendenDe.importJson(admin.firestore(), 'plasma', `${dataBaseUrl}/biolife/austria.json`, 'ua6VnlnzaErnTqjjJYnm');
+})();
+
 // CORS Express middleware to enable CORS Requests.
 const cors = require("cors")({
   origin: true,
