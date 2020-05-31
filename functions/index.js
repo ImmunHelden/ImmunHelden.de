@@ -42,30 +42,33 @@ function parseBool(string) {
 }
 
 exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
-  if (req.method !== "POST") {
-    res.status(400).send("Please send a POST request");
-    return;
+  try {
+    if (req.method !== "POST" || !parseBool(req.body.datenschutz))
+      throw "Invalid request";
+
+    const hero = await admin.firestore().collection("heroes").add({
+      email: req.body.email,
+      zipCode: req.body.zipCode,
+      countryCode: req.body.countryCode,
+    });
+
+    // Render E-Mail
+    const msg = await messageTemplates.render("email/de/hero_welcome.md", {
+      link_hero_double_opt_in: `https://immunhelden.de/confirmImmuneHero?id=${hero.id}`,
+      link_hero_opt_out: `https://immunhelden.de/removeImmuneHero?id=${hero.id}`,
+    });
+
+    // Trigger E-Mail
+    admin.firestore().collection("mail").add({
+      to: req.body.email,
+      message: msg,
+    });
+
+    res.redirect("../?subscribe=singleOptIn");
+  } catch (err) {
+    console.error(err);
+    res.redirect("../?subscribe=fail");
   }
-
-  const newHeroRef = await admin.database().ref("/heroes").push();
-  newHeroRef.set({
-    email: req.body.email,
-    zipCode: req.body.zipCode,
-  });
-
-  // Render E-Mail
-  const msg = await messageTemplates.render("email/de/hero_welcome.md", {
-    link_hero_double_opt_in: `https://immunhelden.de/verifyHero?key=${newHeroRef.key}`,
-    link_hero_opt_out: `https://immunhelden.de/deleteHero?key=${newHeroRef.key}`,
-  });
-
-  // Trigger E-Mail
-  admin.firestore().collection("mail").add({
-    to: req.body.email,
-    message: msg,
-  });
-
-  res.redirect(`../heldeninfo.html?key=${newHeroRef.key}`);
 });
 
 exports.verifyHero = functions.https.onRequest(async (req, res) => {
@@ -128,6 +131,70 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
   } catch (err) {
     console.error(`Error Message:`, err);
     res.status(400).send("Invalid request. See function logs for details.");
+  }
+});
+
+exports.addImmuneHeroEU = functions.https.onRequest(async (req, res) => {
+  try {
+    if (req.method !== "POST" || !parseBool(req.body.datenschutz))
+      throw "Invalid request";
+
+    const hero = await admin.firestore().collection("heroes").add({
+      email: req.body.email,
+      zipCode: req.body.zipCode,
+      countryCode: req.body.countryCode,
+    });
+
+    // Render E-Mail
+    const msg = await messageTemplates.render("email/en/hero_welcome.md", {
+      link_hero_double_opt_in: `https://immunhelden.eu/confirmImmuneHeroEU?id=${hero.id}`,
+      link_hero_opt_out: `https://immunhelden.eu/removeImmuneHeroEU?id=${hero.id}`,
+    });
+
+    // Trigger E-Mail
+    admin.firestore().collection("mail").add({
+      to: req.body.email,
+      message: msg,
+    });
+
+    res.redirect("../?subscribe=singleOptIn");
+  } catch (err) {
+    console.error(err);
+    res.redirect("../?subscribe=fail");
+  }
+});
+
+exports.confirmImmuneHeroEU = functions.https.onRequest(async (req, res) => {
+  try {
+    if (req.method !== "GET" || !req.query.hasOwnProperty("id"))
+      throw "Invalid request";
+
+    const ref = admin.firestore().collection("heroes").doc(req.query.id);
+    const doc = await ref.get();
+    if (!doc.exists) throw `Cannot find hero with ID ${req.query.id}`;
+
+    ref.update({ doubleOptIn: true });
+    res.redirect("../?subscribe=doubleOptIn");
+  } catch (err) {
+    console.error(err);
+    res.status(400).send(`Error: ${err}`);
+  }
+});
+
+exports.removeImmuneHeroEU = functions.https.onRequest(async (req, res) => {
+  try {
+    if (req.method !== "GET" || !req.query.hasOwnProperty("id"))
+      throw "Invalid request";
+
+    const ref = admin.firestore().collection("heroes").doc(req.query.id);
+    const doc = await ref.get();
+    if (!doc.exists) throw `Cannot find hero with ID ${req.query.id}`;
+
+    ref.delete();
+    res.redirect("../?subscribe=optOut");
+  } catch (err) {
+    console.error(err);
+    res.status(400).send(`Error: ${err}`);
   }
 });
 

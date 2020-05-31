@@ -468,41 +468,6 @@
       8.5313904
     ]
   },
-  "blutspendende-8NJeZlFMcUo": {
-    "title": "octapharma Plasma Hagen",
-    "latlng": [
-      51.358434,
-      7.4721242
-    ]
-  },
-  "blutspendende-2RyU6m0a1QM": {
-    "title": "octapharma Plasma Krefeld",
-    "latlng": [
-      51.332386,
-      6.564713
-    ]
-  },
-  "blutspendende-teV-I29_GM0": {
-    "title": "octapharma Plasma Mönchengladbach",
-    "latlng": [
-      51.1953328,
-      6.4468474
-    ]
-  },
-  "blutspendende-RmDSAk8xXGx": {
-    "title": "octapharma Plasma Oberhausen",
-    "latlng": [
-      51.474943,
-      6.8426345
-    ]
-  },
-  "blutspendende-6uCcTL93Muz": {
-    "title": "octapharma Plasma Koblenz",
-    "latlng": [
-      50.3594705,
-      7.5937025
-    ]
-  },
   "blutspendende-dBBpkOgvtUi": {
     "title": "Blutspendedienst am Universitätsklinikum des Saarlandes Homburg",
     "latlng": [
@@ -657,13 +622,6 @@
       11.6198087
     ]
   },
-  "blutspendende-Rd_vCHuV5_a": {
-    "title": "octapharma Plasma Dessau",
-    "latlng": [
-      51.83408,
-      12.243
-    ]
-  },
   "blutspendende-Si9mv-RPUNa": {
     "title": "UKSH Blutspendezentrum am Campus Lübeck",
     "latlng": [
@@ -816,6 +774,13 @@
     "latlng": [
       46.624778,
       14.312264
+    ]
+  },
+  "de-drk-nstob-dessau": {
+    "title": "DRK-Blutspendedienst Dessau",
+    "latlng": [
+      51.814098,
+      12.1995
     ]
   }
 }

@@ -134,11 +134,11 @@ exports.render = functions.https.onRequest(async (req, res) => {
 
   const streamlinePhone = (str) => {
     const digits = str.replace(/\D/g,'');
-    if (str.charAt(0) == '+')
+    if (str.charAt(0) === '+')
       return '+' + digits;
     if (str.startsWith('00'))
       return '+' + str.substring(2);
-    if (str.charAt(0) == '0') // German number
+    if (str.charAt(0) === '0') // German number
       return '+49' + str.substring(1);
     throw new Error('Unrecognized format in phone number: ' + str);
   };
@@ -153,7 +153,7 @@ exports.render = functions.https.onRequest(async (req, res) => {
       }
     }
     if (rec.hasOwnProperty('phone')) {
-      const prefix = (rec.phone.charAt(0) == '+' || rec.phone.startsWith('00')) ? '+' : null;
+      const prefix = (rec.phone.charAt(0) === '+' || rec.phone.startsWith('00')) ? '+' : null;
       const digits = rec.phone.replace(/\D/g,'');
       const international = prefix ? prefix + digits : digits.replace(/^0/g,'+49');
       lines.push(`<div class="phone"><a href="tel:${international}">${rec.phone}</a></div>`);

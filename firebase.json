@@ -3,160 +3,217 @@
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\" run lint"
     ],
-    "source": "functions"
+    "rewrites": [
+      {
+        "source": "/verifyHero",
+        "function": "verifyHero"
+      },
+      {
+        "source": "/deleteHero",
+        "function": "deleteHero"
+      },
+      {
+        "source": "/sendExampleMail",
+        "function": "sendExampleMail"
+      },
+      {
+        "source": "/doSendExampleMail",
+        "function": "doSendExampleMail"
+      },
+      {
+        "source": "/parseBlutspendenDe",
+        "function": "parseBlutspendenDe"
+      },
+      {
+        "source": "/renderBlutspendenDe",
+        "function": "renderBlutspendenDe"
+      },
+      {
+        "source": "/addImmuneHero",
+        "function": "addImmuneHero"
+      },
+      {
+        "source": "/confirmImmuneHero",
+        "function": "confirmImmuneHeroEU"
+      },
+      {
+        "source": "/removeImmuneHero",
+        "function": "removeImmuneHeroEU"
+      },
+      {
+        "source": "/submitHeldenInfo",
+        "function": "submitHeldenInfo"
+      },
+      {
+        "source": "/addStakeHolder",
+        "function": "addStakeHolder"
+      },
+      {
+        "source": "/verifyOrg",
+        "function": "verifyOrg"
+      },
+      {
+        "source": "/deleteOrg",
+        "function": "deleteOrg"
+      },
+      {
+        "source": "/doneVerifyStakeholderPin",
+        "function": "doneVerifyStakeholderPin"
+      },
+      {
+        "source": "/maps/sample/pins",
+        "function": "pin_locations"
+      },
+      {
+        "source": "/maps/sample/regions",
+        "function": "regions"
+      },
+      {
+        "source": "/maps/sample/details/*",
+        "function": "details_html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   },
-  "firestore": {
-    "rules": "rules/firestore.rules"
+  {
+    "target": "dev",
+    "public": "new-website/public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/addImmuneHero",
+        "function": "addImmuneHero"
+      },
+      {
+        "source": "/addStakeHolder",
+        "function": "addStakeHolder"
+      },
+      {
+        "source": "/getAllStakeHoldersAsJson",
+        "function": "getAllStakeHoldersAsJson"
+      },
+      {
+        "source": "/getAllImmuneHeroesNutsAsJson",
+        "function": "getAllImmuneHeroesNutsAsJson"
+      },
+      {
+        "source": "/doneVerifyStakeholderPin",
+        "function": "doneVerifyStakeholderPin"
+      },
+      {
+        "source": "/contactStakeholder",
+        "function": "contactStakeholder"
+      },
+      {
+        "source": "/demo/pins",
+        "function": "pin_locations"
+      },
+      {
+        "source": "/demo/regions",
+        "function": "regions"
+      },
+      {
+        "source": "/demo/details_html",
+        "function": "details_html"
+      },
+      {
+        "source": "/map/pins",
+        "function": "pin_locations"
+      },
+      {
+        "source": "/map/regions",
+        "function": "regions"
+      },
+      {
+        "source": "/map/details_html",
+        "function": "details_html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   },
-  "emulators": {
-    "firestore": {
-      "port": 8080
-    },
-    "functions": {
-      "port": ""
-    },
-    "hosting": {
-      "port": 5000
-    }
-  },
-  "hosting": [
-    {
-      "target": "default",
-      "public": "website",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "/verifyHero",
-          "function": "verifyHero"
-        },
-        {
-          "source": "/deleteHero",
-          "function": "deleteHero"
-        },
-        {
-          "source": "/sendExampleMail",
-          "function": "sendExampleMail"
-        },
-        {
-          "source": "/doSendExampleMail",
-          "function": "doSendExampleMail"
-        },
-        {
-          "source": "/parseBlutspendenDe",
-          "function": "parseBlutspendenDe"
-        },
-        {
-          "source": "/renderBlutspendenDe",
-          "function": "renderBlutspendenDe"
-        },
-        {
-          "source": "/addImmuneHero",
-          "function": "addImmuneHero"
-        },
-        {
-          "source": "/submitHeldenInfo",
-          "function": "submitHeldenInfo"
-        },
-        {
-          "source": "/addStakeHolder",
-          "function": "addStakeHolder"
-        },
-        {
-          "source": "/verifyOrg",
-          "function": "verifyOrg"
-        },
-        {
-          "source": "/deleteOrg",
-          "function": "deleteOrg"
-        },
-        {
-          "source": "/doneVerifyStakeholderPin",
-          "function": "doneVerifyStakeholderPin"
-        },
-        {
-          "source": "/maps/sample/pins",
-          "function": "pin_locations"
-        },
-        {
-          "source": "/maps/sample/regions",
-          "function": "regions"
-        },
-        {
-          "source": "/maps/sample/details/*",
-          "function": "details_html"
-        },
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "dev",
-      "public": "new-website/public",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "/addImmuneHero",
-          "function": "addImmuneHero"
-        },
-        {
-          "source": "/addStakeHolder",
-          "function": "addStakeHolder"
-        },
-        {
-          "source": "/getAllStakeHoldersAsJson",
-          "function": "getAllStakeHoldersAsJson"
-        },
-        {
-          "source": "/getAllImmuneHeroesNutsAsJson",
-          "function": "getAllImmuneHeroesNutsAsJson"
-        },
-        {
-          "source": "/doneVerifyStakeholderPin",
-          "function": "doneVerifyStakeholderPin"
-        },
-        {
-          "source": "/contactStakeholder",
-          "function": "contactStakeholder"
-        },
-        {
-          "source": "/demo/pins",
-          "function": "pin_locations"
-        },
-        {
-          "source": "/demo/regions",
-          "function": "regions"
-        },
-        {
-          "source": "/demo/details_html",
-          "function": "details_html"
-        },
-        {
-          "source": "/map/pins",
-          "function": "pin_locations"
-        },
-        {
-          "source": "/map/regions",
-          "function": "regions"
-        },
-        {
-          "source": "/map/details_html",
-          "function": "details_html"
-        },
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    }
-  ]
+  {
+    "target": "eu",
+    "public": "website-eu",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/addImmuneHeroEU",
+        "function": "addImmuneHeroEU"
+      },
+      {
+        "source": "/confirmImmuneHeroEU",
+        "function": "confirmImmuneHeroEU"
+      },
+      {
+        "source": "/removeImmuneHeroEU",
+        "function": "removeImmuneHeroEU"
+      },
+      {
+        "source": "/addImmuneHero",
+        "function": "addImmuneHero"
+      },
+      {
+        "source": "/addStakeHolder",
+        "function": "addStakeHolder"
+      },
+      {
+        "source": "/getAllStakeHoldersAsJson",
+        "function": "getAllStakeHoldersAsJson"
+      },
+      {
+        "source": "/getAllImmuneHeroesNutsAsJson",
+        "function": "getAllImmuneHeroesNutsAsJson"
+      },
+      {
+        "source": "/doneVerifyStakeholderPin",
+        "function": "doneVerifyStakeholderPin"
+      },
+      {
+        "source": "/contactStakeholder",
+        "function": "contactStakeholder"
+      },
+      {
+        "source": "/demo/pins",
+        "function": "pin_locations"
+      },
+      {
+        "source": "/demo/regions",
+        "function": "regions"
+      },
+      {
+        "source": "/demo/details_html",
+        "function": "details_html"
+      },
+      {
+        "source": "/map/pins",
+        "function": "pin_locations"
+      },
+      {
+        "source": "/map/regions",
+        "function": "regions"
+      },
+      {
+        "source": "/map/details_html",
+        "function": "details_html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }]
 }

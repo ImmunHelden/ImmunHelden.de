@@ -7,6 +7,7 @@ import { LocationTable } from "./location-table"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { mapLocation } from "../../util/location"
 import { isNode } from "@firebase/util"
+import { FormattedMessage } from "gatsby-plugin-intl"
 
 export const LOCATION_COLLECTION = "plasma"
 
@@ -19,7 +20,7 @@ const getQuery = partner => {
     if (isNode()) {
         return null
     }
-    return firebase.firestore().collection(LOCATION_COLLECTION).where("partnerID", "==", partner)
+    return firebase.firestore().collection(LOCATION_COLLECTION).where("partnerId", "==", partner)
 }
 
 export const LocationOverview = () => {
@@ -33,7 +34,9 @@ export const LocationOverview = () => {
         <Grid container justify="center" spacing={0}>
             <Grid item xs={12} lg={10}>
                 <Paper style={{ maxWidth: "100%" }}>
-                    <h1>Locations</h1>
+                    <h1>
+                        <FormattedMessage id="partnerLocationsTitle" />
+                    </h1>
                     <LocationTable partner={partner} locations={locations} />
                 </Paper>
             </Grid>
