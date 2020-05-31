@@ -34,5 +34,6 @@
     "locationTable_deleteTooltip": "Löschen",
     "locationTable_deleteText": "Soll dieser Eintrag wirklich gelöscht werden?",
     "locationTable_addTooltip": "Hinzufügen",
-    "locationTable_saveTooltip": "Speichern"
+    "locationTable_saveTooltip": "Speichern",
+    "requiredFieldMissing/title": "Dem Eintrag fehlt ein Titel"
 }
