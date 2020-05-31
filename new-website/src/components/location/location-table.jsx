@@ -5,7 +5,42 @@ import { LOCATION_COLLECTION } from "."
 import { useIntl } from "gatsby-plugin-intl"
 import { generateI18N } from "./table-i18n"
 
-export const LocationTable = ({ partner, locations = [] }) => {
+function addNewRow(partnerId, onError) {
+    return async function add(data) {
+        if (!partnerId) {
+            throw new Error("Missing Partner Id")
+        }
+        const { title } = data
+        if (!title || title.length < 0) {
+            onError({ code: "requiredFieldMissing/title" })
+            throw new Error("missing title")
+        }
+        return firebase
+            .firestore()
+            .collection(LOCATION_COLLECTION)
+            .add({ ...data, partnerId })
+            .catch(onError)
+    }
+}
+
+function deleteRow(onError) {
+    return async function deleteIt({ id }) {
+        return firebase.firestore().collection(LOCATION_COLLECTION).doc(id).delete().catch(onError)
+    }
+}
+
+function updateRow(onError) {
+    return async function deleteIt({ id, ...rest }) {
+        return firebase
+            .firestore()
+            .collection(LOCATION_COLLECTION)
+            .doc(id)
+            .update({ ...rest })
+            .catch(onError)
+    }
+}
+
+export const LocationTable = ({ partner, locations = [], onError }) => {
     const [state, setState] = useState({ data: [...locations] })
     const { formatMessage, locale } = useIntl()
 
@@ -13,22 +48,9 @@ export const LocationTable = ({ partner, locations = [] }) => {
         setState({ data: [...locations] })
     }, [locations])
 
-    const onRowUpdate = ({ id, ...rest }) => {
-        return firebase
-            .firestore()
-            .collection(LOCATION_COLLECTION)
-            .doc(id)
-            .update({ ...rest })
-    }
-
-    const onRowAdd = ({ id, ...rest }) => {
-        return firebase
-            .firestore()
-            .collection(LOCATION_COLLECTION)
-            .add({ ...rest, partnerId: partner })
-    }
-
-    const onRowDelete = ({ id }) => firebase.firestore().collection(LOCATION_COLLECTION).doc(id).delete()
+    const onRowUpdate = updateRow(onError)
+    const onRowDelete = deleteRow(onError)
+    const onRowAdd = addNewRow(partner, onError)
 
     return (
         <MaterialTable
