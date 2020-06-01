@@ -17,11 +17,11 @@ export const LOCATION_COLLECTION = "plasma"
  * Firebase is not available during build time in nodejs
  * @param {string} partner
  */
-const getQuery = partner => {
-    if (isNode()) {
+const getQuery = partnerIds => {
+    if (isNode() || !partnerIds || partnerIds.length === 0) {
         return null
     }
-    return firebase.firestore().collection(LOCATION_COLLECTION).where("partnerId", "==", partner)
+    return firebase.firestore().collection(LOCATION_COLLECTION).where("partnerId", "in", partnerIds)
 }
 
 function Alert({ open, severity, message, onClose }) {
@@ -42,8 +42,9 @@ function Alert({ open, severity, message, onClose }) {
 export const LocationOverview = () => {
     const { formatMessage } = useIntl()
     const [alert, setAlert] = useState({ message: null, severity: "error", open: false })
-    const { partner } = useSession()
-    const [collection] = useCollection(getQuery(partner), {
+    const { user, partnerConfigs, isLoading } = useSession()
+
+    const [collection] = useCollection(getQuery(user.partnerIds), {
         snapshotListenOptions: { includeMetadataChanges: true },
     })
     const locations =
@@ -68,7 +69,12 @@ export const LocationOverview = () => {
                         <h1>
                             <FormattedMessage id="partnerLocationsTitle" />
                         </h1>
-                        <LocationTable partner={partner} locations={locations} onError={onError} />
+                        <LocationTable
+                            userAllowedPartnerIds={user.partnerIds}
+                            partnerConfigs={partnerConfigs}
+                            locations={locations}
+                            onError={onError}
+                        />
                     </Paper>
                 </Grid>
             </Grid>
