@@ -17,16 +17,11 @@ const RedirectIfNotLoggedIn = ({ children, url }) => {
     return <>{children}</>
 }
 
-const AddUserContext = ({ children }) => {
-    const { state } = useContext(AuthContext)
-    return <UserContextProvider userId={state.userId}>{children}</UserContextProvider>
-}
-
 export const Protected = ({ children, loginUrl }) => {
     return (
         <AuthContextProvider>
             <RedirectIfNotLoggedIn url={loginUrl}>
-                <AddUserContext>{children}</AddUserContext>
+                <UserContextProvider>{children}</UserContextProvider>
             </RedirectIfNotLoggedIn>
         </AuthContextProvider>
     )

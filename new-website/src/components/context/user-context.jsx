@@ -1,19 +1,25 @@
-import React, { createContext, useReducer, useEffect } from "react"
-import { useCollection } from "react-firebase-hooks/firestore"
+import React, { createContext, useReducer, useEffect, useContext } from "react"
+import { useCollection, useCollectionOnce } from "react-firebase-hooks/firestore"
 import firebase from "gatsby-plugin-firebase"
 import { isNode } from "@firebase/util"
+import { AuthContext } from "./auth-context"
 
 const initialState = {
-    isLoading: true,
+    isLoadingUser: true,
+    isLoadingPartner: true,
     partnerIds: null,
+    partnerId: null,
+    partnerConfigs: null,
     error: null,
 }
 const UserContext = createContext(initialState)
 const { Provider } = UserContext
 
 const types = {
-    LOADING: "loading",
+    LOADING_USER: "loadingUser",
     SET_USER_DATA: "setUserData",
+    LOADING_PARTNER: "loadingPartner",
+    SET_PARTNER_DATA: "setPartnerData",
     SET_ERROR: "setError",
 }
 
@@ -29,14 +35,20 @@ const logger = new Log("UserContext")
 const reducer = (state, { type, payload = {} }) => {
     logger.log("Dispatched Action", { type, state, payload })
     switch (type) {
-        case types.INITIALIZING: {
-            return { ...state, isLoading: true }
+        case types.LOADING_USER: {
+            return { ...state, isLoadingUser: true }
         }
         case types.SET_USER_DATA: {
-            return { ...state, isLoading: false, partnerIds: payload.partnerIds }
+            return { ...state, isLoadingUser: false, partnerIds: payload.partnerIds, partnerId: payload.partnerId }
+        }
+        case types.LOADING_PARTNER: {
+            return { ...state, isLoadingPartner: true }
+        }
+        case types.SET_PARTNER_DATA: {
+            return { ...state, isLoadingPartner: false, partnerConfigs: payload.partnerConfigs }
         }
         case types.SET_ERROR: {
-            return { ...state, isLoading: false, error: payload.error }
+            return { ...state, isLoadingPartner: false, error: payload.error }
         }
         default:
             return state
@@ -46,40 +58,72 @@ const reducer = (state, { type, payload = {} }) => {
 /**
  * Fixes the issue with building the pages since
  * Firebase is not available during build time in nodejs
- * @param {string} partner
+ * @param {string} userId
  */
-const getQuery = userId => {
+const getUserQuery = userId => {
     if (isNode() || !userId) {
         return null
     }
     return firebase.firestore().collection("users").doc(userId)
 }
 
+/**
+ * Fixes the issue with building the pages since
+ * Firebase is not available during build time in nodejs
+ */
+const getPartnerQuery = () => {
+    if (isNode()) {
+        return null
+    }
+    return firebase.firestore().collection("partner")
+}
+
 const UserContextProvider = props => {
+    const authContext = useContext(AuthContext)
     const [state, dispatch] = React.useReducer(reducer, { ...initialState })
 
-    const [collection, loading, error] = useCollection(getQuery(props.userId + "1"), {
+    const [userCollection, userLoading, userError] = useCollection(getUserQuery(authContext?.state?.userId), {
+        snapshotListenOptions: { includeMetadataChanges: true },
+    })
+
+    const [partnerCollection, partnerLoading, partnerError] = useCollectionOnce(getPartnerQuery(), {
         snapshotListenOptions: { includeMetadataChanges: true },
     })
 
     useEffect(() => {
-        if (loading) {
-            return dispatch({ type: types.LOADING })
+        if (userLoading) {
+            return dispatch({ type: types.LOADING_USER })
         }
-        if (collection) {
-            const data = collection.data()
+        if (userCollection) {
+            const data = userCollection.data()
             if (data) {
                 dispatch({
                     type: types.SET_USER_DATA,
                     payload: {
                         partnerIds: data.partnerIds,
+                        partnerId: data.partner,
                     },
                 })
             }
         }
-    }, [collection, loading])
+    }, [userCollection, userLoading])
 
     useEffect(() => {
+        if (!partnerLoading && partnerCollection) {
+            const data = partnerCollection?.docs?.map(doc => ({ ...doc?.data(), id: doc.id }))
+            if (data) {
+                dispatch({
+                    type: types.SET_PARTNER_DATA,
+                    payload: {
+                        partnerConfigs: data,
+                    },
+                })
+            }
+        }
+    }, [partnerCollection, partnerLoading])
+
+    useEffect(() => {
+        const error = partnerError || userError
         if (error) {
             dispatch({
                 type: types.SET_ERROR,
@@ -88,7 +132,7 @@ const UserContextProvider = props => {
                 },
             })
         }
-    }, [error])
+    }, [userError, partnerError])
 
     return <Provider value={{ state, dispatch }}>{props.children}</Provider>
 }

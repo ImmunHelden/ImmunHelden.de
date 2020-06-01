@@ -8,7 +8,9 @@ export const useSession = () => {
     return {
         user: {
             id: auth?.state?.userId,
+            partnerIds: user?.state?.partnerIds,
         },
-        partners: user?.state?.partnerIds,
+        partnerConfigs: user?.state?.partnerConfigs,
+        isLoading: user?.state?.isLoadingPartner || user?.state?.isLoadingUser || auth?.state?.isLoading,
     }
 }
