@@ -120,16 +120,6 @@
     selectPlatformsControl: true
   };
 
-  // Follow-up dialog shows up in the details pane after clicking an external
-  // link. So when the user comes back, they have the chance to sign-up in the
-  // hindsight. For now it's specific to the host (not the platform).
-  let followupDialog = null;
-
-  Utils.loadPlain(hostBaseUrl + '/followup.html').then(
-    html => { followupDialog = $(html); },
-    err => console.error(err)
-  );
-
   const Pin = {
     // Public static helper function
     isValidInfo: (I) => {
@@ -168,13 +158,6 @@
           // Anchors refer to current base URL. Only used for permalinks so far.
           $(elem).attr('href', hostBaseUrl + targetUrl);
         }
-        else {
-          // Show follow-up dialog after clicking an external link.
-          // Insert as string, as it runs inside the iframe.
-          const followupHandler =
-            'setTimeout(() => document.getElementById("followup").style.display="flex", 500)';
-          $(elem).attr('onclick', followupHandler);
-        }
       }
     },
 
@@ -187,7 +170,6 @@
         '</div>');
 
       details.find('a').each((i, elem) => Pin._transformLink(elem));
-      followupDialog.appendTo(details).css('display', 'none');
 
       // Return as HTML, because it goes into the iframe.
       return details.html();
