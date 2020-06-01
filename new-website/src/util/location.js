@@ -1,5 +1,14 @@
 export function mapLocation(prev, doc) {
-    const { title = "", latlng = {}, address = "", phone = "", email = "", contact = "", id = "" } = doc
+    const {
+        title = "",
+        latlng = {},
+        address = "",
+        phone = "",
+        email = "",
+        contact = "",
+        id = "",
+        partnerId = null,
+    } = doc
     const { latitude, longitude } = latlng
     return [
         ...prev,
@@ -13,6 +22,7 @@ export function mapLocation(prev, doc) {
             email,
             contact,
             id,
+            partnerId,
         },
     ]
 }

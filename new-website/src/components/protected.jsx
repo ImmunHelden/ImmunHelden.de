@@ -1,37 +1,28 @@
 import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby-plugin-intl"
-import { useAuth } from "../hooks/use-auth"
-import firebase from "gatsby-plugin-firebase"
-import { userContext } from "../hooks/use-session"
 import { LoadingScreen } from "./loadingScreen"
+import { AuthContextProvider, AuthContext } from "./context/auth-context"
+import { useContext } from "react"
+import { UserContextProvider } from "./context/user-context"
 
-export const Protected = ({ children, loginUrl }) => {
-    const { initializing, user } = useAuth(firebase)
-    const [partner, setPartner] = useState(null)
-
-    useEffect(() => {
-        async function getPartner() {
-            if (user) {
-                try {
-                    const res = await firebase.firestore().collection("users").doc(user.uid).get()
-                    if (res.exists) {
-                        setPartner(res.data().partner ?? null)
-                    }
-                } catch (err) {
-                    console.log(err.message, user.uid)
-                }
-            }
-        }
-        getPartner()
-    }, [user])
-
-    if (initializing) {
+const RedirectIfNotLoggedIn = ({ children, url }) => {
+    const { state } = useContext(AuthContext)
+    if (state.isLoading) {
         return <LoadingScreen />
     }
-
-    if (!user || !user.emailVerified) {
-        navigate(loginUrl)
+    if (!state.isLoading && !state.isAuthenticated) {
+        navigate(url)
+        return <LoadingScreen />
     }
+    return <>{children}</>
+}
 
-    return <userContext.Provider value={{ user, partner }}>{children}</userContext.Provider>
+export const Protected = ({ children, loginUrl }) => {
+    return (
+        <AuthContextProvider>
+            <RedirectIfNotLoggedIn url={loginUrl}>
+                <UserContextProvider>{children}</UserContextProvider>
+            </RedirectIfNotLoggedIn>
+        </AuthContextProvider>
+    )
 }
