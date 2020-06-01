@@ -59,12 +59,13 @@ export const LoginRegisterForm = ({ loginSuccessUrl, screen = screens.LOGIN }) =
             switchToVerify()
         }
     }
-    const onError = code => {
+    const onError = ({ code, message }) => {
         setAlert({
             open: true,
             message: formatMessage({ id: code }),
             severity: "error",
         })
+        throw new Error({ code, message })
     }
 
     const onSuccess = user => {
