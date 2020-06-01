@@ -87,19 +87,110 @@
       background-repeat: no-repeat;
       background-position: center;
     }
+
+
+
+
+    input[type="email"], input[type="text"] {
+      font-family: Raleway, sans-serif; font-size: 1rem;
+      padding: 8px;
+      border: solid 1px; border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.075);
+      border-color: rgba(0, 0, 0, 0.25);
+    }
+    input[type="submit"] {
+      color: #fff; background-color: #ce1b28;
+      font-size: 1.1rem;
+      border: 0;
+      border-radius: 4px;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+    input[type="submit"]:disabled {
+      opacity: 0.5;
+    }
+    input[type="button"] {
+      border: 0;
+      background: none;
+      text-decoration: underline;
+      font-size: 1.1rem;
+      font-weight: 300;
+      margin-top: 2rem;
+    }
+    .overlay-followup {
+      position: absolute;
+      right: 0px;
+      top: 44px;
+      width: calc(400px - 2rem);
+      height: calc(100% - 44px - 2rem);
+      z-index: 10012;
+      font-family: Raleway, sans-serif;
+      font-size: 14pt;
+      background-color: #fff;
+      /*background-image: url('images/bkgnd04.jpg');
+      background-size: cover;
+      background-position: center;*/
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      text-align: center;
+      margin: 0;
+      padding: 2rem;
+      padding-left: 0;
+    }
+    .overlay-followup > p {
+      margin: 0.5rem 0;
+    }
+    .overlay-followup > form {
+      margin: 1rem 0;
+    }
+    .overlay-followup > form > div {
+      display: inline-block;
+      margin: 5px;
+    }
+    .overlay-followup > form > div > label {
+      display: block;
+      text-align: left;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
   <header>
     <a href="../../" class="logo" style="flex: initial;"></a>
     <p style="flex: auto;">Blutplasmaspende</p>
-    <a href="javascript:void(0)" onclick="showSubscribeInDetailsPane()" class="subscribe" style="flex: initial;"></a>
+    <a href="#subscribe" onclick="followAnchor()" class="subscribe" style="flex: initial;"></a>
   </header>
 
   <div id="osm-map"></div>
 
-  <script>
+  <div id="followup" class="overlay-followup">
+    <p>Sie vermuten an COVID-19 erkrankt und mittlerweile<br>wieder genesen zu sein?</p>
+    <p>Wir informieren Sie, wenn es<br>in Ihrer Region weitere<br>Möglichkeiten gibt um zu helfen.</p>
+    <form id="subscribe_form">
+      <div>
+        <label for="zipCode">Postleitzahl</label>
+        <input type="text" name="zipCode" style="width: 4rem;" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
+      </div>
+      <div>
+        <label for="email">E-Mail</label>
+        <input type="email" name="email" style="width: 8rem;" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
+      </div>
+      <div>
+        <input type="submit" id="submitHero" value="✓">
+      </div>
+      <div>
+        <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
+          <input type="checkbox" id="confirmedHero" style="margin-left: -20px;" required>
+          Ich habe die <a href="https://immunhelden.de/datenschutz.html">Datenschutzerklärung</a> verstanden und möchte informiert werden, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
+        </label>
+      </div>
+    </form>
+  </div>
 
+  <script>
     const plasmaPinIcon = {
       iconUrl: '/maps/plasma/images/marker-icon-blood.png',
       iconSize: [30, 38],
@@ -124,22 +215,38 @@
           { name: "#SpendeCOVIDPlasma", restBaseUrl: 'http://localhost:5000/maps/plasma', icon: plasmaPinIcon }
         //]}
       ],
-      selectPlatformsControl: !params.hasOwnProperty("embedded")
+      selectPlatformsControl: false //!params.hasOwnProperty("embedded")
     };
 
     const map = new WirVsVirusMap.Instance('osm-map', settings);
 
-    $(window).on('hashchange', e => {
-      let preselectId = WirVsVirusMap.Utils.parseAnchor(window.location.href);
-      if (preselectId)
-        map.focusPin(preselectId);
-    });
-
-    function showSubscribeInDetailsPane() {
-      map.openDetailsPane('followup.html');
+    function closeOverlay() {
+      $('#followup').hide();
     }
 
-    // interactions
+    map.onCloseDetailsPane = closeOverlay;
+    map.onViewDetails = closeOverlay;
+
+    function followAnchor() {
+      let anchor = WirVsVirusMap.Utils.parseAnchor(window.location.href);
+      if (anchor == 'subscribe') {
+        const onDeselect = () => $('#followup').hide();
+        map.openDetailsPane();
+        $('#followup').css('display', 'flex');
+      }
+      else if (anchor) {
+        map.focusPin(preselectId);
+      }
+      else {
+        map.closeDetailsPane();
+      }
+    }
+
+    $(document).ready(followAnchor);
+    $(window).on('hashchange', (e) => {
+      e.preventDefault();
+      followAnchor();
+    });
   </script>
 </body>
 </html>
