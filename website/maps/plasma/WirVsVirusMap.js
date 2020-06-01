@@ -304,6 +304,9 @@
     return mdom;
   }
 
+  // TODO
+  let _viewDetailsForPin = null;
+
   WirVsVirusMap.Instance = function(domElementName, actualSettings) {
     if (!_isValidElement(domElementName))
       return;
@@ -360,7 +363,26 @@
       }
     });
 
-    function _viewDetailsForPin(id) {
+    const _openDetailsPane = () => {
+      dom.paneDetails.attr("srcdoc", '');
+      dom.pane.show();
+      dom.canvas.css("width", "calc(100% - 400px)");
+      map.invalidateSize();
+      this.onOpenDetailsPane();
+    };
+
+    //let oneTimeActionClosePane = null;
+
+    const _closeDetailsPane = () => {
+      dom.pane.hide();
+      dom.canvas.css("width", "100%");
+      map.invalidateSize();
+      this.onCloseDetailsPane();
+      //if (oneTimeActionClosePane)
+      //  oneTimeActionClosePane();
+    };
+
+    _viewDetailsForPin = (id) => {
       if (!allPinsById.hasOwnProperty(id)) {
         console.error("Requested invalid ID");
         return;
@@ -373,7 +395,10 @@
 
       // TODO: implement and can we pass an element?
       pin.fetchDetails().then(
-        html => dom.paneDetails.attr("srcdoc", html),
+        html => {
+          dom.paneDetails.attr("srcdoc", html)
+          this.onViewDetails(id);
+        },
         err => {
           console.error("Failed to fetch pin details:", err);
           _closeDetailsPane();
@@ -385,19 +410,6 @@
       if (!settings.embedded && window.innerWidth >= 600) {
         _viewDetailsForPin(id);
       }
-    }
-
-    function _openDetailsPane() {
-      dom.paneDetails.attr("srcdoc", '');
-      dom.pane.show();
-      dom.canvas.css("width", "calc(100% - 400px)");
-      map.invalidateSize();
-    }
-
-    function _closeDetailsPane() {
-      dom.pane.hide();
-      dom.canvas.css("width", "100%");
-      map.invalidateSize();
     }
 
     function focusPin(id) {
@@ -428,15 +440,12 @@
     this.focusPin = focusPin;
     this.togglePlatform = togglePlatform;
     this.viewDetailsForPin = _viewDetailsForPin;
+    this.openDetailsPane = _openDetailsPane;
     this.closeDetailsPane = _closeDetailsPane;
 
-    this.openDetailsPane = (url) => {
-      _openDetailsPane();
-      Utils.loadPlain(url).then(
-        html => dom.paneDetails.attr("srcdoc", html),
-        err => console.error(err)
-      );
-    };
+    this.onOpenDetailsPane = () => {};
+    this.onCloseDetailsPane = () => {};
+    this.onViewDetails = (id) => {};
 
     this.leaflet = () => { return map; };
     this.platform = (idx) => { return settings.platforms[idx]; }
