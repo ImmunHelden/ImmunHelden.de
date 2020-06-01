@@ -1,13 +1,13 @@
 export function mapLocation(prev, doc) {
     const {
-        title = "NA",
+        title = "",
         latlng = {},
-        address = "NA",
-        phone = "NA",
-        email = "NA",
-        contact = "NA",
-        id = "NA",
-        partnerId = "",
+        address = "",
+        phone = "",
+        email = "",
+        contact = "",
+        id = "",
+        partnerId = null,
     } = doc
     const { latitude, longitude } = latlng
     return [
