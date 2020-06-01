@@ -5,6 +5,7 @@ import firebase from "gatsby-plugin-firebase"
 import { useAuth } from "../../hooks/use-auth"
 import PostBoxSVG from "../../images/svg/undraw_mail_box_kd5i.svg"
 import { usePersistedState } from "../../hooks/use-persisted-state"
+import { FormattedMessage } from "gatsby-plugin-intl"
 
 const useStyles = makeStyles(theme => ({
     margin: {
@@ -26,7 +27,7 @@ const Verify = ({ onError = () => {}, onSuccess = () => {} }) => {
 
     const sendEmail = () => {
         if (!user) {
-            onError("something-wrong", "Something went wrong! Please try again!")
+            onError("something-wrong")
             return
         }
         if (isSpamProtectionActive(verifiedLast)) {
@@ -56,25 +57,28 @@ const Verify = ({ onError = () => {}, onSuccess = () => {} }) => {
             <div className={classes.margin}>
                 <Grid container spacing={8} justify="center">
                     <Grid item style={{ textAlign: "center" }}>
-                        <h1>Verify your email</h1>
-                        <h2>You will need to verify your email to complete registration</h2>
+                        <h1>
+                            <FormattedMessage id="loginScreen_verify_title" />
+                        </h1>
+                        <h2>
+                            <FormattedMessage id="loginScreen_verify_subtitle" />
+                        </h2>
                     </Grid>
                     <Grid item>
                         <PostBoxSVG style={{ height: "auto", width: "10rem" }} />
                     </Grid>
                     <Grid item>
                         <h4>
-                            An email has been sent to {email} with a link to verify your account. If you have not
-                            received the email after a few minutes, please check your spam folder.
+                            <FormattedMessage values={{ email }} id="loginScreen_verify_body" />
                         </h4>
                     </Grid>
                 </Grid>
                 <Grid container justify="center" style={{ marginTop: "10px" }}>
                     <Button variant="outlined" color="primary" onClick={sendEmail}>
-                        Resend Email
+                        <FormattedMessage id="loginScreen_verify_resend" />
                     </Button>
                     <Button color="primary" onClick={signOut}>
-                        Not my email
+                        <FormattedMessage id="loginScreen_verify_notMyEmail" />
                     </Button>
                 </Grid>
             </div>

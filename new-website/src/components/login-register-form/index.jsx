@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { navigate } from "gatsby-plugin-intl"
+import { navigate, useIntl, FormattedMessage } from "gatsby-plugin-intl"
 import firebase from "gatsby-plugin-firebase"
 import Login from "./login"
 import Register from "./register"
@@ -23,29 +23,6 @@ function Alert({ open, severity, message, onClose }) {
     )
 }
 
-const isWrongPasswordOrEmail = code => ["auth/user-not-found", "auth/wrong-password"].includes(code)
-const isWeakPassword = code => ["auth/weak-password"].includes(code)
-const isAccountExists = code => ["auth/email-already-in-use"].includes(code)
-
-function readableErrorMessage(code, message) {
-    if (isWrongPasswordOrEmail(code)) {
-        return "Wrong Username or Password!"
-    }
-    if (isWeakPassword(code)) {
-        return "Password to weak!"
-    }
-    if (isAccountExists(code)) {
-        return "The email address is already in use."
-    }
-    if (code === "verify/spam-protection") {
-        return "Already send verification email in the last 5 min"
-    }
-    if (code === "verify/already-verified") {
-        return "Already verified"
-    }
-    return `${code} - ${message}`
-}
-
 export const screens = {
     LOGIN: "login",
     REGISTER: "register",
@@ -56,7 +33,7 @@ const isUserEmailVerified = user => user?.emailVerified
 
 export const LoginRegisterForm = ({ loginSuccessUrl, screen = screens.LOGIN }) => {
     const [showScreen, setShowScreen] = useState(screen)
-
+    const { formatMessage } = useIntl()
     const { user } = useAuth(firebase)
     const [alert, setAlert] = useState({
         open: false,
@@ -82,10 +59,10 @@ export const LoginRegisterForm = ({ loginSuccessUrl, screen = screens.LOGIN }) =
             switchToVerify()
         }
     }
-    const onError = (code, message) => {
+    const onError = code => {
         setAlert({
             open: true,
-            message: readableErrorMessage(code, message),
+            message: formatMessage({ id: code }),
             severity: "error",
         })
     }
@@ -113,18 +90,18 @@ export const LoginRegisterForm = ({ loginSuccessUrl, screen = screens.LOGIN }) =
             {showScreen === screens.LOGIN && [
                 <Login key="login" onSuccess={onSuccess} onError={onError} />,
                 <div key="doNotHaveAccountKey">
-                    Don't have an Account?{" "}
+                    <FormattedMessage id="loginScreen_noAccount" />
                     <Button variant="text" onClick={switchToRegister}>
-                        Sign up
+                        <FormattedMessage id="loginScreen_signUp" />
                     </Button>
                 </div>,
             ]}
             {showScreen === screens.REGISTER && [
                 <Register key="register" onError={onError} onSuccess={onSuccess} />,
                 <div key="doHaveAccountKey">
-                    Already have an Account?{" "}
+                    <FormattedMessage id="loginScreen_hasAccount" />
                     <Button variant="text" onClick={switchToLogin}>
-                        Sign in
+                        <FormattedMessage id="loginScreen_signIn" />
                     </Button>
                 </div>,
             ]}
