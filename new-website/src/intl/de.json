@@ -35,5 +35,22 @@
     "locationTable_deleteText": "Soll dieser Eintrag wirklich gelöscht werden?",
     "locationTable_addTooltip": "Hinzufügen",
     "locationTable_saveTooltip": "Speichern",
-    "requiredFieldMissing/title": "Dem Eintrag fehlt ein Titel"
+    "requiredFieldMissing/title": "Dem Eintrag fehlt ein Titel",
+    "verify/spam-protection": "Eine Verifizierungsemail wurde bereits verschickt.",
+    "verify/already-verified": "Sie sind bereits verifiziert.",
+    "auth/weak-password": "Passwort ist zu schwach.",
+    "auth/email-already-in-use": "Diese Email Adresse ist bereits in Benutzung.",
+    "auth/user-not-found": "Bitte geben Sie Ihre gültige E-Mail-Adresse oder Ihr Passwort ein.",
+    "auth/wrong-password": "Bitte geben Sie Ihre gültige E-Mail-Adresse oder Ihr Passwort ein.",
+    "loginScreen_noAccount": "Noch kein Konto?",
+    "loginScreen_hasAccount": "Haben Sie bereits ein Konto?",
+    "loginScreen_signUp": "Registrieren",
+    "loginScreen_signIn": "Einloggen",
+    "loginScreen_login_title": "Einloggen bei ImmunHelden.de",
+    "loginScreen_register_title": "Registrieren bei ImmunHelden.de",
+    "loginScreen_verify_title": "Bestätigen Sie Ihre E-Mail.",
+    "loginScreen_verify_subtitle": "Sie müssen Ihre E-Mail-Adresse bestätigen, um die Registrierung abzuschließen.",
+    "loginScreen_verify_body": "Eine E-Mail mit einem Link zur Überprüfung Ihres Kontos wurde an {email} gesendet. Wenn Sie die E-Mail nach einigen Minuten nicht erhalten haben, überprüfen Sie bitte Ihren Spam-Ordner.",
+    "loginScreen_verify_resend": "Nochmal verschicken",
+    "loginScreen_verify_notMyEmail": "Nicht meine E-Mail"
 }

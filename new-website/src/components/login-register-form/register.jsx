@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/styles"
 import { useForm } from "react-hook-form"
 import firebase from "gatsby-plugin-firebase"
 import RegisterSVG from "../../images/svg/undraw_welcome_3gvl.svg"
+import { FormattedMessage, useIntl } from "gatsby-plugin-intl"
 
 const useStyles = makeStyles(theme => ({
     margin: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 const Register = ({ onError = () => {}, onSuccess = () => {} }) => {
     const classes = useStyles()
+    const { formatMessage } = useIntl()
     const { register, handleSubmit } = useForm()
 
     const onSubmitRegister = ({ email, password }) => {
@@ -32,7 +34,9 @@ const Register = ({ onError = () => {}, onSuccess = () => {} }) => {
             <form onSubmit={handleSubmit(onSubmitRegister)} className={classes.margin}>
                 <Grid container direction="column" justify="center" alignContent="center">
                     <Grid item>
-                        <h1>Sign up to ImmunHelden</h1>
+                        <h1>
+                            <FormattedMessage id="loginScreen_register_title" />
+                        </h1>
                     </Grid>
                     <Grid item style={{ textAlign: "center" }}>
                         <RegisterSVG style={{ height: "auto", width: "10rem" }} />
@@ -45,7 +49,7 @@ const Register = ({ onError = () => {}, onSuccess = () => {} }) => {
                     <Grid item md={true} sm={true} xs={true}>
                         <TextField
                             id="email"
-                            label="Email"
+                            label={formatMessage({ id: "email" })}
                             type="email"
                             name="email"
                             fullWidth
@@ -61,7 +65,7 @@ const Register = ({ onError = () => {}, onSuccess = () => {} }) => {
                     <Grid item md={true} sm={true} xs={true}>
                         <TextField
                             id="password"
-                            label="Password"
+                            label={formatMessage({ id: "password" })}
                             type="password"
                             name="password"
                             fullWidth
@@ -72,7 +76,7 @@ const Register = ({ onError = () => {}, onSuccess = () => {} }) => {
                 </Grid>
                 <Grid container justify="center" style={{ marginTop: "10px" }}>
                     <Button type="submit" variant="outlined" color="primary" style={{ textTransform: "none" }}>
-                        Register
+                        <FormattedMessage id="loginScreen_signUp" />
                     </Button>
                 </Grid>
             </form>
