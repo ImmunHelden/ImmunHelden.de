@@ -4,6 +4,7 @@ import MaterialTable from "material-table"
 import { LOCATION_COLLECTION } from "."
 import { useIntl } from "gatsby-plugin-intl"
 import { generateI18N } from "./table-i18n"
+import { Roller } from "react-spinners-css"
 
 function choosePartnerId(entryPartnerId, userPartnerIds = []) {
     if (entryPartnerId && userPartnerIds.includes(entryPartnerId)) {
@@ -49,7 +50,13 @@ function updateRow(onError) {
     }
 }
 
-export const LocationTable = ({ userAllowedPartnerIds, partnerConfigs, locations = [], onError }) => {
+export const LocationTable = ({
+    userAllowedPartnerIds = [],
+    partnerConfigs = {},
+    locations = [],
+    onError,
+    isLoading = true,
+}) => {
     const [state, setState] = useState({ data: [...locations], userAllowedPartnerIds, partnerConfigs })
     const { formatMessage, locale } = useIntl()
 
@@ -73,6 +80,7 @@ export const LocationTable = ({ userAllowedPartnerIds, partnerConfigs, locations
         <MaterialTable
             style={{ boxShadow: "0px 0px 0px rgba(0,0,0,0.0)", backgroundColor: "transparent" }}
             localization={generateI18N(locale, formatMessage)}
+            isLoading={isLoading}
             columns={[
                 { title: "ID", field: "id", hidden: true },
                 {

@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/use-auth"
 import firebase from "gatsby-plugin-firebase"
 
 const initialState = {
-    userId: null,
+    user: null,
     isAuthenticated: false,
     isLoading: true,
 }
@@ -27,14 +27,14 @@ const reducer = (state, { type, payload = {} }) => {
         case types.LOGIN:
             return {
                 ...state,
-                userId: payload?.userId,
+                user: payload?.user,
                 isAuthenticated: payload?.isAuthenticated,
                 isLoading: false,
             }
         case types.LOGOUT:
             return {
                 ...state,
-                userId: null,
+                user: null,
                 isAuthenticated: false,
                 isLoading: false,
             }
@@ -55,10 +55,11 @@ const AuthContextProvider = props => {
                 type: types.LOGOUT,
             })
         }
+
         return dispatch({
             type: types.LOGIN,
             payload: {
-                userId: user.uid,
+                user,
                 isAuthenticated: true,
             },
         })

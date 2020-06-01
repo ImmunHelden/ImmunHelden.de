@@ -25,15 +25,15 @@ const types = {
 
 function Log(context) {
     return {
-        log: (message, ...data) => console.log(context, message, data),
-        error: (message, ...data) => console.error(context, message, data),
+        log: (message, ...data) => console.log(context, message, ...data),
+        error: (message, ...data) => console.error(context, message, ...data),
     }
 }
 
 const logger = new Log("UserContext")
 
 const reducer = (state, { type, payload = {} }) => {
-    logger.log("Dispatched Action", { type, state, payload })
+    logger.log("Dispatched Action", type, { type, state, payload })
     switch (type) {
         case types.LOADING_USER: {
             return { ...state, isLoadingUser: true }
@@ -82,7 +82,7 @@ const UserContextProvider = props => {
     const authContext = useContext(AuthContext)
     const [state, dispatch] = React.useReducer(reducer, { ...initialState })
 
-    const [userCollection, userLoading, userError] = useCollection(getUserQuery(authContext?.state?.userId), {
+    const [userCollection, userLoading, userError] = useCollection(getUserQuery(authContext?.state?.user?.uid), {
         snapshotListenOptions: { includeMetadataChanges: true },
     })
 

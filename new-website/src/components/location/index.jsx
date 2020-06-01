@@ -70,6 +70,7 @@ export const LocationOverview = () => {
                             <FormattedMessage id="partnerLocationsTitle" />
                         </h1>
                         <LocationTable
+                            isLoading={isLoading}
                             userAllowedPartnerIds={user.partnerIds}
                             partnerConfigs={partnerConfigs}
                             locations={locations}
