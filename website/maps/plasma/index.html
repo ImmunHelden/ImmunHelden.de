@@ -155,6 +155,13 @@
       text-align: left;
       font-size: 0.9rem;
     }
+
+    div#followup a:link, div#followup a:visited,
+    div#followup a:hover, div#followup a:active {
+      text-decoration: none;
+      color: #ce1b28;
+      display: inline;
+    }
   </style>
 </head>
 <body>
@@ -170,6 +177,7 @@
     <p>Sie vermuten an COVID-19 erkrankt und mittlerweile<br>wieder genesen zu sein?</p>
     <p>Wir informieren Sie, wenn es<br>in Ihrer Region weitere<br>Möglichkeiten gibt um zu helfen.</p>
     <form id="subscribe_form">
+      <input type="hidden" name="countryCode" id="countryCode" value=".de">
       <div>
         <label for="zipCode">Postleitzahl</label>
         <input type="text" name="zipCode" style="width: 4rem;" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
@@ -183,7 +191,7 @@
       </div>
       <div>
         <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
-          <input type="checkbox" id="confirmedHero" style="margin-left: -20px;" required>
+          <input type="checkbox" id="datenschutz" style="margin-left: -20px;" required>
           Ich habe die <a href="https://immunhelden.de/datenschutz.html">Datenschutzerklärung</a> verstanden und möchte informiert werden, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
         </label>
       </div>
@@ -246,6 +254,39 @@
     $(window).on('hashchange', (e) => {
       e.preventDefault();
       followAnchor();
+    });
+
+    $(document).on('submit', '#subscribe_form', (e) => {
+      closeOverlay();
+      e.preventDefault();
+
+      var req = {
+        type: 'POST',
+        url: '/addImmuneHeroMap',
+        data: {
+          email: $('#email').val(),
+          zipCode: $('#zipCode').val(),
+          countryCode: $('#countryCode').val(),
+          datenschutz: $('#datenschutz').val()
+        }
+      };
+
+      $.ajax(req)
+        .fail(err => {
+          console.log(err);
+          $('#followup').css('display', 'flex');
+          $('#subscribe_form').html(
+            '<b>Irgendwas ist schief gelaufen! Bitte <a href="http://immunhelden.de/#questions">schreib uns</a> ' +
+            'und erkläre kurz was passiert ist, sodass wir den Fehler schnell beheben können!</b>'
+          );
+        })
+        .done(response => {
+          $('#followup').css('display', 'flex');
+          $('#subscribe_form').html(
+            '<b>ImmunHelden Updates erfolgreich abonniert!<br>Wir haben Dir eine E-Mail gesendet. ' +
+            'Bitte schau rein und bestätige Deine E-Mail Adresse.</b>'
+          );
+        });
     });
   </script>
 </body>
