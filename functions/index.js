@@ -134,6 +134,37 @@ exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
   }
 });
 
+exports.addImmuneHeroMap = functions.https.onRequest(async (req, res) => {
+  try {
+    if (req.method !== "POST" || !parseBool(req.body.datenschutz))
+      throw "Invalid request";
+
+    const hero = await admin.firestore().collection("heroes").add({
+      email: req.body.email,
+      zipCode: req.body.zipCode,
+      countryCode: req.body.countryCode,
+    });
+
+    // Render E-Mail
+    const msg = await messageTemplates.render("email/de/hero_welcome.md", {
+      link_hero_double_opt_in: `https://immunhelden.de/confirmImmuneHero?id=${hero.id}`,
+      link_hero_opt_out: `https://immunhelden.de/removeImmuneHero?id=${hero.id}`,
+    });
+
+    // Trigger E-Mail
+    admin.firestore().collection("mail").add({
+      to: req.body.email,
+      message: msg,
+    });
+
+    res.json({ status: 'ok' });
+  }
+  catch (err) {
+    console.error(err);
+    res.status(400).json({ status: 'fail', error: err });
+  }
+});
+
 exports.addImmuneHeroEU = functions.https.onRequest(async (req, res) => {
   try {
     if (req.method !== "POST" || !parseBool(req.body.datenschutz))

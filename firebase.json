@@ -42,6 +42,10 @@
         "function": "addImmuneHero"
       },
       {
+        "source": "/addImmuneHeroMap",
+        "function": "addImmuneHeroMap"
+      },
+      {
         "source": "/confirmImmuneHero",
         "function": "confirmImmuneHeroEU"
       },
