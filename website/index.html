@@ -119,6 +119,25 @@
         justify-content: top;
       }
 
+      section#powered-by {
+        display: block;
+        padding: 2rem;
+      }
+      section#powered-by p {
+        text-align: center;
+        opacity: 0.25;
+        margin: 0;
+      }
+      section#powered-by div.content {
+        max-width: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+      section#powered-by div.content img {
+        padding: 1rem;
+        height: 4rem;
+      }
+
       header {
         background: #fff;
         overflow: hidden;
@@ -410,6 +429,11 @@
         font-style: normal;
         color: #c4deb7;
       }
+
+      .checkmark {
+        content: "\2139";
+        stroke-width: 0;
+      }
     </style>
   </head>
   <body>
@@ -653,6 +677,26 @@
               Dann mach mit und <a href="https://dev.immunhelden.de/de/partner/signup/">registriere Dich hier</a>.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section id="powered-by">
+        <p>
+          <img src="images/thanks-to.png" style="height: 3rem;">
+        </p>
+        <div class="content">
+          <a href="https://wirvsvirushackathon.org">
+            <img src="images/wirvsvirusSE.png">
+          </a>
+          <a href="https://prototypefund.de/project/immunhelden/">
+            <img src="images/prototypefund.jpg">
+          </a>
+          <a href="https://you-know.de">
+            <img src="images/youknow.png">
+          </a>
+          <a href="http://www.vonfuchsundlommatzsch.com/" title="studio von fuchs und lommatzsch">
+            <img src="images/vonfuchsundlommatzsch.png">
+          </a>
         </div>
       </section>
     </div>
