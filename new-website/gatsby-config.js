@@ -89,7 +89,7 @@ module.exports = {
         {
             resolve: "gatsby-plugin-sentry",
             options: {
-                dsn: "http://0f4ff5902f4c407e8cad882e32d161a0@v22019046602786136.hotsrv.de:9000/2",
+                dsn: process.env.GATSBY_SENTRY_URL,
                 environment: process.env.NODE_ENV,
                 enabled: true, //(() => ["production", "stage"].indexOf(process.env.NODE_ENV) !== -1)(),
             },
