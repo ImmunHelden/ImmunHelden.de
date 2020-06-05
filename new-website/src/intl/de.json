@@ -10,6 +10,7 @@
     "introDescription": "Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren?\n\nDann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen.\n",
     "postCodeShort": "PLZ",
     "email": "Email",
+    "password": "Passwort",
     "letsGoButtonText": "✔️ Los gehts!",
     "partnerLocationsTitle": "Deine Positionen auf der Karte",
     "locationTable_Title": "Titel",
@@ -52,5 +53,7 @@
     "loginScreen_verify_subtitle": "Sie müssen Ihre E-Mail-Adresse bestätigen, um die Registrierung abzuschließen.",
     "loginScreen_verify_body": "Eine E-Mail mit einem Link zur Überprüfung Ihres Kontos wurde an {email} gesendet. Wenn Sie die E-Mail nach einigen Minuten nicht erhalten haben, überprüfen Sie bitte Ihren Spam-Ordner.",
     "loginScreen_verify_resend": "Nochmal verschicken",
-    "loginScreen_verify_notMyEmail": "Nicht meine E-Mail"
+    "loginScreen_verify_notMyEmail": "Nicht meine E-Mail",
+    "404": "404 - Seite nicht gefunden",
+    "404_body": "Ooops ... Die gewünschte Seite wurde leider nicht gefunden"
 }

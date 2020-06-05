@@ -8,7 +8,7 @@ export const Login = () => {
         <Layout>
             <Grid container justify="center" alignContent="center" spacing={0} style={{ height: "100%" }}>
                 <Grid item xs={12} md={8} lg={5} xl={3}>
-                    <LoginRegisterForm loginSuccessUrl="/partner/account" />
+                    <LoginRegisterForm loginSuccessUrl="/partner" />
                 </Grid>
             </Grid>
         </Layout>

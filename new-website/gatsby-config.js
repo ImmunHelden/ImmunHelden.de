@@ -86,6 +86,14 @@ module.exports = {
                 },
             },
         },
+        {
+            resolve: "gatsby-plugin-sentry",
+            options: {
+                dsn: process.env.GATSBY_SENTRY_URL,
+                environment: process.env.NODE_ENV,
+                enabled: true, //(() => ["production", "stage"].indexOf(process.env.NODE_ENV) !== -1)(),
+            },
+        },
         // this (optional) plugin enables Progressive Web App + Offline functionality
         // To learn more, visit: https://gatsby.dev/offline
         // `gatsby-plugin-offline`,
