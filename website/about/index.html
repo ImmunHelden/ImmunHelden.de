@@ -54,332 +54,116 @@
         display: inline;
       }
 
-      section {
-        padding: 2rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-      }
-      section div.content {
-        max-width: 60rem;
-        display: flex;
-      }
-      section div.content > div {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-      }
-      section div.content p {
-        margin: 0;
-        margin-bottom: 0.5rem;
-      }
-
-      section#youknow {
-        padding: 2rem;
-      }
-      section#youknow div.content {
-        background-repeat: no-repeat;
-        background-position: center;
-        background-image: url('../images/spin_loading.gif');
-      }
-      section#youknow #youknow-video {
-        width: 100%;
-        height: 100%;
-      }
-
-      a#youknow-placeholder {
-        display: block;
-        width: 100%;
-        height: 100%;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-image: url('../images/youknow_preview1.png');
-      }
-
-      a#youknow-placeholder:hover {
-        background-image: url('../images/youknow_preview2.png');
-      }
-
-      section#plasma {
-        background: linear-gradient(45deg, #93672533, transparent);
-        box-shadow: 0 0 15px #888;
-      }
-
-      section#portraits * {
-        box-sizing: border-box;
-      }
-
-      section#partner {
-        background: linear-gradient(90deg, #c4deb7, #c4deb788);
-      }
-
-      section#partner div.illustration {
-        flex: none;
-        justify-content: top;
-      }
-
-      section#powered-by {
-        display: block;
-        padding: 2rem;
-      }
-      section#powered-by p {
-        text-align: center;
-        opacity: 0.25;
-        margin: 0;
-      }
-      section#powered-by div.content {
-        display: block;
-        max-width: 100%;
-        text-align: center;
-      }
-      section#powered-by div.content img {
-        padding: 1rem;
-        height: 4rem;
-      }
-
-      header {
-        background: #fff;
-        overflow: hidden;
-      }
-
-      header a:link, header a:visited, header a:hover, header a:active {
-        text-decoration: none;
-        font-weight: bold;
-        color: #333;
-      }
-
-      header a.logo {
-        background: url('../images/logo_default.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        display: block;
-        flex: none;
-      }
-
-      header a.wirvsvirus {
-        background: url('../images/wirvsvirusSE.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        display: block;
-        flex: none;
-      }
-
-      div.page {
-        box-sizing: border-box;
-      }
-
-      @media only screen and (min-width: 600px) {
-        header {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          overflow: visible;
-        }
-        header a.logo {
-          margin-top: 1rem;
-          padding-top: 5.25rem;
-          background-position: top center;
-          width: 25rem;
-          height: 10rem;
-        }
-        header a.wirvsvirus {
-          width: 11rem;
-          height: 2.25rem;
-          margin-top: -0.2rem;
-          background-position: right;
-        }
-
-        section div.content {
-          flex-direction: row;
-          width: 100%;
-        }
-        section div.content > div:first-child {
-          padding-right: 3rem;
-        }
-        section div.content > div.center {
-          align-items: center;
-        }
-        section div.padding {
-          flex: 1;
-          min-width: 2rem;
-        }
-
-        section.intro {
-          padding: 0;
-        }
-        section.intro div.content div.sign-up {
-          flex: auto;
-          width: 19rem;
-          padding: 2rem;
-          padding-right: 0;
-          margin-left: 2rem;
-        }
-        section.intro div.right {
-          margin: 3rem 0;
-        }
-
-        section#youknow div.description {
-          text-align: right;
-          padding-right: 0;
-        }
-
-        section#plasma iframe {
-          border: 0;
-          height: 100%;
-          min-height: 20rem;
-        }
-
-        section#portraits {
-          display: block;
-          text-align: center;
-          padding: 0;
-        }
-        section#portraits div.card {
-          display: inline-block;
-          border-radius: 0 0 0 2rem;
-          box-shadow: 0 0 15px #ccc;
-          margin: 2rem;
-          overflow: hidden;
-          vertical-align: top;
-        }
-        section#portraits div.card div.photo {
-          display: inline-block;
-          width: 12rem;
-          vertical-align: top;
-        }
-        section#portraits div.card div.photo p {
-          text-align: right;
-          font-weight: bold;
-          margin: 0;
-          padding-right: 0.5rem;
-          background: #ce1b28;
-          color: #fff;
-        }
-        section#portraits div.card div.photo img {
-          width: 12rem;
-        }
-        section#portraits div.card div.text {
-          display: inline-block;
-          width: 20rem;
-          padding: 1rem 1rem 0.5rem 1rem;
-          text-align: left;
-        }
-        section#portraits div.card div.text p {
-          padding: 0;
-          margin: 0 0 0.25rem 0;
-          line-height: 1.4rem;
-        }
-        section#portraits div.card div.text span {
-          font-size: 0.75rem;
-          line-height: 0.5rem;
-          color: #ce1b28;
-        }
-
-        #footer {
-          padding: 2rem;
-          clear: both;
-        }
-      }
-      @media only screen and (max-width: 599px) {
-        header {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 3rem;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          background: #fff;
-        }
-
-        header a.logo {
-          width: 3.5rem;
-          height: 2.8rem;
-          margin-left: 1rem;
-          background-position: center;
-        }
-
-        header a.wirvsvirus {
-          width: 10rem;
-          height: 2.8rem;
-        }
-
-        div.page {
-          margin-top: 3rem;
-        }
-
-        section div.content {
-          flex-direction: column;
-        }
-        div.sign-up {
-          padding: 2rem;
-          border-radius: 0;
-          background-color: transparent;
-        }
-        section.intro {
-          background: linear-gradient( #ffffffff, #ffffff00), url('../images/cta02.jpg');
-          background-position: 40% 50%;
-          background-size: cover;
-          min-height: calc(100vh - 3rem);
-          padding: 0;
-        }
-
-        section#youknow {
-          padding: 0;
-        }
-        section#youknow div.content {
-          width: 100%;
-          padding: 2rem 0;
-        }
-        section#youknow div.description {
-          padding: 0 2rem;
-        }
-
-        section#plasma {
-          padding: 0;
-        }
-        section#plasma div.content {
-          flex-direction: column-reverse;
-        }
-        section#plasma div.description {
-          padding: 2rem;
-          padding-top: 4rem;
-        }
-        section#plasma iframe {
-          border: 0;
-          height: 20rem;
-          width: 100%;
-        }
-
-        section#partner div.content {
-          flex-direction: column-reverse;
-        }
-        section#partner div.illustration {
-          display: none;
-        }
-
-        #footer {
-          padding: 0;
-        }
-      }
-
-
       h2 {
         background-image: url('../images/black-bar.png');
         background-repeat: no-repeat;
         background-size: auto;
         background-position: top left;
         padding-top: 20px;
-        margin-top: 0;
+        margin: 1rem 0;
         font-size: 2.5rem;
         line-height: 2.25rem;
         display: inline-block;
       }
 
-      h4 {
+      section {
+        padding: 0 2rem;
+      }
+
+      header a.logo {
+        display: block;
+        margin: 2rem;
+        height: 10rem;
+        background: url('../images/logo_default.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: top center;
+      }
+
+      div.page {
+        box-sizing: border-box;
+      }
+
+      section#team {
+        display: flex;
+        justify-content: center;
+      }
+      section#team div.content {
+        max-width: 60rem;
+      }
+
+      section#portraits {
+        display: block;
+        text-align: center;
+        padding: 0;
+      }
+      section#portraits div.card {
+        overflow: hidden;
+        vertical-align: top;
+      }
+      section#portraits div.card div.photo {
+        vertical-align: top;
+      }
+      section#portraits div.card div.photo p {
+        text-align: right;
+        font-weight: bold;
+        margin: 0;
+        padding-right: 0.5rem;
+        background: #ce1b28;
+        color: #fff;
+      }
+      section#portraits div.card div.text {
+        padding: 1rem 1rem 0.5rem 1rem;
+        text-align: left;
+      }
+      section#portraits div.card div.text p {
+        padding: 0;
+        margin: 0 0 0.25rem 0;
+        line-height: 1.4rem;
+      }
+      section#portraits div.card div.text span {
+        font-size: 0.75rem;
+        line-height: 0.5rem;
+        color: #ce1b28;
+      }
+
+      #footer {
+        padding: 2rem;
+        clear: both;
+      }
+
+      @media only screen and (min-width: 600px) {
+        section#portraits div.card {
+          display: inline-block;
+          margin: 2rem;
+          box-shadow: 0 0 15px #ccc;
+          border-radius: 0 0 0 2rem;
+        }
+        section#portraits div.card div.photo {
+          display: inline-block;
+          width: 12rem;
+        }
+        section#portraits div.card div.photo img {
+          width: 12rem;
+        }
+        section#portraits div.card div.text {
+          display: inline-block;
+          width: 18rem;
+        }
+      }
+      @media only screen and (max-width: 599px) {
+        section#portraits div.card {
+          display: block;
+          margin: 2rem;
+          box-shadow: 0 0 15px #ccc;
+          border-radius: 0 0 0 2rem;
+        }
+        section#portraits div.card div.photo img {
+          height: 15rem;
+        }
+      }
+
+      #footer h4 {
         margin: 0;
       }
 
@@ -402,57 +186,6 @@
         text-align: center;
       }
 
-      input[type="email"], input[type="text"], textarea {
-        font-family: Raleway, sans-serif; font-size: 1rem;
-        padding: 8px;
-        border: solid 1px; border-radius: 4px;
-        background-color: rgba(0, 0, 0, 0.075);
-        border-color: rgba(0, 0, 0, 0.25);
-      }
-      textarea {
-        width: 100%;
-        box-sizing: border-box;
-      }
-      input[type="submit"] {
-        color: #fff; background-color: #ce1b28;
-        font-size: 1.1rem;
-        border: 0;
-        border-radius: 4px;
-        height: 2.2rem;
-      }
-      input[type="button"] {
-        border: 0;
-        background: none;
-        text-decoration: underline;
-        font-size: 1.1rem;
-        font-weight: 300;
-        margin-top: 2rem;
-      }
-      .overlay-followup {
-        position: absolute;
-        left: 0px; top: 0px; width: 100%; height: 100%;
-        font-family: Raleway, sans-serif; font-size: 14pt;
-        background-image: url('../images/bkgnd04.jpg');
-        background-size: cover;
-        background-position: center;
-        display: none; /* on click set to 'flex' */
-        flex-direction: column; justify-content: center; align-items: center;
-        box-sizing: border-box; padding: 2rem; text-align: center;
-      }
-      form > div {
-        display: inline-block;
-        margin: 0.25rem 0;
-      }
-      form > div > label {
-        display: block;
-        text-align: left;
-        font-size: 0.9rem;
-        font-weight: bold;
-      }
-      input[type="submit"]:disabled {
-        opacity: 0.5;
-      }
-
       #footer {
         background: #333;
         color: #ddd;
@@ -468,21 +201,17 @@
   </head>
   <body>
     <div class="page">
-      <section class="intro">
-        <div class="padding"></div>
-        <div class="content">
-          <header>
-            <a href="/" class="logo"></a>
-          </header>
+      <header>
+        <a href="/" class="logo"></a>
+      </header>
 
-          <div class="sign-up">
-            <h2>Team</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
+      <section id="team">
+        <div class="content">
+          <h2>Team</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
         </div>
-        <div class="padding right"></div>
       </section>
 
       <section id="portraits">
