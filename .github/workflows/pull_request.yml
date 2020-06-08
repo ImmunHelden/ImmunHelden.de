@@ -15,5 +15,6 @@ jobs:
       env:
         GATSBY_PROJECT_PATH: "./new-website"
         GATSBY_FIREBASE_API_KEY: ${{ secrets.GATSBY_FIREBASE_API_KEY}}
+        GATSBY_SENTRY_URL: ${{ secrets.GATSBY_SENTRY_URL}}
       with:
         gatsby-arg: build
