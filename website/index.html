@@ -110,6 +110,22 @@
       section#questions * {
         box-sizing: border-box;
       }
+      section#questions {
+        background-image: url(images/info_icon.png);
+        background-position-x: max(-5rem, calc(50% - 25rem));
+        background-position-y: 5rem;
+        background-size: 30rem;
+        background-repeat: no-repeat;
+      }
+      section#questions {
+        padding: 2rem 0rem;
+      }
+      section#questions div.content > div {
+        padding: 2rem;
+      }
+      section.faq-highlight {
+        background-image: url(images/info_icon_highlight.png) !important;
+      }
 
       section#partner {
         background: linear-gradient(90deg, #c4deb7, #c4deb788);
@@ -244,6 +260,9 @@
         section#questions div.content {
           flex-direction: row;
         }
+        section#questions div#faq:hover {
+          cursor: pointer;
+        }
 
         #footer {
           padding: 2rem;
@@ -319,6 +338,14 @@
           border: 0;
           height: 20rem;
           width: 100%;
+        }
+
+        section#questions div.content {
+          background: #fffb;
+        }
+        section#questions div#faq:hover {
+          cursor: pointer;
+          background: #eee8;
         }
 
         section#partner div.content {
@@ -588,12 +615,12 @@
 
       <section id="questions">
         <div class="content">
-          <div style="flex: 2;">
+          <div id="faq" style="flex: 2;">
             <h2>
               Häufige Fragen
             </h2>
             <p>
-              Aufmerksam verfolgen wir den aktuellen Stand der Forschung zur Immunität gegen das neuartige Corona Virus. Viele Fragen beantwortet <a href="faq.html">unsere FAQ</a>.
+              Aufmerksam verfolgen wir den aktuellen Stand der Forschung zur Immunität gegen das neuartige Corona Virus. Viele Fragen beantwortet <b><a href="/faq/">unsere FAQ</a></b>.
             </p>
           </div>
           <div style="flex: 4;">
@@ -609,6 +636,16 @@
               </label>
             </form>
             <script>
+              const faqArea = $('#faq');
+              const sectionQuestions = $('#questions');
+              faqArea.click(() => window.location.href = '/faq/');
+              faqArea.hover(function() {
+                sectionQuestions.addClass('faq-highlight');
+              },
+              function() {
+                sectionQuestions.removeClass('faq-highlight');
+              });
+
               // Apparently, the Slack API endpoint fails to return an Access-Control-Allow-Headers response
               // header that contains Content-Type in its value. Thus, the browsers CORS preflight OPTIONS
               // request fails, if our request included the field contentType: 'application/json'. Not sure
