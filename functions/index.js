@@ -12,6 +12,7 @@ exports.renderBlutspendenDe = toolsBlutspendenDe.render;
 const messageTemplates = require(`./message-templates.js`);
 exports.sendExampleMail = messageTemplates.sendExampleMail;
 exports.doSendExampleMail = messageTemplates.doSendExampleMail;
+exports.renderFaq = messageTemplates.renderFaq;
 
 admin.initializeApp(functions.config().firebase);
 

@@ -86,6 +86,10 @@
         "function": "details_html"
       },
       {
+        "source": "/renderFaq",
+        "function": "renderFaq"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
