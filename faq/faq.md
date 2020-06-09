@@ -1,4 +1,4 @@
-# FAQ
+# Häufige Fragen
 
 ## Coronavirus SARS-CoV-2
 
@@ -160,11 +160,9 @@ Trotz größter Sorgfalt können in einigen Fällen nach der Spende folgende  Ne
 Überaus selten können Hautnerven an der Einstichstelle geschädigt werden. Langanhaltende oder dauerhaft bleibende Beeinträchtigungen durch das Blutspenden sind extrem selten, können jedoch nicht vollkommen ausgeschlossen werden. Leichtes Kribbeln der Finger, der Zehen, der Zunge oder im Mund.*
 
 
-Linksammlung für weitere Infos (zu COVID-19 generell und zur Blutplasmaspende)
-
 # Quellen
 
-## Coronavirus SARS-CoV-2 und COVID-19
+### Coronavirus SARS-CoV-2 und COVID-19
 
 * BMG: [Ihre Fragen - unsere Antworten](https://www.zusammengegencorona.de/informieren/)
 * BZgA: [Fragen und Antworten](https://www.infektionsschutz.de/coronavirus/fragen-und-antworten/)
@@ -172,7 +170,7 @@ Linksammlung für weitere Infos (zu COVID-19 generell und zur Blutplasmaspende)
 * WHO: [COVID-19 and related health topics](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub)
 
 
-## Rekonvaleszentenplasmaspende in Deutschland
+### Rekonvaleszentenplasmaspende in Deutschland
 
 * BzGA: [Blutspende und Plasmaspende: die Einsatzgebiete](https://www.blutspenden.de/blut-und-plasmaspende/)
 * DRK BaWü-Hessen: [Informationen zum Projekt Rekonvaleszentenplasma](https://www.blutspende.de/rkp/)
