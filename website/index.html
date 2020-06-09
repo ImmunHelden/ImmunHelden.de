@@ -128,6 +128,7 @@
       }
 
       section#partner {
+        padding: 8rem 2rem;
         background: linear-gradient(90deg, #c4deb7, #c4deb788);
       }
 
@@ -136,14 +137,42 @@
         justify-content: top;
       }
 
+      section#team {
+        padding: 0;
+        padding-top: 12rem;
+        margin-bottom: 0;
+        background: url('images/team-all.png');
+        background-repeat: repeat-x;
+        background-position-x: 0px;
+        background-position-y: top;
+      }
+      section#team:hover {
+        background: linear-gradient(#0002, #0002), url('images/team-all.png');
+        cursor: pointer;
+      }
+      section#team h2 {
+        display: block;
+        text-align: center;
+        padding-bottom: 20px;
+        margin-bottom: 0;
+        width: 100%;
+        background-color: #eeec;
+        background-position: center bottom;
+      }
+      section#team h2 a:link, section#team h2 a:visited {
+        color: #000;
+      }
+
       section#supported-by {
         display: block;
-        padding: 2rem;
+        padding-top: 0;
+        margin-bottom: 4rem;
       }
-      section#supported-by p {
+      section#supported-by h2 {
+        display: block;
         text-align: center;
-        opacity: 0.25;
-        margin: 0;
+        background: none;
+        padding: 15px 0;
       }
       section#supported-by div.content {
         display: block;
@@ -719,10 +748,23 @@
         </div>
       </section>
 
+      <section id="team">
+        <h2>
+          Ehrenamtlich und uneigennützig als Open-Source Projekt entwickelt von
+          <a href="/about/">Euerem ImmunHelden Team</a>
+        </h2>
+      </section>
+      <script>
+        let posX = 0;
+        const team = $('#team');
+        team.click(() => window.location.href = '/about/');
+        setInterval(function() { team.css('background-position-x', --posX); }, 50);
+      </script>
+
       <section id="supported-by">
-        <p>
-          <img src="images/thanks-to-de.png" style="height: 3rem;">
-        </p>
+        <h2>
+          mit Unterstützung von
+        </h2>
         <div class="content">
           <a href="https://wirvsvirushackathon.org">
             <img src="images/thanks-wirvsvirusSE.png">
