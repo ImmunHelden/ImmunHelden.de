@@ -695,10 +695,10 @@
           </div>
           <div style="flex: 4;">
             <p>You have another question or want ot get in touch? Leave us a message and we will get back to you soon!</p>
-            <form id="contactForm">
+            <form id="contactForm" onsubmit="return sendSupportRequest(event)">
               <textarea id="message" rows="6" placeholder="Type your message here" required></textarea>
               <input type="text" id="contact" style="width: 100%; margin-bottom: 5px;" placeholder="Your email address">
-              <input type="submit" value="Senden" id="submitQuestion" onclick="sendSupportRequest()">
+              <input type="submit" value="Senden" id="submitQuestion">
 
               <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
                 <input type="checkbox" id="confirmedQuestion" style="margin-left: -20px;" required>
@@ -713,15 +713,17 @@
               // on purpose in our request. More details here: https://stackoverflow.com/questions/45752537
               var baseUrl = 'https://hooks.slack.com/services/';
 
-              function sendSupportRequest() {
+              function sendSupportRequest(e) {
+                e.preventDefault();
+
                 if ($('#contact').val().length == 0) {
                   if (!confirm("You didn't write down your email address. This is ok, we just cannot get back to you for a followup. Are you sure?")) {
-                    return;
+                    return false;
                   }
                 }
 
                 if (!$('#contactForm')[0].checkValidity()) {
-                  return;
+                  return false;
                 }
 
                 // Avoid double-submit
@@ -755,6 +757,8 @@
                     alert("Deine Anfrage ist bei uns eingegangen. Wir werden uns so schnell wie " +
                           "möglich bei dir melden.");
                   });
+
+                return false;
               }
             </script>
           </div>

@@ -652,10 +652,10 @@
           </div>
           <div style="flex: 4;">
             <p>Hast du eine Frage? Dann schreib uns direkt und wir melden uns bei dir!</p>
-            <form>
+            <form id="contactForm" onsubmit="return sendSupportRequest(event)">
               <textarea id="message" rows="6" placeholder="Gibt hier deine Anfrage ein" required></textarea>
               <input type="text" id="contact" style="width: 100%; margin-bottom: 5px;" placeholder="Email / Telefon" required>
-              <input type="submit" value="Senden" id="submitQuestion" onclick="sendSupportRequest()">
+              <input type="submit" value="Senden" id="submitQuestion">
 
               <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
                 <input type="checkbox" id="confirmedQuestion" style="margin-left: -20px;" required>
@@ -680,15 +680,17 @@
               // on purpose in our request. More details here: https://stackoverflow.com/questions/45752537
               var baseUrl = 'https://hooks.slack.com/services/';
 
-              function sendSupportRequest() {
+              function sendSupportRequest(e) {
+                e.preventDefault();
+
                 if ($('#contact').val().length == 0) {
                   if (!confirm("Du hast keine E-Mail Adresse hinterlegt. Das ist ok, aber bedenke, dass wir Dir dann nicht anworten können. Bist du sicher?")) {
-                    return;
+                    return false;
                   }
                 }
 
                 if (!$('#contactForm')[0].checkValidity()) {
-                  return;
+                  return false;
                 }
 
                 // Avoid double-submit
@@ -722,6 +724,8 @@
                     alert("Deine Anfrage ist bei uns eingegangen. Wir werden uns so schnell wie " +
                           "möglich bei dir melden.");
                   });
+
+                return false;
               }
             </script>
           </div>
