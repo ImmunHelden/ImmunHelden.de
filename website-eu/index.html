@@ -747,15 +747,13 @@
                     console.log(err);
                     setTimeout(() => { $('#submitQuestion').prop('disabled', false); }, 5 * 60 * 1000);
 
-                    alert("Bitte endschuldige, bei der Verarbeitung deiner Anfrage ist ein Fehler aufgetreten.\n\n" +
-                          "Wenn du die Seite offen lässt, kannst du es in 5 Minuten erneut versuchen.\n" +
-                          "Alternativ kannst du uns per E-Mail erreichen: " +
+                    alert("We are very sorry, but there was an error while processing your request.\n\n" +
+                          "Please try again in 5 Minutes or reach us by email:\n" +
                           kkl("dhhpiczgyzi", 5) + "@" + kkl("ihlmxh", 7) + "." + kkl("fg", -2));
                   })
                   .done(response => {
                     console.log(response);
-                    alert("Deine Anfrage ist bei uns eingegangen. Wir werden uns so schnell wie " +
-                          "möglich bei dir melden.");
+                    alert("We received your request, thank you! We will reply as soon as possible.");
                   });
 
                 return false;
