@@ -230,7 +230,8 @@
           { name: "Stadtmission", restBaseUrl: 'https://immunhelden.de/maps/stadtmission', icon: missionPinIcon }
         //]}
       ],
-      selectPlatformsControl: !params.hasOwnProperty("embedded")
+      selectPlatformsControl: !params.hasOwnProperty("embedded"),
+      selectPlatformsTitle: "Kategorien"
     };
 
     const map = new WirVsVirusMap.Instance('osm-map', settings);
