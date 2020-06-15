@@ -107,6 +107,7 @@
   const defaultSettings = {
     embedded: Utils.guessIFrame(),
     lockLink: '/',
+    center: [51.5, 10],
     zoom: 6,
     baseLayer: defaultBaseLayer,
     platforms: [
@@ -117,7 +118,8 @@
       //]
       //}
     ],
-    selectPlatformsControl: true
+    selectPlatformsControl: true,
+    selectPlatformsTitle: "Anzeigen und Gesuche"
   };
 
   const Pin = {
@@ -229,7 +231,7 @@
     return true;
   };
 
-  function _makePlatformsControl(map, platforms) {
+  function _makePlatformsControl(map, platforms, title) {
     const create = (tag, parent) => {
       const elem = document.createElement(tag);
       parent.appendChild(elem);
@@ -244,7 +246,9 @@
         L.DomUtil.addClass(div, 'platforms-control');
 
         const table = create('table', div);
-        table.innerHTML = '<tr><th>Anzeigen und Gesuche</th></tr>';
+        if (title && title.length > 0) {
+          table.innerHTML = '<tr><th>' + title + '</th></tr>';
+        }
 
         for (let i = 0; i < platforms.length; i++) {
           const label = create('label', create('td', create('tr', table)));
@@ -286,9 +290,6 @@
     return mdom;
   }
 
-  // TODO
-  let _viewDetailsForPin = null;
-
   WirVsVirusMap.Instance = function(domElementName, actualSettings) {
     if (!_isValidElement(domElementName))
       return;
@@ -300,16 +301,16 @@
 
     // TODO: We can choose the element ID and it must not clash with existing elements.
     const map = new L.map('osm-map-canvas', {
-      center: [51.5, 10],
+      center: settings.center,
       zoom: settings.zoom,
       zoomControl: !settings.embedded
     });
 
     settings.baseLayer.addTo(map);
 
-    // TODO: Setting/condition for displaying the control for platform selection.
     if (settings.selectPlatformsControl) {
-      L.Control.Platforms = _makePlatformsControl(this, settings.platforms);
+      const title = settings.selectPlatformsTitle;
+      L.Control.Platforms = _makePlatformsControl(this, settings.platforms, title);
       controls.platformsView = new L.Control.Platforms({ position: 'bottomleft' });
       controls.platformsView.addTo(map);
     }
@@ -353,18 +354,14 @@
       this.onOpenDetailsPane();
     };
 
-    //let oneTimeActionClosePane = null;
-
     const _closeDetailsPane = () => {
       dom.pane.hide();
       dom.canvas.css("width", "100%");
       map.invalidateSize();
       this.onCloseDetailsPane();
-      //if (oneTimeActionClosePane)
-      //  oneTimeActionClosePane();
     };
 
-    _viewDetailsForPin = (id) => {
+    const _viewDetailsForPin = (id) => {
       if (!allPinsById.hasOwnProperty(id)) {
         console.error("Requested invalid ID");
         return;
@@ -375,7 +372,7 @@
       const pin = allPinsById[id];
       map.panTo(pin.latlng);
 
-      // TODO: implement and can we pass an element?
+      // TODO: Review sandboxing options.
       pin.fetchDetails().then(
         html => {
           dom.paneDetails.attr("srcdoc", html)
