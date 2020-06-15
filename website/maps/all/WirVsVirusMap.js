@@ -256,7 +256,10 @@
           checkbox.type = 'checkbox';
           checkbox.checked = true;
           checkbox.addEventListener('change', () => map.togglePlatform(checkbox, i));
-          label.appendChild(document.createTextNode(platforms[i].name));
+          const contents = create('span', label);
+          contents.className = 'checkbox';
+          contents.style.backgroundImage = 'url(' + platforms[i].icon.iconUrl + ')';
+          contents.innerHTML = platforms[i].name;
         }
 
         return div;
