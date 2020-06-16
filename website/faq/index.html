@@ -71,7 +71,8 @@
       }
       #faq h2::before {
         /*content: "▾";*/
-        content: "▶";
+        /*content: "▶";*/
+        content: "ⓘ";
         width: 1.75rem;
         margin-left: -1.75rem;
         display: inline-block;
@@ -129,11 +130,6 @@
         max-width: 60rem;
       }
 
-      #footer {
-        padding: 2rem;
-        clear: both;
-      }
-
       @media only screen and (min-width: 600px) {
         section#portraits div.card {
           display: inline-block;
@@ -152,6 +148,10 @@
           display: inline-block;
           width: 18rem;
         }
+        section#footer div.content {
+          flex-direction: row;
+          width: 100%;
+        }
       }
       @media only screen and (max-width: 599px) {
         section#portraits div.card {
@@ -163,6 +163,18 @@
         section#portraits div.card div.photo img {
           height: 15rem;
         }
+        section#footer {
+          padding: 0 2rem;
+        }
+        section#footer div.content {
+          flex-direction: column;
+          margin: 0;
+        }
+      }
+
+      #footer {
+        padding: 2rem;
+        clear: both;
       }
 
       #footer h4 {
@@ -280,7 +292,7 @@
           <p>Die Plasmaspende ist schonend für den Körper: Alle Plasmabestandteile, die bei der Spende entnommen werden, bildet der Körper innerhalb von Stunden bis maximal zwei Tagen wieder nach. Daher ist Plasma spenden auch in deutlich kürzeren Abständen möglich als Blut spenden. (<a href="https://www.plasmazentrum-heidelberg.de/plasma-und-plasmaspende-was-ist-das/">https://www.plasmazentrum-heidelberg.de/plasma-und-plasmaspende-was-ist-das/</a>)</p>
           <h3 id="wie-oft-kann-ich-blutplasma-spenden"><a id="user-content-wie-oft-kann-ich-blutplasma-spenden" class="anchor" href="#wie-oft-kann-ich-blutplasma-spenden" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16">  <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Wie oft kann ich Blutplasma spenden?</h3>
           <p>Frauen und Männer dürfen maximal 60 Mal im Jahr Plasma spenden. Zwischen zwei Plasmaspenden müssen mindestens drei Tage liegen.*</p>
-          <h3 id="wie-mache-ich-einen-termin-fr-eine-rekonvalenszentenplasmaspende-blutplasmaspende-nach-genesung-von-covid-19-aus"><a id="user-content-wie-mache-ich-einen-termin-fr-eine-rekonvalenszentenplasmaspende-blutplasmaspende-nach-genesung-von-covid-19-aus" class="anchor" href="#wie-mache-ich-einen-termin-fr-eine-rekonvalenszentenplasmaspende-blutplasmaspende-nach-genesung-von-covid-19-aus" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16">  <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Wie mache ich einen Termin für eine Rekonvalenszentenplasmaspende (Blutplasmaspende nach Genesung von COVID-19) aus?</h3>
+          <h3 id="wie-mache-ich-einen-termin-fr-eine-rekonvalenszentenplasmaspende-blutplasmaspende-nach-genesung-von-covid-19-aus"><a id="user-content-wie-mache-ich-einen-termin-fr-eine-rekonvalenszentenplasmaspende-blutplasmaspende-nach-genesung-von-covid-19-aus" class="anchor" href="#wie-mache-ich-einen-termin-fr-eine-rekonvalenszentenplasmaspende-blutplasmaspende-nach-genesung-von-covid-19-aus" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16">  <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Wie mache ich einen Termin für eine Rekonvaleszenten-Plasmaspende (Blutplasmaspende nach Genesung von COVID-19) aus?</h3>
           <p>Für das Spenden von Rekonvaleszentenplasma ist es meist notwendig, einen Nachweis einer seit mehreren Wochen überstandenen Infektion zu erbringen (z.B. einen positiven und mehrere Wochen zurückliegenden PCR-Test). Daher vergibt der Großteil der Blutspendezentren Termine für die Blutplasmaspende nach Genesung von COVID-19 nur nach telefonischer Besprechung oder Ausfüllen eines Online-Fragebogens. Informiere Dich unbedingt über die Links auf unserer Karte und rufe gegebenenfalls bei der Blutspendeeinrichtung in Deiner Nähe an, bevor Du Blutplasma spenden gehst.</p>
           <h3 id="welche-weiteren-voraussetzungen-muss-ich-als-blutplasmaspenderin-erfllen"><a id="user-content-welche-weiteren-voraussetzungen-muss-ich-als-blutplasmaspenderin-erfllen" class="anchor" href="#welche-weiteren-voraussetzungen-muss-ich-als-blutplasmaspenderin-erfllen" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16">  <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Welche weiteren Voraussetzungen muss ich als Blutplasmaspender:in erfüllen?</h3>
           <p>Die Voraussetzungen variieren je nach Blutspendezentrum leicht. Grundsätzlich solltest Du volljährig und zum Zeitpunkt der Blutplasmaspende bei guter Gesundheit sein sowie keine schwerwiegenden Grunderkrankungen oder Autoimmunerkrankungen haben.</p>
@@ -316,7 +328,7 @@
           <li>RKI: <a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html">SARS-CoV-2 Steckbrief zu COVID-19</a></li>
           <li>WHO: <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub">COVID-19 and related health topics</a></li>
           </ul>
-          <h3 id="rekonvaleszentenplasmaspende-in-deutschland">Rekonvaleszentenplasmaspende in Deutschland</h3>
+          <h3 id="rekonvaleszenten-plasmaspende-in-deutschland">Rekonvaleszenten-Plasmaspende in Deutschland</h3>
           <ul>
           <li>BzGA: <a href="https://www.blutspenden.de/blut-und-plasmaspende/">Blutspende und Plasmaspende: die Einsatzgebiete</a></li>
           <li>DRK BaWü-Hessen: <a href="https://www.blutspende.de/rkp/">Informationen zum Projekt Rekonvaleszentenplasma</a></li>
