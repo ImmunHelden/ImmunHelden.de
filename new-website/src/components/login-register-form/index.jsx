@@ -60,12 +60,15 @@ export const LoginRegisterForm = ({ loginSuccessUrl, screen = screens.LOGIN }) =
         }
     }
     const onError = ({ code, message }) => {
-        setAlert({
-            open: true,
-            message: formatMessage({ id: code }),
-            severity: "error",
-        })
-        throw new Error({ code, message })
+        try {
+            setAlert({
+                open: true,
+                message: formatMessage({ id: code }),
+                severity: "error",
+            })
+        } catch (err) {
+            console.error("Login/Signup", { code, err, message })
+        }
     }
 
     const onSuccess = user => {
