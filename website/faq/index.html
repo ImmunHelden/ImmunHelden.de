@@ -80,7 +80,7 @@
 
       #faq h3 {
         font-size: 1rem;
-        margin-top: 2rem;
+        cursor: pointer;
       }
       #faq h3 a {
         display: inline-block;
@@ -89,6 +89,10 @@
       }
       #faq h3 a svg {
         vertical-align: -10%;
+      }
+      #faq p {
+        margin: 0;
+        padding: 0 0 1rem 0;
       }
 
       h1 {
@@ -321,6 +325,42 @@
           </ul>
         </div>
       </section>
+
+      <script>
+        function parseAnchor(url) {
+          const apos = url.lastIndexOf('#');
+          return (apos > 0 && apos < url.length - 1) ? url.substring(apos + 1) : null;
+        }
+
+        function applyToAnswer(question, action) {
+          let elems = question.next('p,ul');
+          while (elems.length > 0) {
+            action(elems);
+            elems = elems.next('p,ul');
+          }
+        }
+
+        let questions = $('h3');
+        applyToAnswer(questions, a => a.hide());
+
+        questions.click(function() {
+          const q = $(this);
+          if (q.attr('data-open') == '1') {
+            q.attr('data-open', '0');
+            applyToAnswer(q, a => a.hide());
+          } else {
+            q.attr('data-open', '1');
+            applyToAnswer(q, a => a.show());
+          }
+        });
+
+        // Note: not all IDs refer to questions, but let's ignore other cases for now
+        const anchorElem = $('#' + parseAnchor(window.location.href));
+        if (anchorElem) {
+          applyToAnswer(anchorElem, a => a.show());
+        }
+
+      </script>
     </div>
 
     <section id="footer">
