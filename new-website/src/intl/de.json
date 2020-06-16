@@ -55,5 +55,6 @@
     "loginScreen_verify_resend": "Nochmal verschicken",
     "loginScreen_verify_notMyEmail": "Nicht meine E-Mail",
     "404": "404 - Seite nicht gefunden",
-    "404_body": "Ooops ... Die gewünschte Seite wurde leider nicht gefunden"
+    "404_body": "Ooops ... Die gewünschte Seite wurde leider nicht gefunden",
+    "unkown_error": "Oooops ... Etwas ist schief gegangen."
 }

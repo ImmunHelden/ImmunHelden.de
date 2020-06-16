@@ -26,7 +26,7 @@ const Register = ({ onError = () => {}, onSuccess = () => {} }) => {
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .then(user => onSuccess(user))
-            .catch(error => onError(error))
+            .catch(error => onError(error.code, error.message))
     }
 
     return (

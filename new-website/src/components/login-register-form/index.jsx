@@ -59,7 +59,7 @@ export const LoginRegisterForm = ({ loginSuccessUrl, screen = screens.LOGIN }) =
             switchToVerify()
         }
     }
-    const onError = ({ code, message }) => {
+    const onError = (code = "unkown_error", message) => {
         try {
             setAlert({
                 open: true,
@@ -67,7 +67,7 @@ export const LoginRegisterForm = ({ loginSuccessUrl, screen = screens.LOGIN }) =
                 severity: "error",
             })
         } catch (err) {
-            console.error("Login/Signup", { code, err, message })
+            console.error("Login/Signup Error", { code, err, message })
         }
     }
 
