@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import "./layout.css"
 import Header from "./header/index"
+import { ErrorBoundary } from "./error/error-boundary"
 
 const Layout = ({ children }) => {
     const data = useStaticQuery(graphql`
@@ -22,9 +23,15 @@ const Layout = ({ children }) => {
                 flexDirection: "column",
             }}
         >
-            <Header title={data.site.siteMetadata.title} />
-            <main style={{ flexGrow: 1 }}>{children}</main>
-            <footer></footer>
+            <ErrorBoundary>
+                <Header title={data.site.siteMetadata.title} />
+            </ErrorBoundary>
+            <ErrorBoundary>
+                <main style={{ flexGrow: 1 }}>{children}</main>
+            </ErrorBoundary>
+            <ErrorBoundary>
+                <footer></footer>
+            </ErrorBoundary>
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         </div>
     )

@@ -56,5 +56,7 @@
     "loginScreen_verify_notMyEmail": "Nicht meine E-Mail",
     "404": "404 - Seite nicht gefunden",
     "404_body": "Ooops ... Die gewünschte Seite wurde leider nicht gefunden",
-    "unkown_error": "Oooops ... Etwas ist schief gegangen."
+    "partnerUserNoOrga": "Sie sind noch keiner Organisation zugeordnet. Bitte kontaktieren Sie ...",
+    "unkown_error": "Oooops ... Etwas ist schief gegangen.",
+    "somethingBroke": "Oooops ... Etwas ist schief gegangen. \n Bitte versuchen Sie die Seite neu zu laden oder kontaktieren Sie uns unter ..."
 }

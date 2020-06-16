@@ -37,5 +37,7 @@
     "loginScreen_verify_notMyEmail": "Not my Email",
     "404": "404 - Not Found",
     "404_body": "Ooops ... The page you are looking for could not be found",
-    "unkown_error": "Ooops ... something went wrong."
+    "partnerUserNoOrga": "You are not a member of an organisation yet. Please contact ...",
+    "unkown_error": "Ooops ... something went wrong.",
+    "somethingBroke": "Oops, something went wrong. \n Try to refresh this page or feel free to contact us if the problem persists."
 }

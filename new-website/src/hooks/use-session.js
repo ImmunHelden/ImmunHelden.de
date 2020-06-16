@@ -5,7 +5,6 @@ import { AuthContext } from "../components/context/auth-context"
 export const useSession = () => {
     const auth = useContext(AuthContext)
     const user = useContext(UserContext)
-    console.log({ userLoading: user?.state?.isLoadingUser, partnerLoading: user?.state?.isLoadingPartner })
     return {
         user: {
             email: auth?.state?.user?.email,
