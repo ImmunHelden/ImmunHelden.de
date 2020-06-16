@@ -9,6 +9,7 @@ import { mapLocation } from "../../util/location"
 import { isNode } from "@firebase/util"
 import { FormattedMessage, useIntl } from "gatsby-plugin-intl"
 import MuiAlert from "@material-ui/lab/Alert"
+import { ErrorBoundary } from "../error/error-boundary"
 
 export const LOCATION_COLLECTION = "plasma"
 
@@ -42,11 +43,13 @@ function Alert({ open, severity, message, onClose }) {
 export const LocationOverview = () => {
     const { formatMessage } = useIntl()
     const [alert, setAlert] = useState({ message: null, severity: "error", open: false })
-    const { user, partnerConfigs, isLoading } = useSession()
+    const { user, partnerConfigs, isLoading } = useSession("LocationOverview")
+    const { partnerIds } = user
 
-    const [collection] = useCollection(getQuery(user.partnerIds), {
+    const [collection] = useCollection(getQuery(partnerIds), {
         snapshotListenOptions: { includeMetadataChanges: true },
     })
+
     const locations =
         collection?.docs?.reduce((prev, doc) => mapLocation(prev, { ...doc.data(), id: doc.id }), []) ?? []
 
@@ -61,24 +64,29 @@ export const LocationOverview = () => {
     const closeAlert = () => setAlert({ ...alert, open: false })
 
     return (
-        <>
+        <ErrorBoundary>
             <Alert {...alert} onClose={closeAlert} />
             <Grid container justify="center" spacing={0} style={{ height: "100%" }}>
                 <Grid item xs={12} lg={10}>
                     <Paper style={{ maxWidth: "100%" }}>
-                        <h1>
-                            <FormattedMessage id="partnerLocationsTitle" />
-                        </h1>
-                        <LocationTable
-                            isLoading={isLoading}
-                            userAllowedPartnerIds={user.partnerIds}
-                            partnerConfigs={partnerConfigs}
-                            locations={locations}
-                            onError={onError}
-                        />
+                        {partnerIds && (
+                            <>
+                                <h1>
+                                    <FormattedMessage id="partnerLocationsTitle" />
+                                </h1>
+                                <LocationTable
+                                    isLoading={isLoading}
+                                    userAllowedPartnerIds={user.partnerIds}
+                                    partnerConfigs={partnerConfigs}
+                                    locations={locations}
+                                    onError={onError}
+                                />
+                            </>
+                        )}
+                        {!partnerIds && <FormattedMessage id="partnerUserNoOrga" />}
                     </Paper>
                 </Grid>
             </Grid>
-        </>
+        </ErrorBoundary>
     )
 }
