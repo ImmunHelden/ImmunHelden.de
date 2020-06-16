@@ -117,7 +117,7 @@ Die Plasmaspende ist schonend für den Körper: Alle Plasmabestandteile, die bei
 
 Frauen und Männer dürfen maximal 60 Mal im Jahr Plasma spenden. Zwischen zwei Plasmaspenden müssen mindestens drei Tage liegen.*
 
-### Wie mache ich einen Termin für eine Rekonvalenszentenplasmaspende (Blutplasmaspende nach Genesung von COVID-19) aus?
+### Wie mache ich einen Termin für eine Rekonvaleszenten-Plasmaspende (Blutplasmaspende nach Genesung von COVID-19) aus?
 
 Für das Spenden von Rekonvaleszentenplasma ist es meist notwendig, einen Nachweis einer seit mehreren Wochen überstandenen Infektion zu erbringen (z.B. einen positiven und mehrere Wochen zurückliegenden PCR-Test). Daher vergibt der Großteil der Blutspendezentren Termine für die Blutplasmaspende nach Genesung von COVID-19 nur nach telefonischer Besprechung oder Ausfüllen eines Online-Fragebogens. Informiere Dich unbedingt über die Links auf unserer Karte und rufe gegebenenfalls bei der Blutspendeeinrichtung in Deiner Nähe an, bevor Du Blutplasma spenden gehst.
 
@@ -170,7 +170,7 @@ Trotz größter Sorgfalt können in einigen Fällen nach der Spende folgende  Ne
 * WHO: [COVID-19 and related health topics](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub)
 
 
-### Rekonvaleszentenplasmaspende in Deutschland
+### Rekonvaleszenten-Plasmaspende in Deutschland
 
 * BzGA: [Blutspende und Plasmaspende: die Einsatzgebiete](https://www.blutspenden.de/blut-und-plasmaspende/)
 * DRK BaWü-Hessen: [Informationen zum Projekt Rekonvaleszentenplasma](https://www.blutspende.de/rkp/)
