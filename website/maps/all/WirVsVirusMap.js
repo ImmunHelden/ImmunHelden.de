@@ -101,7 +101,8 @@
     'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png',
     { attribution:
       '<a href="https://carto.com/help/building-maps/basemap-list/">Map tiles by Carto under CC BY 3.0</a> | ' +
-      '<a href="http://osm.org/copyright">Data by OpenStreetMap under ODbL</a>'
+      '<a href="http://osm.org/copyright">Data by OpenStreetMap under ODbL</a> | ' +
+      'Icons by <a target="_blank" href="https://icons8.de">Icons8</a>'
     });
 
   const defaultSettings = {
@@ -258,7 +259,6 @@
           checkbox.addEventListener('change', () => map.togglePlatform(checkbox, i));
           const contents = create('span', label);
           contents.className = 'checkbox';
-          contents.style.backgroundImage = 'url(' + platforms[i].icon.iconUrl + ')';
           contents.innerHTML = platforms[i].name;
         }
 
@@ -275,6 +275,7 @@
       "  width: 400px;" +
       "  bottom: 2rem;" +
       "  z-index: 11000;" +
+      "  overflow: scroll;" +
       "}" +
       "@media only screen and (max-width: 599px) {" +
       "  .wirvsvirusmap-pane {" +
