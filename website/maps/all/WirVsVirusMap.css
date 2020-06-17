@@ -55,38 +55,38 @@ a, a:link, a:visited, a:hover, a:active {
 }
 
 .wvvm-root div.pane {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   z-index: 9000;
   top: 0;
   right: 0;
   width: 400px;
   bottom: 0px;
-  display: none;
-  background-image: url(../../images/spin_loading.gif);
-  background-size: contain;
-  background-position: center top;
-  background-repeat: no-repeat;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 599px) {
   .wvvm-root div.pane {
     width: 100%;
-    z-index: 10011;
-    background-color: #fff;
+    z-index: 10100;
   }
 }
 
-.wvvm-root div.pane > iframe {
-  margin: 0;
-  border: 0;
+img.spin-loading {
   width: 100%;
-  height: calc(100% - 2rem);
+  height: auto;
+}
+
+.wvvm-root div.pane > iframe {
+  flex: auto;
+  border: 0;
   overflow: scroll;
   background: transparent;
 }
 .wvvm-root div.pane > a {
+  flex: none;
   display: block;
-  height: 1.75rem;
+  height: 2rem;
   background-color: #eee;
   display: flex;
   justify-content: center;

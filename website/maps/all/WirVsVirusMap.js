@@ -267,12 +267,55 @@
     });
   }
 
+  const externalPaneClass =
+      ".wirvsvirusmap-pane {" +
+      "  position: absolute;" +
+      "  top: {0};" +
+      "  right: 0;" +
+      "  width: 400px;" +
+      "  bottom: 2rem;" +
+      "  z-index: 11000;" +
+      "}" +
+      "@media only screen and (max-width: 599px) {" +
+      "  .wirvsvirusmap-pane {" +
+      "    width: 100%;" +
+      "    background: #fff;" +
+      "  }" +
+      "}";
+
+  function emitExternalPaneCSS(dynVerticalPos) {
+    let sheet = document.createElement('style');
+    sheet.type = 'text/css';
+    document.getElementsByTagName('head')[0].appendChild(sheet);
+    return sheet.appendChild(
+      document.createTextNode(externalPaneClass.replace(/\{0\}/, dynVerticalPos + 'px')));
+  }
+
+  function _staticInitPositions(delay) {
+    const pane = $('#osm-map-pane');
+    const pos = pane.position();
+    const ofs = pane.offset();
+
+    // Hack: wait until layouting is done?
+    const checksum = pos.top + pos.left + ofs.top + ofs.left;
+    if (checksum == 0) {
+      console.log("Wait until layouting is done..");
+      setTimeout(() => _staticInitPositions(delay * 2), delay || 100);
+      return;
+    }
+
+    emitExternalPaneCSS(pos.top + ofs.top);
+    //this.updateSize = (px) => {
+    //  externalPaneCSS.nodeValue = externalPaneClass.format(...);
+    //};
+  }
+
   function _populateMapDom(map, container, settings) {
     // TODO: This is all quite complicated.
     const mdom = {};
     mdom.root = $('#' + container).addClass('wvvm-root')
         .append('<div id="osm-map-canvas"></div>')
-        .append('<div class="pane"></div>');
+        .append('<div id="osm-map-pane" class="pane"></div>');
 
     if (settings.embedded) {
       const href = settings.lockLink || '/';
@@ -284,6 +327,7 @@
     mdom.pane = $('.wvvm-root > div.pane')
         .append('<iframe allowtransparency="true"></iframe>')
         .append('<a href="javascript:void(0)">Einklappen &gt;&gt;</a>');
+    mdom.pane.hide();
 
     $('.wvvm-root > div.pane > a').on('click', () => map.closeDetailsPane());
 
@@ -371,6 +415,7 @@
       }
 
       _openDetailsPane();
+      dom.paneDetails.attr("srcdoc", '<img src="../../images/spin_loading.gif" style="width:100%;">');
 
       const pin = allPinsById[id];
       map.panTo(pin.latlng);
@@ -378,7 +423,7 @@
       // TODO: Review sandboxing options.
       pin.fetchDetails().then(
         html => {
-          dom.paneDetails.attr("srcdoc", html)
+          dom.paneDetails.attr("srcdoc", html);
           this.onViewDetails(id);
         },
         err => {
@@ -431,6 +476,8 @@
 
     this.leaflet = () => { return map; };
     this.platform = (idx) => { return settings.platforms[idx]; }
+
+    $(document).ready(_staticInitPositions);
 
     return this;
   }

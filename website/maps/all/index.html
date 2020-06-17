@@ -105,62 +105,67 @@
       width: 2.2rem;
       height: 2.2rem;
     }
-    input[type="submit"]:disabled {
-      opacity: 0.5;
-    }
-    input[type="button"] {
-      border: 0;
-      background: none;
-      text-decoration: underline;
-      font-size: 1.1rem;
-      font-weight: 300;
-      margin-top: 2rem;
-    }
-    .overlay-followup {
-      position: absolute;
-      right: 0px;
-      top: 44px;
-      width: calc(400px - 2rem);
-      height: calc(100% - 44px - 2rem);
-      z-index: 10012;
+    #followup {
+      box-sizing: border-box;
       font-family: Raleway, sans-serif;
       font-size: 14pt;
-      background-color: #fff;
-      /*background-image: url('images/bkgnd04.jpg');
-      background-size: cover;
-      background-position: center;*/
       display: none;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
       text-align: center;
       margin: 0;
       padding: 2rem;
-      padding-left: 0;
     }
-    .overlay-followup > p {
+    #followup * {
+      box-sizing: border-box;
+    }
+    #followup > p {
       margin: 0.5rem 0;
     }
-    .overlay-followup > form {
+    #followup > form {
       margin: 1rem 0;
     }
-    .overlay-followup > form > div {
-      display: inline-block;
-      margin: 5px;
+    #followup > form > div {
+      display: flex;
+      align-items: flex-end;
+      margin: 0 -5px;
     }
-    .overlay-followup > form > div > label {
+    #followup > form > div > div {
+      display: inline-block;
+      margin: 0 5px;
+    }
+    #followup > form input {
+      width: 100%;
+    }
+    #followup > form input[type="checkbox"] {
+      width: 1.5rem;
+    }
+    #followup > form label {
       display: block;
       text-align: left;
       font-size: 0.9rem;
+      margin: 5px 0;
+    }
+    #followup > form label.datenschutz {
+      display: block;
+      margin-top: 1rem;
+      padding-left: 1.5rem;
+      font-size: 0.9rem;
+      font-weight: normal;
+    }
+    #followup > form label.datenschutz input {
+      margin-right: 0;
+      margin-left: -1.5rem;
     }
 
-    div#followup a:link, div#followup a:visited,
-    div#followup a:hover, div#followup a:active {
+    #followup a:link, #followup a:visited,
+    #followup a:hover, #followup a:active {
       text-decoration: none;
       color: #ce1b28;
       display: inline;
     }
+
+
   </style>
 </head>
 <body>
@@ -172,26 +177,29 @@
 
   <div id="osm-map"></div>
 
-  <div id="followup" class="overlay-followup">
-    <p>Sie vermuten an COVID-19 erkrankt und mittlerweile<br>wieder genesen zu sein?</p>
-    <p>Wir informieren Sie, wenn es<br>in Ihrer Region weitere<br>Möglichkeiten gibt um zu helfen.</p>
+  <div id="followup" class="wirvsvirusmap-pane">
+    <p>Sie vermuten an COVID-19 erkrankt und mittlerweile wieder genesen zu sein?</p>
+    <p>Wir informieren Sie, wenn es in Ihrer Region weitere Möglichkeiten gibt um zu helfen.</p>
     <form id="subscribe_form">
-      <input type="hidden" name="countryCode" id="countryCode" value=".de">
       <div>
-        <label for="zipCode">Postleitzahl</label>
-        <input type="text" name="zipCode" style="width: 4rem;" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
+        <input type="hidden" name="countryCode" id="countryCode" value=".de">
+        <div style="flex: none; width: 5rem;">
+          <label for="zipCode">Postleitzahl</label>
+          <input type="text" name="zipCode" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
+        </div>
+        <div style="flex: auto">
+          <label for="email">E-Mail</label>
+          <input type="email" name="email" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
+        </div>
+        <div style="flex: none; width: 2rem;">
+          <input type="submit" id="submitHero" value="✓">
+        </div>
       </div>
       <div>
-        <label for="email">E-Mail</label>
-        <input type="email" name="email" style="width: 8rem;" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
-      </div>
-      <div>
-        <input type="submit" id="submitHero" value="✓">
-      </div>
-      <div>
-        <label for="datenschutz" style="padding-left: 20px; display: block; margin-top: 1rem; font-size: 0.9rem; font-weight: normal;">
-          <input type="checkbox" id="datenschutz" style="margin-left: -20px;" required>
-          Ich habe die <a href="https://immunhelden.de/datenschutz.html">Datenschutzerklärung</a> verstanden und möchte informiert werden, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
+        <label class="datenschutz">
+          <input type="checkbox" id="datenschutz" required>Ich habe die
+          <a href="https://immunhelden.de/datenschutz.html">Datenschutzerklärung</a>
+          verstanden und möchte informiert werden, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
         </label>
       </div>
     </form>
@@ -240,8 +248,9 @@
       $('#followup').hide();
     }
 
+    map.onOpenDetailsPane = closeOverlay;
     map.onCloseDetailsPane = closeOverlay;
-    map.onViewDetails = closeOverlay;
+    //map.onViewDetails = closeOverlay;
 
     function followAnchor() {
       let anchor = WirVsVirusMap.Utils.parseAnchor(window.location.href);
