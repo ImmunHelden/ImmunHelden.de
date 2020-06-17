@@ -34,26 +34,6 @@ a, a:link, a:visited, a:hover, a:active {
   padding: 3px 8px;
 }
 
-.wvvm-root .platforms-control input[type="checkbox"] {
-  display: none;
-}
-
-.wvvm-root .platforms-control input[type="checkbox"] + span.checkbox {
-  padding-left: 1rem;
-  background-size: contain;
-  background-position: left;
-  background-repeat: no-repeat;
-  background-blend-mode: luminosity;
-}
-
-.wvvm-root .platforms-control input[type="checkbox"]:checked + span.checkbox {
-  padding-left: 1rem;
-  background-size: contain;
-  background-position: left;
-  background-repeat: no-repeat;
-  background-blend-mode: normal;
-}
-
 .wvvm-root div.pane {
   display: flex;
   flex-direction: column;

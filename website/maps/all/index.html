@@ -58,33 +58,56 @@
       width: 100%;
       height: 44px;
       font-family: "Raleway", Arial, Helvetica, sans-serif;
-      display: flex;
-      align-items:center;
       font-weight: 600;
       font-size: 1rem;
       overflow: hidden;
+      display: flex;
+      flex-direction: row;
+    }
+    header > a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     header a:link, header a:visited, header a:hover, header a:active {
       color: #393939;
       text-decoration: none;
     }
     header a.logo {
-      width: 4rem;
-      height: 2rem;
-      padding: 0 0.5rem;
-      background: url(../../images/logo_default.png);
+      min-width: 4rem;
+      margin-left: 0.75rem;
+      background: url(../images/logo_square.png);
       background-size: contain;
       background-repeat: no-repeat;
-      background-position: center;
+      background-position: left;
+    }
+    header a.logo > span {
+      display: inline;
+      margin-left: 3.4rem;
+    }
+    header a.categories {
+      min-width: 2rem;
+      margin-right: 0.75rem;
+      background: url(../images/icons8-liste-100.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: left;
+    }
+    header a.categories > span {
+      display: none;
+      margin-left: 3rem;
     }
     header a.subscribe {
-      width: 2rem;
-      height: 2rem;
-      padding: 0 0.5rem;
-      background: url(../images/subscribe.png);
+      min-width: 2rem;
+      margin-right: 0.75rem;
+      background: url(../images/icons8-add-reminder.png);
       background-size: contain;
       background-repeat: no-repeat;
-      background-position: center;
+      background-position: left;
+    }
+    header a.subscribe > span {
+      display: none;
+      margin-left: 3rem;
     }
 
 
@@ -105,6 +128,45 @@
       width: 2.2rem;
       height: 2.2rem;
     }
+
+    #categories {
+      box-sizing: border-box;
+      font-family: Raleway, sans-serif;
+      font-size: 14pt;
+      display: none;
+      padding: 2rem;
+      justify-content: center;
+    }
+    #categories form {
+      display: flex;
+      flex-direction: column;
+    }
+    #categories form > label {
+      display: block;
+      padding: 0.3rem;
+    }
+    #categories form input[type="checkbox"] {
+      display: none;
+    }
+
+    #categories form input[type="checkbox"] + span.checkbox {
+      padding-left: 1.5rem;
+      background-size: contain;
+      background-position: left;
+      background-repeat: no-repeat;
+      background-blend-mode: luminosity;
+      -webkit-filter: grayscale(1);
+    }
+
+    #categories form input[type="checkbox"]:checked + span.checkbox {
+      padding-left: 1.5rem;
+      background-size: contain;
+      background-position: left;
+      background-repeat: no-repeat;
+      background-blend-mode: normal;
+      -webkit-filter: none;
+    }
+
     #followup {
       box-sizing: border-box;
       font-family: Raleway, sans-serif;
@@ -170,9 +232,16 @@
 </head>
 <body>
   <header>
-    <a href="../../" class="logo" style="flex: initial;"></a>
-    <p style="flex: auto;">ImmunHelden Map</p>
-    <a href="#subscribe" onclick="followAnchor()" class="subscribe" style="flex: initial;"></a>
+    <a href="../../" class="logo">
+      <span id="heading-default">Heldentaten</span>
+    </a>
+    <a id="header-fill" style="flex: auto;"></a>
+    <a href="#categories" onclick="followAnchor()" class="categories">
+      <span id="heading-categories">Kategorien</span>
+    </a>
+    <a href="#subscribe" onclick="followAnchor()" class="subscribe">
+      <span id="heading-subscribe">Abonnieren</span>
+    </a>
   </header>
 
   <div id="osm-map"></div>
@@ -202,6 +271,19 @@
           verstanden und möchte informiert werden, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
         </label>
       </div>
+    </form>
+  </div>
+
+  <div id="categories" class="wirvsvirusmap-pane">
+    <form>
+      <label>
+        <input type="checkbox" onchange="map.togglePlatform(this, 0);" checked>
+        <span class="checkbox" style="background-image: url('/maps/plasma/images/marker-icon-blood.png');">Blutplasmaspende</span>
+      </label>
+      <label>
+        <input type="checkbox" onchange="map.togglePlatform(this, 1);" checked>
+        <span class="checkbox" style="background-image: url('/maps/stadtmission/images/marker-icon-mission.png');">Stadtmission</span>
+      </label>
     </form>
   </div>
 
@@ -238,14 +320,17 @@
           { name: "Stadtmission", restBaseUrl: 'https://immunhelden.de/maps/stadtmission', icon: missionPinIcon }
         //]}
       ],
-      selectPlatformsControl: !params.hasOwnProperty("embedded"),
-      selectPlatformsTitle: "Kategorien"
+      selectPlatformsControl: false
     };
 
     const map = new WirVsVirusMap.Instance('osm-map', settings);
 
     function closeOverlay() {
+      $('#heading-default').show();
+      $('#heading-categories').hide();
+      $('#heading-subscribe').hide();
       $('#followup').hide();
+      $('#categories').hide();
     }
 
     map.onOpenDetailsPane = closeOverlay;
@@ -255,9 +340,20 @@
     function followAnchor() {
       let anchor = WirVsVirusMap.Utils.parseAnchor(window.location.href);
       if (anchor == 'subscribe') {
-        const onDeselect = () => $('#followup').hide();
+        //const onDeselect = () => $('#followup').hide();
         map.openDetailsPane();
+        $('#heading-default').hide();
+        $('#heading-categories').hide();
+        $('#heading-subscribe').show();
         $('#followup').css('display', 'flex');
+        $('#categories').css('display', 'none');
+      } else if (anchor == 'categories') {
+        map.openDetailsPane();
+        $('#heading-default').hide();
+        $('#heading-categories').show();
+        $('#heading-subscribe').hide();
+        $('#followup').css('display', 'none');
+        $('#categories').css('display', 'flex');
       }
       else if (anchor) {
         map.focusPin(preselectId);
