@@ -34,24 +34,6 @@ a, a:link, a:visited, a:hover, a:active {
   padding: 3px 8px;
 }
 
-.wvvm-root div.pane {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  z-index: 9000;
-  top: 0;
-  right: 0;
-  width: 400px;
-  bottom: 0px;
-}
-
-@media only screen and (max-width: 599px) {
-  .wvvm-root div.pane {
-    width: 100%;
-    z-index: 10100;
-  }
-}
-
 img.spin-loading {
   width: 100%;
   height: auto;

@@ -267,12 +267,40 @@
     });
   }
 
+  const internalPaneClass =
+      ".wvvm-root div.pane {" +
+      "  display: flex;" +
+      "  flex-direction: column;" +
+      "  position: absolute;" +
+      "  z-index: 9000;" +
+      "  top: 0;" +
+      "  right: 0;" +
+      "  width: {0}px;" +
+      "  bottom: 0px;" +
+      "}" +
+      "@media only screen and (max-width: 599px) {" +
+      "  .wvvm-root div.pane {" +
+      "    width: 100%;" +
+      "    z-index: 10100;" +
+      "  }" +
+      "}";
+
+  function emitInternalPaneCSS(pane) {
+    let sheet = document.createElement('style');
+    sheet.type = 'text/css';
+    document.getElementsByTagName('head')[0].appendChild(sheet);
+    pane.CSS = sheet.appendChild(document.createTextNode(''));
+    pane.update = () => {
+      pane.CSS.nodeValue = internalPaneClass.replace(/\{0\}/, pane.width);
+    };
+  }
+
   const externalPaneClass =
       ".wirvsvirusmap-pane {" +
       "  position: absolute;" +
-      "  top: {0};" +
+      "  top: {1}px;" +
       "  right: 0;" +
-      "  width: 400px;" +
+      "  width: {0}px;" +
       "  bottom: 2rem;" +
       "  z-index: 11000;" +
       "  overflow: scroll;" +
@@ -284,31 +312,15 @@
       "  }" +
       "}";
 
-  function emitExternalPaneCSS(dynVerticalPos) {
+  function emitExternalPaneCSS(pane) {
     let sheet = document.createElement('style');
     sheet.type = 'text/css';
     document.getElementsByTagName('head')[0].appendChild(sheet);
-    return sheet.appendChild(
-      document.createTextNode(externalPaneClass.replace(/\{0\}/, dynVerticalPos + 'px')));
-  }
-
-  function _staticInitPositions(delay) {
-    const pane = $('#osm-map-pane');
-    const pos = pane.position();
-    const ofs = pane.offset();
-
-    // Hack: wait until layouting is done?
-    const checksum = pos.top + pos.left + ofs.top + ofs.left;
-    if (checksum == 0) {
-      console.log("Wait until layouting is done..");
-      setTimeout(() => _staticInitPositions(delay * 2), delay || 100);
-      return;
-    }
-
-    emitExternalPaneCSS(pos.top + ofs.top);
-    //this.updateSize = (px) => {
-    //  externalPaneCSS.nodeValue = externalPaneClass.format(...);
-    //};
+    pane.CSS = sheet.appendChild(document.createTextNode(''));
+    pane.update = () => {
+      pane.CSS.nodeValue = externalPaneClass.replace(/\{0\}/, pane.width)
+                                            .replace(/\{1\}/, pane.top);
+    };
   }
 
   function _populateMapDom(map, container, settings) {
@@ -363,6 +375,40 @@
       controls.platformsView.addTo(map);
     }
 
+    const internalPane = { width: 0, CSS: null, update: null };
+    const externalPane = { top: 0, width: 0, CSS: null, update: null };
+    const updatePaneWidth = (px) => {
+      internalPane.width = px;
+      internalPane.update();
+      externalPane.width = px;
+      externalPane.update();
+    };
+    const _staticInitPositions = () => {
+      emitInternalPaneCSS(internalPane);
+      internalPane.width = 400;
+      internalPane.update();
+
+      emitExternalPaneCSS(externalPane);
+      externalPane.width = 400;
+      externalPane.update();
+
+      // Top position is determined dynamically once layouting is done.
+      // Hack: Wait that happened.
+      const eventuallySetExternalPaneCSS = (delay) => {
+        const pane = $('#osm-map-pane');
+        const dynVertPos = pane.position().top + pane.offset().top;
+        if (dynVertPos == 0) {
+          console.log("Wait until layouting is done..", delay);
+          setTimeout(() => eventuallySetExternalPaneCSS(delay * 2), delay);
+        } else {
+          externalPane.top = dynVertPos;
+          externalPane.update();
+        }
+      };
+
+      eventuallySetExternalPaneCSS(10);
+    };
+
     // TODO: Should we return pins-by-id as a result per promise and merge them in hindsight?
     // TODO: Should we wait for all promises or start showing pins one by one?
     const pinsReady = [];
@@ -394,10 +440,13 @@
       }
     });
 
-    const _openDetailsPane = () => {
-      dom.paneDetails.attr("srcdoc", '');
+    const _openDetailsPane = (width) => {
+      const w = width || 400;
+      updatePaneWidth(w);
+
+      dom.paneDetails.attr('srcdoc', '');
       dom.pane.show();
-      dom.canvas.css("width", "calc(100% - 400px)");
+      dom.canvas.css('width', 'calc(100% - ' + w + 'px)');
       map.invalidateSize();
       this.onOpenDetailsPane();
     };
