@@ -132,60 +132,72 @@
     #categories {
       box-sizing: border-box;
       font-family: Raleway, sans-serif;
-      font-size: 14pt;
+      font-size: 1rem;
       display: none;
-      padding: 2rem;
-      justify-content: center;
+      padding: 20px;
+    }
+    #categories * {
+      box-sizing: border-box;
     }
     #categories form {
-      display: flex;
-      flex-direction: column;
+      width: 100%;
+      text-align: center;
     }
     #categories form > label {
-      display: block;
-      padding: 0.3rem;
+      display: inline-block;
+      width: 10rem;
+      padding: 1rem 0;
+      background: #fff;
+      overflow: hidden;
+      text-align: center;
+      margin: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #eee;;
+    }
+    #categories form > label:hover {
+      background: #eee;
     }
     #categories form input[type="checkbox"] {
       display: none;
     }
 
     #categories form input[type="checkbox"] + span.checkbox {
-      padding-left: 1.5rem;
-      background-size: contain;
-      background-position: left;
+      display: inline-block;
+      padding-top: 3rem;
+      background-size: 2rem;
+      background-position: top;
       background-repeat: no-repeat;
       background-blend-mode: luminosity;
       -webkit-filter: grayscale(1);
+      opacity: 0.33;
     }
 
     #categories form input[type="checkbox"]:checked + span.checkbox {
-      padding-left: 1.5rem;
-      background-size: contain;
-      background-position: left;
-      background-repeat: no-repeat;
       background-blend-mode: normal;
       -webkit-filter: none;
+      opacity: 1;
     }
 
     #followup {
       box-sizing: border-box;
       font-family: Raleway, sans-serif;
-      font-size: 14pt;
+      font-size: 1.33rem;
       display: none;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
       margin: 0;
       padding: 2rem;
     }
     #followup * {
       box-sizing: border-box;
     }
-    #followup > p {
-      margin: 0.5rem 0;
-    }
     #followup > form {
-      margin: 1rem 0;
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    #followup > form p {
+      margin: 0;
     }
     #followup > form > div {
       display: flex;
@@ -212,7 +224,7 @@
       display: block;
       margin-top: 1rem;
       padding-left: 1.5rem;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: normal;
     }
     #followup > form label.datenschutz input {
@@ -247,9 +259,12 @@
   <div id="osm-map"></div>
 
   <div id="followup" class="wirvsvirusmap-pane">
-    <p>Sie vermuten an COVID-19 erkrankt und mittlerweile wieder genesen zu sein?</p>
-    <p>Wir informieren Sie, wenn es in Ihrer Region weitere Möglichkeiten gibt um zu helfen.</p>
     <form id="subscribe_form">
+      <p>
+        Sie vermuten an COVID-19 erkrankt und mittlerweile wieder genesen zu sein?
+        <br><br>
+        Wir informieren Sie, wenn es in Ihrer Region weitere Möglichkeiten gibt zu helfen.
+      </p>
       <div>
         <input type="hidden" name="countryCode" id="countryCode" value=".de">
         <div style="flex: none; width: 5rem;">
@@ -335,25 +350,23 @@
 
     map.onOpenDetailsPane = closeOverlay;
     map.onCloseDetailsPane = closeOverlay;
-    //map.onViewDetails = closeOverlay;
 
     function followAnchor() {
       let anchor = WirVsVirusMap.Utils.parseAnchor(window.location.href);
       if (anchor == 'subscribe') {
-        //const onDeselect = () => $('#followup').hide();
-        map.openDetailsPane();
+        map.openDetailsPane(400);
         $('#heading-default').hide();
-        $('#heading-categories').hide();
         $('#heading-subscribe').show();
-        $('#followup').css('display', 'flex');
-        $('#categories').css('display', 'none');
+        $('#heading-categories').hide();
+        $('#followup').show();
+        $('#categories').hide();
       } else if (anchor == 'categories') {
-        map.openDetailsPane();
+        map.openDetailsPane(210);
         $('#heading-default').hide();
         $('#heading-categories').show();
         $('#heading-subscribe').hide();
-        $('#followup').css('display', 'none');
-        $('#categories').css('display', 'flex');
+        $('#followup').hide();
+        $('#categories').show();
       }
       else if (anchor) {
         map.focusPin(preselectId);
