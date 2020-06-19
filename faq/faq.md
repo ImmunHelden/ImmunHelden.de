@@ -1,6 +1,6 @@
 # Häufige Fragen
 
-## Coronavirus SARS-CoV-2
+## FAQ zu Coronavirus SARS-CoV-2 und Immunität
 
 ### Bin ich nach einer Genesung von COVID-19 immun? Ab wann und wie lange?
 
@@ -47,7 +47,7 @@ Nach dem aktuellen Stand der Forschung hat sich das Corona-Virus zwar seit seine
 
 Die Stabilität des Virus erleichtert auch die Suche nach einem geeigneten Impfstoff- zu der ImmunHeld:innen mit einer Plasmaspende einen wichtigen Beitrag leisten können.
 
-## Engagement von ImmunHeld:innen
+## FAQ zum Engagement von ImmunHeld:innen
 
 ### Wie lange muss ich nach meiner Genesung warten, um mich als ImmunHeld:in zu engagieren?
 
