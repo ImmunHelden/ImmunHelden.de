@@ -8,19 +8,21 @@ Aktuell werden von COVID-19 Genesene händeringend als Blutplasmaspender:innen g
 
 Einige COVID-19 Patient:innen können nicht so schnell Antikörper gegen das Coronavirus Sars-CoV-2 bilden, wodurch es zu lebensbedrohlichen Erkrankungsverläufen kommen kann. Plasma von Genesenen wie Dir könnte ihnen bei der Überwindung ihrer Krankheit helfen.
 
-Gegenwärtig wird Plasma von Genesenen, sogenanntes Rekonvaleszentenplasma, im Rahmen von Studien oder individuellen Heilversuchen eingesetzt. (PEI, https://www.pei.de/DE/newsroom/hp-meldungen/2020/200407-empfehlung-pei-covid-19-rekonvaleszentenplasma-rkp.html)
-Was ist Blutplasma?
+Gegenwärtig wird Plasma von Genesenen, sogenanntes Rekonvaleszentenplasma, [im Rahmen von Studien oder individuellen Heilversuchen eingesetzt](https://www.pei.de/DE/newsroom/hp-meldungen/2020/200407-empfehlung-pei-covid-19-rekonvaleszentenplasma-rkp.html).
+
+### Was ist Blutplasma?
+
 Gut die Hälfte des Blutes (55 Prozent) ist eine klare, gelbliche Flüssigkeit: das Blutplasma. Das Blutplasma selbst besteht zu 91 Prozent aus Wasser. Der Rest sind Nährstoffe, Hormone, Mineralien und mehr als 120 verschiedene Eiweißstoffe (Proteine). Diese Eiweiße sind zum Beispiel zur Blutgerinnung und zur Abwehr von Infektionen lebenswichtig.
 
 ### Wie läuft eine Blutplasmaspende ab?
 
 Zunächst wird dir Vollblut abgenommen, das über einen Schlauch in ein spezielles Gerät, das Plasmapherese-Gerät, gelangt. Dort werden feste und flüssige Blutbestandteile voneinander getrennt. Der flüssige Anteil ist das Plasma. Während das Plasma in einem speziellen Behälter gesammelt wird, gelangen die übrigen Blutbestandteile noch während der Spende zurück in den Körper.*
 
-Eine Plasmaspende dauert im Schnitt etwa 30 bis 60 Minuten. Die Spendedauer hängt von Deinen individuellen Blutwerten und der Menge des Dir entnommenen Plasmas ab. Wieviel Plasma Du persönlich spenden darfst, erklärt Dir das medizinische Personal vor Ort. (https://www.drk-blutspende.de/informationen-zur-blutspende/die-plasmaspende.php https://www.blutspendehamburg.de/blutspender/faq/spendearten/plasmaspende/ablauf/)
+Eine Plasmaspende dauert im Schnitt etwa 30 bis 60 Minuten. Die Spendedauer hängt von Deinen individuellen Blutwerten und der Menge des Dir entnommenen Plasmas ab. Wieviel Plasma Du persönlich spenden darfst, erklärt Dir das medizinische Personal vor Ort. Oder informiere Dich bei Deiner Spendestelle online, beispielsweise beim [DRK](https://www.drk-blutspende.de/informationen-zur-blutspende/die-plasmaspende.php) oder dem [Blutspendedienst Hamburg](https://www.blutspendehamburg.de/blutspender/faq/spendearten/plasmaspende/ablauf/).
 
 ### Ist eine Blutplasmaspende für meinen Körper belastend?
 
-Die Plasmaspende ist schonend für den Körper: Alle Plasmabestandteile, die bei der Spende entnommen werden, bildet der Körper innerhalb von Stunden bis maximal zwei Tagen wieder nach. Daher ist Plasma spenden auch in deutlich kürzeren Abständen möglich als Blut spenden. (https://www.plasmazentrum-heidelberg.de/plasma-und-plasmaspende-was-ist-das/)
+Die Plasmaspende ist schonend für den Körper: Alle Plasmabestandteile, die bei der Spende entnommen werden, bildet der Körper innerhalb von Stunden bis maximal zwei Tagen wieder nach. Daher ist Plasma spenden auch in deutlich kürzeren Abständen möglich als Blut spenden. Weitere Details findest du beispielsweise auf den Seiten [des Plasmazentrums Heidelberg](https://www.plasmazentrum-heidelberg.de/plasma-und-plasmaspende-was-ist-das/).
 
 ### Wie oft kann ich Blutplasma spenden?
 
@@ -42,7 +44,7 @@ Darüber hinaus kann es weitere Voraussetzungen geben, die je nach Spendezentrum
 
 Am Tag der Blutplasmaspende solltest Du viel trinken (natürlich alkoholfrei) und auf anstrengende sportliche Aktivitäten verzichten, um den Flüssigkeitshaushalt Deines Körpers optimal auf die Blutspende vorzubereiten. Außerdem ist es ratsam, normal, aber nicht zu fettreich zu essen und nicht zu rauchen, da das die Qualität Deines Blutplasmas beeinflusst.
 
-Auch einen Tag vor der Blutspende solltest Du keine allzu fetthaltigen Speisen zu Dir nehmen. (https://www.blutspendedienst.com/blutspende/spendeinfos/fragen-antworten#vor-der-blutspende-erste-blutspende)
+Auch einen Tag vor der Blutspende solltest Du [keine allzu fetthaltigen Speisen zu Dir nehmen](https://www.blutspendedienst.com/blutspende/spendeinfos/fragen-antworten#vor-der-blutspende-erste-blutspende).
 
 ### Was sollte ich nach einer Blutplasmaspende beachten?
 
@@ -55,9 +57,9 @@ Nein. Es wird immer steriles Einwegmaterial verwendet. Daher ist eine Krankheits
 
 ### Besteht in Blutspendezentren ein erhöhtes Risiko, sich mit dem Coronavirus SARS-CoV-2 anzustecken?
 
-Es ist grundsätzlich nicht von einer erhöhten Infektionsgefahr bei Spendeterminen auszugehen. (https://www.rki.de/DE/Content/Kommissionen/AK_Blut/Stellungnahmen/download/COVID.pdf?__blob=publicationFile).
+Es ist grundsätzlich nicht von einer erhöhten Infektionsgefahr bei Spendeterminen auszugehen. Weitere Details unter [Punkt unter Punkt 3 der Mitteilung des Arbeitskreises Blut des Bundesministeriums für Gesundheit](https://www.rki.de/DE/Content/Kommissionen/AK_Blut/Stellungnahmen/download/COVID.pdf?__blob=publicationFile).
 
-Wichtig ist, dass Du Dich auch vor Ort an die allgemeingültigen (Link BZgA https://www.infektionsschutz.de/coronavirus/), sowie für die jeweilige Einrichtung speziellen Hygienevorschriften und -empfehlungen hältst (Einhaltung des Mindestabstands zu anderen SpenderInnen und der Hust- und Niesetikette, Händewaschen bzw. -desinfektion, ggf. Tragen eines Mund-Nasen-Schutzes).
+Wichtig ist, dass Du Dich auch vor Ort an die [allgemeingültigen](https://www.infektionsschutz.de/coronavirus/), sowie für die jeweilige Einrichtung speziellen Hygienevorschriften und -empfehlungen hältst (Einhaltung des Mindestabstands zu anderen SpenderInnen und der Hust- und Niesetikette, Händewaschen bzw. -desinfektion, ggf. Tragen eines Mund-Nasen-Schutzes).
 
 ### Welche Risiken und Nebenwirkungen sind mit einer Blutplasmaspende verbunden?
 
@@ -80,7 +82,7 @@ Trotzdem ist der Begriff der Immunität mit Vorsicht zu genießen. So können zu
 ### Kann ich nach einer Genesung von COVID-19 weitere Personen anstecken?
 
 Auch nach überstandener Krankheit können wir laut dem Virologen der Berliner Charité Christian Drosten noch Sars-CoV-2 in uns tragen. Nach dem derzeitigen Kenntnisstand ist das nach der Genesung nachgewiesene Virusmaterial aber nicht infektiös für andere, es handelt sich sehr wahrscheinlich vorwiegend um totes, ausgeschiedenes Material. Das bedeutet also, dass von Genesenen höchstwahrscheinlich keine Ansteckungsgefahr mehr ausgeht  (red, science.ORF.at/Agenturen)
-Allerdings sollten sich auch Genesene regelmäßig die Hände waschen, um eine Kontamination über Flächen auszuschließen. Wenn Du z.B. eine durch einen Infizierten kontaminierte Türklinke berührst und danach Essen für die Nachbarskinder zubereitest, könntest Du theoretisch Überträger:in werden. Ob diese Möglichkeit der Übertragung praktisch eine Rolle spielt, ist bisher unklar (BR Wissen: https://www.br.de/nachrichten/wissen/bin-ich-nach-einer-infektion-mit-dem-coronavirus-immun,Ru43YZY). Selbstverständlich müssen sich auch genesene Personen an alle weiteren Hygiene- und Abstandsregeln halten.
+Allerdings sollten sich auch Genesene regelmäßig die Hände waschen, um eine Kontamination über Flächen auszuschließen. Wenn Du z.B. eine durch einen Infizierten kontaminierte Türklinke berührst und danach Essen für die Nachbarskinder zubereitest, könntest Du theoretisch Überträger:in werden. Ob diese Möglichkeit der Übertragung praktisch eine Rolle spielt, ist bisher unklar ([BR Wissen vom 02.04.2020](https://www.br.de/nachrichten/wissen/bin-ich-nach-einer-infektion-mit-dem-coronavirus-immun,Ru43YZY)). Selbstverständlich müssen sich auch genesene Personen an alle weiteren Hygiene- und Abstandsregeln halten.
 
 ### Wie lässt sich eine Genesung von COVID-19 sicher nachweisen?
 
@@ -98,15 +100,16 @@ Bei der Beurteilung der Zuverlässigkeit von Antikörpertests, ist es wichtig, z
 Allerdings können Antikörpertests in besonderen Fällen, in denen sehr zuverlässige Aussagen zum Genesungsstatus notwendig sind, direkte Testmethoden ergänzen. Eine Kombination von einem zurückliegenden positiven PCR-Test, einem aktuellen negativen PCR-Text oder Ausbleiben der Symptome seit 4 Wochen und einem Antikörpertest wird vom Paul-Ehrlich Institut für die Annahme von Blutplasma-Spenden durch Genesene gefordert (PEI, Meldungen - Empfehlung des Paul-Ehrlich-Instituts zur Gewinnung und Herstellung von COVID-19-Rekonvaleszentenplasma). Wenn Du nach Genesung von COVID-19 Blutplasma spendest, erhältst du daher sehr zuverlässige Aussagen zu Deiner Immunantwort auf das Virus bzw. Deiner höchst wahrscheinlichen Immunität.
 
 ### Welcher Nachweis für eine Infektion ist am sichersten?
-Als Goldstandard gilt der direkte Nachweis durch einen PCR-Test. Dazu werden Proben parallel aus den oberen und unteren Atemwegen entnommen. https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Vorl_Testung_nCoV.html
 
-Antigentests sind eine weitere – noch relativ neue – Methode, um eine Infektion nachzuweisen. Auch hier wird ein Abstrich aus dem Mund-Nasen-Rachenraum genommen. Ein Teststreifen zeigt innerhalb von 15 Minuten ein Ergebnis an. Getestet wird auf Eiweißbausteine des Erregers (Antigens) in der Probe. Bislang gelten Antigentests allerdings als weniger verlässlich als Tests mit der PCR-Methode. (https://www.fr.de/wissen/coronavirus-corona-covid-19-oder-grippe-antikoerpertest-sinnvoll-zr-13784629.html)
+Als Goldstandard gilt der direkte Nachweis durch einen PCR-Test. Dazu werden Proben parallel aus den [oberen und unteren Atemwegen entnommen](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Vorl_Testung_nCoV.html#doc13490982bodyText1).
+
+Antigentests sind eine weitere – noch relativ neue – Methode, um eine Infektion nachzuweisen. Auch hier wird ein Abstrich aus dem Mund-Nasen-Rachenraum genommen. Ein Teststreifen zeigt innerhalb von 15 Minuten ein Ergebnis an. Getestet wird auf Eiweißbausteine des Erregers (Antigens) in der Probe. Bislang gelten Antigentests allerdings als [weniger verlässlich als Tests mit der PCR-Methode](https://www.fr.de/wissen/coronavirus-corona-covid-19-oder-grippe-antikoerpertest-sinnvoll-zr-13784629.html).
 
 Von Corona-Selbsttests raten wir ab, da viele Faktoren wie zum Beispiel der unsachgemäße Transport oder auch Fehler bei der Abnahme das Ergebnis verfälschen können.
 
 ### Was sagen die Begriffe “Sensitivität” und “Spezifität” über die Sicherheit von Testergebnissen aus?
 
-Die Sensitivität gibt an, wie viel Prozent der Erkrankten korrekt als solche identifiziert werden. Die Spezifizität, wie viel Prozent nicht Erkrankte Personen durch einen Test als gesund erkannt werden (https://www.rki.de/DE/Content/Gesundheitsmonitoring/Gesundheitsberichterstattung/Glossar/gbe_glossar_catalog.html?cms_lv2=3686306). Werden beide Gütekriterien zusammen betrachtet, lassen sich genaue Aussagen zur Zuverlässigkeit eines Tests treffen.
+Die Sensitivität gibt an, wie viel Prozent der Erkrankten korrekt als solche identifiziert werden. Die Spezifizität gibt an, wie viel Prozent nicht erkrankte Personen durch einen Test als gesund erkannt werden ([Glossar des RKI](https://www.rki.de/DE/Content/Gesundheitsmonitoring/Gesundheitsberichterstattung/Glossar/gbe_glossar_catalog.html?cms_lv2=3686306). Werden beide Gütekriterien zusammen betrachtet, lassen sich genaue Aussagen zur Zuverlässigkeit eines Tests treffen.
 
 Angaben (z.B. von Antikörpertestherstellern), die sich nur auf einen (und meist den besseren) Wert beziehen, ist hingegen nicht zu trauen.
 
@@ -124,11 +127,11 @@ Kurzgefasst:
 Ab 4 Wochen nach kompletter Genesung (Abklingen der Symptome von COVID-19-) oder 2 Wochen nach der letzten negativen SARS-CoV-2-PCR- Diagnostik aus einem Abstrich kannst Du als ImmunHeld:in aktiv werden!
 
 Zum Hintergrund:
-Wie lange man nach Symptombeginn genau ansteckend bleibt, ist bisher nicht abschließend geklärt (RKI, https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText8) und hängt auch von der Krankheitsschwere ab (BZgA, https://www.infektionsschutz.de/coronavirus/fragen-und-antworten/ansteckung-und-uebertragung.html).
+Wie lange man nach Symptombeginn genau ansteckend bleibt, ist bisher [nicht abschließend geklärt](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText9) und [hängt auch von der Krankheitsschwere ab ](https://www.infektionsschutz.de/coronavirus-alt/fragen-und-antworten/ansteckung-und-uebertragung.html#faq4250).
 
-Aktuelle Studienergebnisse haben jedoch gezeigt, dass Antikörper gegen das Coronavirus SARS-CoV-2, die für die Immunabwehr verantwortlich sind, gegen Ende der zweiten Woche nach der Infektion gebildet werden, weshalb davon auszugehen ist, dass man ab diesem Zeitpunkt immun ist und auch seine Mitmenschen nicht mehr anstecken kann (RKI, https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText26; NDR, https://www.ndr.de/ratgeber/gesundheit/Coronavirus-Wie-zuverlaessig-sind-Antikoerpertests,coronavirus1232.html; Corona-Podcast mit Christian Drosten, Folge 15 https://www.ndr.de/nachrichten/info/15-Coronavirus-Update-Infizierte-werden-offenbar-immun,podcastcoronavirus136.html#genesene).
+Aktuelle Studienergebnisse haben jedoch gezeigt, dass Antikörper gegen das Coronavirus SARS-CoV-2, die für die Immunabwehr verantwortlich sind, gegen Ende der zweiten Woche nach der Infektion gebildet werden, weshalb davon auszugehen ist, dass man ab diesem Zeitpunkt immun ist und auch seine Mitmenschen nicht mehr anstecken kann ([RKI](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText26), [NDR](https://www.ndr.de/ratgeber/gesundheit/Coronavirus-Wie-zuverlaessig-sind-Antikoerpertests,coronavirus1232.html), [Corona-Podcast mit Christian Drosten, Folge 15](https://www.ndr.de/nachrichten/info/15-Coronavirus-Update-Infizierte-werden-offenbar-immun,podcastcoronavirus136.html#genesene)).
 
-Das Paul-Ehrlich-Institut (das deutsche Bundesinstitut für Impfstoffe und biomedizinische Arzneimittel) gibt vorsichtshalber für das Spenden von Blutplasma nach Genesung von COVID-19 die Empfehlung, Spender:innen 4 Wochen nach kompletter Genesung von COVID-19- oder 2 Wochen nach der letzten negativen SARS-CoV-2-PCR- Diagnostik aus einem Abstrich zuzulassen (https://www.pei.de/DE/newsroom/hp-meldungen/2020/200407-empfehlung-pei-covid-19-rekonvaleszentenplasma-rkp.html).
+Das Paul-Ehrlich-Institut (das deutsche Bundesinstitut für Impfstoffe und biomedizinische Arzneimittel) gibt für das [Spenden von Blutplasma nach Genesung von COVID-19 vorsichtshalber die Empfehlung](https://www.pei.de/DE/newsroom/hp-meldungen/2020/200407-empfehlung-pei-covid-19-rekonvaleszentenplasma-rkp.html), Spender:innen 4 Wochen nach kompletter Genesung von COVID-19- oder 2 Wochen nach der letzten negativen SARS-CoV-2-PCR-Diagnostik aus einem Abstrich zuzulassen.
 
 Dieser Empfehlung schließen wir von ImmunHelden uns an, und zwar sowohl für die Blutplasmaspende als auch für sonstige Heldentaten: Schließlich solltest Du Dich wieder fit und erholt fühlen, bevor Du Dich engagierst!
 
@@ -148,7 +151,7 @@ Die Organisationen freuen sich sicher über jede Art der Hilfe, unabhängig davo
 
 Wir wollen ganz ehrlich sein: Ein gewisses Restrisiko für einzelne Personen lässt sich nicht hundertprozentig ausschließen, solange es keinen sicheren Immunitätsnachweis gibt. Wir finden, dass jeder selbst entscheiden sollte, ob er oder sie bereit ist, das in Kauf zu nehmen.
 
-Eine besonders risikoarme Möglichkeit, sich nach einer Genesung von COVID-19 zu engagieren, ist die Blutplasmaspende (siehe „Warum sollte ich nach einer Genesung von COVID-19 Blutplasma spenden?“).
+Eine besonders risikoarme Möglichkeit, sich nach einer Genesung von COVID-19 zu engagieren, ist die Blutplasmaspende (siehe „[Warum sollte ich nach einer Genesung von COVID-19 Blutplasma spenden?](https://immunhelden.de/faq/#warum-sollte-ich-nach-einer-genesung-von-covid-19-blutplasma-spenden)“).
 
 ### An welche Vorsichtsmaßnahmen muss ich mich als ImmunHeld:in bei meinem Einsatz für eine hilfesuchende Organisation halten?
 
