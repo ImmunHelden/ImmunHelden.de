@@ -316,6 +316,10 @@
         <input type="checkbox" onchange="map.togglePlatform(this, 1);" checked>
         <span class="checkbox" style="background-image: url('/maps/stadtmission/images/marker-icon-mission.png');">Stadtmission</span>
       </label>
+      <label>
+        <input type="checkbox" onchange="map.togglePlatform(this, 2);" checked>
+        <span class="checkbox" style="background-image: url('/maps/tafel/images/marker-icon-tafel.png');">Tafel</span>
+      </label>
     </form>
   </div>
 
@@ -329,6 +333,13 @@
 
     const missionPinIcon = {
       iconUrl: '/maps/stadtmission/images/marker-icon-mission.png',
+      iconSize: [30, 38],
+      iconAnchor: [15, 37],
+      popupAnchor: [1, -34]
+    };
+
+    const tafelPinIcon = {
+      iconUrl: '/maps/tafel/images/marker-icon-tafel.png',
       iconSize: [30, 38],
       iconAnchor: [15, 37],
       popupAnchor: [1, -34]
@@ -349,7 +360,8 @@
         //{ name: 'ImmunHelden.de',
         //  sources: [
           { name: "Blutplasmaspende", restBaseUrl: 'https://immunhelden.de/maps/plasma', icon: plasmaPinIcon },
-          { name: "Stadtmission", restBaseUrl: 'https://immunhelden.de/maps/stadtmission', icon: missionPinIcon }
+          { name: "Stadtmission", restBaseUrl: 'https://immunhelden.de/maps/stadtmission', icon: missionPinIcon },
+          { name: "Tafel", restBaseUrl: 'https://immunhelden.de/maps/tafel', icon: tafelPinIcon }
         //]}
       ],
       selectPlatformsControl: false
