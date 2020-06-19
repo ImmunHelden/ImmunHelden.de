@@ -6,11 +6,46 @@
       13.642343
     ]
   },
+  "stadtmission-iudDZ87_23": {
+    "title": "Seniorenheim Müggelschlößchenweg",
+    "latlng": [
+      52.44026,
+      13.60219
+    ]
+  },
+  "stadtmission-y8scAiQvwn": {
+    "title": "Seniorenzentrum Mittenwalde",
+    "latlng": [
+      52.2622075,
+      13.538171
+    ]
+  },
   "stadtmission-SFsdfiD8y8": {
     "title": "Haus der Statistik",
     "latlng": [
       52.5269521,
       13.3621109
+    ]
+  },
+  "stadtmission-98uffnUG_N": {
+    "title": "Behindertenhilfe Wohnstätte Bestensee",
+    "latlng": [
+      52.2553209,
+      13.6338237
+    ]
+  },
+  "stadtmission-8yhBYJB0kc": {
+    "title": "Behindertenhilfe Wohnstätte Gussow",
+    "latlng": [
+      52.2537254,
+      13.7269384
+    ]
+  },
+  "stadtmission-pMMik9_jn7": {
+    "title": "Behindertenhilfe Wohnstätte Telz",
+    "latlng": [
+      52.2453234,
+      13.4908759
     ]
   }
 }
