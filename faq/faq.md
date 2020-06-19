@@ -52,8 +52,7 @@ Nach der Spende heißt es kurz ausruhen. Du musst mindestens 30 Minuten warten, 
 
 ### Kann ich mich durch die Abnahme meines Blutplasmas infizieren?
 
-Nein. Es wird immer steriles Einwegmaterial verwendet. Daher ist eine Krankheitsübertragung auf Dich ausgeschlossen.
-(https://www.blutspenden.de/blut-und-plasmaspende/ablauf-einer-blut-und-plasmaspende/)
+Nein. Es wird immer steriles Einwegmaterial verwendet. Daher ist eine Krankheitsübertragung auf Dich ausgeschlossen (siehe [So verläuft eine Blutspende, Abschnitt 'Blutabnahme'](https://www.blutspenden.de/blut-und-plasmaspende/ablauf-einer-blut-und-plasmaspende/)).
 
 ### Besteht in Blutspendezentren ein erhöhtes Risiko, sich mit dem Coronavirus SARS-CoV-2 anzustecken?
 
@@ -124,12 +123,12 @@ Die Stabilität des Virus erleichtert auch die Suche nach einem geeigneten Impfs
 ### Wie lange muss ich nach meiner Genesung warten, um mich als ImmunHeld:in zu engagieren?
 
 Kurzgefasst:
-Ab 4 Wochen nach kompletter Genesung (Abklingen der Symptome von COVID-19-) oder 2 Wochen nach der letzten negativen SARS-CoV-2-PCR- Diagnostik aus einem Abstrich kannst Du als ImmunHeld:in aktiv werden!
+Ab 4 Wochen nach kompletter Genesung (Abklingen der Symptome von COVID-19-) oder 2 Wochen nach der letzten negativen SARS-CoV-2-PCR-Diagnostik aus einem Abstrich kannst Du als ImmunHeld:in aktiv werden!
 
 Zum Hintergrund:
 Wie lange man nach Symptombeginn genau ansteckend bleibt, ist bisher [nicht abschließend geklärt](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText9) und [hängt auch von der Krankheitsschwere ab ](https://www.infektionsschutz.de/coronavirus-alt/fragen-und-antworten/ansteckung-und-uebertragung.html#faq4250).
 
-Aktuelle Studienergebnisse haben jedoch gezeigt, dass Antikörper gegen das Coronavirus SARS-CoV-2, die für die Immunabwehr verantwortlich sind, gegen Ende der zweiten Woche nach der Infektion gebildet werden, weshalb davon auszugehen ist, dass man ab diesem Zeitpunkt immun ist und auch seine Mitmenschen nicht mehr anstecken kann ([RKI](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText26), [NDR](https://www.ndr.de/ratgeber/gesundheit/Coronavirus-Wie-zuverlaessig-sind-Antikoerpertests,coronavirus1232.html), [Corona-Podcast mit Christian Drosten, Folge 15](https://www.ndr.de/nachrichten/info/15-Coronavirus-Update-Infizierte-werden-offenbar-immun,podcastcoronavirus136.html#genesene)).
+Aktuelle Studienergebnisse haben jedoch gezeigt, dass Antikörper gegen das Coronavirus SARS-CoV-2, die für die Immunabwehr verantwortlich sind, gegen Ende der zweiten Woche nach der Infektion gebildet werden, weshalb davon auszugehen ist, dass man ab diesem Zeitpunkt immun ist ([RKI](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText27), [NDR](https://www.ndr.de/ratgeber/gesundheit/Coronavirus-Wie-zuverlaessig-sind-Antikoerpertests,coronavirus1232.html), [Corona-Podcast mit Christian Drosten Folge 15](https://www.ndr.de/nachrichten/info/15-Coronavirus-Update-Infizierte-werden-offenbar-immun,podcastcoronavirus136.html#genesene)) und auch seine Mitmenschen nicht mehr anstecken kann (siehe „[Kann ich nach einer Genesung von COVID-19 weitere Personen anstecken?](https://immunhelden.de/faq/#kann-ich-nach-einer-genesung-von-covid-19-weitere-personen-anstecken)“).
 
 Das Paul-Ehrlich-Institut (das deutsche Bundesinstitut für Impfstoffe und biomedizinische Arzneimittel) gibt für das [Spenden von Blutplasma nach Genesung von COVID-19 vorsichtshalber die Empfehlung](https://www.pei.de/DE/newsroom/hp-meldungen/2020/200407-empfehlung-pei-covid-19-rekonvaleszentenplasma-rkp.html), Spender:innen 4 Wochen nach kompletter Genesung von COVID-19- oder 2 Wochen nach der letzten negativen SARS-CoV-2-PCR-Diagnostik aus einem Abstrich zuzulassen.
 
