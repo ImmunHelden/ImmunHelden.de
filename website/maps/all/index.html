@@ -197,7 +197,7 @@
       text-align: center;
     }
     #followup > form p {
-      margin: 0;
+      margin: 0 0 1rem 0;
     }
     #followup > form > div {
       display: flex;
@@ -386,7 +386,7 @@
         $('#categories').show();
       }
       else if (anchor) {
-        map.focusPin(preselectId);
+        map.oncePinsReady(() => map.focusPin(anchor));
       }
       else {
         map.closeDetailsPane();

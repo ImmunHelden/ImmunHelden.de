@@ -432,14 +432,6 @@
     // TODO: Get back code to load regions
     const regionsReady = new Promise((resolve, reject) => resolve());
 
-    Promise.all(pinsReady.concat([regionsReady])).then(() => {
-      let preselectId = Utils.parseAnchor(window.location.href);
-      console.log(preselectId);
-      if (preselectId) {
-        focusPin(preselectId);
-      }
-    });
-
     const _openDetailsPane = (width) => {
       const w = width || 400;
       updatePaneWidth(w);
@@ -519,6 +511,10 @@
     this.viewDetailsForPin = _viewDetailsForPin;
     this.openDetailsPane = _openDetailsPane;
     this.closeDetailsPane = _closeDetailsPane;
+
+    this.oncePinsReady = (action) => {
+      Promise.all(pinsReady).then(action);
+    };
 
     this.onOpenDetailsPane = () => {};
     this.onCloseDetailsPane = () => {};
