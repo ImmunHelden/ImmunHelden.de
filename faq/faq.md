@@ -10,7 +10,7 @@ Einige COVID-19 Patient:innen können nicht so schnell Antikörper gegen das Cor
 
 Gegenwärtig wird Plasma von Genesenen, sogenanntes Rekonvaleszentenplasma, im Rahmen von Studien oder individuellen Heilversuchen eingesetzt. (PEI, https://www.pei.de/DE/newsroom/hp-meldungen/2020/200407-empfehlung-pei-covid-19-rekonvaleszentenplasma-rkp.html)
 Was ist Blutplasma?
-Gut die Hälfte des Blutes (55 Prozent) ist eine klare, gelbliche Flüssigkeit: das Blutplasma. Das Blutplasma selbst besteht zu 91 Prozent aus Wasser. Der Rest sind Nährstoffe, Hormone, Mineralien und mehr als 120 verschiedene Eiweißstoffe (Proteine). Diese Eiweiße sind zum Beispiel zur Blutgerinnung und zur Abwehr von Infektionen lebenswichtig.*
+Gut die Hälfte des Blutes (55 Prozent) ist eine klare, gelbliche Flüssigkeit: das Blutplasma. Das Blutplasma selbst besteht zu 91 Prozent aus Wasser. Der Rest sind Nährstoffe, Hormone, Mineralien und mehr als 120 verschiedene Eiweißstoffe (Proteine). Diese Eiweiße sind zum Beispiel zur Blutgerinnung und zur Abwehr von Infektionen lebenswichtig.
 
 ### Wie läuft eine Blutplasmaspende ab?
 
@@ -24,7 +24,7 @@ Die Plasmaspende ist schonend für den Körper: Alle Plasmabestandteile, die bei
 
 ### Wie oft kann ich Blutplasma spenden?
 
-Frauen und Männer dürfen maximal 60 Mal im Jahr Plasma spenden. Zwischen zwei Plasmaspenden müssen mindestens drei Tage liegen.*
+Frauen und Männer dürfen maximal 60 Mal im Jahr Plasma spenden. Zwischen zwei Plasmaspenden müssen mindestens drei Tage liegen.
 
 ### Wie mache ich einen Termin für eine Rekonvaleszenten-Plasmaspende (Blutplasmaspende nach Genesung von COVID-19) aus?
 
@@ -46,7 +46,7 @@ Auch einen Tag vor der Blutspende solltest Du keine allzu fetthaltigen Speisen z
 
 ### Was sollte ich nach einer Blutplasmaspende beachten?
 
-Nach der Spende heißt es kurz ausruhen. Du musst mindestens 30 Minuten warten, bevor du den Blutspendedienst verlässt. Es ist wichtig, dass du noch etwas isst und viel trinkst – natürlich alkoholfrei. Am besten gehst du den restlichen Tag ruhig an.*
+Nach der Spende heißt es kurz ausruhen. Du musst mindestens 30 Minuten warten, bevor du den Blutspendedienst verlässt. Es ist wichtig, dass du noch etwas isst und viel trinkst – natürlich alkoholfrei. Am besten gehst du den restlichen Tag ruhig an.
 
 ### Kann ich mich durch die Abnahme meines Blutplasmas infizieren?
 
@@ -66,7 +66,7 @@ Trotz größter Sorgfalt können in einigen Fällen nach der Spende folgende  Ne
 * Übelkeit, sehr selten mit Erbrechen
 * Schmerzen und Bluterguss (Hämatome) an der Einstichstelle, lokale Entzündungen
 
-Überaus selten können Hautnerven an der Einstichstelle geschädigt werden. Langanhaltende oder dauerhaft bleibende Beeinträchtigungen durch das Blutspenden sind extrem selten, können jedoch nicht vollkommen ausgeschlossen werden. Leichtes Kribbeln der Finger, der Zehen, der Zunge oder im Mund.*
+Überaus selten können Hautnerven an der Einstichstelle geschädigt werden. Langanhaltende oder dauerhaft bleibende Beeinträchtigungen durch das Blutspenden sind extrem selten, können jedoch nicht vollkommen ausgeschlossen werden. Leichtes Kribbeln der Finger, der Zehen, der Zunge oder im Mund.
 
 
 ## FAQ zu Coronavirus SARS-CoV-2 und Immunität
@@ -126,7 +126,7 @@ Ab 4 Wochen nach kompletter Genesung (Abklingen der Symptome von COVID-19-) oder
 Zum Hintergrund:
 Wie lange man nach Symptombeginn genau ansteckend bleibt, ist bisher nicht abschließend geklärt (RKI, https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText8) und hängt auch von der Krankheitsschwere ab (BZgA, https://www.infektionsschutz.de/coronavirus/fragen-und-antworten/ansteckung-und-uebertragung.html).
 
-Aktuelle Studienergebnisse haben jedoch gezeigt, dass Antikörper gegen das Coronavirus SARS-CoV-2, die für die Immunabwehr verantwortlich sind, gegen Ende der zweiten Woche nach der Infektion gebildet werden, weshalb davon auszugehen ist, dass man ab diesem Zeitpunkt immun ist und auch seine Mitmenschen nicht mehr anstecken kann (RKI, https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText26; NDR, https://www.ndr.de/ratgeber/gesundheit/Coronavirus-Wie-zuverlaessig-sind-Antikoerpertests,coronavirus1232.html; Corona-Podcast mit Christian Drosten, Folge 15 https://www.ndr.de/nachrichten/info/15-Coronavirus-Update-Infizierte-werden-offenbar-immun,podcastcoronavirus136.html#genesene ).
+Aktuelle Studienergebnisse haben jedoch gezeigt, dass Antikörper gegen das Coronavirus SARS-CoV-2, die für die Immunabwehr verantwortlich sind, gegen Ende der zweiten Woche nach der Infektion gebildet werden, weshalb davon auszugehen ist, dass man ab diesem Zeitpunkt immun ist und auch seine Mitmenschen nicht mehr anstecken kann (RKI, https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText26; NDR, https://www.ndr.de/ratgeber/gesundheit/Coronavirus-Wie-zuverlaessig-sind-Antikoerpertests,coronavirus1232.html; Corona-Podcast mit Christian Drosten, Folge 15 https://www.ndr.de/nachrichten/info/15-Coronavirus-Update-Infizierte-werden-offenbar-immun,podcastcoronavirus136.html#genesene).
 
 Das Paul-Ehrlich-Institut (das deutsche Bundesinstitut für Impfstoffe und biomedizinische Arzneimittel) gibt vorsichtshalber für das Spenden von Blutplasma nach Genesung von COVID-19 die Empfehlung, Spender:innen 4 Wochen nach kompletter Genesung von COVID-19- oder 2 Wochen nach der letzten negativen SARS-CoV-2-PCR- Diagnostik aus einem Abstrich zuzulassen (https://www.pei.de/DE/newsroom/hp-meldungen/2020/200407-empfehlung-pei-covid-19-rekonvaleszentenplasma-rkp.html).
 
