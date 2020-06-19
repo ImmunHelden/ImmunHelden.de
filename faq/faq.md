@@ -80,7 +80,8 @@ Trotzdem ist der Begriff der Immunität mit Vorsicht zu genießen. So können zu
 
 ### Kann ich nach einer Genesung von COVID-19 weitere Personen anstecken?
 
-Auch nach überstandener Krankheit können wir laut dem Virologen der Berliner Charité Christian Drosten noch Sars-CoV-2 in uns tragen. Nach dem derzeitigen Kenntnisstand ist das nach der Genesung nachgewiesene Virusmaterial aber nicht infektiös für andere, es handelt sich sehr wahrscheinlich vorwiegend um totes, ausgeschiedenes Material. Das bedeutet also, dass von Genesenen höchstwahrscheinlich keine Ansteckungsgefahr mehr ausgeht  (red, science.ORF.at/Agenturen)
+Auch nach überstandener Krankheit können wir laut dem Virologen der Berliner Charité Christian Drosten noch Sars-CoV-2 in uns tragen. Nach dem derzeitigen Kenntnisstand ist das nach der Genesung nachgewiesene Virusmaterial aber nicht infektiös für andere, es handelt sich sehr wahrscheinlich vorwiegend um totes, ausgeschiedenes Material. Das bedeutet also, dass von Genesenen höchstwahrscheinlich keine Ansteckungsgefahr mehr ausgeht ([BZgA](https://www.infektionsschutz.de/coronavirus-alt/fragen-und-antworten/quarantaene.html#faq4255), [RKI](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Entlassmanagement.html#doc13671260bodyText1)).
+
 Allerdings sollten sich auch Genesene regelmäßig die Hände waschen, um eine Kontamination über Flächen auszuschließen. Wenn Du z.B. eine durch einen Infizierten kontaminierte Türklinke berührst und danach Essen für die Nachbarskinder zubereitest, könntest Du theoretisch Überträger:in werden. Ob diese Möglichkeit der Übertragung praktisch eine Rolle spielt, ist bisher unklar ([BR Wissen vom 02.04.2020](https://www.br.de/nachrichten/wissen/bin-ich-nach-einer-infektion-mit-dem-coronavirus-immun,Ru43YZY)). Selbstverständlich müssen sich auch genesene Personen an alle weiteren Hygiene- und Abstandsregeln halten.
 
 ### Wie lässt sich eine Genesung von COVID-19 sicher nachweisen?
