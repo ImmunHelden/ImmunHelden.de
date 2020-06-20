@@ -1,5 +1,10 @@
 body {
   background: #fff;
+  font-family: monospace;
+}
+
+body * {
+  line-height: 130%;
 }
 
 body > div {
@@ -15,8 +20,12 @@ a:link, a:visited, a:hover, a:active {
   color: #931814;
 }
 
-div > div.title {
-  font-size: 2rem;
+h1 {
+  font-weight: normal;
+}
+
+ul {
+  padding-inline-start: 25px;
 }
 
 div > div.email {
