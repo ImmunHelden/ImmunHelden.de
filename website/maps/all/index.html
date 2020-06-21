@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="../leaflet.css">
   <script src="../leaflet.min.js"></script>
   <script src="../../assets/js/jquery.min.js"></script>
+  <script src="../../assets/js/leaflet.smoothmarkerbouncing.js"></script>
 
   <script src="WirVsVirusMap.js"></script>
   <link rel="stylesheet" href="WirVsVirusMap.css">
@@ -384,6 +385,19 @@
     map.onOpenDetailsPane = closeOverlay;
     map.onCloseDetailsPane = closeOverlay;
 
+    map.oncePinsReady(() => {
+      const marker = map.getMarker('ovgu-expae-t-zellen-studie');
+      marker.setBouncingOptions({
+        bounceHeight : 5,    // height of the bouncing
+        bounceSpeed  : 100,    // bouncing speed coefficient
+        exclusive    : false, // if this marker bouncing all others must stop
+      });
+      marker.bounce();
+      marker.on('click', () => {
+        marker.stopBouncing();
+      });
+    });
+
     function followAnchor() {
       let anchor = WirVsVirusMap.Utils.parseAnchor(window.location.href);
       if (anchor == 'subscribe') {
@@ -402,7 +416,12 @@
         $('#categories').show();
       }
       else if (anchor) {
-        map.oncePinsReady(() => map.focusPin(anchor));
+        map.oncePinsReady(() => {
+          const marker = map.focusPin(anchor);
+          if (marker.isBouncing()) {
+            marker.stopBouncing();
+          }
+        });
       }
       else {
         map.closeDetailsPane();
