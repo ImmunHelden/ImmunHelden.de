@@ -82,15 +82,15 @@
       background-repeat: no-repeat;
       background-position: left;
     }
-    header a.logo > span {
+    header a.map-link h1 {
       display: inline;
-      font-size: 0.8rem;
       font-family: monospace;
       font-weight: normal;
-      margin-left: 3.4rem;
-      margin-right: 1rem;
+      padding-right: 1rem;
+      margin: 0;
     }
     header a.categories {
+      flex: none;
       min-width: 2rem;
       margin-right: 0.75rem;
       background: url(../images/icons8-liste-100.png);
@@ -103,6 +103,7 @@
       margin-left: 3rem;
     }
     header a.subscribe {
+      flex: none;
       min-width: 2rem;
       margin-right: 0.75rem;
       background: url(../images/icons8-add-reminder.png);
@@ -266,10 +267,13 @@
 </head>
 <body>
   <header>
-    <a href="../../" class="logo">
-      <span id="heading-default">Hier kannst du helfen&nbsp;↓</span>
+    <a href="../../" class="logo"></a>
+    <a href="/maps/all/" class="map-link" style="flex: auto;">
+      <svg width="100%" height="100%" viewBox="0 0 500 100" preserveAspectRatio="xMinYMid meet"
+           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <text x="0" y="65" fill="#393939" font-size="38">Hier kannst du helfen</text>
+      </svg>
     </a>
-    <a id="header-fill" style="flex: auto;"></a>
     <a href="#categories" onclick="followAnchor()" class="categories">
       <span id="heading-categories">Kategorien</span>
     </a>
@@ -375,7 +379,6 @@
     const map = new WirVsVirusMap.Instance('osm-map', settings);
 
     function closeOverlay() {
-      $('#heading-default').show();
       $('#heading-categories').hide();
       $('#heading-subscribe').hide();
       $('#followup').hide();
@@ -402,14 +405,12 @@
       let anchor = WirVsVirusMap.Utils.parseAnchor(window.location.href);
       if (anchor == 'subscribe') {
         map.openDetailsPane(400);
-        $('#heading-default').hide();
         $('#heading-subscribe').show();
         $('#heading-categories').hide();
         $('#followup').show();
         $('#categories').hide();
       } else if (anchor == 'categories') {
         map.openDetailsPane(210);
-        $('#heading-default').hide();
         $('#heading-categories').show();
         $('#heading-subscribe').hide();
         $('#followup').hide();
