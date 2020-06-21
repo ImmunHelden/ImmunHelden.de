@@ -184,10 +184,10 @@
 
       // TODO: Should we have a platform abstraction?
       const icon = new L.Icon(map.platform(info.platformIdx).icon);
-      const marker = L.marker(this.latlng, { icon: icon });
-      marker.on('click', handlers.onClickMarker);
+      this.marker = L.marker(this.latlng, { icon: icon });
+      this.marker.on('click', handlers.onClickMarker);
 
-      this.popup = marker.bindPopup(Pin._createPopupElem(info.title, handlers.onClickPopup));
+      this.popup = this.marker.bindPopup(Pin._createPopupElem(info.title, handlers.onClickPopup));
       this.elem = $(this.popup.addTo(map.leaflet()).getElement());
 
       let detailsHtml = null;
@@ -409,6 +409,16 @@
       eventuallySetExternalPaneCSS(10);
     };
 
+    // When zooming or moving the map, the selected pin might get hidden behind
+    // other pins. Always bring it front afterwards.
+    let selectedPinId = null;
+    map.on('moveend', () => {
+      console.log('moveend', selectedPinId);
+      if (selectedPinId && allPinsById.hasOwnProperty(selectedPinId)) {
+        _getMarker(selectedPinId).getElement().style.zIndex = 10000;
+      }
+    });
+
     // TODO: Should we return pins-by-id as a result per promise and merge them in hindsight?
     // TODO: Should we wait for all promises or start showing pins one by one?
     const pinsReady = [];
@@ -422,7 +432,10 @@
             // TODO: Silent race condition for clashing IDs.
             allPinsById[id] = new Pin.Instance(pinsById[id], id, this, {
               onClickPopup: () => _viewDetailsForPin(id),
-              onClickMarker: () => _mayViewDetailsForPin(id)
+              onClickMarker: () => {
+                selectedPinId = id;
+                _mayViewDetailsForPin(id);
+              }
             });
           }
         }
@@ -481,21 +494,22 @@
       }
     }
 
-    function focusPin(id) {
-      if (allPinsById.hasOwnProperty(id)) {
-        allPinsById[id].popup.openPopup();
-        _mayViewDetailsForPin(id);
-        map.flyTo(allPinsById[id].latlng, 12, {
-          animate: true,
-          duration: 3
-        });
-        return;
-      }
+    function _focusPin(id) {
+      allPinsById[id].popup.openPopup();
+      _mayViewDetailsForPin(id);
+      map.flyTo(allPinsById[id].latlng, 12, {
+        animate: true,
+        duration: 3
+      });
+    }
+
+    function _getMarker(id) {
+      return allPinsById[id].marker;
     }
 
     function togglePlatform(checkbox, platformIdx) {
       const show = $(checkbox).is(':checked');
-      console.log("Anzeigen von", settings.platforms[platformIdx].name,
+      console.log(settings.platforms[platformIdx].name,
                   (show ? "ein" : "aus") + "blenden");
 
       const toggle = show ? (e => e.show()) : (e => e.hide());
@@ -506,7 +520,25 @@
       }
     }
 
-    this.focusPin = focusPin;
+    this.focusPin = (id) => {
+      if (allPinsById.hasOwnProperty(id)) {
+        _focusPin(id);
+        return _getMarker(id);
+      } else {
+        console.error('Cannot focus pin, ID not found:', id);
+        return null;
+      }
+    };
+
+    this.getMarker = (id) => {
+      if (allPinsById.hasOwnProperty(id)) {
+        return _getMarker(id);
+      } else {
+        console.error('Cannot provide marker, ID not found:', id);
+        return null;
+      }
+    };
+
     this.togglePlatform = togglePlatform;
     this.viewDetailsForPin = _viewDetailsForPin;
     this.openDetailsPane = _openDetailsPane;
