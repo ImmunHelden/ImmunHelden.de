@@ -850,5 +850,14 @@
     "phone": "0340 541 410",
     "url": "https://www.blutspende-leben.de/ueber-uns/standorte/institut-dessau",
     "id": "de-drk-nstob-dessau"
+  },
+  {
+    "title": "Uni Magdeburg: T-Zellen Studie",
+    "contact": "Für die Studie dem Titel „Charakterisierung und therapeutische Expansion der protektiven Effektor- und Gedächtnis-T-Zell-Antworten gegen SARS-CoV-2“ suchen wir noch Freiwillige, die mit SARS-CoV-2 infiziert waren und gegen eine Aufwandsentschädigung Blutproben abgeben würden. Interessierte können sich gern telefonisch melden."
+    "address": "Leipziger Str. 44, 39120 Magdeburg",
+    "latlng": [52.102745, 11.619007],
+    "phone": "0391 67-24003",
+    "url": "https://www.uni-magdeburg.de/Universit%C3%A4t/Im+Portrait/Profilierungsschwerpunkte/Forschung+_+Transfer/PM+36_2020-p-107492.html",
+    "id": "ovgu-expae-t-zellen-studie"
   }
 ]
