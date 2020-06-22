@@ -1,4 +1,5 @@
 const functions = require('firebase-functions');
+const firebase = require('firebase');
 const path = require('path');
 const shortid = require('shortid');
 const rp = require('request-promise');
@@ -74,18 +75,7 @@ exports.parse = functions.https.onRequest(async (req, res) => {
   }
 });
 
-exports.render = functions.https.onRequest(async (req, res) => {
-  // Start reading description
-  const loadJson = readFile('blutspenden-clean.json', 'utf8');
-  //const loadJson = rp.get({ uri: 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data/blutspenden.de/blutspenden-clean.json' });
-
-  // Prepare output directory
-  const outdirPrefix = req.query['outdir-prefix'] || 'tmp';
-  let postfix = 0;
-  while (fs.existsSync(outdirPrefix + postfix))
-    postfix += 1;
-  const outdir = outdirPrefix + postfix;
-
+const requestLatLng = async (address) => {
   // LocationIQ: resolve coordinates for address
   const sleep = async (ms) => {
     await new Promise((wakeup, _) => setTimeout(wakeup, ms));
@@ -118,19 +108,30 @@ exports.render = functions.https.onRequest(async (req, res) => {
     throw new Error(`Resolution failure for address '${address}': ` +
                     `Hanging up after trying ${retries} times`);
   };
-  const requestLatLng = async (address) => {
-    const matches = await tryResolve(address, 3);
-    if (matches.hasOwnProperty("length") && matches.length > 0 &&
-        matches[0].hasOwnProperty("lat") && matches[0].hasOwnProperty("lon")) {
-      return [
-        parseFloat(matches[0].lat),
-        parseFloat(matches[0].lon)
-      ];
-    }
+  const matches = await tryResolve(address, 3);
+  if (matches.hasOwnProperty("length") && matches.length > 0 &&
+      matches[0].hasOwnProperty("lat") && matches[0].hasOwnProperty("lon")) {
+    return [
+      parseFloat(matches[0].lat),
+      parseFloat(matches[0].lon)
+    ];
+  }
 
-    //throw new Error(`Invalid response: ${matches}`);
-    return null;
-  };
+  //throw new Error(`Invalid response: ${matches}`);
+  return null;
+};
+
+exports.render = functions.https.onRequest(async (req, res) => {
+  // Start reading description
+  const loadJson = readFile('blutspenden-clean.json', 'utf8');
+  //const loadJson = rp.get({ uri: 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data/blutspenden.de/blutspenden-clean.json' });
+
+  // Prepare output directory
+  const outdirPrefix = req.query['outdir-prefix'] || 'tmp';
+  let postfix = 0;
+  while (fs.existsSync(outdirPrefix + postfix))
+    postfix += 1;
+  const outdir = outdirPrefix + postfix;
 
   const streamlinePhone = (str) => {
     const digits = str.replace(/\D/g,'');
@@ -228,7 +229,7 @@ exports.render = functions.https.onRequest(async (req, res) => {
   }
 });
 
-exports.importJson = async function(db, collection, url, partnerId) {
+exports.importJson = async function(admin, collection, url, partnerId) {
   try {
     const json = await rp.get({ uri: url, json: true });
     if (!json.hasOwnProperty('length')) {
@@ -236,9 +237,9 @@ exports.importJson = async function(db, collection, url, partnerId) {
       return;
     }
 
-    console.log(`${url} provides dataset with ${json.length} entries`)
+    console.log(`${url} provides a dataset with ${json.length} entries`)
     for (const entry of json) {
-      const doc = await db.collection(collection).doc(entry.id).get();
+      const doc = await admin.firestore().collection(collection).doc(entry.id).get();
       if (doc.exists) {
         console.log(`${entry.id} exists. No overwrite.`);
       } else {
@@ -246,6 +247,10 @@ exports.importJson = async function(db, collection, url, partnerId) {
         delete entry.id;
         if (partnerId) {
           entry.partnerId = partnerId;
+        }
+        if (!entry.hasOwnProperty('latlng')) {
+          const coord = await requestLatLng(entry.address);
+          entry.latlng = new admin.firestore.GeoPoint(coord[0], coord[1]);
         }
         console.log(`Add document ${id}:`, entry);
         await doc.ref.set(entry);
