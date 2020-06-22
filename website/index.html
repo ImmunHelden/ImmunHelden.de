@@ -226,7 +226,7 @@
         right: 0;
         bottom: 0;
         padding: 1rem;
-        background: #ffe886
+        background: #ffe886;
       }
       #cookieconsent a:link, #cookieconsent a:visited, #cookieconsent a:hover, #cookieconsent a:active {
         text-decoration: none;
@@ -592,7 +592,7 @@
       function setCookie(key, value, expiry) {
         var expires = new Date();
         expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
-        document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+        document.cookie = key + '=' + value + ';domain=.immunhelden.de;path=/;expires=' + expires.toUTCString();
       }
       function getCookie(key) {
         var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');

@@ -244,6 +244,71 @@
       color: #ce1b28;
       display: inline;
     }
+
+
+    #cookieconsent {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 1rem;
+      background: #ffe886;
+      z-index: 11000;
+    }
+    #cookieconsent a:link, #cookieconsent a:visited, #cookieconsent a:hover, #cookieconsent a:active {
+      text-decoration: none;
+      font-weight: normal;
+      color: #000;
+    }
+    #cookieconsent a.cc-info:link, #cookieconsent a.cc-info:visited,
+    #cookieconsent a.cc-info:hover, #cookieconsent a.cc-info:active {
+      text-decoration: underline;
+      font-weight: normal;
+      color: #000;
+    }
+    #cookieconsent a.cc-default:link, #cookieconsent a.cc-default:visited,
+    #cookieconsent a.cc-default:hover, #cookieconsent a.cc-default:active {
+      text-decoration: none;
+      font-weight: bold;
+      color: #fff;
+      background: #3fa00f;
+    }
+    #cookieconsent div.cc-selection {
+      text-align: center;
+    }
+    #cookieconsent span.cc-description {
+      margin: 0.5rem;
+      text-align: center;
+      flex: 2;
+    }
+    #cookieconsent span.cc-description a {
+      display: inline-block;
+    }
+    #cookieconsent a.cc-option {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.5rem;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 0 15px #00000044;
+    }
+
+    @media only screen and (min-width: 600px) {
+      #cookieconsent {
+        flex-direction: row;
+      }
+      #cookieconsent span.cc-description {
+        min-width: 17rem;
+      }
+    }
+    @media only screen and (max-width: 599px) {
+      #cookieconsent {
+        flex-direction: column;
+      }
+    }
   </style>
 
   <!-- Matomo -->
@@ -266,6 +331,47 @@
   <!-- End Matomo Code -->
 </head>
 <body>
+  <div id="cookieconsent">
+    <!--googleoff: all-->
+    <span class="cc-description">
+      Wir verwenden Cookies, um unsere Website und unseren Service zu optimieren.
+      <a href="https://www.digitale-doerfer.de/cookie-richtlinie-eu/" class="cc-info">Weiterlesen</a>
+      <a href="/impressum.html" class="cc-info">Impressum</a>
+    </span>
+    <div class="cc-selection">
+      <a href="javascript:void(0)" onclick="rememberConsent('all')" class="cc-option cc-default">Alle akzeptieren</a>
+      <a href="javascript:void(0)" onclick="rememberConsent('min')" class="cc-option">Nur funktionsfähig</a>
+      <!--<a href="javascript:void(0)" class="cc-option">Einstellungen anzeigen</a>-->
+    </div>
+    <!--googleon: all-->
+  </div>
+  <script>
+    function setCookie(key, value, expiry) {
+      var expires = new Date();
+      expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+      document.cookie = key + '=' + value + ';domain=.immunhelden.de;path=/;expires=' + expires.toUTCString();
+    }
+    function getCookie(key) {
+      var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+      return keyValue ? keyValue[2] : null;
+    }
+    function applyConsent(val) {
+      if (val) {
+        $('#cookieconsent').hide();
+      }
+      if (val == 'all') {
+        _paq.push(['setConsentGiven']);
+        console.log('setConsentGiven');
+      }
+    }
+    function rememberConsent(val) {
+      setCookie('cookieconsent', val, 365);
+      applyConsent(val);
+    }
+
+    applyConsent(getCookie('cookieconsent'));
+  </script>
+
   <header>
     <a href="../../" class="logo"></a>
     <a href="/maps/all/" class="map-link" style="flex: auto;">
@@ -358,6 +464,7 @@
 
     if (params.embedded) {
       $('header').hide();
+      $('#cookieconsent').hide();
       $('#osm-map').css('top', 0);
     }
 
@@ -389,16 +496,18 @@
     map.onCloseDetailsPane = closeOverlay;
 
     map.oncePinsReady(() => {
-      const marker = map.getMarker('ovgu-expae-t-zellen-studie');
-      marker.setBouncingOptions({
-        bounceHeight : 5,    // height of the bouncing
-        bounceSpeed  : 100,    // bouncing speed coefficient
-        exclusive    : false, // if this marker bouncing all others must stop
-      });
-      marker.bounce();
-      marker.on('click', () => {
-        marker.stopBouncing();
-      });
+      if (!params.embedded) {
+        const marker = map.getMarker('ovgu-expae-t-zellen-studie');
+        marker.setBouncingOptions({
+          bounceHeight : 5,    // height of the bouncing
+          bounceSpeed  : 100,    // bouncing speed coefficient
+          exclusive    : false, // if this marker bouncing all others must stop
+        });
+        marker.bounce();
+        marker.on('click', () => {
+          marker.stopBouncing();
+        });
+      }
     });
 
     function followAnchor() {
