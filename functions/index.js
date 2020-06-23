@@ -7,14 +7,21 @@ const toolsBlutspendenDe = require(`./tools-blutspenden-de.js`);
 exports.parseBlutspendenDe = toolsBlutspendenDe.parse;
 exports.renderBlutspendenDe = toolsBlutspendenDe.render;
 
+admin.initializeApp(functions.config().firebase);
+
 // Tools for finding the markdown for our email templates on GitHub, expanding
 // placeholders, formatting it as HTML and sending sample mails for tests.
 const messageTemplates = require(`./message-templates.js`);
+exports.renderFaq = messageTemplates.renderFaq;
 exports.sendExampleMail = messageTemplates.sendExampleMail;
 exports.doSendExampleMail = messageTemplates.doSendExampleMail;
-exports.renderFaq = messageTemplates.renderFaq;
 
-admin.initializeApp(functions.config().firebase);
+exports.sendUpdateMails = functions.https.onRequest(messageTemplates.sendUpdateMails);
+exports.doSendUpdateMails = functions.https.onRequest(async (req, res) => {
+  return await messageTemplates.doSendUpdateMails(req, res, admin);
+});
+
+
 
 // Import JSON data for plasma locations. Admin use only.
 // Run locally with service account connected:
@@ -22,11 +29,11 @@ admin.initializeApp(functions.config().firebase);
 // % export GOOGLE_APPLICATION_CREDENTIALS=/Users/staefsn/.ssh/immunhelden-b4cf6fd1620c.json
 // % firebase serve --host 0.0.0.0
 //
-(async () => {
-  const dataBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data';
-  await toolsBlutspendenDe.importJson(admin.firestore(), 'plasma', `${dataBaseUrl}/blutspenden.de/blutspenden-clean.json`, 'SM9fYu3nXzkxURTpCOQ2');
-  await toolsBlutspendenDe.importJson(admin.firestore(), 'plasma', `${dataBaseUrl}/biolife/austria.json`, 'ua6VnlnzaErnTqjjJYnm');
-})();
+//(async () => {
+//  const dataBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data';
+//  await toolsBlutspendenDe.importJson(admin.firestore(), 'plasma', `${dataBaseUrl}/blutspenden.de/blutspenden-clean.json`, 'SM9fYu3nXzkxURTpCOQ2');
+//  await toolsBlutspendenDe.importJson(admin.firestore(), 'plasma', `${dataBaseUrl}/biolife/austria.json`, 'ua6VnlnzaErnTqjjJYnm');
+//})();
 
 // CORS Express middleware to enable CORS Requests.
 const cors = require("cors")({
@@ -36,16 +43,9 @@ const cors = require("cors")({
 function parseBool(string) {
   if (string) {
     switch (string.toLowerCase().trim()) {
-      case "true":
-      case "yes":
-      case "1":
-      case "on":
+      case "true": case "yes": case "1": case "on":
         return true;
-      case "false":
-      case "no":
-      case "0":
-      case "off":
-      case null:
+      case "false": case "no": case "0": case "off": case null:
         return false;
       default:
         return Boolean(string);
@@ -497,4 +497,34 @@ exports.accountDeleted = functions.auth.user().onDelete((user) => {
       console.log(err);
       return;
     });
+});
+
+// Utility endpoint for testing
+exports.calcDistances = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET" || !req.query.zips) {
+    res.status(400).send("Invalid request");
+    return;
+  }
+  const dists = [ 5, 15 ];
+  const zips = req.query.zips.split(',');
+  const allDists = {};
+
+  for (const z of zips) {
+    const facilities = await messageTemplates.doCalcDistances(admin, z, ['plasma2'], dists);
+
+    const zipDists = {};
+    for (const f in facilities) {
+      for (const d in facilities[f]) {
+        if (d !== 'collection') {
+          (zipDists[d] = zipDists[d] || []).push(f);
+        }
+      }
+    }
+
+    if (Object.keys(zipDists).length > 0) {
+      allDists[z] = zipDists;
+    }
+  }
+
+  res.json(allDists).send();
 });
