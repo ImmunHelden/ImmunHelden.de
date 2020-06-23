@@ -501,16 +501,16 @@
 
     map.oncePinsReady(() => {
       if (!params.embedded) {
-        const marker = map.getMarker('ovgu-expae-t-zellen-studie');
-        marker.setBouncingOptions({
-          bounceHeight : 5,    // height of the bouncing
-          bounceSpeed  : 100,    // bouncing speed coefficient
-          exclusive    : false, // if this marker bouncing all others must stop
-        });
-        marker.bounce();
-        marker.on('click', () => {
-          marker.stopBouncing();
-        });
+        //const marker = map.getMarker('ovgu-expae-t-zellen-studie');
+        //marker.setBouncingOptions({
+        //  bounceHeight : 5,    // height of the bouncing
+        //  bounceSpeed  : 100,    // bouncing speed coefficient
+        //  exclusive    : false, // if this marker bouncing all others must stop
+        //});
+        //marker.bounce();
+        //marker.on('click', () => {
+        //  marker.stopBouncing();
+        //});
       }
     });
 
