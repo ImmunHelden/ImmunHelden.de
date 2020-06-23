@@ -555,6 +555,18 @@
     this.leaflet = () => { return map; };
     this.platform = (idx) => { return settings.platforms[idx]; }
 
+    this.loadGeoJson = (url, pointToLayer) => {
+      const options = {};
+      if (pointToLayer) {
+        options.pointToLayer = pointToLayer;
+      }
+
+      Utils.loadJson(url).then(json => {
+        console.log(json);
+        L.geoJSON(json, options).addTo(map);
+      });
+    };
+
     $(document).ready(_staticInitPositions);
 
     return this;

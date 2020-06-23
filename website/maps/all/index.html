@@ -514,6 +514,19 @@
       }
     });
 
+//    map.loadGeoJson('plz-5stellig-centroid.geojson', (feature, latlng) => {
+//      if (latlng.lat > 51)
+//        return null;
+//
+//      return L.marker(latlng, {
+//        icon: L.icon({
+//          iconUrl: '/maps/all/marker-dot.png',
+//          iconSize: [1, 1],
+//          iconAnchor: [1, 1]
+//        })
+//      });
+//    });
+
     function followAnchor() {
       let anchor = WirVsVirusMap.Utils.parseAnchor(window.location.href);
       if (anchor == 'subscribe') {
