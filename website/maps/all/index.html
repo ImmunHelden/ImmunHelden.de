@@ -362,6 +362,10 @@
       if (val == 'all') {
         _paq.push(['setConsentGiven']);
         console.log('setConsentGiven');
+        const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
+        if (params.utm_update && params.utm_range) {
+          _paq.push(['trackEvent', params.utm_update, params.utm_range]);
+        }
       }
     }
     function rememberConsent(val) {
