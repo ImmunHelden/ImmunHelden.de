@@ -11,5 +11,5 @@ Danke für Dein Engagement!<br>
 Dein Team von [ImmunHelden.de](https://immunhelden.de)
 
 --<br>
-Du erhältst diese Email, weil Du Dich mit der Postleitzahl ${prop_hero_zip} bei uns als ImmunHeld:in gemeldet hast.<br>
+Du erhältst diese Email, weil Du Dich mit der Postleitzahl ${prop_hero_zip} bei uns als ImmunHeld:in gemeldet hast.
 Falls Du Deine Meinung änderst, kannst Dich [hier](${link_hero_opt_out}) jederzeit wieder abmelden.
