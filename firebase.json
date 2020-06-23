@@ -90,6 +90,18 @@
         "function": "renderFaq"
       },
       {
+        "source": "/calcDistances",
+        "function": "calcDistances"
+      },
+      {
+        "source": "/sendUpdateMails",
+        "function": "sendUpdateMails"
+      },
+      {
+        "source": "/doSendUpdateMails",
+        "function": "doSendUpdateMails"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
