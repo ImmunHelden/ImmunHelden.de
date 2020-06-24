@@ -2,7 +2,7 @@
 
 Hallo!
 
-Es gibt Neuigkeiten aus der ImmunHelden Community in Deiner Region.<br>
+Es gibt Neuigkeiten aus der ImmunHelden Community [in Deiner Region](${link_hero_location_map}).<br>
 
 Im Umkreis von ${prop_ads_distance} zu Deinem Wohnort kannst Du hier helfen:<br>
 ${list_ads}
