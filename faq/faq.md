@@ -78,11 +78,19 @@ Neuste Studien haben gezeigt, dass Personen nach durchgemachter SARS-CoV-2-Infek
 
 Trotzdem ist der Begriff der Immunität mit Vorsicht zu genießen. So können zur Ausprägung der Immunität bisher leider keine allgemeingültigen Aussagen getroffen werden, da das  Erbgut oder der Lebensstil die Intensität der Immunreaktion beeinflussen. Studien mit anderen Corona-Viren legen nahe, dass die Immunität bis zu drei Jahren anhält. Für genauere Erkenntnisse sind serologische Längsschnittstudien notwendig. Diese sind  aktuell leider noch nicht aussagekräftig genug, da es sich um eine für uns relativ neue Erkrankung handelt ([Ferguson NM, Laydon D, Nedjati-Gilani G, Imai N, Ainslie K, Baguelin M, et al. Impact of non-pharmaceutical interventions (NPIs) to reduce COVID-19 mortality and healthcare demand](https://www.imperial.ac.uk/media/imperial-college/medicine/sph/ide/gida-fellowships/Imperial-College-COVID19-NPI-modelling-16-03-2020.pdf)).
 
-### Kann ich nach einer Genesung von COVID-19 weitere Personen anstecken?
+### Wie lange bin ich nach einer akuten Infektion ansteckend?
 
-Auch nach überstandener Krankheit können wir laut dem Virologen der Berliner Charité Christian Drosten noch Sars-CoV-2 in uns tragen. Nach dem derzeitigen Kenntnisstand ist das nach der Genesung nachgewiesene Virusmaterial aber nicht infektiös für andere, es handelt sich sehr wahrscheinlich vorwiegend um totes, ausgeschiedenes Material. Das bedeutet also, dass von Genesenen höchstwahrscheinlich keine Ansteckungsgefahr mehr ausgeht ([BZgA](https://www.infektionsschutz.de/coronavirus-alt/fragen-und-antworten/quarantaene.html#faq4255), [RKI](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Entlassmanagement.html#doc13671260bodyText1)).
+Wie lange eine Person ansteckend ist, lässt sich nicht pauschal sagen und hängt davon ab, wie schwer sie erkrankt ist ([BZgA](https://www.infektionsschutz.de/coronavirus-alt/fragen-und-antworten/ansteckung-und-uebertragung.html)). Bei der Infektiosität kommen die bisherigen Studien zu unterschiedlichen Ergebnissen ([RKI](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText9)), wobei praktisch angenommen wird, dass man andere bis maximal 14 Tage nach Symptombeginn anstecken kann. Aus einer häuslichen Quarantäne wird man daher vorsichtshalber frühestens 14 Tage nach Symptombeginn und 48 Stunden nach Symptomfreiheit entlassen ([RKI](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Entlassmanagement.html#doc13671260bodyText2)).
 
-Allerdings sollten sich auch Genesene regelmäßig die Hände waschen, um eine Kontamination über Flächen auszuschließen. Wenn Du z.B. eine durch einen Infizierten kontaminierte Türklinke berührst und danach Essen für die Nachbarskinder zubereitest, könntest Du theoretisch Überträger:in werden. Ob diese Möglichkeit der Übertragung praktisch eine Rolle spielt, ist bisher unklar ([BR Wissen vom 02.04.2020](https://www.br.de/nachrichten/wissen/bin-ich-nach-einer-infektion-mit-dem-coronavirus-immun,Ru43YZY)). Selbstverständlich müssen sich auch genesene Personen an alle weiteren Hygiene- und Abstandsregeln halten.
+### Kann ich noch jemanden anstecken, wenn ich die COVID-Erkrankung überwunden habe und zu einem späteren Zeitpunkt wieder mit dem Virus in Kontakt gekommen bin?
+
+Nach dem aktuellen Forschungsstand ist man nach einer Genesung von COVID-19 gegen das Coronavirus SARS-CoV-2 immun (siehe [„Bin ich nach einer Genesung von COVID-19 immun?“](#bin-ich-nach-einer-genesung-von-covid-19-immun-ab-wann-und-wie-lange)).
+
+Gerät man unter dieser Annahme zu einem späteren Zeitpunkt nochmals mit dem Virus in Berührung, z.B. durch engen Kontakt mit einer infizierten Person, springt das eigene Immunsystem an (dabei helfen unter anderem die Antikörper, die der Körper gebildet hat) und sorgt dafür, dass sich das Virus im eigenen Körper nicht mehr vervielfältigen kann. Es ist daher sehr unwahrscheinlich, dass Genesene andere per Tröpfcheninfektion (Husten, Niesen, Spucken) anstecken. ([BR](https://www.br.de/nachrichten/wissen/bin-ich-nach-einer-infektion-mit-dem-coronavirus-immun,Ru43YZY) [Spiegel](https://www.spiegel.de/wissenschaft/medizin/coronavirus-kann-ich-das-virus-erneut-uebertragen-falls-ich-selbst-schon-immun-bin-a-3b0a7acd-6613-4fcd-bd33-c944560f919f))
+
+Nicht abschließend geklärt ist, welche Rolle eine Kontamination über Flächen praktisch spielen kann ([BR Wissen](https://www.br.de/nachrichten/wissen/bin-ich-nach-einer-infektion-mit-dem-coronavirus-immun,Ru43YZY)). Wenn Du z.B. eine durch einen Infizierten kontaminierte Türklinke berührst und danach Essen für die Nachbarskinder zubereitest, könntest Du theoretisch auch als genesene Person Überträger:in werden.
+
+Selbstverständlich müssen sich auch genesene Personen an das Händewaschen und alle weiteren Hygiene- und Abstandsregeln halten.
 
 ### Wie lässt sich eine Genesung von COVID-19 sicher nachweisen?
 
@@ -141,7 +149,7 @@ Wenn Du Dich als ImmunHeld:in registriert hast, erhältst Du regelmäßig E-Mail
 
 Darüber hinaus kannst Du Dir mit unserer Karte jederzeit einen Überblick darüber verschaffen, wo Du Dich engagieren kannst.
 
-Hilfesuchende Organisationen können von Dir einen Nachweis zu Deiner Genesung verlangen. Damit Ihr dafür nicht auf ein persönliches Treffen warten müsst, bieten wir Euch dafür mit einem Video-Ident-Verfahren eine sichere Möglichkeit, die ohne Gesundheitsdatenspeicherung auskommt.
+Hilfesuchende Organisationen können Dich um einen Nachweis zu Deiner Genesung bitten. Damit Ihr dafür nicht auf ein persönliches Treffen warten müsst, arbeiten wir an einem Video-Ident Verfahren, das Euch dafür einen sicheren Kommunikationskanal bietet.
 
 ### Muss ich bei der Kontaktaufnahme zu einer hilfesuchenden Organisation angeben, dass ich über ImmunHelden.de zu ihnen gefunden habe?
 
