@@ -145,9 +145,7 @@ Dieser Empfehlung schließen wir von ImmunHelden uns an, und zwar sowohl für di
 
 ### Wie geht es weiter, wenn ich mich als ImmunHeld:in registriere?
 
-Wenn Du Dich als ImmunHeld:in registriert hast, erhältst Du regelmäßig E-Mails mit Hilfegesuchen in Deiner Umgebung. Dabei werden auch Deine Interessen und Kompetenzen berücksichtigt. Du kannst dann frei entscheiden, auf welche Hilfegesuche Du reagierst.
-
-Darüber hinaus kannst Du Dir mit unserer Karte jederzeit einen Überblick darüber verschaffen, wo Du Dich engagieren kannst.
+Wenn Du Dich als ImmunHeld:in registriert hast, erhältst Du regelmäßig E-Mails mit Hilfegesuchen in Deiner Umgebung. Du kannst dann frei entscheiden, auf welche Hilfegesuche Du reagierst. Darüber hinaus kannst Du Dir auf unserer Karte auch ohne Registrierung jederzeit einen Überblick darüber verschaffen, wo Du Dich engagieren kannst.
 
 Hilfesuchende Organisationen können Dich um einen Nachweis zu Deiner Genesung bitten. Damit Ihr dafür nicht auf ein persönliches Treffen warten müsst, arbeiten wir an einem Video-Ident Verfahren, das Euch dafür einen sicheren Kommunikationskanal bietet.
 
