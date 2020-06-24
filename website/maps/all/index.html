@@ -467,18 +467,7 @@
       popupAnchor: [1, -34]
     };
 
-    const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
-
-    if (params.embedded) {
-      $('header').hide();
-      $('#cookieconsent').hide();
-      $('#osm-map').css('top', 0);
-    }
-
     const settings = {
-      embedded: params.hasOwnProperty("embedded"),
-      lockLink: "/maps/all/", // TODO: For now we only embed from the landing page.
-      zoom: params.hasOwnProperty("zoom") ? parseInt(params.zoom) : 6,
       platforms: [
         //{ name: 'ImmunHelden.de',
         //  sources: [
@@ -489,6 +478,22 @@
       ],
       selectPlatformsControl: false
     };
+
+    const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
+    if (params.embedded) {
+      $('header').hide();
+      $('#cookieconsent').hide();
+      $('#osm-map').css('top', 0);
+      settings.embedded = params.embedded;
+      settings.lockLink = "/maps/all/" // TODO: For now we only embed from the landing page.
+    }
+    if (params.zoom) {
+      settings.zoom = parseInt(params.zoom)
+    }
+    if (params.lat && params.lng) {
+      settings.center = [ parseFloat(params.lat), parseFloat(params.lng) ];
+    }
+
 
     const map = new WirVsVirusMap.Instance('osm-map', settings);
 
