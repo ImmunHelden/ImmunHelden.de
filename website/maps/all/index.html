@@ -366,6 +366,9 @@
         if (params.utm_update && params.utm_range) {
           _paq.push(['trackEvent', params.utm_update, params.utm_range]);
         }
+        if (params.utm_referrer && params.utm_campaign) {
+          _paq.push(['trackEvent', params.utm_referrer, params.utm_campaign]);
+        }
       }
     }
     function rememberConsent(val) {
