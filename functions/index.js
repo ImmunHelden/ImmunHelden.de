@@ -505,12 +505,13 @@ exports.calcDistances = functions.https.onRequest(async (req, res) => {
     res.status(400).send("Invalid request");
     return;
   }
-  const dists = [ 5, 15 ];
+
   const zips = req.query.zips.split(',');
   const allDists = {};
 
   for (const z of zips) {
-    const facilities = await messageTemplates.doCalcDistances(admin, z, ['plasma2'], dists);
+    const fromCoord = await messageTemplates.zip2latlng(z);
+    const facilities = await messageTemplates.doCalcDistances(admin, fromCoord, ['ads'], [ 5, 15 ]);
 
     const zipDists = {};
     for (const f in facilities) {

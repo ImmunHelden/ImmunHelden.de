@@ -38,13 +38,13 @@ showdown.extension('email-footers', function() {
 });
 
 exports.render = async function(template, params) {
-  const baseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/notifications/';
+  const baseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/markdown/';
   const template_markdown = await rp.get({ uri: baseUrl + template });
 
   const match = /# (.*?)\n(.*)/s.exec(template_markdown);
   if (match.length !== 3) {
     console.error('Invalid markdown given. Regex match invalid:', match);
-    throw new Error(`Invalid markdown. Plese follow the example here: https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/notifications/email/hero_welcome.md`);
+    throw new Error(`Invalid markdown. Please follow the example here: https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/markdown/email/hero_welcome.md`);
   }
 
   const markdown = fillTemplate(match[2], params);
@@ -135,17 +135,34 @@ exports.renderFaq = functions.https.onRequest(async (req, res) => {
   res.send(conv.makeHtml(markdown));
 });
 
+exports.zip2latlng = async function(zip) {
+  const zip2latlng = JSON.parse(await readFile('zip2latlng.json'));
+  if (zip2latlng.hasOwnProperty(zip)) {
+    console.log('ZIP center is at', zip2latlng[zip]);
+    return zip2latlng[zip];
+  } else {
+    console.log('Cannot find ZIP:', zip);
+    return null;
+  }
+}
+
 const renderUpdateMail = async function(template, updateSeries, recipient) {
+  const lat = Math.round(recipient.latlng[0] * 1000) / 1000;
+  const lng = Math.round(recipient.latlng[1] * 1000) / 1000;
+  const zoom = recipient.dist > 10 ? 11 : 13;
+  const paramsTracking = `utm_update=${updateSeries}&utm_range=${recipient.dist}`;
+  const paramsHero = `lat=${lat}&lng=${lng}&zoom=${zoom}&${paramsTracking}`;
+
   const contents = [];
   for (const ad of recipient.ads) {
-    const args = `utm_update=${updateSeries}&utm_range=${recipient.dist}`;
-    contents.push(`[${ad.title}: ${ad.address}](https://immunhelden.de/maps/all/?${args}#${ad.id})`);
+    contents.push(`[${ad.title}: ${ad.address}](https://immunhelden.de/maps/all/?${paramsTracking}#${ad.id})`);
   }
 
   return await exports.render(template, {
     prop_ads_distance: `${recipient.dist}km`,
     prop_hero_zip: recipient.zip,
     list_ads: contents.join('<br>'),
+    link_hero_location_map: `https://immunhelden.de/maps/all/?${paramsHero}`,
     link_hero_opt_out: `https://immunhelden.de/deleteHero?key=${recipient.key}`
   });
 }
@@ -158,15 +175,23 @@ exports.sendUpdateMails = async function(req, res) {
 
   try {
     // Render message for preview
-    const msg = await renderUpdateMail(
-        req.query.template, 'demo-update', { key: 'demo-key', zip: '12345', dist: 5, ads: [
-          { title: 'Anzeige 1', address: 'Adresse 1', id: 'ovgu-expae-t-zellen-studie' },
-          { title: 'Anzeige 2', address: 'Adresse 2', id: 'de-drk-nstob-dessau' }
-        ]});
+    const demoRecipient = {
+      key: 'demo-key',
+      zip: '12345',
+      latlng: [52.453, 13.492],
+      dist: 15,
+      ads: [
+        { title: 'Anzeige 1', address: 'Adresse 1', id: 'stadtmission-iudDZ87_23' },
+        { title: 'Anzeige 2', address: 'Adresse 2', id: 'blutspendende-SsUTW0dcf-E' }
+      ]
+    };
+    const msg = await renderUpdateMail(req.query.template, 'demo-update',
+                                       demoRecipient);
 
+    // For local debugging use /immunhelden/us-central1/doSendUpdateMails
     res.send(`
       <link rel="stylesheet" href="https://newcss.net/new.min.css">
-      <form action="/immunhelden/us-central1/doSendUpdateMails" method="POST">
+      <form action="/doSendUpdateMails" method="POST">
         <input type="text" name="template" value="${req.query.template}">
         <input type="password" name="pass" value="" placeholder="Passwort">
         <input type="email" name="email" placeholder="Empfänger E-Mail">
@@ -199,7 +224,7 @@ function parseBool(string) {
 }
 
 exports.doSendUpdateMails =  async function(req, res, admin) {
-  if (req.method !== "POST" || /*!req.body.pass ||*/ !req.body.template) {
+  if (req.method !== "POST" || !req.body.template) {
     res.status(400).send('Invalid request');
     return;
   }
@@ -217,11 +242,14 @@ exports.doSendUpdateMails =  async function(req, res, admin) {
 
   const candidates = [];
   const heroes = await admin.firestore().collection('heroes').get();
+  const zip2latlng = JSON.parse(await readFile('zip2latlng.json'));
+
   heroes.forEach(hero => {
     if (hero.get('doubleOptIn')) {
       candidates.push({
         email: hero.get('email'),
         zip: hero.get('zipCode'),
+        latlng: zip2latlng[hero.get('zipCode')],
         key: hero.id,
         ads: [],
         dist: 0
@@ -244,10 +272,10 @@ exports.doSendUpdateMails =  async function(req, res, admin) {
 
   const distNear = 5;
   const distFar = 15;
-  const adsCollections = ['plasma2'];
   for (const candidate of candidates) {
-    const facilities = await exports.doCalcDistances(admin, candidate.zip, adsCollections, [distNear, distFar]);
-    if (Object.keys(facilities).length > 0) {
+    const facilities = await exports.doCalcDistances(admin, candidate.latlng, ['ads'], [distNear, distFar]);
+    const total = Object.keys(facilities).length;
+    if (total > 0) {
       // Create subset of facilities that aare near-by.
       const facilitiesNearBy = {};
       for (const id in facilities) {
@@ -256,21 +284,24 @@ exports.doSendUpdateMails =  async function(req, res, admin) {
         }
       }
 
-      // List facilities that are near-by, if there is more than 1.
-      // Otherwise list all we found.
-      if (Object.keys(facilitiesNearBy).length > 1) {
+      // List facilities that are near-by, if there is more than 1 or we only
+      // have one and it's near-by. Otherwise list all we found.
+      const nearBy = Object.keys(facilitiesNearBy).length;
+      if (nearBy > 1 || (nearBy === 1 && total === 1)) {
         candidate.ads = await fetchAdDetails(facilitiesNearBy);
         candidate.dist = distNear;
       } else {
         candidate.ads = await fetchAdDetails(facilities);
         candidate.dist = distFar;
       }
+    } else {
+      console.log(`No facilities for candidate ${candidate.key}`);
     }
   }
 
   const recipients = candidates.filter(c => c.ads.length > 0);
 
-  // Send all mails to specified address for debugging
+  // Allow to send all mails to one given address for debugging
   if (!parseBool(req.body.heroes) || req.body.email.length > 0) {
     for (const r of recipients) {
       r.email = req.body.email;
@@ -278,13 +309,21 @@ exports.doSendUpdateMails =  async function(req, res, admin) {
   }
 
   try {
+    // For debugging
+    //for (const recipient of recipients) {
+    //  recipient.email = await renderUpdateMail(req.body.template, 'mua', recipient);
+    //}
+    //res.json(recipients).send();
+    //return;
+
     // Render message to send
     for (const recipient of recipients) {
       admin.firestore().collection('mail').add({
-        to: 'team@immunhelden.de',
+        to: recipient.email,
         message: await renderUpdateMail(req.body.template, 'mua', recipient)
       });
     }
+
     res.send(
       `Sent updates to ${recipients.length} recipients (out of ${candidates.length} candidates)\n`
     );
@@ -312,44 +351,39 @@ function haversineMeters(c1, c2) {
   return d;
 }
 
-exports.doCalcDistances = async function(admin, fromZip, toCollections, distRanges) {
+exports.doCalcDistances = async function(admin, fromCoord, toCollections, distRanges) {
   try {
-    const zip2latlng = JSON.parse(await readFile('zip2latlng.json'));
-    if (!zip2latlng.hasOwnProperty(fromZip)) {
-      console.log('Cannot find', fromZip);
-      return [];
-    }
-
     const results = {};
-    const incr = (facility, type, range) => {
-      results[facility] = results[facility] || { collection: type };
-      if (results[facility].hasOwnProperty(range)) {
-        results[facility][range]++;
-      } else {
-        results[facility][range] = 1;
-      }
-    };
+    if (fromCoord) {
+      const addResult = (facility, type, range) => {
+        results[facility] = results[facility] || { collection: type };
+        if (results[facility].hasOwnProperty(range)) {
+          results[facility][range]++;
+        } else {
+          results[facility][range] = 1;
+        }
+      };
 
-    const fromCoord = zip2latlng[fromZip];
-
-    for (const type of toCollections) {
-      const collection = await admin.firestore().collection(type).get();
-      collection.forEach(doc => {
-        const geoPoint = doc.get('latlng');
-        if (geoPoint.latitude && geoPoint.longitude) {
-          const dist = haversineMeters(fromCoord, [geoPoint.latitude, geoPoint.longitude]);
-          for (const range of distRanges) {
-            if (dist <= range) {
-              incr(doc.id, type, range + "km");
-              break;
+      for (const type of toCollections) {
+        const collection = await admin.firestore().collection(type).get();
+        collection.forEach(doc => {
+          const geoPoint = doc.get('latlng');
+          if (geoPoint.latitude && geoPoint.longitude) {
+            console.log(fromCoord, geoPoint.latitude, geoPoint.longitude);
+            const dist = haversineMeters(fromCoord, [geoPoint.latitude, geoPoint.longitude]);
+            for (const range of distRanges) {
+              if (dist <= range) {
+                addResult(doc.id, type, range + "km");
+                break;
+              }
             }
           }
-        }
-      });
+        });
+      }
     }
     return results;
   }
   catch (err) {
-    console.error(`Error calculating distances from ZIP ${fromZip}:`, err);
+    console.error(`Error calculating distances from ${fromCoord}:`, err);
   }
 }
