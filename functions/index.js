@@ -2,11 +2,6 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const fs = require("fs");
 
-// Tools for processing data from blutspenden.de (internal use only).
-const toolsBlutspendenDe = require(`./tools-blutspenden-de.js`);
-exports.parseBlutspendenDe = toolsBlutspendenDe.parse;
-exports.renderBlutspendenDe = toolsBlutspendenDe.render;
-
 admin.initializeApp(functions.config().firebase);
 
 // Tools for finding the markdown for our email templates on GitHub, expanding
@@ -21,18 +16,23 @@ exports.doSendUpdateMails = functions.https.onRequest(async (req, res) => {
   return await messageTemplates.doSendUpdateMails(req, res, admin);
 });
 
-
+// Tools for processing static data, e.g. from blutspenden.de (internal use only).
+const toolsDataImport = require(`./tools-blutspenden-de.js`);
+exports.parseBlutspendenDe = toolsDataImport.parse;
+exports.renderBlutspendenDe = toolsDataImport.render;
 
 // Import JSON data for plasma locations. Admin use only.
-// Run locally with service account connected:
+// Uncomment and run locally with service account connected:
 //
 // % export GOOGLE_APPLICATION_CREDENTIALS=/Users/staefsn/.ssh/immunhelden-b4cf6fd1620c.json
-// % firebase serve --host 0.0.0.0
+// % firebase serve
 //
 //(async () => {
-//  const dataBaseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data';
-//  await toolsBlutspendenDe.importJson(admin.firestore(), 'plasma', `${dataBaseUrl}/blutspenden.de/blutspenden-clean.json`, 'SM9fYu3nXzkxURTpCOQ2');
-//  await toolsBlutspendenDe.importJson(admin.firestore(), 'plasma', `${dataBaseUrl}/biolife/austria.json`, 'ua6VnlnzaErnTqjjJYnm');
+//  const baseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data';
+//  await toolsDataImport.importJson(admin, 'ads', `${baseUrl}/blutspenden.de/blutspenden-clean.json`, 'SM9fYu3nXzkxURTpCOQ2');
+//  await toolsDataImport.importJson(admin, 'ads', `${baseUrl}/biolife/austria.json`, 'ua6VnlnzaErnTqjjJYnm');
+//  await toolsDataImport.importJson(admin, 'ads', `${baseUrl}/stadtmission/de.json`, 'Ns7kZq64hkye24UPgvt0');
+//  await toolsDataImport.importJson(admin, 'ads', `${baseUrl}/tafel/de.json`, 'p4qVVlDAeI3wmFaRo5lc ');
 //})();
 
 // CORS Express middleware to enable CORS Requests.
