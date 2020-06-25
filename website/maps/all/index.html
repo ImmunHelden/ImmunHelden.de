@@ -507,6 +507,17 @@
     map.onOpenDetailsPane = closeOverlay;
     map.onCloseDetailsPane = closeOverlay;
 
+    map.onViewDetails = (id) => {
+      // This is only going through once consent was given.
+      let referredFrom = 'none';
+      if (params.utm_referrer && params.utm_campaign) {
+        referredFrom = params.utm_referrer;
+      } else if (params.utm_update && params.utm_range) {
+        referredFrom = 'email-' + utm_update;
+      }
+      _paq.push(['trackEvent', 'pin-view', referredFrom, id]);
+    }
+
     map.oncePinsReady(() => {
       if (!params.embedded) {
         //const marker = map.getMarker('ovgu-expae-t-zellen-studie');
