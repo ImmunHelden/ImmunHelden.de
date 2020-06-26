@@ -73,13 +73,13 @@ function addNewRow(userPartnerIds, allPartnerConfigs, onError) {
 }
 
 function deleteRow(onError) {
-    return async function deleteIt({ id }) {
+    return async ({ id }) => {
         return firebase.firestore().collection(LOCATION_COLLECTION).doc(id).delete().catch(onError)
     }
 }
 
 function updateRow(onError) {
-    return async function deleteIt(event, rowData) {
+    return async (event, rowData) => {
         navigate(`/partner/location/${rowData.id}`)
 
         // Upon confirm in edit page:
