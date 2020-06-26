@@ -12,6 +12,16 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      {
+        "source": "/maps/blutspendende/details/:id",
+        "destination": "/maps/plasma/details/:id"
+      },
+      {
+        "source": "/maps/biolife/details/:id",
+        "destination": "/maps/plasma/details/:id"
+      }
+    ],
     "rewrites": [
       {
         "source": "/verifyHero",
@@ -74,16 +84,20 @@
         "function": "doneVerifyStakeholderPin"
       },
       {
-        "source": "/maps/sample/pins",
+        "source": "/maps/blutspendende/pins",
         "function": "pin_locations"
       },
       {
-        "source": "/maps/sample/regions",
-        "function": "regions"
+        "source": "/maps/stadtmission/pins",
+        "function": "pin_locations"
       },
       {
-        "source": "/maps/sample/details/*",
-        "function": "details_html"
+        "source": "/maps/tafel/pins",
+        "function": "pin_locations"
+      },
+      {
+        "source": "/maps/biolife/pins",
+        "function": "pin_locations"
       },
       {
         "source": "/renderFaq",

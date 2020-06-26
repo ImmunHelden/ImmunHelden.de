@@ -65,7 +65,12 @@
         $.ajax({ url: fileUrl })
           .fail(() => reject("Error querying " + fileUrl))
           .done(content => {
-            resolve((typeof content === 'string') ? JSON.parse(content) : content);
+            try {
+              resolve((typeof content === 'string') ? JSON.parse(content) : content);
+            } catch (err) {
+              console.warn('Failed to parse JSON data from response of', fileUrl);
+              reject("Error parsing response of " + fileUrl);
+            }
           });
       });
     },
@@ -423,9 +428,12 @@
     // TODO: Should we wait for all promises or start showing pins one by one?
     const pinsReady = [];
     for (let i = 0; i < settings.platforms.length; i++) {
+      console.log('Requesting pins for', settings.platforms[i].name,
+                  'from', settings.platforms[i].restBaseUrl + '/pins');
       const asyncLoad = Utils.loadJson(settings.platforms[i].restBaseUrl + '/pins');
       pinsReady.push(asyncLoad.then(pinsById => {
-        for (let id in pinsById) {
+        console.log('Received', Object.keys(pinsById).length, 'pins for', settings.platforms[i].name);
+        for (const id in pinsById) {
           if (Pin.isValidInfo(pinsById[id])) {
             pinsById[id].platformIdx = i;
 

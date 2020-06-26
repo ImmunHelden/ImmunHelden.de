@@ -430,16 +430,26 @@ exports.deleteOrg = functions.https.onRequest(async (req, res) => {
 });
 
 exports.pin_locations = functions.https.onRequest(async (req, res) => {
+  // Apparently we have to extract the 'type' parameter from the URL manually.
+  // E.g. req.params is { '0': '/maps/sample/pins' } => type is 'sample'
+  const match = /\/maps\/(.*)\/pins/.exec(req.params['0']);
+  const type = match[1];
+
   // This endpoint supports cross-origin requests.
-  return cors(req, res, () => {
-    res
-      .json({
-        "blutspendende-U0_T_pAy9": {
-          title: "Blutspende am Universitätsklinikum Freiburg",
-          latlng: [48.0066478, 7.8381151],
-        },
-      })
-      .send();
+  return cors(req, res, async () => {
+    const locationsRef = admin.firestore().collection("locations");
+    const entries = await locationsRef.where('type', '==', type).get();
+    const pins = {};
+    entries.forEach(doc => {
+      const geoPoint = doc.get('latlng');
+      pins[doc.id] = {
+        title: doc.get('title'),
+        latlng: [geoPoint.latitude, geoPoint.longitude]
+      };
+    });
+
+    console.log('Serving', Object.keys(pins).length, 'locations in response to query', req.params[0]);
+    res.json(pins).send();
   });
 });
 
