@@ -7,18 +7,31 @@ import { generateI18N } from "./table-i18n"
 import { Roller } from "react-spinners-css"
 import shortid from "shortid"
 
-function choosePartnerId(entryPartnerId, userPartnerIds = []) {
-    if (entryPartnerId && userPartnerIds.includes(entryPartnerId)) {
-        return entryPartnerId
+function choosePartnerId(entryPartnerId, userPartnerIds, onError) {
+    if (entryPartnerId) {
+        if (userPartnerIds.includes(entryPartnerId)) {
+            return entryPartnerId
+        }
+        // TODO: Issue this error to sentry?
+        onError({ code: "choosePartnerId/inaccessible" })
+        throw new Error("Provided partner ID inaccessible for user")
+    } else {
+        // TODO: Depending on the context we may want users to choose and not just
+        // take the first in the sequence.
+        if (userPartnerIds.length > 0) {
+            return userPartnerIds[0]
+        }
+        // TODO: Issue this error to sentry?
+        onError({ code: "choosePartnerId/unavailable" })
+        throw new Error("No partner ID available for user")
     }
-    return userPartnerIds[0]
 }
 
 function addNewRow(userPartnerIds, allPartnerConfigs, onError) {
     const newPartnerLocationDoc = async () => {
         // TODO: The partner name is a prefix in the location ID.
         // Not sure this is ideal, but it is what we have currently.
-        const partnerId = choosePartnerId(null, userPartnerIds)
+        const partnerId = choosePartnerId(null, userPartnerIds, onError)
         const partnerConfig = allPartnerConfigs.find(p => p.id == partnerId)
 
         // ShortID may collide with existing entry, retry a few times
