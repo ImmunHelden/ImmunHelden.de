@@ -2,9 +2,10 @@ import React, { useState } from "react"
 import firebase from "gatsby-plugin-firebase"
 import MaterialTable from "material-table"
 import { LOCATION_COLLECTION } from "."
-import { useIntl } from "gatsby-plugin-intl"
+import { navigate, useIntl } from "gatsby-plugin-intl"
 import { generateI18N } from "./table-i18n"
 import { Roller } from "react-spinners-css"
+import shortid from "shortid"
 
 function choosePartnerId(entryPartnerId, userPartnerIds = []) {
     if (entryPartnerId && userPartnerIds.includes(entryPartnerId)) {
@@ -13,23 +14,48 @@ function choosePartnerId(entryPartnerId, userPartnerIds = []) {
     return userPartnerIds[0]
 }
 
-function addNewRow(userPartnerIds, onError) {
-    return async function add(data) {
-        if (!userPartnerIds || userPartnerIds.length <= 0) {
-            onError({ code: "no-permission" })
-            throw new Error("Missing Partner Id")
-        }
-        const { title, partnerId } = data
-        if (!title || title.length < 0) {
-            onError({ code: "requiredFieldMissing/title" })
-            throw new Error("missing title")
-        }
+function addNewRow(userPartnerIds, allPartnerConfigs, onError) {
+    const newPartnerLocationDoc = async () => {
+        // TODO: The partner name is a prefix in the location ID.
+        // Not sure this is ideal, but it is what we have currently.
+        const partnerId = choosePartnerId(null, userPartnerIds)
+        const partnerConfig = allPartnerConfigs.find(p => p.id == partnerId)
 
-        return firebase
-            .firestore()
-            .collection(LOCATION_COLLECTION)
-            .add({ ...data, partnerId: choosePartnerId(partnerId, userPartnerIds) })
-            .catch(onError)
+        // ShortID may collide with existing entry, retry a few times
+        for (let i=0; i<10; i++) {
+            const docId = `${partnerConfig.name}-${shortid.generate()}`
+            const docRef = firebase.firestore().collection(LOCATION_COLLECTION).doc(docId)
+            const doc = await docRef.get().catch(onError)
+            if (!doc.exists) {
+                docRef.set({ partnerId: partnerId })
+                return docId;
+            }
+        }
+        onError({ code: "newPartnerLocationDoc/failed" })
+        throw new Error("Create new doc failed")
+    }
+
+    return async (event) => {
+        // For now, let's use a single page for add and edit
+        const docId = await newPartnerLocationDoc()
+        navigate(`/partner/location/${docId}`)
+
+        // Upon confirm in add page:
+        //if (!userPartnerIds || userPartnerIds.length <= 0) {
+        //    onError({ code: "no-permission" })
+        //    throw new Error("Missing Partner Id")
+        //}
+        //const { title, partnerId } = data
+        //if (!title || title.length < 0) {
+        //    onError({ code: "requiredFieldMissing/title" })
+        //    throw new Error("missing title")
+        //}
+        //
+        //return firebase
+        //    .firestore()
+        //    .collection(LOCATION_COLLECTION)
+        //    .add({ ...data, partnerId: choosePartnerId(partnerId, userPartnerIds) })
+        //    .catch(onError)
     }
 }
 
@@ -40,13 +66,16 @@ function deleteRow(onError) {
 }
 
 function updateRow(onError) {
-    return async function deleteIt({ id, ...rest }) {
-        return firebase
-            .firestore()
-            .collection(LOCATION_COLLECTION)
-            .doc(id)
-            .update({ ...rest })
-            .catch(onError)
+    return async function deleteIt(event, rowData) {
+        navigate(`/partner/location/${rowData.id}`)
+
+        // Upon confirm in edit page:
+        //return firebase
+        //    .firestore()
+        //    .collection(LOCATION_COLLECTION)
+        //    .doc(rowData.id)
+        //    .update({ ...rest })
+        //    .catch(onError)
     }
 }
 
@@ -74,7 +103,7 @@ export const LocationTable = ({
 
     const onRowUpdate = updateRow(onError)
     const onRowDelete = deleteRow(onError)
-    const onRowAdd = addNewRow(state.userAllowedPartnerIds, onError)
+    const onRowAdd = addNewRow(state.userAllowedPartnerIds, state.partnerConfigs, onError)
 
     return (
         <MaterialTable
@@ -107,9 +136,20 @@ export const LocationTable = ({
                 draggable: false,
                 showTitle: false,
             }}
+            actions={[
+                {
+                    icon: 'add',
+                    tooltip: 'Add',
+                    isFreeAction: true,
+                    onClick: onRowAdd,
+                },
+                {
+                    icon: 'edit',
+                    tooltip: 'Edit',
+                    onClick: onRowUpdate,
+                }
+            ]}
             editable={{
-                onRowAdd,
-                onRowUpdate,
                 onRowDelete,
             }}
         />
