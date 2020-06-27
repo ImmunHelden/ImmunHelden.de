@@ -7,14 +7,14 @@ import { generateI18N } from "./table-i18n"
 import { Roller } from "react-spinners-css"
 import shortid from "shortid"
 
-function choosePartnerId(entryPartnerId, userPartnerIds, onError) {
+function choosePartnerId(entryPartnerId, userPartnerIds) {
     if (entryPartnerId) {
         if (userPartnerIds.includes(entryPartnerId)) {
+            console.log(entryPartnerId)
             return entryPartnerId
         }
         // TODO: Issue this error to sentry?
-        onError({ code: "choosePartnerId/inaccessible" })
-        throw new Error("Provided partner ID inaccessible for user")
+        throw new Error("partnerId/inaccessible")
     } else {
         // TODO: Depending on the context we may want users to choose and not just
         // take the first in the sequence.
@@ -22,36 +22,40 @@ function choosePartnerId(entryPartnerId, userPartnerIds, onError) {
             return userPartnerIds[0]
         }
         // TODO: Issue this error to sentry?
-        onError({ code: "choosePartnerId/unavailable" })
-        throw new Error("No partner ID available for user")
+        throw new Error("partnerId/unavailable")
     }
 }
 
-function addNewRow(userPartnerIds, allPartnerConfigs, onError) {
+function addNewRow(userPartnerIds, allPartnerConfigs, reportError) {
     const newPartnerLocationDoc = async () => {
         // TODO: The partner name is a prefix in the location ID.
         // Not sure this is ideal, but it is what we have currently.
-        const partnerId = choosePartnerId(null, userPartnerIds, onError)
+        const partnerId = choosePartnerId(null, userPartnerIds)
         const partnerConfig = allPartnerConfigs.find(p => p.id == partnerId)
 
         // ShortID may collide with existing entry, retry a few times
         for (let i=0; i<10; i++) {
             const docId = `${partnerConfig.name}-${shortid.generate()}`
             const docRef = firebase.firestore().collection(LOCATION_COLLECTION).doc(docId)
-            const doc = await docRef.get().catch(onError)
+            const doc = await docRef.get().catch(reportError)
             if (!doc.exists) {
                 docRef.set({ partnerId: partnerId })
                 return docId;
             }
         }
-        onError({ code: "newPartnerLocationDoc/failed" })
-        throw new Error("Create new doc failed")
+
+        throw new Error("timeout/createNewLocation")
     }
 
     return async (event) => {
-        // For now, let's use a single page for add and edit
-        const docId = await newPartnerLocationDoc()
-        navigate(`/partner/location/${docId}`)
+        try {
+            // For now, let's use a single page for add and edit
+            const docId = await newPartnerLocationDoc()
+            navigate(`/partner/location/${docId}`)
+        } catch(err) {
+            console.log(err);
+            reportError({ code: err.message })
+        }
 
         // Upon confirm in add page:
         //if (!userPartnerIds || userPartnerIds.length <= 0) {
@@ -72,13 +76,13 @@ function addNewRow(userPartnerIds, allPartnerConfigs, onError) {
     }
 }
 
-function deleteRow(onError) {
+function deleteRow(reportError) {
     return async function deleteIt({ id }) {
-        return firebase.firestore().collection(LOCATION_COLLECTION).doc(id).delete().catch(onError)
+        return firebase.firestore().collection(LOCATION_COLLECTION).doc(id).delete().catch(reportError)
     }
 }
 
-function updateRow(onError) {
+function updateRow() {
     return async function deleteIt(event, rowData) {
         navigate(`/partner/location/${rowData.id}`)
 
@@ -114,7 +118,7 @@ export const LocationTable = ({
         setState({ ...state, partnerConfigs })
     }, [partnerConfigs])
 
-    const onRowUpdate = updateRow(onError)
+    const onRowUpdate = updateRow()
     const onRowDelete = deleteRow(onError)
     const onRowAdd = addNewRow(state.userAllowedPartnerIds, state.partnerConfigs, onError)
 
