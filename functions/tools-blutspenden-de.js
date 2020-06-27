@@ -229,7 +229,7 @@ exports.render = functions.https.onRequest(async (req, res) => {
   }
 });
 
-exports.importJson = async function(admin, collection, url, partnerId) {
+exports.importJson = async function(admin, collection, type, url, partnerId) {
   try {
     const json = await rp.get({ uri: url, json: true });
     if (!json.hasOwnProperty('length')) {
@@ -245,9 +245,8 @@ exports.importJson = async function(admin, collection, url, partnerId) {
       } else {
         const id = entry.id;
         delete entry.id;
-        if (partnerId) {
-          entry.partnerId = partnerId;
-        }
+        entry.partnerId = partnerId;
+        entry.type = type;
         if (!entry.hasOwnProperty('latlng')) {
           const coord = await requestLatLng(entry.address);
           entry.latlng = new admin.firestore.GeoPoint(coord[0], coord[1]);
