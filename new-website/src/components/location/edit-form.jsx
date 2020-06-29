@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { Location } from '@reach/router'
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
+import firebase from "gatsby-plugin-firebase"
+import { navigate, useIntl } from "gatsby-plugin-intl"
 import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,23 +14,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const EditForm = ({ partnerId, partnerConfig, docId, doc }) => {
+export const EditForm = ({ partnerId, collection, docId, doc, onSuccess, onError }) => {
   const classes = useStyles();
 
+  const [title, setTitle] = useState(doc.title || "")
+  const [address, setAddress] = useState(doc.address || "")
+  const [phone, setPhone] = useState(doc.phone || "")
+  const [email, setEmail] = useState(doc.email || "")
+  const [contact, setContact] = useState(doc.contact || "")
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    try {
+      if (!title || title.length < 0) {
+        onError({ code: "requiredFieldMissing/title" })
+        return
+      }
+      firebase.firestore().collection(collection).doc(docId).update({
+          title: title,
+          address: address,
+          phone: phone,
+          email: email,
+          contact: contact,
+        })
+        .catch(onError)
+      onSuccess("editForm/locationSaved");
+    } catch (err) {
+      console.log(err);
+      onError({ code: err.message })
+    }
+  }
+
   return (
-    <form className={classes.root}>
-      <TextField disabled fullWidth label="Anchor" defaultValue={"#" + docId} />
-      <TextField disabled fullWidth label="Partner ID" defaultValue={partnerId} />
-      <TextField fullWidth label="Title" defaultValue={doc.title || ""} />
-      <TextField fullWidth label="Address" defaultValue={doc.address || ""} />
-      <TextField fullWidth label="Phone" defaultValue={doc.phone || ""} />
-      <TextField fullWidth label="Email" defaultValue={doc.email || ""} />
-      <TextField fullWidth label="Contact" defaultValue={doc.contact || ""} />
-      <Button variant="contained" color="primary" size="large" startIcon={<SaveIcon />}>
+    <form className={classes.root} onSubmit={handleSubmit}>
+      <TextField disabled fullWidth label="Anchor" value={"#" + docId} />
+      <TextField disabled fullWidth label="Partner ID" value={partnerId} />
+      <TextField fullWidth label="Title" value={title} onChange={e => setTitle(e.target.value)} />
+      <TextField fullWidth label="Address" value={address} onChange={e => setAddress(e.target.value)} />
+      <TextField fullWidth label="Phone" value={phone} onChange={e => setPhone(e.target.value)} />
+      <TextField fullWidth label="Email" value={email} onChange={e => setEmail(e.target.value)} />
+      <TextField fullWidth label="Contact" value={contact} onChange={e => setContact(e.target.value)} />
+      <Button type="submit" variant="contained" color="primary" size="large" startIcon={<SaveIcon />}>
         Save
       </Button>
-      <Button variant="outlined" color="primary" size="large">
-        Cancel
+      <Button variant="outlined" color="primary" size="large" onClick={() => navigate("/partner/")}>
+        Back
       </Button>
     </form>
   )
