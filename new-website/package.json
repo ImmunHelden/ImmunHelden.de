@@ -29,6 +29,7 @@
         "gatsby-transformer-sharp": "^2.4.6",
         "material-table": "^1.58.0",
         "prop-types": "^15.7.2",
+        "query-string": "^6.13.1",
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
         "react-firebase-hooks": "^2.2.0",
@@ -36,7 +37,6 @@
         "react-hook-form": "^5.5.0",
         "react-player": "^2.0.1",
         "react-spinners-css": "^1.1.8",
-        "shortid": "^2.2.15",
         "styled-components": "^5.1.0"
     },
     "devDependencies": {

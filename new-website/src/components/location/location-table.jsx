@@ -5,7 +5,6 @@ import { LOCATION_COLLECTION } from "."
 import { navigate, useIntl } from "gatsby-plugin-intl"
 import { generateI18N } from "./table-i18n"
 import { Roller } from "react-spinners-css"
-import shortid from "shortid"
 
 function choosePartnerId(entryPartnerId, userPartnerIds) {
     if (entryPartnerId) {
@@ -27,31 +26,15 @@ function choosePartnerId(entryPartnerId, userPartnerIds) {
 }
 
 function addNewRow(userPartnerIds, allPartnerConfigs, reportError) {
-    const newPartnerLocationDoc = async () => {
-        // TODO: The partner name is a prefix in the location ID.
-        // Not sure this is ideal, but it is what we have currently.
-        const partnerId = choosePartnerId(null, userPartnerIds)
-        const partnerConfig = allPartnerConfigs.find(p => p.id == partnerId)
-
-        // ShortID may collide with existing entry, retry a few times
-        for (let i=0; i<10; i++) {
-            const docId = `${partnerConfig.name}-${shortid.generate()}`
-            const docRef = firebase.firestore().collection(LOCATION_COLLECTION).doc(docId)
-            const doc = await docRef.get().catch(reportError)
-            if (!doc.exists) {
-                docRef.set({ partnerId: partnerId })
-                return docId;
-            }
-        }
-
-        throw new Error("timeout/createNewLocation")
-    }
-
     return async (event) => {
         try {
-            // For now, let's use a single page for add and edit
-            const docId = await newPartnerLocationDoc()
-            navigate(`/partner/location/${docId}`)
+            const partnerId = choosePartnerId(null, userPartnerIds)
+            const partnerConfig = allPartnerConfigs.find(p => p.id == partnerId)
+            const collection = LOCATION_COLLECTION
+
+            navigate(`/partner/locations/`, {
+                state: { partnerId, partnerConfig, collection },
+            })
         } catch(err) {
             console.log(err);
             reportError({ code: err.message })
@@ -82,9 +65,20 @@ function deleteRow(reportError) {
     }
 }
 
-function updateRow() {
+function updateRow(userPartnerIds, allPartnerConfigs, reportError) {
     return async function deleteIt(event, rowData) {
-        navigate(`/partner/location/${rowData.id}`)
+        try {
+            const partnerId = choosePartnerId(rowData.partnerId, userPartnerIds)
+            const partnerConfig = allPartnerConfigs.find(p => p.id == partnerId)
+            const collection = LOCATION_COLLECTION
+
+            navigate(`/partner/locations/?edit=${rowData.id}`, {
+                state: { partnerId, partnerConfig, collection },
+            })
+        } catch(err) {
+            console.log(err);
+            reportError({ code: err.message })
+        }
 
         // Upon confirm in edit page:
         //return firebase
@@ -118,8 +112,8 @@ export const LocationTable = ({
         setState({ ...state, partnerConfigs })
     }, [partnerConfigs])
 
-    const onRowUpdate = updateRow()
     const onRowDelete = deleteRow(onError)
+    const onRowUpdate = updateRow(state.userAllowedPartnerIds, state.partnerConfigs, onError)
     const onRowAdd = addNewRow(state.userAllowedPartnerIds, state.partnerConfigs, onError)
 
     return (
