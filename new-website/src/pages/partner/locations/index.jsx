@@ -4,9 +4,43 @@ import queryString from 'query-string'
 import firebase from "gatsby-plugin-firebase"
 import { useDocument } from "react-firebase-hooks/firestore"
 import { EditForm } from '../../../components/location/edit-form'
+import MuiAlert from "@material-ui/lab/Alert"
+import { Snackbar } from "@material-ui/core"
 import { ErrorBoundary } from "../../../components/error/error-boundary"
 
+function Alert({ open, severity, message, onClose }) {
+    return (
+        <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            autoHideDuration={6000}
+            open={open}
+            onClose={onClose}
+        >
+            <MuiAlert elevation={6} variant="filled" severity={severity}>
+                {message}
+            </MuiAlert>
+        </Snackbar>
+    )
+}
+
 const EditLocations = ({ location }) => {
+    const [alert, setAlert] = useState({ message: null, severity: "error", open: false })
+    const onSuccess = (msg) => {
+        setAlert({
+            open: true,
+            message: msg, //formatMessage({ id: msg }),
+            severity: "success",
+        })
+    }
+    const onError = ({ code }) => {
+        setAlert({
+            open: true,
+            message: code, //formatMessage({ id: code }),
+            severity: "error",
+        })
+    }
+    const closeAlert = () => setAlert({ ...alert, open: false })
+
     const state = location.state;
     console.log(state);
 
@@ -30,6 +64,7 @@ const EditLocations = ({ location }) => {
 
     return (
         <ErrorBoundary>
+            <Alert {...alert} onClose={closeAlert} />
             <div>
                 <h1>Edit entry</h1>
                 {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -37,9 +72,11 @@ const EditLocations = ({ location }) => {
                 {doc && (
                     <EditForm
                         partnerId={state.partnerId}
-                        partnerConfig={state.partnerConfig}
+                        collection={state.collection}
                         docId={params.edit}
                         doc={doc.data()}
+                        onSuccess={onSuccess}
+                        onError={onError}
                     />
                 )}
             </div>
