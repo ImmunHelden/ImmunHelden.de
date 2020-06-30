@@ -3,6 +3,7 @@ import { Location } from '@reach/router'
 import queryString from 'query-string'
 import firebase from "gatsby-plugin-firebase"
 import { useDocument } from "react-firebase-hooks/firestore"
+import { useSession } from "../../../hooks/use-session"
 import { EditForm } from '../../../components/location/edit-form'
 import MuiAlert from "@material-ui/lab/Alert"
 import { FormattedMessage, navigate, useIntl } from "gatsby-plugin-intl"
@@ -35,6 +36,9 @@ const EditLocations = ({ location }) => {
         })
     }
     const closeAlert = () => setAlert({ ...alert, open: false })
+
+    const { user, partnerConfigs, isLoading } = useSession()
+    console.log(user, partnerConfigs, isLoading) // <- all undefined
 
     const state = location.state;
     console.log(state);
