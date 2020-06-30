@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const EditForm = ({ partnerId, collection, docId, doc, onSuccess, onError }) => {
+export const EditForm = ({ partnerId, collection, docId, doc, onError }) => {
   const classes = useStyles()
   const { formatMessage } = useIntl()
 
@@ -39,7 +39,10 @@ export const EditForm = ({ partnerId, collection, docId, doc, onSuccess, onError
           contact: contact,
         })
         .catch(onError)
-      onSuccess("partnerLocation_entrySaved")
+      navigate("/partner/", {
+        replace: true,
+        state: { saved: "success" },
+      })
     } catch (err) {
       console.log(err)
       onError({ code: err.message })
