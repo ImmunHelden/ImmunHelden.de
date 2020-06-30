@@ -1,12 +1,9 @@
 import React, { useState } from "react"
-import { Location } from '@reach/router'
 import queryString from 'query-string'
-import firebase from "gatsby-plugin-firebase"
-import { useDocument } from "react-firebase-hooks/firestore"
-import { useSession } from "../../../hooks/use-session"
-import { EditForm } from '../../../components/location/edit-form'
+import { EditPage } from '../../../components/location/edit-page'
 import MuiAlert from "@material-ui/lab/Alert"
-import { FormattedMessage, navigate, useIntl } from "gatsby-plugin-intl"
+import { useIntl } from "gatsby-plugin-intl"
+import Layout from "../../../components/layout"
 import { Snackbar } from "@material-ui/core"
 import { ErrorBoundary } from "../../../components/error/error-boundary"
 
@@ -26,8 +23,10 @@ function Alert({ open, severity, message, onClose }) {
 }
 
 const EditLocations = ({ location }) => {
-    const { formatMessage } = useIntl()
     const [alert, setAlert] = useState({ message: null, severity: "error", open: false })
+    const closeAlert = () => setAlert({ ...alert, open: false })
+
+    const { formatMessage } = useIntl()
     const onError = ({ code }) => {
         setAlert({
             open: true,
@@ -35,51 +34,14 @@ const EditLocations = ({ location }) => {
             severity: "error",
         })
     }
-    const closeAlert = () => setAlert({ ...alert, open: false })
 
-    const { user, partnerConfigs, isLoading } = useSession()
-    console.log(user, partnerConfigs, isLoading) // <- all undefined
-
-    const state = location.state;
-    console.log(state);
-
-    // TODO: User loggged in?
-    // TODO: PartnerId valid
-    // TODO: Permission to edit?
-
-    const params = location.search ? queryString.parse(location.search) : {}
-    if (!params.edit) {
-        const doc = firebase.firestore().collection(state.collection).add({
-            partnerId: state.partnerId
-        })
-        params.edit = doc.id
-    }
-
-    const [doc, loading, error] = useDocument(
-        firebase.firestore().collection(state.collection).doc(params.edit), {
-            snapshotListenOptions: { includeMetadataChanges: true },
-        }
-    );
-
+    const editParam = queryString.parse(location?.search)?.edit || 'new'
     return (
         <ErrorBoundary>
-            <Alert {...alert} onClose={closeAlert} />
-            <div>
-                <h1>
-                    <FormattedMessage id="partnerLocation_editEntry" />
-                </h1>
-                {error && <strong>Error: {JSON.stringify(error)}</strong>}
-                {loading && <span>Document: Loading...</span>}
-                {doc && (
-                    <EditForm
-                        partnerId={state.partnerId}
-                        collection={state.collection}
-                        docId={params.edit}
-                        doc={doc.data()}
-                        onError={onError}
-                    />
-                )}
-            </div>
+            <Layout>
+                <Alert {...alert} onClose={closeAlert} />
+                <EditPage docId={editParam} onError={onError} />
+            </Layout>
         </ErrorBoundary>
     )
 
