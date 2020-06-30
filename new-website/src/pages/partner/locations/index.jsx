@@ -27,13 +27,6 @@ function Alert({ open, severity, message, onClose }) {
 const EditLocations = ({ location }) => {
     const { formatMessage } = useIntl()
     const [alert, setAlert] = useState({ message: null, severity: "error", open: false })
-    const onSuccess = (msg) => {
-        setAlert({
-            open: true,
-            message: formatMessage({ id: msg }),
-            severity: "success",
-        })
-    }
     const onError = ({ code }) => {
         setAlert({
             open: true,
@@ -79,7 +72,6 @@ const EditLocations = ({ location }) => {
                         collection={state.collection}
                         docId={params.edit}
                         doc={doc.data()}
-                        onSuccess={onSuccess}
                         onError={onError}
                     />
                 )}
