@@ -5,6 +5,7 @@ import firebase from "gatsby-plugin-firebase"
 import { useDocument } from "react-firebase-hooks/firestore"
 import { EditForm } from '../../../components/location/edit-form'
 import MuiAlert from "@material-ui/lab/Alert"
+import { FormattedMessage, navigate, useIntl } from "gatsby-plugin-intl"
 import { Snackbar } from "@material-ui/core"
 import { ErrorBoundary } from "../../../components/error/error-boundary"
 
@@ -24,18 +25,19 @@ function Alert({ open, severity, message, onClose }) {
 }
 
 const EditLocations = ({ location }) => {
+    const { formatMessage } = useIntl()
     const [alert, setAlert] = useState({ message: null, severity: "error", open: false })
     const onSuccess = (msg) => {
         setAlert({
             open: true,
-            message: msg, //formatMessage({ id: msg }),
+            message: formatMessage({ id: msg }),
             severity: "success",
         })
     }
     const onError = ({ code }) => {
         setAlert({
             open: true,
-            message: code, //formatMessage({ id: code }),
+            message: formatMessage({ id: code }),
             severity: "error",
         })
     }
@@ -66,7 +68,9 @@ const EditLocations = ({ location }) => {
         <ErrorBoundary>
             <Alert {...alert} onClose={closeAlert} />
             <div>
-                <h1>Edit entry</h1>
+                <h1>
+                    <FormattedMessage id="partnerLocation_editEntry" />
+                </h1>
                 {error && <strong>Error: {JSON.stringify(error)}</strong>}
                 {loading && <span>Document: Loading...</span>}
                 {doc && (
