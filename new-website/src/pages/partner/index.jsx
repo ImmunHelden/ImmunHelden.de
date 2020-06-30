@@ -5,13 +5,13 @@ import { UserInfo } from "../../components/account/user-info"
 import { LocationOverview } from "../../components/location"
 import { Invites } from "../../components/partner/invites"
 
-export const PartnerPage = () => {
+export const PartnerPage = ({ location }) => {
     return (
         <Layout>
             <Protected loginUrl="/partner/login">
                 <UserInfo />
                 <Invites />
-                <LocationOverview />
+                <LocationOverview state={location?.state} />
             </Protected>
         </Layout>
     )

@@ -40,10 +40,10 @@ function Alert({ open, severity, message, onClose }) {
     )
 }
 
-export const LocationOverview = ({ location }) => {
+export const LocationOverview = ({ state }) => {
     const { formatMessage } = useIntl()
     const [alert, setAlert] = useState({ message: null, severity: "error", open: false })
-    const { user, partnerConfigs, isLoading } = useSession("LocationOverview")
+    const { user, partnerConfigs, isLoading } = useSession()
     const { partnerIds } = user
 
     const [collection] = useCollection(getQuery(partnerIds), {
@@ -69,14 +69,12 @@ export const LocationOverview = ({ location }) => {
         })
     }
 
-    // This isn't working currently. Passing the 'sucess' state from the edit page
-    // back here should work like this (and it used to work the other way around):
-    // https://www.gatsbyjs.org/docs/gatsby-link/#pass-state-as-props-to-the-linked-page
-
-    console.log("Location:", location)
-    if (location?.state?.saved == "success") {
-        onSuccess("partnerLocation_entrySaved")
-    }
+    React.useEffect(() => {
+        if (state?.saved == "success") {
+            state.saved = "reported" // Feels like a hack
+            onSuccess("partnerLocation_entrySaved")
+        }
+    })
 
     const closeAlert = () => setAlert({ ...alert, open: false })
 
