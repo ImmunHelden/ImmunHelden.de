@@ -9,7 +9,9 @@ import { LOCATION_COLLECTION } from "."
 
 export const EditPage = ({ docId, onError }) => {
     const { user, partnerConfigs, isLoading } = useSession()
-    console.log(user, partnerConfigs, isLoading) // <- all undefined
+    const { partnerIds } = user
+
+    console.log(partnerIds, partnerConfigs, isLoading) // <- now getting `null, null, true`
 
     if (docId == "new") {
         const doc = firebase.firestore().collection(LOCATION_COLLECTION).add({

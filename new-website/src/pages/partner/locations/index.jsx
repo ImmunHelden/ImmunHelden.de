@@ -3,6 +3,7 @@ import queryString from 'query-string'
 import { EditPage } from '../../../components/location/edit-page'
 import MuiAlert from "@material-ui/lab/Alert"
 import { useIntl } from "gatsby-plugin-intl"
+import { Protected } from "../../../components/protected"
 import Layout from "../../../components/layout"
 import { Snackbar } from "@material-ui/core"
 import { ErrorBoundary } from "../../../components/error/error-boundary"
@@ -39,8 +40,10 @@ const EditLocations = ({ location }) => {
     return (
         <ErrorBoundary>
             <Layout>
-                <Alert {...alert} onClose={closeAlert} />
-                <EditPage docId={editParam} onError={onError} />
+                <Protected loginUrl="/partner/login">
+                    <Alert {...alert} onClose={closeAlert} />
+                    <EditPage docId={editParam} onError={onError} />
+                </Protected>
             </Layout>
         </ErrorBoundary>
     )
