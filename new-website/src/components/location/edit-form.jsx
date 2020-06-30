@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const EditForm = ({ partnerId, collection, docId, doc, onSuccess, onError }) => {
-  const classes = useStyles();
+  const classes = useStyles()
+  const { formatMessage } = useIntl()
 
   const [title, setTitle] = useState(doc.title || "")
   const [address, setAddress] = useState(doc.address || "")
@@ -38,22 +39,22 @@ export const EditForm = ({ partnerId, collection, docId, doc, onSuccess, onError
           contact: contact,
         })
         .catch(onError)
-      onSuccess("editForm/locationSaved");
+      onSuccess("partnerLocation_entrySaved")
     } catch (err) {
-      console.log(err);
+      console.log(err)
       onError({ code: err.message })
     }
   }
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
-      <TextField disabled fullWidth label="Anchor" value={"#" + docId} />
-      <TextField disabled fullWidth label="Partner ID" value={partnerId} />
-      <TextField fullWidth label="Title" value={title} onChange={e => setTitle(e.target.value)} />
-      <TextField fullWidth label="Address" value={address} onChange={e => setAddress(e.target.value)} />
-      <TextField fullWidth label="Phone" value={phone} onChange={e => setPhone(e.target.value)} />
-      <TextField fullWidth label="Email" value={email} onChange={e => setEmail(e.target.value)} />
-      <TextField fullWidth label="Contact" value={contact} onChange={e => setContact(e.target.value)} />
+      <TextField disabled fullWidth label={formatMessage({ id: "partnerLocation_Anchor" })} value={"#" + docId} />
+      <TextField disabled fullWidth label={formatMessage({ id: "partnerLocation_PartnerID" })} value={partnerId} />
+      <TextField fullWidth label={formatMessage({ id: "partnerLocation_Title" })} value={title} onChange={e => setTitle(e.target.value)} />
+      <TextField fullWidth label={formatMessage({ id: "partnerLocation_Address" })} value={address} onChange={e => setAddress(e.target.value)} />
+      <TextField fullWidth label={formatMessage({ id: "partnerLocation_Phone" })} value={phone} onChange={e => setPhone(e.target.value)} />
+      <TextField fullWidth label={formatMessage({ id: "partnerLocation_Email" })} value={email} onChange={e => setEmail(e.target.value)} />
+      <TextField fullWidth label={formatMessage({ id: "partnerLocation_Contact" })} value={contact} onChange={e => setContact(e.target.value)} />
       <Button type="submit" variant="contained" color="primary" size="large" startIcon={<SaveIcon />}>
         Save
       </Button>
