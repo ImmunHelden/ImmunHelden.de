@@ -1,9 +1,9 @@
-const activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
-console.log(`Using environment config: '${activeEnv}'`)
+const activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development";
+console.log(`Using environment config: '${activeEnv}'`);
 
 require("dotenv").config({
     path: `./.env.${activeEnv}`,
-})
+});
 
 module.exports = {
     siteMetadata: {
@@ -91,11 +91,11 @@ module.exports = {
             options: {
                 dsn: process.env.GATSBY_SENTRY_URL,
                 environment: process.env.NODE_ENV,
-                enabled: true, //(() => ["production", "stage"].indexOf(process.env.NODE_ENV) !== -1)(),
+                enabled: (() => ["production", "stage"].indexOf(process.env.NODE_ENV) !== -1)(),
             },
         },
         // this (optional) plugin enables Progressive Web App + Offline functionality
         // To learn more, visit: https://gatsby.dev/offline
         // `gatsby-plugin-offline`,
     ],
-}
+};
