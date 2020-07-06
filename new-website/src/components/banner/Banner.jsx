@@ -8,12 +8,12 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        zIndex: 1,
+        zIndex: 1
     },
     content: {
         position: "absolute",
-        zIndex: 2,
-    },
+        zIndex: 2
+    }
 }))
 
 export default function BannerComponent({ children }) {
