@@ -41,7 +41,7 @@ export const EditForm = ({ partnerId, collection, docId, doc, onError }) => {
         .catch(onError)
       navigate("/partner/", {
         replace: true,
-        state: { saved: "success" },
+        state: { result: "saved" },
       })
     } catch (err) {
       console.log(err)
