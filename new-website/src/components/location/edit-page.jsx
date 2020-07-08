@@ -60,8 +60,6 @@ export const EditPage = ({ docId, onError }) => {
             {!doc && <span>Document: Loading...</span>}
             {doc && (
                 <EditForm
-                    partnerId={doc.partnerId}
-                    collection={LOCATION_COLLECTION}
                     docId={doc.id}
                     doc={doc.data()}
                     onError={onError}
