@@ -3,6 +3,7 @@ import firebase from "gatsby-plugin-firebase"
 import { useSession } from "../../hooks/use-session"
 import { EditForm } from './edit-form'
 import { FormattedMessage, navigate, } from "gatsby-plugin-intl"
+import * as Sentry from "@sentry/browser"
 import { LOCATION_COLLECTION } from "."
 
 function fetchDoc(docId) {
@@ -11,8 +12,15 @@ function fetchDoc(docId) {
 }
 
 async function createDoc(partnerIds) {
-  if (!partnerIds || partnerIds.length === 0)
+  if (!partnerIds || partnerIds.length === 0) {
+    Sentry.withScope(scope => {
+      scope.setLevel("warning")
+      Sentry.captureEvent({
+        message: "Attempt to create map entry without associated partner ID"
+      })
+    })
     throw new Error("partnerId/unavailable")
+  }
 
   const locations = firebase.firestore().collection(LOCATION_COLLECTION)
   return (await locations.add({ partnerId: partnerIds[0] })).get()
