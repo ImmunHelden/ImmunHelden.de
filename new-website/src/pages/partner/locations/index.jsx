@@ -6,7 +6,6 @@ import { useIntl } from "gatsby-plugin-intl"
 import { Protected } from "../../../components/protected"
 import Layout from "../../../components/layout"
 import { Snackbar } from "@material-ui/core"
-import { ErrorBoundary } from "../../../components/error/error-boundary"
 
 function Alert({ open, severity, message, onClose }) {
     return (
@@ -28,24 +27,22 @@ const EditLocations = ({ location }) => {
     const closeAlert = () => setAlert({ ...alert, open: false })
 
     const { formatMessage } = useIntl()
-    const onError = ({ code }) => {
+    const onError = (err) => {
         setAlert({
             open: true,
-            message: formatMessage({ id: code }),
+            message: formatMessage({ id: err }),
             severity: "error",
         })
     }
 
     const editParam = queryString.parse(location?.search)?.edit || 'new'
     return (
-        <ErrorBoundary>
-            <Layout>
-                <Protected loginUrl="/partner/login">
-                    <Alert {...alert} onClose={closeAlert} />
-                    <EditPage docId={editParam} onError={onError} />
-                </Protected>
-            </Layout>
-        </ErrorBoundary>
+        <Layout>
+            <Protected loginUrl="/partner/login">
+                <Alert {...alert} onClose={closeAlert} />
+                <EditPage docId={editParam} onError={onError} />
+            </Protected>
+        </Layout>
     )
 
 }
