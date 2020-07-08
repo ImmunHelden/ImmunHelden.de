@@ -6,12 +6,13 @@ import { LocationOverview } from "../../components/location"
 import { Invites } from "../../components/partner/invites"
 
 export const PartnerPage = ({ location }) => {
+    const result = { editResult: location?.state?.result }
     return (
         <Layout>
             <Protected loginUrl="/partner/login">
                 <UserInfo />
                 <Invites />
-                <LocationOverview state={location?.state} />
+                <LocationOverview state={ result } />
             </Protected>
         </Layout>
     )

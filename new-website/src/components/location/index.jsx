@@ -70,11 +70,15 @@ export const LocationOverview = ({ state }) => {
     }
 
     React.useEffect(() => {
-        if (state?.saved == "success") {
-            state.saved = "reported" // Feels like a hack
-            onSuccess("partnerLocation_entrySaved")
+        if (state && state.editResult) {
+            if (state.editResult === "saved") {
+                onSuccess("partnerLocation_entrySaved")
+            }
+            else {
+                onError({ code: state.editResult })
+            }
         }
-    })
+    }, [])
 
     const closeAlert = () => setAlert({ ...alert, open: false })
 
