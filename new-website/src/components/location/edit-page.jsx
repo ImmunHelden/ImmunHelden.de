@@ -5,13 +5,12 @@ import { EditForm } from './edit-form'
 import { FormattedMessage, navigate, } from "gatsby-plugin-intl"
 import { LOCATION_COLLECTION } from "."
 
-function fetchDoc(docId, onError) {
-    const locations = firebase.firestore().collection(LOCATION_COLLECTION)
-    return locations.doc(docId).get().catch(onError)
+function fetchDoc(docId) {
+  const locations = firebase.firestore().collection(LOCATION_COLLECTION)
+  return locations.doc(docId).get()
 }
 
-async function createDoc(partnerIds, onError) {
-  // TODO: Issue this error to sentry
+async function createDoc(partnerIds) {
   if (!partnerIds || partnerIds.length === 0)
     throw new Error("partnerId/unavailable")
 
@@ -19,12 +18,12 @@ async function createDoc(partnerIds, onError) {
   return (await locations.add({ partnerId: partnerIds[0] })).get()
 }
 
-export const EditPage = ({ docId, onError }) => {
+export const EditPage = ({ docId, errorNote }) => {
     const { user, partnerConfigs, isLoading } = useSession()
     const [doc, setDoc] = useState(null)
 
     // Navigate back to the overview page and report errors there.
-    const abortError = (err) => {
+    const errorAbort = (err) => {
       navigate("/partner/", {
         replace: true,
         state: { result: err },
@@ -38,17 +37,18 @@ export const EditPage = ({ docId, onError }) => {
       if (isLoading)
         return;
 
-      const doc = await ((docId === "new")
-                ? createDoc(user.partnerIds, abortError)
-                : fetchDoc(docId, abortError))
+      try {
+        const doc = await ((docId === "new") ? createDoc(user.partnerIds)
+                                             : fetchDoc(docId))
 
-      if (user.partnerIds.includes(doc.get("partnerId"))) {
-        setDoc(doc)
-      }
-      else {
         // Everyone could read, but write would fail. Let's just prevent people
-        // from enter the edit page for locations of other partners altogether.
-        abortError("partnerId/inaccessible")
+        // from entering the edit page for foreign locations altogether.
+        if (!user.partnerIds.includes(doc.get("partnerId")))
+          throw new Error("partnerId/inaccessible")
+
+        setDoc(doc)
+      } catch (err) {
+        errorAbort(err)
       }
     })() }, [isLoading])
 
@@ -62,7 +62,7 @@ export const EditPage = ({ docId, onError }) => {
                 <EditForm
                     docId={doc.id}
                     doc={doc.data()}
-                    onError={onError}
+                    onError={errorNote}
                 />
             )}
         </div>
