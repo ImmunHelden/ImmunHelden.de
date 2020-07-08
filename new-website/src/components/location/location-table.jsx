@@ -4,89 +4,10 @@ import MaterialTable from "material-table"
 import { LOCATION_COLLECTION } from "."
 import { navigate, useIntl } from "gatsby-plugin-intl"
 import { generateI18N } from "./table-i18n"
-import { Roller } from "react-spinners-css"
-
-function choosePartnerId(entryPartnerId, userPartnerIds) {
-    if (entryPartnerId) {
-        if (userPartnerIds.includes(entryPartnerId)) {
-            console.log(entryPartnerId)
-            return entryPartnerId
-        }
-        // TODO: Issue this error to sentry?
-        throw new Error("partnerId/inaccessible")
-    } else {
-        // TODO: Depending on the context we may want users to choose and not just
-        // take the first in the sequence.
-        if (userPartnerIds.length > 0) {
-            return userPartnerIds[0]
-        }
-        // TODO: Issue this error to sentry?
-        throw new Error("partnerId/unavailable")
-    }
-}
-
-function addNewRow(userPartnerIds, allPartnerConfigs, reportError) {
-    return async (event) => {
-        try {
-            const partnerId = choosePartnerId(null, userPartnerIds)
-            const partnerConfig = allPartnerConfigs.find(p => p.id == partnerId)
-            const collection = LOCATION_COLLECTION
-
-            navigate(`/partner/locations/`, {
-                state: { partnerId, partnerConfig, collection },
-            })
-        } catch(err) {
-            console.log(err);
-            reportError({ code: err.message })
-        }
-
-        // Upon confirm in add page:
-        //if (!userPartnerIds || userPartnerIds.length <= 0) {
-        //    onError({ code: "no-permission" })
-        //    throw new Error("Missing Partner Id")
-        //}
-        //const { title, partnerId } = data
-        //if (!title || title.length < 0) {
-        //    onError({ code: "requiredFieldMissing/title" })
-        //    throw new Error("missing title")
-        //}
-        //
-        //return firebase
-        //    .firestore()
-        //    .collection(LOCATION_COLLECTION)
-        //    .add({ ...data, partnerId: choosePartnerId(partnerId, userPartnerIds) })
-        //    .catch(onError)
-    }
-}
 
 function deleteRow(reportError) {
     return async function deleteIt({ id }) {
         return firebase.firestore().collection(LOCATION_COLLECTION).doc(id).delete().catch(reportError)
-    }
-}
-
-function updateRow(userPartnerIds, allPartnerConfigs, reportError) {
-    return async function deleteIt(event, rowData) {
-        try {
-            const partnerId = choosePartnerId(rowData.partnerId, userPartnerIds)
-            const partnerConfig = allPartnerConfigs.find(p => p.id == partnerId)
-            const collection = LOCATION_COLLECTION
-
-            navigate(`/partner/locations/?edit=${rowData.id}`, {
-                state: { partnerId, partnerConfig, collection },
-            })
-        } catch(err) {
-            console.log(err);
-            reportError({ code: err.message })
-        }
-
-        // Upon confirm in edit page:
-        //return firebase
-        //    .firestore()
-        //    .collection(LOCATION_COLLECTION)
-        //    .doc(rowData.id)
-        //    .update({ ...rest })
-        //    .catch(onError)
     }
 }
 
@@ -113,8 +34,8 @@ export const LocationTable = ({
     }, [partnerConfigs])
 
     const onRowDelete = deleteRow(onError)
-    const onRowUpdate = updateRow(state.userAllowedPartnerIds, state.partnerConfigs, onError)
-    const onRowAdd = addNewRow(state.userAllowedPartnerIds, state.partnerConfigs, onError)
+    const onRowUpdate = (event, rowData) => navigate(`/partner/locations/?edit=${rowData.id}`)
+    const onRowAdd = (event) => navigate("/partner/locations/")
 
     return (
         <MaterialTable
