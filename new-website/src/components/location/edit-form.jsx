@@ -7,6 +7,8 @@ import { navigate, useIntl } from "gatsby-plugin-intl"
 import SaveIcon from '@material-ui/icons/Save';
 import { LOCATION_COLLECTION } from "."
 import { Editor, EditorState, RichUtils } from 'draft-js';
+import { stateFromHTML } from 'draft-js-import-html';
+import { stateToHTML } from 'draft-js-export-html';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,6 +61,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const EditForm = ({ docId, doc, onError }) => {
+  const classes = useStyles()
+  const { formatMessage } = useIntl()
+
+  function initEditorState() {
+    if (doc.hasOwnProperty("description")) {
+      return EditorState.createWithContent(stateFromHTML(doc.description))
+    }
+    return EditorState.createEmpty()
+  }
+
+  const editor = React.useRef(null)
+  const [editorState, setEditorState] = useState(initEditorState())
+
   const [state, setState] = useState({
     title: doc.title || "",
     address: doc.address || "",
@@ -73,6 +88,8 @@ export const EditForm = ({ docId, doc, onError }) => {
       // Throws explicitly if the title is empty.
       if (!state.title || state.title.length === 0)
         throw new Error("requiredFieldMissing/title")
+
+      state.description = stateToHTML(editorState.getCurrentContent())
 
       // Blocks until the update operation is complete and throws if it failed.
       await firebase.firestore().collection(LOCATION_COLLECTION).doc(docId).update(state)
@@ -93,12 +110,6 @@ export const EditForm = ({ docId, doc, onError }) => {
   const handleChecked = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked })
   }
-
-  const classes = useStyles()
-  const { formatMessage } = useIntl()
-
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
-  const editor = React.useRef(null)
 
   React.useEffect(() => editor.current.focus(), [])
 
