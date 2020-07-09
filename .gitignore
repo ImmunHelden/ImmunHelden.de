@@ -69,3 +69,5 @@ node_modules/
 .DS_store
 **/package-lock.json
 .history/
+
+new-website/.vscode/settings.json
