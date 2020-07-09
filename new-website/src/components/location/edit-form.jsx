@@ -121,17 +121,17 @@ export const EditForm = ({ docId, doc, onError }) => {
   }
 
   const BLOCK_TYPES = [
-    {label: 'H1', style: 'header-one'},
-    {label: 'H2', style: 'header-two'},
-    {label: 'H3', style: 'header-three'},
-    {label: 'UL', style: 'unordered-list-item'},
-    {label: 'OL', style: 'ordered-list-item'},
+    {label: formatMessage({ id: "partnerLocation_editorButton_H1" }), style: 'header-one'},
+    {label: formatMessage({ id: "partnerLocation_editorButton_H2" }), style: 'header-two'},
+    {label: formatMessage({ id: "partnerLocation_editorButton_H3" }), style: 'header-three'},
+    {label: formatMessage({ id: "partnerLocation_editorButton_UL" }), style: 'unordered-list-item'},
+    {label: formatMessage({ id: "partnerLocation_editorButton_OL" }), style: 'ordered-list-item'},
   ];
 
   const INLINE_STYLES = [
-    {label: 'Bold', style: 'BOLD'},
-    {label: 'Italic', style: 'ITALIC'},
-    {label: 'Underline', style: 'UNDERLINE'},
+    {label: formatMessage({ id: "partnerLocation_editorButton_Bold" }), style: 'BOLD'},
+    {label: formatMessage({ id: "partnerLocation_editorButton_Italic" }), style: 'ITALIC'},
+    {label: formatMessage({ id: "partnerLocation_editorButton_Underline" }), style: 'UNDERLINE'},
   ];
 
   const BlockStyleControls = (props) => {
@@ -213,11 +213,13 @@ export const EditForm = ({ docId, doc, onError }) => {
         label={formatMessage({ id: "partnerLocation_Published" })}
       />
       <FormGroup className={classes.row}>
-        <Button type="submit" variant="contained" color="primary" size="large" startIcon={<SaveIcon />}>
-          Save
+        <Button variant="contained" color="primary" size="large"
+                type="submit" startIcon={<SaveIcon />}>
+          { formatMessage({ id: "partnerLocation_Submit" }) }
         </Button>
-        <Button variant="outlined" color="primary" size="large" onClick={() => navigate("/partner/")}>
-          Back
+        <Button variant="outlined" color="primary" size="large"
+                onClick={() => navigate("/partner/")}>
+          { formatMessage({ id: "partnerLocation_Discard" }) }
         </Button>
       </FormGroup>
     </form>
