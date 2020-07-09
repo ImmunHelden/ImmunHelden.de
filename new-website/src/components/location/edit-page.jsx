@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import firebase from "gatsby-plugin-firebase"
 import { useSession } from "../../hooks/use-session"
 import { EditForm } from './edit-form'
+import { Grid, Paper, Snackbar } from "@material-ui/core"
 import { FormattedMessage, navigate, } from "gatsby-plugin-intl"
 import * as Sentry from "@sentry/browser"
 import { LOCATION_COLLECTION } from "."
@@ -61,19 +62,23 @@ export const EditPage = ({ docId, errorNote }) => {
     })() }, [isLoading])
 
     return (
-        <div>
-            <h1>
-                <FormattedMessage id="partnerLocation_editEntry" />
-            </h1>
-            {!doc && <span>Document: Loading...</span>}
-            {doc && (
-                <EditForm
-                    docId={doc.id}
-                    doc={doc.data()}
-                    onError={errorNote}
-                />
-            )}
-        </div>
+        <Grid container justify="center" spacing={0} style={{ height: "100%" }}>
+            <Grid item xs={12} lg={10}>
+                <Paper style={{ maxWidth: "100%" }}>
+                  <h1>
+                      <FormattedMessage id="partnerLocation_editEntry" />
+                  </h1>
+                  {!doc && <span>Document: Loading...</span>}
+                  {doc && (
+                      <EditForm
+                          docId={doc.id}
+                          doc={doc.data()}
+                          onError={errorNote}
+                      />
+                  )}
+                </Paper>
+            </Grid>
+        </Grid>
     )
 
 }
