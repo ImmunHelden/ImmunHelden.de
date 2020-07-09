@@ -19,8 +19,10 @@ const useStyles = makeStyles((theme) => ({
   row: {
     display: 'flex',
     flexDirection: 'row',
+    margin: '0',
     '& > *': {
       margin: theme.spacing(1),
+      flex: 'auto',
     },
   },
   editorRoot: {
@@ -62,7 +64,6 @@ export const EditForm = ({ docId, doc, onError }) => {
     address: doc.address || "",
     phone: doc.phone || "",
     email: doc.email || "",
-    contact: doc.contact || "",
     published: doc.published || false,
   })
 
@@ -175,41 +176,59 @@ export const EditForm = ({ docId, doc, onError }) => {
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
-      <TextField disabled label={formatMessage({ id: "partnerLocation_Anchor" })} value={"#" + docId} />
-      <TextField disabled label={formatMessage({ id: "partnerLocation_PartnerID" })} value={doc.partnerId} />
-      <TextField name="title" label={formatMessage({ id: "partnerLocation_Title" })} defaultValue={state.title} onChange={handleChange} />
-      <TextField name="address" label={formatMessage({ id: "partnerLocation_Address" })} defaultValue={state.address} onChange={handleChange} />
-      <TextField name="phone" label={formatMessage({ id: "partnerLocation_Phone" })} defaultValue={state.phone} onChange={handleChange} />
-      <TextField name="email" label={formatMessage({ id: "partnerLocation_Email" })} defaultValue={state.email} onChange={handleChange} />
-      <TextField name="contact" label={formatMessage({ id: "partnerLocation_Contact" })} defaultValue={state.contact} onChange={handleChange} />
+      <FormGroup className={classes.row}>
+        <TextField disabled label={formatMessage({ id: "partnerLocation_Anchor" })} value={"#" + docId} />
+        <TextField disabled label={formatMessage({ id: "partnerLocation_PartnerID" })} value={doc.partnerId} />
+      </FormGroup>
+      <FormGroup className={classes.row}>
+        <TextField name="title" label={formatMessage({ id: "partnerLocation_Title" })} defaultValue={state.title} onChange={handleChange} />
+        <TextField name="address" label={formatMessage({ id: "partnerLocation_Address" })} defaultValue={state.address} onChange={handleChange} />
+      </FormGroup>
+      <FormGroup className={classes.row}>
+        <TextField name="phone" label={formatMessage({ id: "partnerLocation_Phone" })} defaultValue={state.phone} onChange={handleChange} />
+        <TextField name="email" label={formatMessage({ id: "partnerLocation_Email" })} defaultValue={state.email} onChange={handleChange} />
+      </FormGroup>
 
-      <div className={classes.editorRoot}>
-        <div className={classes.editorHead}>
-          <BlockStyleControls onToggle={ (t) => {
-            setEditorState(RichUtils.toggleBlockType(editorState, t))
-          }} />
-          <InlineStyleControls onToggle={ (t) => {
-            setEditorState(RichUtils.toggleInlineStyle(editorState, t))
-          }} />
-        </div>
-        <div onClick={() => editor.current.focus()} className={classes.editorText}>
-          <Editor
-            ref={editor}
-            editorState={editorState}
-            onChange={editorState => setEditorState(editorState)}
-            handleKeyCommand={cmd => {
-              const newState = RichUtils.handleKeyCommand(editorState, cmd);
-              if (newState) {
-                setEditorState(newState);
-                return true;
-              }
-              return false;
-            }}
-          />
-        </div>
-      </div>
       <FormControlLabel
-        control={<Checkbox name="published" checked={state.published} onChange={handleChecked} />}
+        style={{ alignItems: 'normal', paddingTop: '15px' }}
+        control={
+          <div className={classes.editorRoot}>
+            <div className={classes.editorHead}>
+              <BlockStyleControls onToggle={ (t) => {
+                setEditorState(RichUtils.toggleBlockType(editorState, t))
+              }} />
+              <InlineStyleControls onToggle={ (t) => {
+                setEditorState(RichUtils.toggleInlineStyle(editorState, t))
+              }} />
+            </div>
+            <div onClick={() => editor.current.focus()} className={classes.editorText}>
+              <Editor
+                ref={editor}
+                editorState={editorState}
+                onChange={editorState => setEditorState(editorState)}
+                handleKeyCommand={cmd => {
+                  const newState = RichUtils.handleKeyCommand(editorState, cmd);
+                  if (newState) {
+                    setEditorState(newState);
+                    return true;
+                  }
+                  return false;
+                }}
+              />
+            </div>
+          </div>}
+        labelPlacement="top"
+        label={formatMessage({ id: "partnerLocation_Description" })}
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            name="published"
+            color="primary"
+            checked={state.published}
+            onChange={handleChecked}
+            style={{ paddingLeft: "0" }}
+          />}
         label={formatMessage({ id: "partnerLocation_Published" })}
       />
       <FormGroup className={classes.row}>

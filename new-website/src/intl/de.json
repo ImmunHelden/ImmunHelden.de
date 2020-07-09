@@ -44,7 +44,7 @@
     "partnerLocation_Address": "Adresse",
     "partnerLocation_Phone": "Telefon",
     "partnerLocation_Email": "Email",
-    "partnerLocation_Contact": "Hinweis",
+    "partnerLocation_Description": "Beschreibung",
     "partnerLocation_Anchor": "Inserat ID",
     "partnerLocation_PartnerID": "Partner ID",
     "partnerLocation_Published": "Veröffentlicht",
