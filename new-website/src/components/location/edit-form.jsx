@@ -6,6 +6,7 @@ import firebase from "gatsby-plugin-firebase"
 import { navigate, useIntl } from "gatsby-plugin-intl"
 import SaveIcon from '@material-ui/icons/Save';
 import { LOCATION_COLLECTION } from "."
+import { Editor, EditorState } from 'draft-js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,11 +22,15 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
     },
-  }
+  },
+  editor: {
+    border: '1px solid gray',
+    minHeight: '6em'
+  },
 }));
 
 export const EditForm = ({ docId, doc, onError }) => {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     title: doc.title || "",
     address: doc.address || "",
     phone: doc.phone || "",
@@ -64,6 +69,11 @@ export const EditForm = ({ docId, doc, onError }) => {
   const classes = useStyles()
   const { formatMessage } = useIntl()
 
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
+  const editor = React.useRef(null)
+
+  React.useEffect(() => editor.current.focus(), [])
+
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <TextField disabled label={formatMessage({ id: "partnerLocation_Anchor" })} value={"#" + docId} />
@@ -73,6 +83,13 @@ export const EditForm = ({ docId, doc, onError }) => {
       <TextField name="phone" label={formatMessage({ id: "partnerLocation_Phone" })} defaultValue={state.phone} onChange={handleChange} />
       <TextField name="email" label={formatMessage({ id: "partnerLocation_Email" })} defaultValue={state.email} onChange={handleChange} />
       <TextField name="contact" label={formatMessage({ id: "partnerLocation_Contact" })} defaultValue={state.contact} onChange={handleChange} />
+      <div onClick={() => editor.current.focus()} className={classes.editor}>
+        <Editor
+          ref={editor}
+          editorState={editorState}
+          onChange={editorState => setEditorState(editorState)}
+        />
+      </div>
       <FormControlLabel
         control={<Checkbox name="published" checked={state.published} onChange={handleChecked} />}
         label={formatMessage({ id: "partnerLocation_Published" })}
