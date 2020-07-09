@@ -12,6 +12,8 @@
         "@sentry/browser": "^5.15.5",
         "babel-plugin-styled-components": "^1.10.7",
         "draft-js": "^0.11.6",
+        "draft-js-export-html": "^1.4.1",
+        "draft-js-import-html": "^1.4.1",
         "firebase": "^7.14.5",
         "gatsby": "^2.20.25",
         "gatsby-image": "^2.3.4",
