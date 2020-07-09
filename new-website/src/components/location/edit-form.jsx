@@ -6,7 +6,7 @@ import firebase from "gatsby-plugin-firebase"
 import { navigate, useIntl } from "gatsby-plugin-intl"
 import SaveIcon from '@material-ui/icons/Save';
 import { LOCATION_COLLECTION } from "."
-import { Editor, EditorState } from 'draft-js';
+import { Editor, EditorState, RichUtils } from 'draft-js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,9 +23,36 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-  editor: {
+  editorRoot: {
     border: '1px solid gray',
-    minHeight: '6em'
+    background: '#eee',
+  },
+  editorHead: {
+    padding: '0 2px',
+  },
+  editorText: {
+    fontFamily: 'monospace',
+    padding: '15px',
+    cursor: 'text',
+    minHeight: '6em',
+    background: '#fff',
+    borderTop: '1px solid #ddd',
+  },
+  editorControls: {
+    fontFamily: '"Helvetica", sans-serif',
+    fontSize: '14px',
+    color: '#333',
+    userSelect: 'none',
+    '& > *': {
+      display: 'inline-block',
+      cursor: 'pointer',
+      margin: '4px 2px',
+      padding: '8px',
+    },
+  },
+  editorActiveButton: {
+    background: '#ddd',
+    borderRadius: '5px',
   },
 }));
 
@@ -74,6 +101,78 @@ export const EditForm = ({ docId, doc, onError }) => {
 
   React.useEffect(() => editor.current.focus(), [])
 
+  class StyleButton extends React.Component {
+    constructor() {
+      super();
+      this.onToggle = (e) => {
+        e.preventDefault();
+        this.props.onToggle(this.props.style);
+      };
+    }
+
+    render() {
+      return (
+        <span className={this.props.active ? classes.editorActiveButton : null}
+              onMouseDown={this.onToggle}>
+          {this.props.label}
+        </span>
+      )
+    }
+  }
+
+  const BLOCK_TYPES = [
+    {label: 'H1', style: 'header-one'},
+    {label: 'H2', style: 'header-two'},
+    {label: 'H3', style: 'header-three'},
+    {label: 'UL', style: 'unordered-list-item'},
+    {label: 'OL', style: 'ordered-list-item'},
+  ];
+
+  const INLINE_STYLES = [
+    {label: 'Bold', style: 'BOLD'},
+    {label: 'Italic', style: 'ITALIC'},
+    {label: 'Underline', style: 'UNDERLINE'},
+  ];
+
+  const BlockStyleControls = (props) => {
+    const selection = editorState.getSelection()
+    const blockType = editorState
+      .getCurrentContent()
+      .getBlockForKey(selection.getStartKey())
+      .getType()
+
+    return (
+      <span className={classes.editorControls}>
+        {BLOCK_TYPES.map((t) =>
+          <StyleButton
+            key={t.label}
+            active={t.style === blockType}
+            label={t.label}
+            onToggle={props.onToggle}
+            style={t.style}
+          />
+        )}
+      </span>
+    )
+  }
+
+  const InlineStyleControls = (props) => {
+    var currentStyle = editorState.getCurrentInlineStyle()
+    return (
+      <span className={classes.editorControls}>
+        {INLINE_STYLES.map(t =>
+          <StyleButton
+            key={t.label}
+            active={currentStyle.has(t.style)}
+            label={t.label}
+            onToggle={props.onToggle}
+            style={t.style}
+          />
+        )}
+      </span>
+    )
+  }
+
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <TextField disabled label={formatMessage({ id: "partnerLocation_Anchor" })} value={"#" + docId} />
@@ -83,12 +182,31 @@ export const EditForm = ({ docId, doc, onError }) => {
       <TextField name="phone" label={formatMessage({ id: "partnerLocation_Phone" })} defaultValue={state.phone} onChange={handleChange} />
       <TextField name="email" label={formatMessage({ id: "partnerLocation_Email" })} defaultValue={state.email} onChange={handleChange} />
       <TextField name="contact" label={formatMessage({ id: "partnerLocation_Contact" })} defaultValue={state.contact} onChange={handleChange} />
-      <div onClick={() => editor.current.focus()} className={classes.editor}>
-        <Editor
-          ref={editor}
-          editorState={editorState}
-          onChange={editorState => setEditorState(editorState)}
-        />
+
+      <div className={classes.editorRoot}>
+        <div className={classes.editorHead}>
+          <BlockStyleControls onToggle={ (t) => {
+            setEditorState(RichUtils.toggleBlockType(editorState, t))
+          }} />
+          <InlineStyleControls onToggle={ (t) => {
+            setEditorState(RichUtils.toggleInlineStyle(editorState, t))
+          }} />
+        </div>
+        <div onClick={() => editor.current.focus()} className={classes.editorText}>
+          <Editor
+            ref={editor}
+            editorState={editorState}
+            onChange={editorState => setEditorState(editorState)}
+            handleKeyCommand={cmd => {
+              const newState = RichUtils.handleKeyCommand(editorState, cmd);
+              if (newState) {
+                setEditorState(newState);
+                return true;
+              }
+              return false;
+            }}
+          />
+        </div>
       </div>
       <FormControlLabel
         control={<Checkbox name="published" checked={state.published} onChange={handleChecked} />}
