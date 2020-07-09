@@ -28,6 +28,14 @@ module.exports = {
                 },
             },
         },
+        {
+            resolve: `gatsby-plugin-google-fonts`,
+            options: {
+                fonts: [
+                    `Raleway\:200,300,400,500,600"`, // you can also specify font weights and styles
+                ],
+            },
+        },
         `gatsby-plugin-styled-components`,
         `gatsby-plugin-react-helmet`,
         {
