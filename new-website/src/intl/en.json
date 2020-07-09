@@ -27,6 +27,7 @@
     "partnerLocation_Contact": "Contact",
     "partnerLocation_Anchor": "Anchor",
     "partnerLocation_PartnerID": "Partner ID",
+    "partnerLocation_Published": "Published",
     "requiredFieldMissing/title": "The entry is missing a title",
     "timeout/createNewLocation": "Error creating a new entry. Please try again later.",
     "partnerId/inaccessible": "Partner ID not accessible. Please get in touch with the admin.",

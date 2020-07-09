@@ -45,6 +45,7 @@
     "partnerLocation_Contact": "Hinweis",
     "partnerLocation_Anchor": "Inserat ID",
     "partnerLocation_PartnerID": "Partner ID",
+    "partnerLocation_Published": "Veröffentlicht",
     "requiredFieldMissing/title": "Dem Eintrag fehlt ein Titel",
     "timeout/createNewLocation": "Fehler beim Anlegen eines neuen Eintrags. Bitte versuche es später erneut.",
     "partnerId/inaccessible": "Zugriff auf Partner ID nicht möglich. Bitte wende dich an den Administrator.",

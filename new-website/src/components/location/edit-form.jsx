@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Location } from '@reach/router'
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Checkbox, FormControlLabel } from '@material-ui/core';
 import firebase from "gatsby-plugin-firebase"
 import { navigate, useIntl } from "gatsby-plugin-intl"
 import SaveIcon from '@material-ui/icons/Save';
@@ -22,6 +22,7 @@ export const EditForm = ({ docId, doc, onError }) => {
     phone: doc.phone || "",
     email: doc.email || "",
     contact: doc.contact || "",
+    published: doc.published || false,
   })
 
   async function handleSubmit(event) {
@@ -47,6 +48,9 @@ export const EditForm = ({ docId, doc, onError }) => {
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value })
   }
+  const handleChecked = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked })
+  }
 
   const classes = useStyles()
   const { formatMessage } = useIntl()
@@ -60,6 +64,10 @@ export const EditForm = ({ docId, doc, onError }) => {
       <TextField fullWidth name="phone" label={formatMessage({ id: "partnerLocation_Phone" })} defaultValue={state.phone} onChange={handleChange} />
       <TextField fullWidth name="email" label={formatMessage({ id: "partnerLocation_Email" })} defaultValue={state.email} onChange={handleChange} />
       <TextField fullWidth name="contact" label={formatMessage({ id: "partnerLocation_Contact" })} defaultValue={state.contact} onChange={handleChange} />
+      <FormControlLabel
+        control={<Checkbox name="published" checked={state.published} onChange={handleChecked} />}
+        label={formatMessage({ id: "partnerLocation_Published" })}
+      />
       <Button type="submit" variant="contained" color="primary" size="large" startIcon={<SaveIcon />}>
         Save
       </Button>
