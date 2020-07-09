@@ -17,6 +17,7 @@ const theme = createMuiTheme({
         },
     },
     typography: {
+        fontFamily: ["Raleway", "Arial", "Helvetica", "sans-serif"],
         h2: {
             fontWeight: "800",
             fontSize: "2rem",
