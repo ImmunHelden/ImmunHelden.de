@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Location } from '@reach/router'
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, Checkbox, FormControlLabel } from '@material-ui/core';
+import { TextField, Button, Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
 import firebase from "gatsby-plugin-firebase"
 import { navigate, useIntl } from "gatsby-plugin-intl"
 import SaveIcon from '@material-ui/icons/Save';
@@ -9,10 +9,19 @@ import { LOCATION_COLLECTION } from "."
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
+    flexDirection: 'column',
     '& > *': {
       margin: theme.spacing(1),
     },
   },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  }
 }));
 
 export const EditForm = ({ docId, doc, onError }) => {
@@ -57,23 +66,25 @@ export const EditForm = ({ docId, doc, onError }) => {
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
-      <TextField disabled fullWidth label={formatMessage({ id: "partnerLocation_Anchor" })} value={"#" + docId} />
-      <TextField disabled fullWidth label={formatMessage({ id: "partnerLocation_PartnerID" })} value={doc.partnerId} />
-      <TextField fullWidth name="title" label={formatMessage({ id: "partnerLocation_Title" })} defaultValue={state.title} onChange={handleChange} />
-      <TextField fullWidth name="address" label={formatMessage({ id: "partnerLocation_Address" })} defaultValue={state.address} onChange={handleChange} />
-      <TextField fullWidth name="phone" label={formatMessage({ id: "partnerLocation_Phone" })} defaultValue={state.phone} onChange={handleChange} />
-      <TextField fullWidth name="email" label={formatMessage({ id: "partnerLocation_Email" })} defaultValue={state.email} onChange={handleChange} />
-      <TextField fullWidth name="contact" label={formatMessage({ id: "partnerLocation_Contact" })} defaultValue={state.contact} onChange={handleChange} />
+      <TextField disabled label={formatMessage({ id: "partnerLocation_Anchor" })} value={"#" + docId} />
+      <TextField disabled label={formatMessage({ id: "partnerLocation_PartnerID" })} value={doc.partnerId} />
+      <TextField name="title" label={formatMessage({ id: "partnerLocation_Title" })} defaultValue={state.title} onChange={handleChange} />
+      <TextField name="address" label={formatMessage({ id: "partnerLocation_Address" })} defaultValue={state.address} onChange={handleChange} />
+      <TextField name="phone" label={formatMessage({ id: "partnerLocation_Phone" })} defaultValue={state.phone} onChange={handleChange} />
+      <TextField name="email" label={formatMessage({ id: "partnerLocation_Email" })} defaultValue={state.email} onChange={handleChange} />
+      <TextField name="contact" label={formatMessage({ id: "partnerLocation_Contact" })} defaultValue={state.contact} onChange={handleChange} />
       <FormControlLabel
         control={<Checkbox name="published" checked={state.published} onChange={handleChecked} />}
         label={formatMessage({ id: "partnerLocation_Published" })}
       />
-      <Button type="submit" variant="contained" color="primary" size="large" startIcon={<SaveIcon />}>
-        Save
-      </Button>
-      <Button variant="outlined" color="primary" size="large" onClick={() => navigate("/partner/")}>
-        Back
-      </Button>
+      <FormGroup className={classes.row}>
+        <Button type="submit" variant="contained" color="primary" size="large" startIcon={<SaveIcon />}>
+          Save
+        </Button>
+        <Button variant="outlined" color="primary" size="large" onClick={() => navigate("/partner/")}>
+          Back
+        </Button>
+      </FormGroup>
     </form>
   )
 }
