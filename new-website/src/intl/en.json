@@ -26,7 +26,7 @@
     "partnerLocation_Address": "Address",
     "partnerLocation_Phone": "Phone",
     "partnerLocation_Email": "Email",
-    "partnerLocation_Contact": "Contact",
+    "partnerLocation_Description": "Description",
     "partnerLocation_Anchor": "Anchor",
     "partnerLocation_PartnerID": "Partner ID",
     "partnerLocation_Published": "Published",
