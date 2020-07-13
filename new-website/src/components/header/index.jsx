@@ -1,48 +1,18 @@
-import { Link } from "gatsby-plugin-intl"
-import React from "react"
-import BetaRibbon from "./beta-ribbon"
-import PropTypes from "prop-types"
-import { AppBar, Toolbar, makeStyles } from "@material-ui/core"
-import { ImmunHeldenLogo } from "../logo"
-import wirVsVirusSolutionEnablerLogo from "../../images/wirvsvirusSE.png"
-import firebase from "gatsby-plugin-firebase"
-import { useAuth } from "../../hooks/use-auth"
+import React from "react";
+import { AppBar } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Logo from "./logo";
+import { MobileHeader } from "./mobile";
 
-const useStyles = makeStyles(theme => ({
-    appBar: {
-        backgroundColor: "white",
-        boxShadow: "inset 0 4px 10px - 23px gray",
-    },
-    link: {
-        textDecoration: "none",
-    },
-    wirVsVirusLogo: {},
-}))
-
-const HeaderComponent = ({ title }) => {
-    const classes = useStyles()
-    const { user } = useAuth(firebase)
-
-    const logout = () => firebase.auth().signOut()
-
+const Header = () => {
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up("sm"));
     return (
-        <AppBar position="sticky" className={classes.appBar}>
-            <Toolbar>
-                <Link to="/" className={classes.link}>
-                    <ImmunHeldenLogo />
-                </Link>
-                <a href="//twitter.com/WirvsVirusHack" target="_blank" rel="noopener noreferrer">
-                    <img alt="WirVsVirus Solution Enabler Logo" src={wirVsVirusSolutionEnablerLogo} width="120" />
-                </a>
-                {user && <button onClick={logout}>Logout</button>}
-                <BetaRibbon />
-            </Toolbar>
+        <AppBar position="absolute" style={{ backgroundColor: "transparent" }} elevation={0}>
+            {matches ? <Logo /> : <MobileHeader />}
         </AppBar>
-    )
-}
+    );
+};
 
-HeaderComponent.propTypes = {
-    title: PropTypes.string.isRequired,
-}
-
-export default HeaderComponent
+export default Header;

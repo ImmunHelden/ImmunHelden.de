@@ -1,9 +1,10 @@
-import React from "react"
-import { Protected } from "../../components/protected"
-import Layout from "../../components/layout"
-import { UserInfo } from "../../components/account/user-info"
-import { LocationOverview } from "../../components/location"
-import { Invites } from "../../components/partner/invites"
+import React from "react";
+import { Protected } from "../../components/protected";
+import Layout from "../../components/layout";
+import { UserInfo } from "../../components/account/user-info";
+import { LocationOverview } from "../../components/location";
+import { Invites } from "../../components/partner/invites";
+import LayoutFancy from "../../components/layout2";
 
 export const PartnerPage = () => {
     return (
@@ -14,7 +15,7 @@ export const PartnerPage = () => {
                 <LocationOverview />
             </Protected>
         </Layout>
-    )
-}
+    );
+};
 
-export default PartnerPage
+export default PartnerPage;

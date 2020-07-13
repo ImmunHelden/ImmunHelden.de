@@ -1,7 +1,7 @@
-import React from "react"
-import { Typography, makeStyles } from "@material-ui/core"
-import { FormattedMessage } from "gatsby-plugin-intl"
-import superhero from "../../images/superhero.png"
+import React from "react";
+import { Typography, makeStyles } from "@material-ui/core";
+import { FormattedMessage } from "gatsby-plugin-intl";
+import superhero from "../../images/superhero.png";
 
 const useStyles = makeStyles(theme => ({
     image: {
@@ -16,10 +16,10 @@ const useStyles = makeStyles(theme => ({
         color: "black",
         alignItems: "center",
     },
-}))
+}));
 
 export const ImmunHeldenLogo = () => {
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <div className={classes.logo}>
@@ -28,5 +28,5 @@ export const ImmunHeldenLogo = () => {
                 <FormattedMessage id="pageTitle" />
             </Typography>
         </div>
-    )
-}
+    );
+};

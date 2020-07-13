@@ -15,6 +15,7 @@
         "gatsby": "^2.20.25",
         "gatsby-image": "^2.3.4",
         "gatsby-plugin-firebase": "^0.2.0-beta.4",
+        "gatsby-plugin-google-fonts": "^1.0.1",
         "gatsby-plugin-intl": "^0.3.3",
         "gatsby-plugin-manifest": "^2.3.5",
         "gatsby-plugin-material-ui": "^2.1.6",
@@ -36,9 +37,14 @@
         "react-hook-form": "^5.5.0",
         "react-player": "^2.0.1",
         "react-spinners-css": "^1.1.8",
+        "shortid": "^2.2.15",
         "styled-components": "^5.1.0"
     },
     "devDependencies": {
+        "eslint": "^7.3.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-react": "^7.20.0",
         "prettier": "2.0.4"
     },
     "keywords": [
