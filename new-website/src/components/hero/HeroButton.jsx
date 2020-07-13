@@ -14,10 +14,10 @@ const useStyle = makeStyles(() => ({
     },
 }));
 
-const HeroButton = ({ children }) => {
+const HeroButton = ({ children, color = "primary" }) => {
     const classes = useStyle();
     return (
-        <Button color="primary" variant="contained" className={classes.button}>
+        <Button color={color} variant="contained" className={classes.button}>
             {children}
         </Button>
     );
