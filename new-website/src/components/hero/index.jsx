@@ -24,7 +24,7 @@ const useStyle = makeStyles({
         left: "0",
         width: "100%",
         zIndex: "-1",
-        height: props => props.height || "80vh",
+        height: props => props.height || "70vh",
         "& > img": {
             objectFit: props => `${props.fit || "cover"} !important`,
             objectPosition: props => `${props.position || "50% 50%"} !important`,
