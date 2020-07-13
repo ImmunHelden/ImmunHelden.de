@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import LogoSVG from "../../images/svg/logo.svg";
 import { Toolbar } from "@material-ui/core";
