@@ -6,6 +6,7 @@ import { Grid, Paper, Snackbar } from "@material-ui/core"
 import { FormattedMessage, navigate, } from "gatsby-plugin-intl"
 import * as Sentry from "@sentry/browser"
 import { LOCATION_COLLECTION } from "."
+import { mayTrimErrorPrefix } from "../../util/errors"
 
 function fetchDoc(docId) {
   const locations = firebase.firestore().collection(LOCATION_COLLECTION)
@@ -27,15 +28,15 @@ async function createDoc(partnerIds) {
   return (await locations.add({ partnerId: partnerIds[0] })).get()
 }
 
-export const EditPage = ({ docId, errorNote }) => {
-    const { user, partnerConfigs, isLoading } = useSession()
+export const EditPage = ({ docId, onError }) => {
+    const { user, isLoading } = useSession()
     const [doc, setDoc] = useState(null)
 
     // Navigate back to the overview page and report errors there.
     const errorAbort = (err) => {
       navigate("/partner/", {
         replace: true,
-        state: { result: err },
+        state: { result: mayTrimErrorPrefix(err) },
       })
     }
 
@@ -73,7 +74,7 @@ export const EditPage = ({ docId, errorNote }) => {
                       <EditForm
                           docId={doc.id}
                           doc={doc.data()}
-                          onError={errorNote}
+                          onError={err => onError(mayTrimErrorPrefix(err))}
                       />
                   )}
                 </Paper>

@@ -56,7 +56,7 @@
     "partnerLocation_editorButton_Bold": "Fett",
     "partnerLocation_editorButton_Italic": "Kursiv",
     "partnerLocation_editorButton_Underline": "Unterstrichen",
-    "requiredFieldMissing/title": "Dem Eintrag fehlt ein Titel",
+    "requiredFieldMissing/title": "Ohne Angabe eines Titels kann der Eintrag nicht veröffentlicht werden",
     "timeout/createNewLocation": "Fehler beim Anlegen eines neuen Eintrags. Bitte versuche es später erneut.",
     "partnerId/inaccessible": "Zugriff auf Partner ID nicht möglich. Bitte wende dich an den Administrator.",
     "partnerId/unavailable": "Dir ist keine Partner ID zugeordnet. Bitte wende dich an den Administrator.",
