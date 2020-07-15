@@ -6,6 +6,7 @@ import { navigate, useIntl } from "gatsby-plugin-intl"
 import SaveIcon from '@material-ui/icons/Save';
 import { LOCATION_COLLECTION } from "."
 import { RichTextEditor, initFromSnapshot, makeSnapshot } from './edit-rich-text'
+import * as Sentry from "@sentry/browser"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+function sentryInfo(msg) {
+  Sentry.withScope(scope => {
+    scope.setLevel("info")
+    Sentry.captureEvent({ message: msg })
+  })
+}
+
+function sentryWarn(msg) {
+  Sentry.withScope(scope => {
+    scope.setLevel("warning")
+    Sentry.captureEvent({ message: msg })
+  })
+}
+
+function sentryFatal(err) {
+  Sentry.withScope(scope => {
+    scope.setLevel("fatal")
+    Sentry.captureException(err)
+  })
+}
+
 // Resolve coordinates for given address with LocationIQ
 async function requestLatLng(address) {
   const sleep = async (ms) => {
@@ -38,21 +60,27 @@ async function requestLatLng(address) {
   const tryResolve = async (address, retries) => {
     const STATUS_CODE_RATE_LIMIT_EXCEEDED = 429
     for (let i = 0; i < retries; i++) {
-      await sleep(500); // rate limit second
+      // TODO: Easy way to hide our key? (not urgent, it's a free account)
+      const baseUrl = "https://eu1.locationiq.com/v1/search.php"
+      const queryBase = "key=pk.861b8037ac48a2b23d05c90e89658064&format=json&q="
+
       try {
-        // TODO: Easy way to hide our key? (not urgent, it's a free account)
-        const baseUrl = "https://eu1.locationiq.com/v1/search.php"
-        const queryBase = "key=pk.861b8037ac48a2b23d05c90e89658064&format=json&q="
         const response = await fetch(baseUrl + "?" + queryBase + address)
-        return await response.json()
-      } catch (err) {
-        if (err.statusCode === STATUS_CODE_RATE_LIMIT_EXCEEDED) {
-          // Report warning and try again
-          console.warn("Rate limit reached resolving address ", address, ":", err)
+        if (response.ok) {
+          // Success
+          return await response.json()
+        } else if (response.status === STATUS_CODE_RATE_LIMIT_EXCEEDED) {
+          // Rate limit reached: report warning, wait 500ms and try again
+          sentryWarn("Rate limit reached resolving address " +
+                      `'${address}': ${response.statusText}`)
+          await sleep(500);
         } else {
           // Unknown error
-          throw err
+          throw response
         }
+      } catch (err) {
+        sentryFatal(err)
+        throw err
       }
     }
     throw new Error("resolutionFailure/timeout")
@@ -106,8 +134,8 @@ export const EditForm = ({ docId, doc, onError }) => {
       } else if (state.address.length > 0) {
         // Resolve location for given address (or throw if we don't get one).
         coord = await requestLatLng(state.address)
-        console.log("Resolved coordinates for address", state.address,
-                    "as:", coord)
+        sentryInfo("Resolved coordinates for address " +
+                   `${state.address} to [${coord[0]}, ${coord[1]}]`)
       }
 
       state.latlng = new firebase.firestore.GeoPoint(coord[0], coord[1])
@@ -157,8 +185,8 @@ export const EditForm = ({ docId, doc, onError }) => {
     // Otherwise try to resolve and fill in location of current address.
     try {
       const [lat, lng] = await requestLatLng(state.address)
-      console.log("Resolved coordinates for address", state.address,
-                  "as:", [lat, lng])
+      sentryInfo("Resolved coordinates for address " +
+                 `${state.address} to [${lat}, ${lng}]`)
       setExplLat(lat)
       setExplLng(lng)
     } catch (err) {
