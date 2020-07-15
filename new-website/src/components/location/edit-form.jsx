@@ -80,6 +80,7 @@ export const EditForm = ({ docId, doc, onError }) => {
 
   const [state, setState] = useState({
     title: doc.title || "",
+    website: doc.website || "",
     address: doc.address || "",
     phone: doc.phone || "",
     email: doc.email || "",
@@ -173,6 +174,7 @@ export const EditForm = ({ docId, doc, onError }) => {
       </FormGroup>
       <FormGroup className={classes.row}>
         <TextField name="title" label={formatMessage({ id: "partnerLocation_Title" })} value={state.title} onChange={handleChange} />
+        <TextField name="website" label={formatMessage({ id: "partnerLocation_Website" })} value={state.website} onChange={handleChange} />
       </FormGroup>
       <FormGroup className={classes.row}>
         <TextField name="phone" label={formatMessage({ id: "partnerLocation_Phone" })} value={state.phone} onChange={handleChange} />
