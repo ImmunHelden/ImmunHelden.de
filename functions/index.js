@@ -21,6 +21,17 @@ const toolsDataImport = require(`./tools-blutspenden-de.js`);
 exports.parseBlutspendenDe = toolsDataImport.parse;
 exports.renderBlutspendenDe = toolsDataImport.render;
 
+const map = require("./map.js")
+exports.pin_locations = functions.https.onRequest((req, res) => {
+  return map.pin_locations(admin, req, res)
+})
+exports.details_html = functions.https.onRequest((req, res) => {
+  return map.details_html(admin, req, res)
+})
+
+// Currently unused.
+exports.regions = functions.https.onRequest(map.regions)
+
 // Import JSON data for plasma locations. Admin use only.
 // Uncomment and run locally with service account connected:
 //
@@ -34,11 +45,6 @@ exports.renderBlutspendenDe = toolsDataImport.render;
 //  await toolsDataImport.importJson(admin, 'locations', 'stadtmission', `${baseUrl}/stadtmission/de.json`, 'Ns7kZq64hkye24UPgvt0');
 //  await toolsDataImport.importJson(admin, 'locations', 'tafel', `${baseUrl}/tafel/de.json`, 'p4qVVlDAeI3wmFaRo5lc ');
 //})();
-
-// CORS Express middleware to enable CORS Requests.
-const cors = require("cors")({
-  origin: true,
-});
 
 function parseBool(string) {
   if (string) {
@@ -427,57 +433,6 @@ exports.deleteOrg = functions.https.onRequest(async (req, res) => {
   await ref.remove();
 
   res.send("Subscription deleted");
-});
-
-exports.pin_locations = functions.https.onRequest(async (req, res) => {
-  // Apparently we have to extract the 'type' parameter from the URL manually.
-  // E.g. req.params is { '0': '/maps/sample/pins' } => type is 'sample'
-  const match = /\/maps\/(.*)\/pins/.exec(req.params['0']);
-  const type = match[1];
-
-  // This endpoint supports cross-origin requests.
-  return cors(req, res, async () => {
-    const locationsRef = admin.firestore().collection("locations");
-    const entries = await locationsRef.where('type', '==', type).get();
-    const pins = {};
-    entries.forEach(doc => {
-      const geoPoint = doc.get('latlng');
-      pins[doc.id] = {
-        title: doc.get('title'),
-        latlng: [geoPoint.latitude, geoPoint.longitude]
-      };
-    });
-
-    console.log('Serving', Object.keys(pins).length, 'locations in response to query', req.params[0]);
-    res.json(pins).send();
-  });
-});
-
-exports.regions = functions.https.onRequest(async (req, res) => {
-  // This endpoint supports cross-origin requests.
-  return cors(req, res, () => {
-    res.json({});
-  });
-});
-
-exports.details_html = functions.https.onRequest(async (req, res) => {
-  // This endpoint supports cross-origin requests.
-  return cors(req, res, async () => {
-    // TODO: Figure out how to access the ID and grab the respective document.
-    const doc = await admin.firestore().collection("plasma").doc("VUoS00fHyd3q5Qow5m8h").get()
-    const fields = doc.data()
-    res.send(`
-      <html>
-      <body>
-        <div>
-          ${fields.description}
-          <br>
-          ${fields.addendum}
-        </div>
-      </body>
-      </html>
-    `)
-  });
 });
 
 exports.newAccountCreated = functions.auth.user().onCreate((user) => {
