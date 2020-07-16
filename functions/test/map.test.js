@@ -39,4 +39,23 @@ it("details_html should include the correct heading", /* async */ (done) => {
   )
 })
 
+// TODO: This test is likely to break anytime soon, but it's fine for now.
+it("pin_locations should provide 1 tafel location", /* async */ (done) => {
+  /* await */ fns.pin_locations(
+    cors.req({
+      params: { '0': '/maps/tafel/pins' },
+    }),
+    cors.res({
+      json: (response) => {
+        assert.equal(Object.keys(response).length, 1)
+        return {
+          send: () => {
+            done()
+          },
+        }
+      },
+    }),
+  )
+})
+
 test.cleanup()
