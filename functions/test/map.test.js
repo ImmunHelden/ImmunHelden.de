@@ -14,6 +14,7 @@ const test = require('firebase-functions-test')({
 const fns = require('../index.js');
 
 // Test utilities
+const cors = require('./cors-utils.test.js')
 const assert = require('chai').assert
 
 // TODO: Using the `done` callback here is one option and while it does work,
@@ -25,26 +26,17 @@ const assert = require('chai').assert
 // failures are reported after the test case already reported success.
 //
 it("details_html should include the correct heading", /* async */ (done) => {
-  const req = {
-    params: { id: 'VUoS00fHyd3q5Qow5m8h' },
-    headers: {
-      origin: true
-    }
-  }
-  const res = {
-    getHeader: (key) => {
-      //console.log("getHeader:", key)
-    },
-    setHeader: (key, value) => {
-      //console.log("setHeader:", key, "=", value)
-    },
-    send: (html) => {
-      assert.isOk(html.includes('Freiwillige für Studie gesucht'))
-      done()
-    }
-  };
-
-  /* await */ fns.details_html(req, res)
+  /* await */ fns.details_html(
+    cors.req({
+      params: { id: 'VUoS00fHyd3q5Qow5m8h' },
+    }),
+    cors.res({
+      send: (html) => {
+        assert.isOk(html.includes('Freiwillige für Studie gesucht'))
+        done()
+      },
+    }),
+  )
 })
 
 test.cleanup()
