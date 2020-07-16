@@ -462,18 +462,21 @@ exports.regions = functions.https.onRequest(async (req, res) => {
 
 exports.details_html = functions.https.onRequest(async (req, res) => {
   // This endpoint supports cross-origin requests.
-  return cors(req, res, () => {
+  return cors(req, res, async () => {
+    // TODO: Figure out how to access the ID and grab the respective document.
+    const doc = await admin.firestore().collection("plasma").doc("VUoS00fHyd3q5Qow5m8h").get()
+    const fields = doc.data()
     res.send(`
-      <link rel="stylesheet" href="details.css">
-      <div>
-        <div class="title">Blutspende am Universitätsklinikum Freiburg</div>
-        <div class="contact">Blutspendezentrale Haus Langerhans</div>
-        <div class="address">Hugstetter Str. 55, 79106 Freiburg</div>
-        <div class="phone"><a href="tel:+497612704444">0761 2704444</a></div>
-        <div class="url"><a href="http://www.uniklinik-freiburg.de/blutspende/live/index.html">http://www.uniklinik-freiburg.de/blutspende/live/index.html</a></div>
-        <div class="permalink"><a href="#blutspendende-U0_T_pAy9" target="_parent">Permalink</a></div>
-      </div>
-    `);
+      <html>
+      <body>
+        <div>
+          ${fields.description}
+          <br>
+          ${fields.addendum}
+        </div>
+      </body>
+      </html>
+    `)
   });
 });
 
