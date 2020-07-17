@@ -138,6 +138,9 @@ export const EditForm = ({ docId, doc, onError }) => {
     published: doc.published || false,
     latlngExplicit: doc.latlngExplicit || false,
     latlng: doc.latlng || { latitude: 0, longitude: 0 },
+    dateRangeExplicit: doc.dateRangeExplicit || false,
+    dateRangeFrom: doc.dateRangeFrom || "yyyy-MM-dd",
+    dateRangeTo: doc.dateRangeTo || "yyyy-MM-dd",
   })
 
   const [explLat, setExplLat] = useState(state.latlng.latitude)
@@ -272,17 +275,50 @@ export const EditForm = ({ docId, doc, onError }) => {
           <RichTextEditor editorState={editorState} setEditorState={setEditorState} />
         }
       />
-      <FormControlLabel
-        control={
-          <Checkbox
-            name="published"
-            color="primary"
-            checked={state.published}
-            onChange={handleChecked}
-            style={{ paddingLeft: "0" }}
-          />}
-        label={formatMessage({ id: "partnerLocation_Published" })}
-      />
+      <FormGroup className={classes.row}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="published"
+              color="primary"
+              checked={state.published}
+              onChange={handleChecked}
+              style={{ paddingLeft: "0" }}
+            />}
+          className={classes.flexNone}
+          label={formatMessage({ id: "partnerLocation_Published" })}
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              name="dateRangeExplicit"
+              color="primary"
+              checked={state.dateRangeExplicit}
+              onChange={handleChecked}
+            />
+          }
+          className={classes.flexNone}
+          label={formatMessage({ id: "partnerLocation_ExplicitDateRange" })}
+        />
+        <FormGroup className={classes.row}>
+          {state.dateRangeExplicit && (
+            <>
+              <TextField name="dateRangeFrom" type="date" value={state.dateRangeFrom} onChange={handleChange}
+                label={formatMessage({ id: "partnerLocation_DateFrom" })}
+                InputLabelProps={{ shrink: true }}
+                className={classes.smallField}
+              />
+              <TextField name="dateRangeTo" type="date" value={state.dateRangeTo} onChange={handleChange}
+                label={formatMessage({ id: "partnerLocation_DateTo" })}
+                InputLabelProps={{ shrink: true }}
+                className={classes.smallField}
+              />
+            </>
+          )}
+        </FormGroup>
+      </FormGroup>
+      <br />
+      <br />
       <FormGroup className={classes.row}>
         <Button variant="contained" color="primary" size="large"
                 type="submit" startIcon={<SaveIcon />}>
