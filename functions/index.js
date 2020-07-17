@@ -4,6 +4,10 @@ const fs = require("fs");
 
 admin.initializeApp(functions.config().firebase);
 
+function forwardAdmin(targetFunction) {
+  return (req, res) => targetFunction(admin, req, res)
+}
+
 // Tools for finding the markdown for our email templates on GitHub, expanding
 // placeholders, formatting it as HTML and sending sample mails for tests.
 const messageTemplates = require(`./message-templates.js`);
@@ -21,16 +25,10 @@ const toolsDataImport = require(`./tools-blutspenden-de.js`);
 exports.parseBlutspendenDe = toolsDataImport.parse;
 exports.renderBlutspendenDe = toolsDataImport.render;
 
-const map = require("./map.js")
-exports.pin_locations = functions.https.onRequest((req, res) => {
-  return map.pin_locations(admin, req, res)
-})
-exports.details_html = functions.https.onRequest((req, res) => {
-  return map.details_html(admin, req, res)
-})
-
-// Currently unused.
-exports.regions = functions.https.onRequest(map.regions)
+const map = require("./map.js");
+exports.pin_locations = functions.https.onRequest(forwardAdmin(map.pin_locations));
+exports.details_html = functions.https.onRequest(forwardAdmin(map.details_html));
+exports.regions = functions.https.onRequest((req, res) => {}); // Currently unused
 
 // Import JSON data for plasma locations. Admin use only.
 // Uncomment and run locally with service account connected:
