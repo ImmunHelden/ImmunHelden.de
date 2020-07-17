@@ -13,7 +13,7 @@ service cloud.firestore {
     function isAdmin(partnerId, request) {
       return get(/databases/$(database)/documents/partner/$(partnerId)/roles/$(request.auth.uid)).data.role == "admin"
     }
-    match /plasma/{plasmaId} {
+    match /locations/{docId} {
       allow read;
       allow delete, update: if isSignedIn(request.auth) && requestingUserIsMemberOfPartnerOwningResource(resource, request)
       allow create: if isSignedIn(request.auth) && requestingUserIsMemberOfPartner(resource, request)
