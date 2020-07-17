@@ -98,6 +98,21 @@ async function requestLatLng(address) {
   return [parseFloat(matches[0].lat), parseFloat(matches[0].lon)]
 }
 
+function renderAddendum(address, phone, email, website, docId) {
+  let addendum = ""
+  if (address)
+    addendum += `<div class="address">${address}</div>`
+  if (phone)
+    addendum += `<div class="phone"><a href="tel:${phone}">${phone}</a></div>`
+  if (email)
+    addendum += `<div class="email"><a href="mailto:${email}">${email}</a></div>`
+  if (website)
+    addendum += `<div class="url"><a href="${website}">Webseite</a></div>`
+
+  addendum += `<div class="permalink"><a href="#${docId}" target="_parent">Permalink</a></div>`
+  return addendum
+}
+
 export const EditForm = ({ docId, doc, onError }) => {
   const classes = useStyles()
   const { formatMessage } = useIntl()
@@ -138,9 +153,6 @@ export const EditForm = ({ docId, doc, onError }) => {
                    `${state.address} to [${coord[0]}, ${coord[1]}]`)
       }
 
-      state.latlng = new firebase.firestore.GeoPoint(coord[0], coord[1])
-      state.description = makeSnapshot(editorState)
-
       // Throws explicitly if the title is empty.
       if (state.published) {
         if (state.title.length === 0)
@@ -148,6 +160,10 @@ export const EditForm = ({ docId, doc, onError }) => {
         if (coord === [0, 0])
           throw new Error("requiredFieldMissing/address")
       }
+
+      state.latlng = new firebase.firestore.GeoPoint(coord[0], coord[1])
+      state.description = makeSnapshot(editorState)
+      state.addendum = renderAddendum(state.address, state.phone, state.email, state.website, docId)
 
       // Blocks until the update operation is complete and throws if it failed.
       await firebase.firestore().collection(LOCATION_COLLECTION).doc(docId).update(state)
