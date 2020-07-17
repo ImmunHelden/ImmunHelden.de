@@ -4,30 +4,19 @@ service cloud.firestore {
     return auth != null && request.auth.token.email_verified;
   }
   match /databases/{database}/documents {
-    function userIsMemberOfPartnerInResource(resource, request) {
+    function requestingUserIsMemberOfPartnerOwningResource(resource, request) {
       return resource.data.partnerID in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partnerIds;
     }
-    function request_userIsMemberOfPartner(resource, request) {
+    function requestingUserIsMemberOfPartner(resource, request) {
       return request.resource.data.partnerID in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partnerIds;
-    }
-    function userIsMemberOfPartnerInResourceOLD(resource, request) {
-      return resource.data.partnerID == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partner;
-    }
-    function request_userIsMemberOfPartnerOLD(resource, request) {
-      return request.resource.data.partnerID == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partner;
     }
     function isAdmin(partnerId, request) {
       return get(/databases/$(database)/documents/partner/$(partnerId)/roles/$(request.auth.uid)).data.role == "admin"
     }
-    match /blutspendende/{blutspendendeId} {
-      allow read;
-      allow delete, update: if isSignedIn(request.auth)  && (userIsMemberOfPartnerInResource(resource, request) || userIsMemberOfPartnerInResourceOLD(resource, request))
-      allow create: if isSignedIn(request.auth)  &&  (request_userIsMemberOfPartner(resource, request) || request_userIsMemberOfPartnerOLD(resource, request))
-    }
     match /plasma/{plasmaId} {
       allow read;
-      allow delete, update: if isSignedIn(request.auth)  && (userIsMemberOfPartnerInResource(resource, request) || userIsMemberOfPartnerInResourceOLD(resource, request))
-      allow create: if isSignedIn(request.auth)  &&  (request_userIsMemberOfPartner(resource, request) || request_userIsMemberOfPartnerOLD(resource, request))
+      allow delete, update: if isSignedIn(request.auth) && requestingUserIsMemberOfPartnerOwningResource(resource, request)
+      allow create: if isSignedIn(request.auth) && requestingUserIsMemberOfPartner(resource, request)
     }
     match /partner/{partnerId} {
       allow read: if isSignedIn(request.auth) && exists(/databases/$(database)/documents/partner/$(partnerId)/roles/$(request.auth.uid))
