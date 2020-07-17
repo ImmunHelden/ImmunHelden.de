@@ -22,12 +22,20 @@ const useStyles = makeStyles((theme) => ({
     margin: '0',
     '& > *': {
       margin: theme.spacing(1),
+      minWidth: 300,
       flex: 'auto',
     },
   },
   editorLabel: {
     alignItems: 'normal',
     paddingTop: '15px',
+  },
+  flexNone: {
+    flex: 'none',
+    minWidth: 50,
+  },
+  smallField: {
+    minWidth: 50,
   },
 }))
 
@@ -245,11 +253,13 @@ export const EditForm = ({ docId, doc, onError }) => {
               value={explLat}
               onChange={e => setExplLat(e.target.value)}
               label={formatMessage({ id: "partnerLocation_Latitude" })}
+              className={classes.smallField}
             />
             <TextField
               value={explLng}
               onChange={e => setExplLng(e.target.value)}
               label={formatMessage({ id: "partnerLocation_Longitude" })}
+              className={classes.smallField}
             />
           </>
         )}
