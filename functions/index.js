@@ -38,10 +38,10 @@ exports.regions = functions.https.onRequest((req, res) => {}); // Currently unus
 //
 //(async () => {
 //  const baseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data';
-//  await toolsDataImport.importJson(admin, 'locations', 'plasma', `${baseUrl}/blutspenden.de/blutspenden-clean.json`, 'SM9fYu3nXzkxURTpCOQ2');
-//  await toolsDataImport.importJson(admin, 'locations', 'plasma', `${baseUrl}/biolife/austria.json`, 'ua6VnlnzaErnTqjjJYnm');
-//  await toolsDataImport.importJson(admin, 'locations', 'stadtmission', `${baseUrl}/stadtmission/de.json`, 'Ns7kZq64hkye24UPgvt0');
-//  await toolsDataImport.importJson(admin, 'locations', 'tafel', `${baseUrl}/tafel/de.json`, 'p4qVVlDAeI3wmFaRo5lc ');
+//  await toolsDataImport.importJson(admin, 'locations', 'plasma', `${baseUrl}/blutspenden.de/blutspenden-clean.json`, '4u66EeNFph4dmiGkTUfg');
+//  await toolsDataImport.importJson(admin, 'locations', 'plasma', `${baseUrl}/biolife/austria.json`, '4u66EeNFph4dmiGkTUfg');
+//  await toolsDataImport.importJson(admin, 'locations', 'stadtmission', `${baseUrl}/stadtmission/de.json`, '4u66EeNFph4dmiGkTUfg');
+//  await toolsDataImport.importJson(admin, 'locations', 'tafel', `${baseUrl}/tafel/de.json`, '4u66EeNFph4dmiGkTUfg ');
 //})();
 
 function parseBool(string) {
