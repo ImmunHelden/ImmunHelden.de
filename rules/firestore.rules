@@ -1,53 +1,53 @@
 rules_version = '2';
 service cloud.firestore {
-	function isSignedIn(auth) {
-  	return auth != null && request.auth.token.email_verified;
+  function isSignedIn(auth) {
+    return auth != null && request.auth.token.email_verified;
   }
   match /databases/{database}/documents {
     function userIsMemberOfPartnerInResource(resource, request) {
-   		return resource.data.partnerID in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partnerIds;
-  	}
+      return resource.data.partnerID in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partnerIds;
+    }
     function request_userIsMemberOfPartner(resource, request) {
-   		return request.resource.data.partnerID in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partnerIds;
-  	}
+      return request.resource.data.partnerID in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partnerIds;
+    }
     function userIsMemberOfPartnerInResourceOLD(resource, request) {
-   		return resource.data.partnerID == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partner;
-  	}
+      return resource.data.partnerID == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partner;
+    }
     function request_userIsMemberOfPartnerOLD(resource, request) {
-   		return request.resource.data.partnerID == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partner;
-  	}
+      return request.resource.data.partnerID == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partner;
+    }
     function isAdmin(partnerId, request) {
       return get(/databases/$(database)/documents/partner/$(partnerId)/roles/$(request.auth.uid)).data.role == "admin"
     }
-  	match /blutspendende/{blutspendendeId} {
-    	allow read;
+    match /blutspendende/{blutspendendeId} {
+      allow read;
       allow delete, update: if isSignedIn(request.auth)  && (userIsMemberOfPartnerInResource(resource, request) || userIsMemberOfPartnerInResourceOLD(resource, request))
-   		allow create: if isSignedIn(request.auth)  &&  (request_userIsMemberOfPartner(resource, request) || request_userIsMemberOfPartnerOLD(resource, request))
-   }
-   match /plasma/{plasmaId} {
-    	allow read;
+      allow create: if isSignedIn(request.auth)  &&  (request_userIsMemberOfPartner(resource, request) || request_userIsMemberOfPartnerOLD(resource, request))
+    }
+    match /plasma/{plasmaId} {
+      allow read;
       allow delete, update: if isSignedIn(request.auth)  && (userIsMemberOfPartnerInResource(resource, request) || userIsMemberOfPartnerInResourceOLD(resource, request))
-   		allow create: if isSignedIn(request.auth)  &&  (request_userIsMemberOfPartner(resource, request) || request_userIsMemberOfPartnerOLD(resource, request))
-   }
+      allow create: if isSignedIn(request.auth)  &&  (request_userIsMemberOfPartner(resource, request) || request_userIsMemberOfPartnerOLD(resource, request))
+    }
     match /partner/{partnerId} {
-    	allow read: if isSignedIn(request.auth) && exists(/databases/$(database)/documents/partner/$(partnerId)/roles/$(request.auth.uid))
-    	allow write: if false;
+      allow read: if isSignedIn(request.auth) && exists(/databases/$(database)/documents/partner/$(partnerId)/roles/$(request.auth.uid))
+      allow write: if false;
     }
     match /partner/{partnerId}/roles/{userId} {
-    	allow read,write: if false;
+      allow read,write: if false;
     }
     match /partner/{partnerId}/invites/{inviteId} {
-    	allow read,write: if isSignedIn(request.auth) && isAdmin(partnerId, request)
+      allow read,write: if isSignedIn(request.auth) && isAdmin(partnerId, request)
     }
     match /heros/{heroId} {
-    	allow read, write: if false;
+      allow read, write: if false;
     }
     match /mail/{mailId} {
-    	allow read, write: if false;
+      allow read, write: if false;
     }
     match /users/{userId} {
       allow read: if isSignedIn(request.auth) && request.auth.uid == userId;
-    	allow write: if false;
+      allow write: if false;
     }
   }
 }
