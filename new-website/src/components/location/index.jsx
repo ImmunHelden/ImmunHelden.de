@@ -11,7 +11,7 @@ import { FormattedMessage, useIntl } from "gatsby-plugin-intl"
 import MuiAlert from "@material-ui/lab/Alert"
 import { ErrorBoundary } from "../error/error-boundary"
 
-export const LOCATION_COLLECTION = "plasma"
+export const LOCATION_COLLECTION = "locations"
 
 /**
  * Fixes the issue with building the pages since
