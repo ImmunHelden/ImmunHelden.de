@@ -229,6 +229,47 @@ exports.render = functions.https.onRequest(async (req, res) => {
   }
 });
 
+function renderDescription(entry) {
+  let description = `<h1>${entry.title}</h1>`;
+  if (entry.contact)
+    description += `<div class="contact">${entry.contact}</div>`;
+  return description;
+}
+
+function renderAddendum(entry) {
+  let addendum = ""
+  if (entry.address)
+    addendum += `<div class="address">${entry.address}</div>`
+  if (entry.phone)
+    addendum += `<div class="phone"><a href="tel:${entry.phone}">${entry.phone}</a></div>`
+  if (entry.email)
+    addendum += `<div class="email"><a href="mailto:${entry.email}">${entry.email}</a></div>`
+  if (entry.website)
+    addendum += `<div class="url"><a href="${entry.website}">Webseite</a></div>`
+
+  addendum += `<div class="permalink"><a href="#${entry.id}" target="_parent">Permalink</a></div>`
+  return addendum
+}
+
+async function importEntry(entry, type, partnerId, admin) {
+  const coord = entry.latlng || await requestLatLng(entry.address);
+  return {
+    addendum: renderAddendum(entry),
+    address: entry.address,
+    dateRangeExplicit: false,
+    description: renderDescription(entry),
+    email: entry.email || "",
+    latlngExplicit: entry.hasOwnProperty("latlng"),
+    latlng: new admin.firestore.GeoPoint(coord[0], coord[1]),
+    partnerId: partnerId,
+    phone: entry.phone || "",
+    published: true,
+    title: entry.title,
+    type: type,
+    website: entry.url || "",
+  };
+}
+
 exports.importJson = async function(admin, collection, type, url, partnerId) {
   try {
     const json = await rp.get({ uri: url, json: true });
@@ -243,16 +284,9 @@ exports.importJson = async function(admin, collection, type, url, partnerId) {
       if (doc.exists) {
         console.log(`${entry.id} exists. No overwrite.`);
       } else {
-        const id = entry.id;
-        delete entry.id;
-        entry.partnerId = partnerId;
-        entry.type = type;
-        if (!entry.hasOwnProperty('latlng')) {
-          const coord = await requestLatLng(entry.address);
-          entry.latlng = new admin.firestore.GeoPoint(coord[0], coord[1]);
-        }
-        console.log(`Add document ${id}:`, entry);
-        await doc.ref.set(entry);
+        const data = await importEntry(entry, type, partnerId, admin);
+        console.log(`Add document ${entry.id}:`, data);
+        await doc.ref.set(data);
       }
     }
   }
