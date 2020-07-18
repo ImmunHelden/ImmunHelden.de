@@ -1,12 +1,19 @@
 import React, { useState } from "react"
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, Checkbox, Switch, FormControlLabel, FormGroup } from '@material-ui/core';
+import { TextField, Button, Checkbox, Switch } from '@material-ui/core';
+import { Select, MenuItem, InputLabel, Link } from '@material-ui/core';
+import { FormControl, FormControlLabel, FormGroup, FormHelperText } from '@material-ui/core';
 import firebase from "gatsby-plugin-firebase"
 import { navigate, useIntl } from "gatsby-plugin-intl"
 import SaveIcon from '@material-ui/icons/Save';
 import { LOCATION_COLLECTION } from "."
 import { RichTextEditor, initFromSnapshot, makeSnapshot } from './edit-rich-text'
 import * as Sentry from "@sentry/browser"
+import MarkerIconPlasma from "../../images/marker-icon-plasma.png"
+import MarkerIconMission from "../../images/marker-icon-mission.png"
+import MarkerIconTafel from "../../images/marker-icon-tafel.png"
+import MarkerIconImmunhelden from "../../images/marker-icon-immunhelden.png"
+import MarkerIconNew from "../../images/marker-icon-new.png"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +43,13 @@ const useStyles = makeStyles((theme) => ({
   },
   smallField: {
     minWidth: 50,
+  },
+  markerIcon: {
+    flex: 'none',
+    minWidth: 40,
+    width: 40,
+    height: 52,
+    marginLeft: theme.spacing(2),
   },
 }))
 
@@ -135,6 +149,7 @@ export const EditForm = ({ docId, doc, onError }) => {
     address: doc.address || "",
     phone: doc.phone || "",
     email: doc.email || "",
+    type: doc.type || "immunhelden",
     published: doc.published || false,
     latlngExplicit: doc.latlngExplicit || false,
     latlng: doc.latlng || { latitude: 0, longitude: 0 },
@@ -239,7 +254,7 @@ export const EditForm = ({ docId, doc, onError }) => {
         <TextField name="address" label={formatMessage({ id: "partnerLocation_Address" })} value={state.address} onChange={handleChange} />
       </FormGroup>
       <FormGroup className={classes.row}>
-        <FormControlLabel
+        <FormControlLabel className={classes.flexNone}
           control={
             <Switch
               name="latlngExplicit"
@@ -265,6 +280,39 @@ export const EditForm = ({ docId, doc, onError }) => {
               className={classes.smallField}
             />
           </>
+        )}
+      </FormGroup>
+      <FormGroup className={classes.row}>
+        {(state.type === "plasma") && (
+          <img src={MarkerIconPlasma} className={classes.markerIcon} alt="icon-plasma" />
+        )}
+        {(state.type === "mission") && (
+          <img src={MarkerIconMission} className={classes.markerIcon} alt="icon-mission" />
+        )}
+        {(state.type === "tafel") && (
+          <img src={MarkerIconTafel} className={classes.markerIcon} alt="icon-tafel" />
+        )}
+        {(state.type === "immunhelden") && (
+          <img src={MarkerIconImmunhelden} className={classes.markerIcon} alt="icon-immunhelden" />
+        )}
+        {(state.type === "new") && (
+          <img src={MarkerIconNew} className={classes.markerIcon} alt="icon-new" />
+        )}
+        <FormControl className={classes.smallField} style={{flex: 1}}>
+          <InputLabel id="demo-simple-select-helper-label">{formatMessage({ id: "partnerLocation_Type" })}</InputLabel>
+          <Select name="type" value={state.type} onChange={handleChange}
+                  labelId="demo-simple-select-helper-label">
+            <MenuItem value="plasma">{formatMessage({ id: "partnerLocation_TypePlasma" })}</MenuItem>
+            <MenuItem value="mission">{formatMessage({ id: "partnerLocation_TypeMission" })}</MenuItem>
+            <MenuItem value="tafel">{formatMessage({ id: "partnerLocation_TypeTafel" })}</MenuItem>
+            <MenuItem value="immunhelden">{formatMessage({ id: "partnerLocation_TypeImmunhelden" })}</MenuItem>
+            <MenuItem value="new">{formatMessage({ id: "partnerLocation_TypePlaceholderNew" })}</MenuItem>
+          </Select>
+        </FormControl>
+        {(state.type === "new") && (
+          <FormHelperText style={{flex: 2}}>
+            {formatMessage({ id: "partnerLocation_NotePlaceholderNew" })} <Link href="mailto:team@immunhelden.de">team@immunhelden.de</Link>
+          </FormHelperText>
         )}
       </FormGroup>
       <FormControlLabel
