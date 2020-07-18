@@ -9,6 +9,9 @@ exports.req = (body) => {
 exports.res = (body) => {
   return {
     ...body,
+    status: (no) => ({
+      send: (txt) => {}
+    }),
     getHeader: (key) => {},
     setHeader: (key, value) => {},
   }

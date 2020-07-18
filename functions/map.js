@@ -2,7 +2,7 @@ const cors = require("cors")({
   origin: true,
 });
 
-function error(res, logText) {
+function invalid(res, logText) {
   // TODO: How can we log it in Sentry?
   res.status(400).send("Invalid request")
   if (logText)
@@ -57,8 +57,11 @@ exports.details_html = function(admin, req, res) {
     if (!fields.published)
       return invalid(res, `Requested doc not published: ${uri}`);
 
-    if (!fields.description || !fields.addendum)
+    if (!fields.type || !fields.description || !fields.addendum)
       console.error("Requested doc doesn't have all required fields:", uri);
+
+    if (fields.type !== type)
+      console.error("Requested doc doesn't match the required type:", uri);
 
     res.send(`
       <html>
