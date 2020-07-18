@@ -25,14 +25,15 @@ const assert = require('chai').assert
 // it didn't correctly await the function completion, so that assertion
 // failures are reported after the test case already reported success.
 //
-it("details_html should include the correct heading", /* async */ (done) => {
+it("details_html should include addendum and description", /* async */ (done) => {
   /* await */ fns.details_html(
     cors.req({
-      params: { id: 'VUoS00fHyd3q5Qow5m8h' },
+      params: { '0': '/maps/__test__/details/test-test-test' },
     }),
     cors.res({
       send: (html) => {
-        assert.isOk(html.includes('Freiwillige für Studie gesucht'))
+        assert.isOk(html.includes('addendum'))
+        assert.isOk(html.includes('description'))
         done()
       },
     }),
@@ -40,14 +41,22 @@ it("details_html should include the correct heading", /* async */ (done) => {
 })
 
 // TODO: This test is likely to break anytime soon, but it's fine for now.
-it("pin_locations should provide 1 tafel location", /* async */ (done) => {
+it("pin_locations should provide title and latlng", /* async */ (done) => {
   /* await */ fns.pin_locations(
     cors.req({
-      params: { '0': '/maps/tafel/pins' },
+      params: { '0': '/maps/__test__/pins' },
     }),
     cors.res({
       json: (response) => {
-        assert.equal(Object.keys(response).length, 1)
+        assert.equal(Object.keys(response).length, 1);
+
+        const key = Object.keys(response)[0];
+        const value = response[key];
+        assert.equal(value.title, "title");
+        assert.equal(value.latlng.length, 2);
+        assert.equal(value.latlng[0], 0);
+        assert.equal(value.latlng[1], 0);
+
         return {
           send: () => {
             done()
