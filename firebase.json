@@ -15,19 +15,23 @@
     "redirects": [
       {
         "source": "/maps/blutspendende/pins",
-        "destination": "/maps/plasma/pins"
+        "destination": "/maps/plasma/pins",
+        "type": 301
       },
       {
         "source": "/maps/biolife/pins",
-        "destination": "/maps/plasma/pins"
+        "destination": "/maps/plasma/pins",
+        "type": 301
       },
       {
         "source": "/maps/blutspendende/details/:id",
-        "destination": "/maps/plasma/details/:id"
+        "destination": "/maps/plasma/details/:id",
+        "type": 301
       },
       {
         "source": "/maps/biolife/details/:id",
-        "destination": "/maps/plasma/details/:id"
+        "destination": "/maps/plasma/details/:id",
+        "type": 301
       }
     ],
     "rewrites": [
