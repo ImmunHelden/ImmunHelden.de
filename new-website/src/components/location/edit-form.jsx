@@ -12,6 +12,7 @@ import * as Sentry from "@sentry/browser"
 import MarkerIconPlasma from "../../images/marker-icon-plasma.png"
 import MarkerIconMission from "../../images/marker-icon-mission.png"
 import MarkerIconTafel from "../../images/marker-icon-tafel.png"
+import MarkerIconResearch from "../../images/marker-icon-research.png"
 import MarkerIconImmunhelden from "../../images/marker-icon-immunhelden.png"
 import MarkerIconNew from "../../images/marker-icon-new.png"
 
@@ -292,6 +293,9 @@ export const EditForm = ({ docId, doc, onError }) => {
         {(state.type === "tafel") && (
           <img src={MarkerIconTafel} className={classes.markerIcon} alt="icon-tafel" />
         )}
+        {(state.type === "research") && (
+          <img src={MarkerIconResearch} className={classes.markerIcon} alt="icon-research" />
+        )}
         {(state.type === "immunhelden") && (
           <img src={MarkerIconImmunhelden} className={classes.markerIcon} alt="icon-immunhelden" />
         )}
@@ -305,6 +309,7 @@ export const EditForm = ({ docId, doc, onError }) => {
             <MenuItem value="plasma">{formatMessage({ id: "partnerLocation_TypePlasma" })}</MenuItem>
             <MenuItem value="mission">{formatMessage({ id: "partnerLocation_TypeMission" })}</MenuItem>
             <MenuItem value="tafel">{formatMessage({ id: "partnerLocation_TypeTafel" })}</MenuItem>
+            <MenuItem value="research">{formatMessage({ id: "partnerLocation_TypeResearch" })}</MenuItem>
             <MenuItem value="immunhelden">{formatMessage({ id: "partnerLocation_TypeImmunhelden" })}</MenuItem>
             <MenuItem value="new">{formatMessage({ id: "partnerLocation_TypePlaceholderNew" })}</MenuItem>
           </Select>

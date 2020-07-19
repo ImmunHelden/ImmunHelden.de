@@ -41,6 +41,7 @@
     "partnerLocation_TypePlasma": "Plasma donation",
     "partnerLocation_TypeMission": "Mission",
     "partnerLocation_TypeTafel": "Food bank",
+    "partnerLocation_TypeResearch": "Forschung",
     "partnerLocation_TypeImmunhelden": "ImmunHelden",
     "partnerLocation_TypePlaceholderNew": "< New >",
     "partnerLocation_NotePlaceholderNew": "This marker is used as a temporary placeholder. In order to create a new category, please reach out to",
