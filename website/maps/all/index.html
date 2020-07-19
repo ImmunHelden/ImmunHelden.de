@@ -432,36 +432,69 @@
     <form>
       <label>
         <input type="checkbox" onchange="map.togglePlatform(this, 0);" checked>
-        <span class="checkbox" style="background-image: url('/maps/plasma/images/marker-icon-plasma.png');">Blutplasmaspende</span>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-research.png');">Forschung</span>
       </label>
       <label>
         <input type="checkbox" onchange="map.togglePlatform(this, 1);" checked>
-        <span class="checkbox" style="background-image: url('/maps/stadtmission/images/marker-icon-mission.png');">Stadtmission</span>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-plasma.png');">Blutplasmaspende</span>
       </label>
       <label>
         <input type="checkbox" onchange="map.togglePlatform(this, 2);" checked>
-        <span class="checkbox" style="background-image: url('/maps/tafel/images/marker-icon-tafel.png');">Tafel</span>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-mission.png');">Stadtmission</span>
+      </label>
+      <label>
+        <input type="checkbox" onchange="map.togglePlatform(this, 3);" checked>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-tafel.png');">Tafel</span>
+      </label>
+      <label>
+        <input type="checkbox" onchange="map.togglePlatform(this, 4);" checked>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-immunhelden.png');">ImmunHelden</span>
+      </label>
+      <label>
+        <input type="checkbox" onchange="map.togglePlatform(this, 5);" checked>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-new.png');">Neu *</span>
       </label>
     </form>
   </div>
 
   <script>
     const plasmaPinIcon = {
-      iconUrl: '/maps/plasma/images/marker-icon-plasma.png',
-      iconSize: [30, 38],
-      iconAnchor: [15, 37],
-      popupAnchor: [1, -34]
+      iconUrl: '/images/marker/marker-icon-plasma.png',
+      iconSize: [20, 25],
+      iconAnchor: [10, 24],
+      popupAnchor: [1, -22]
     };
 
     const missionPinIcon = {
-      iconUrl: '/maps/stadtmission/images/marker-icon-mission.png',
+      iconUrl: '/images/marker/marker-icon-mission.png',
       iconSize: [30, 38],
       iconAnchor: [15, 37],
       popupAnchor: [1, -34]
     };
 
     const tafelPinIcon = {
-      iconUrl: '/maps/tafel/images/marker-icon-tafel.png',
+      iconUrl: '/images/marker/marker-icon-tafel.png',
+      iconSize: [30, 38],
+      iconAnchor: [15, 37],
+      popupAnchor: [1, -34]
+    };
+
+    const researchPinIcon = {
+      iconUrl: '/images/marker/marker-icon-research.png',
+      iconSize: [30, 38],
+      iconAnchor: [15, 37],
+      popupAnchor: [1, -34]
+    };
+
+    const immunheldenPinIcon = {
+      iconUrl: '/images/marker/marker-icon-immunhelden.png',
+      iconSize: [30, 38],
+      iconAnchor: [15, 37],
+      popupAnchor: [1, -34]
+    };
+
+    const newPinIcon = {
+      iconUrl: '/images/marker/marker-icon-new.png',
       iconSize: [30, 38],
       iconAnchor: [15, 37],
       popupAnchor: [1, -34]
@@ -474,9 +507,12 @@
       platforms: [
         //{ name: 'ImmunHelden.de',
         //  sources: [
+          { name: "Forschung", restBaseUrl: restBaseUrl + '/research', icon: researchPinIcon },
           { name: "Blutplasmaspende", restBaseUrl: restBaseUrl + "/plasma", icon: plasmaPinIcon },
           { name: "Stadtmission", restBaseUrl: restBaseUrl + '/stadtmission', icon: missionPinIcon },
-          { name: "Tafel", restBaseUrl: restBaseUrl + '/tafel', icon: tafelPinIcon }
+          { name: "Tafel", restBaseUrl: restBaseUrl + '/tafel', icon: tafelPinIcon },
+          { name: "Immunhelden", restBaseUrl: restBaseUrl + '/immunhelden', icon: immunheldenPinIcon },
+          { name: "Neu *", restBaseUrl: restBaseUrl + '/new', icon: newPinIcon }
         //]}
       ],
       selectPlatformsControl: false
