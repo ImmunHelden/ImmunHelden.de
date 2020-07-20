@@ -1,29 +1,15 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useSession } from "../../hooks/use-session"
 import firebase from "gatsby-plugin-firebase"
 import "@material-ui/icons"
 import { Grid, Paper, Snackbar } from "@material-ui/core"
 import { LocationTable } from "./location-table"
-import { useCollection } from "react-firebase-hooks/firestore"
-import { mapLocation } from "../../util/location"
 import { isNode } from "@firebase/util"
 import { FormattedMessage, useIntl } from "gatsby-plugin-intl"
 import MuiAlert from "@material-ui/lab/Alert"
 import { ErrorBoundary } from "../error/error-boundary"
 
 export const LOCATION_COLLECTION = "locations"
-
-/**
- * Fixes the issue with building the pages since
- * Firebase is not available during build time in nodejs
- * @param {string} partner
- */
-const getQuery = partnerIds => {
-    if (isNode() || !partnerIds || partnerIds.length === 0) {
-        return null
-    }
-    return firebase.firestore().collection(LOCATION_COLLECTION).where("partnerId", "in", partnerIds)
-}
 
 function Alert({ open, severity, message, onClose }) {
     return (
@@ -46,12 +32,16 @@ export const LocationOverview = ({ state }) => {
     const { user, partnerConfigs, isLoading } = useSession()
     const { partnerIds } = user
 
-    const [collection] = useCollection(getQuery(partnerIds), {
-        snapshotListenOptions: { includeMetadataChanges: true },
-    })
+    const [locations, setLocations] = useState([])
 
-    const locations =
-        collection?.docs?.reduce((prev, doc) => mapLocation(prev, { ...doc.data(), id: doc.id }), []) ?? []
+    useEffect(() => { (async function loadLocationData() {
+        const entries = []
+        const collection = firebase.firestore().collection(LOCATION_COLLECTION)
+        const query = collection.where("partnerId", "in", partnerIds)
+        const snapshot = await query.get()
+        snapshot.forEach(doc => entries.push({ ...doc.data(), id: doc.id }));
+        setLocations(entries)
+    })() }, [partnerIds])
 
     const onError = ({ code }) => {
         setAlert({
