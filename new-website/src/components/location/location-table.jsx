@@ -44,22 +44,11 @@ export const LocationTable = ({
             isLoading={isLoading}
             columns={[
                 { title: "ID", field: "id", hidden: true },
-                {
-                    title: "Partner",
-                    field: "partnerId",
-                    hidden: state.userAllowedPartnerIds?.length <= 1,
-                    lookup: state.partnerConfigs?.reduce((prev, curr) => {
-                        if (state.userAllowedPartnerIds.includes(curr.id)) {
-                            prev[curr.id] = curr.name
-                        }
-                        return prev
-                    }, {}),
-                },
+                { title: formatMessage({ id: "locationTable_Type" }), field: "type" },
                 { title: formatMessage({ id: "locationTable_Title" }), field: "title" },
                 { title: formatMessage({ id: "locationTable_Address" }), field: "address" },
                 { title: formatMessage({ id: "locationTable_Phone" }), field: "phone" },
                 { title: formatMessage({ id: "locationTable_Email" }), field: "email" },
-                { title: formatMessage({ id: "locationTable_Contact" }), field: "contact" },
             ]}
             data={state.data}
             title="Locations"

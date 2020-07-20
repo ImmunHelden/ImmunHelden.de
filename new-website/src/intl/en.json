@@ -18,6 +18,7 @@
     "locationTable_Phone": "Phonenumber",
     "locationTable_Email": "Email",
     "locationTable_Contact": "Contact",
+    "locationTable_Type": "Category",
     "partnerLocation_editEntry": "Edit entry",
     "partnerLocation_entrySaved": "Entry saved",
     "partnerLocation_Submit": "Submit",
