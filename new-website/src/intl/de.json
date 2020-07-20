@@ -18,6 +18,7 @@
     "locationTable_Phone": "Telefonnummer",
     "locationTable_Email": "Email",
     "locationTable_Contact": "Kontakt",
+    "locationTable_Type": "Kategorie",
     "locationTable_editTooltip": "Bearbeiten",
     "locationTable_searchTooltip": "Suchen",
     "locationTable_searchPlaceholder": "Suche",
