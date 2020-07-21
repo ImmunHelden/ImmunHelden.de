@@ -24,6 +24,10 @@ h1 {
   font-weight: normal;
 }
 
+p {
+  margin: 0;
+}
+
 ul {
   padding-inline-start: 25px;
 }
