@@ -24,6 +24,11 @@
         "type": 301
       },
       {
+        "source": "/maps/stadtmission/pins",
+        "destination": "/maps/mission/pins",
+        "type": 301
+      },
+      {
         "source": "/maps/blutspendende/details/:id",
         "destination": "/maps/plasma/details/:id",
         "type": 301
@@ -31,6 +36,11 @@
       {
         "source": "/maps/biolife/details/:id",
         "destination": "/maps/plasma/details/:id",
+        "type": 301
+      },
+      {
+        "source": "/maps/stadtmission/details/:id",
+        "destination": "/maps/mission/details/:id",
         "type": 301
       }
     ],
