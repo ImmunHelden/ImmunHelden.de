@@ -66,7 +66,7 @@ export const LocationOverview = ({ state }) => {
                     <Paper style={{ maxWidth: "100%" }}>
                         {user.partnerIds && (
                             <>
-                                <h1 style={{padding: 10, margin: 0}}>
+                                <h1 style={{padding: 10}}>
                                     <FormattedMessage id="partnerLocationsTitle" />
                                 </h1>
                                 <LocationTable
