@@ -116,14 +116,12 @@
     center: [51.5, 10],
     zoom: 6,
     baseLayer: defaultBaseLayer,
-    platforms: [
-      //{
-      //name: 'Default',
-      //sources: [
-        { name: 'Default', restBaseUrl: hostBaseUrl, icon: defaultIcon }
-      //]
-      //}
-    ],
+    platforms: {
+      Default: {
+        restBaseUrl: hostBaseUrl,
+        types: { ".*": { title: "All", icons: defaultIcon }}
+      }
+    },
     selectPlatformsControl: true,
     selectPlatformsTitle: "Anzeigen und Gesuche"
   };
@@ -183,12 +181,13 @@
       return details.html();
     },
 
-    Instance: function(info, id, map, handlers) {
+    Instance: function(info, platform, id, map, handlers) {
+      this.type = info.type;
+      this.platform = platform;
       this.latlng = L.latLng(info.latlng);
-      this.platformIdx = info.platformIdx;
 
       // TODO: Should we have a platform abstraction?
-      const icon = new L.Icon(map.platform(info.platformIdx).icon);
+      const icon = new L.Icon(platform.types[info.type].icon);
       this.marker = L.marker(this.latlng, { icon: icon });
       this.marker.on('click', handlers.onClickMarker);
 
@@ -203,7 +202,6 @@
             return;
           }
 
-          const platform = map.platform(info.platformIdx);
           const src = platform.restBaseUrl + "/details/" + id;
           Utils.loadPlain(src).then(
             html => {
@@ -256,15 +254,17 @@
           table.innerHTML = '<tr><th>' + title + '</th></tr>';
         }
 
-        for (let i = 0; i < platforms.length; i++) {
-          const label = create('label', create('td', create('tr', table)));
-          const checkbox = create('input', label);
-          checkbox.type = 'checkbox';
-          checkbox.checked = true;
-          checkbox.addEventListener('change', () => map.togglePlatform(checkbox, i));
-          const contents = create('span', label);
-          contents.className = 'checkbox';
-          contents.innerHTML = platforms[i].name;
+        for (const name in platforms) {
+          for (const type in platforms[name].types) {
+            const label = create('label', create('td', create('tr', table)));
+            const checkbox = create('input', label);
+            checkbox.type = 'checkbox';
+            checkbox.checked = true;
+            checkbox.addEventListener('change', () => map.toggleType(checkbox, name, type));
+            const contents = create('span', label);
+            contents.className = 'checkbox';
+            contents.innerHTML = platforms[name].types[type].title;
+          }
         }
 
         return div;
@@ -427,18 +427,17 @@
     // TODO: Should we return pins-by-id as a result per promise and merge them in hindsight?
     // TODO: Should we wait for all promises or start showing pins one by one?
     const pinsReady = [];
-    for (let i = 0; i < settings.platforms.length; i++) {
-      console.log('Requesting pins for', settings.platforms[i].name,
-                  'from', settings.platforms[i].restBaseUrl + '/pins');
-      const asyncLoad = Utils.loadJson(settings.platforms[i].restBaseUrl + '/pins');
+    for (const name in settings.platforms) {
+      const platform = { ...settings.platforms[name], name: name };
+      console.log('Requesting pins for', name,
+                  'from', platform.restBaseUrl + '/pins');
+      const asyncLoad = Utils.loadJson(platform.restBaseUrl + '/pins');
       pinsReady.push(asyncLoad.then(pinsById => {
-        console.log('Received', Object.keys(pinsById).length, 'pins for', settings.platforms[i].name);
+        console.log('Received', Object.keys(pinsById).length, 'pins for', name);
         for (const id in pinsById) {
           if (Pin.isValidInfo(pinsById[id])) {
-            pinsById[id].platformIdx = i;
-
             // TODO: Silent race condition for clashing IDs.
-            allPinsById[id] = new Pin.Instance(pinsById[id], id, this, {
+            allPinsById[id] = new Pin.Instance(pinsById[id], platform, id, this, {
               onClickPopup: () => _viewDetailsForPin(id),
               onClickMarker: () => {
                 selectedPinId = id;
@@ -515,15 +514,15 @@
       return allPinsById[id].marker;
     }
 
-    function togglePlatform(checkbox, platformIdx) {
+    function toggleType(checkbox, name, type) {
       const show = $(checkbox).is(':checked');
-      console.log(settings.platforms[platformIdx].name,
-                  (show ? "ein" : "aus") + "blenden");
+      console.log(name, (show ? "ein" : "aus") + "blenden");
 
       const toggle = show ? (e => e.show()) : (e => e.hide());
       for (const id in allPinsById) {
-        if (allPinsById[id].platformIdx == platformIdx) {
-          toggle(allPinsById[id].elem);
+        const pin = allPinsById[id];
+        if (pin.platform.name == name && pin.type == type) {
+          toggle(pin.elem);
         }
       }
     }
@@ -547,7 +546,7 @@
       }
     };
 
-    this.togglePlatform = togglePlatform;
+    this.toggleType = toggleType;
     this.viewDetailsForPin = _viewDetailsForPin;
     this.openDetailsPane = _openDetailsPane;
     this.closeDetailsPane = _closeDetailsPane;
@@ -561,7 +560,6 @@
     this.onViewDetails = (id) => {};
 
     this.leaflet = () => { return map; };
-    this.platform = (idx) => { return settings.platforms[idx]; }
 
     this.loadGeoJson = (url, pointToLayer) => {
       const options = {};
