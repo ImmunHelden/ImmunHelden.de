@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useSession } from "../../hooks/use-session"
-import firebase from "gatsby-plugin-firebase"
 import "@material-ui/icons"
 import { Grid, Paper, Snackbar } from "@material-ui/core"
 import { LocationTable } from "./location-table"
-import { isNode } from "@firebase/util"
 import { FormattedMessage, useIntl } from "gatsby-plugin-intl"
 import MuiAlert from "@material-ui/lab/Alert"
 import { ErrorBoundary } from "../error/error-boundary"
@@ -30,7 +28,6 @@ export const LocationOverview = ({ state }) => {
     const { formatMessage } = useIntl()
     const [alert, setAlert] = useState({ message: null, severity: "error", open: false })
     const { user, partnerConfigs, isLoading } = useSession()
-    const { partnerIds } = user
 
     const onError = ({ code }) => {
         setAlert({
@@ -67,9 +64,9 @@ export const LocationOverview = ({ state }) => {
             <Grid container justify="center" spacing={0} style={{ height: "100%" }}>
                 <Grid item xs={12} lg={10}>
                     <Paper style={{ maxWidth: "100%" }}>
-                        {partnerIds && (
+                        {user.partnerIds && (
                             <>
-                                <h1>
+                                <h1 style={{padding: 10, margin: 0}}>
                                     <FormattedMessage id="partnerLocationsTitle" />
                                 </h1>
                                 <LocationTable
@@ -81,7 +78,7 @@ export const LocationOverview = ({ state }) => {
                                 />
                             </>
                         )}
-                        {!partnerIds && <FormattedMessage id="partnerUserNoOrga" />}
+                        {!user.partnerIds && <FormattedMessage id="partnerUserNoOrga" />}
                     </Paper>
                 </Grid>
             </Grid>
