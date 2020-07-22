@@ -431,27 +431,23 @@
   <div id="categories" class="wirvsvirusmap-pane">
     <form>
       <label>
-        <input type="checkbox" onchange="map.togglePlatform(this, 0);" checked>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'research');" checked>
         <span class="checkbox" style="background-image: url('/images/marker/marker-icon-research.png');">Forschung</span>
       </label>
       <label>
-        <input type="checkbox" onchange="map.togglePlatform(this, 1);" checked>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'plasma');" checked>
         <span class="checkbox" style="background-image: url('/images/marker/marker-icon-plasma.png');">Blutplasmaspende</span>
       </label>
       <label>
-        <input type="checkbox" onchange="map.togglePlatform(this, 2);" checked>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'mission');" checked>
         <span class="checkbox" style="background-image: url('/images/marker/marker-icon-mission.png');">Stadtmission</span>
       </label>
       <label>
-        <input type="checkbox" onchange="map.togglePlatform(this, 3);" checked>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'tafel');" checked>
         <span class="checkbox" style="background-image: url('/images/marker/marker-icon-tafel.png');">Tafel</span>
       </label>
       <label>
-        <input type="checkbox" onchange="map.togglePlatform(this, 4);" checked>
-        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-immunhelden.png');">ImmunHelden</span>
-      </label>
-      <label>
-        <input type="checkbox" onchange="map.togglePlatform(this, 5);" checked>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'new');" checked>
         <span class="checkbox" style="background-image: url('/images/marker/marker-icon-new.png');">Neu *</span>
       </label>
     </form>
@@ -486,13 +482,6 @@
       popupAnchor: [1, -34]
     };
 
-    const immunheldenPinIcon = {
-      iconUrl: '/images/marker/marker-icon-immunhelden.png',
-      iconSize: [30, 38],
-      iconAnchor: [15, 37],
-      popupAnchor: [1, -34]
-    };
-
     const newPinIcon = {
       iconUrl: '/images/marker/marker-icon-new.png',
       iconSize: [30, 38],
@@ -501,21 +490,22 @@
     };
 
     const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
-    const restBaseUrl = /*params.restBaseUrl ||*/ 'https://immunhelden.de/maps';
+    const restBaseUrl = /* params.restBaseUrl || */ 'https://immunhelden.de/maps';
 
     const settings = {
-      platforms: [
-        //{ name: 'ImmunHelden.de',
-        //  sources: [
-          { name: "Forschung", restBaseUrl: restBaseUrl + '/research', icon: researchPinIcon },
-          { name: "Blutplasmaspende", restBaseUrl: restBaseUrl + "/plasma", icon: plasmaPinIcon },
-          { name: "Stadtmission", restBaseUrl: restBaseUrl + '/stadtmission', icon: missionPinIcon },
-          { name: "Tafel", restBaseUrl: restBaseUrl + '/tafel', icon: tafelPinIcon },
-          { name: "Immunhelden", restBaseUrl: restBaseUrl + '/immunhelden', icon: immunheldenPinIcon },
-          { name: "Neu *", restBaseUrl: restBaseUrl + '/new', icon: newPinIcon }
-        //]}
-      ],
-      selectPlatformsControl: false
+      selectPlatformsControl: false,
+      platforms: {
+        'ImmunHelden.de': {
+          restBaseUrl: restBaseUrl,
+          types: {
+            research: { title: "Forschung", icon: researchPinIcon },
+            plasma: { title: "Blutplasmaspende", icon: plasmaPinIcon },
+            mission: { title: "Stadtmission", icon: missionPinIcon },
+            tafel: { title: "Tafel", icon: tafelPinIcon },
+            new: { title: "Neu", icon: newPinIcon },
+          }
+        }
+      },
     };
 
     if (params.embedded) {
