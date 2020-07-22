@@ -454,40 +454,23 @@
   </div>
 
   <script>
-    const plasmaPinIcon = {
-      iconUrl: '/images/marker/marker-icon-plasma.png',
-      iconSize: [20, 25],
-      iconAnchor: [10, 24],
-      popupAnchor: [1, -22]
-    };
-
-    const missionPinIcon = {
-      iconUrl: '/images/marker/marker-icon-mission.png',
-      iconSize: [30, 38],
-      iconAnchor: [15, 37],
-      popupAnchor: [1, -34]
-    };
-
-    const tafelPinIcon = {
-      iconUrl: '/images/marker/marker-icon-tafel.png',
-      iconSize: [30, 38],
-      iconAnchor: [15, 37],
-      popupAnchor: [1, -34]
-    };
-
-    const researchPinIcon = {
-      iconUrl: '/images/marker/marker-icon-research.png',
-      iconSize: [30, 38],
-      iconAnchor: [15, 37],
-      popupAnchor: [1, -34]
-    };
-
-    const newPinIcon = {
-      iconUrl: '/images/marker/marker-icon-new.png',
-      iconSize: [30, 38],
-      iconAnchor: [15, 37],
-      popupAnchor: [1, -34]
-    };
+    const iconBaseUrl = '/images/marker/';
+    function smallIcon(uri) {
+      return {
+        iconUrl: iconBaseUrl + uri,
+        iconSize: [20, 25],
+        iconAnchor: [10, 24],
+        popupAnchor: [1, -22],
+      };
+    }
+    function largeIcon(uri) {
+      return {
+        iconUrl: iconBaseUrl + uri,
+        iconSize: [30, 38],
+        iconAnchor: [15, 37],
+        popupAnchor: [1, -34],
+      };
+    }
 
     const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
     const restBaseUrl = /* params.restBaseUrl || */ 'https://immunhelden.de/maps';
@@ -498,11 +481,11 @@
         'ImmunHelden.de': {
           restBaseUrl: restBaseUrl,
           types: {
-            research: { title: "Forschung", icon: researchPinIcon },
-            plasma: { title: "Blutplasmaspende", icon: plasmaPinIcon },
-            mission: { title: "Stadtmission", icon: missionPinIcon },
-            tafel: { title: "Tafel", icon: tafelPinIcon },
-            new: { title: "Neu", icon: newPinIcon },
+            research: { title: "Forschung", icon: largeIcon('marker-icon-research.png') },
+            plasma: { title: "Blutplasmaspende", icon: smallIcon('marker-icon-plasma.png') },
+            mission: { title: "Stadtmission", icon: largeIcon('marker-icon-mission.png') },
+            tafel: { title: "Tafel", icon: largeIcon('marker-icon-tafel.png') },
+            new: { title: "Neu", icon: largeIcon('marker-icon-new.png') },
           }
         }
       },
