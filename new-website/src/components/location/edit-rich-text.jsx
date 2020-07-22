@@ -43,7 +43,6 @@ export const RichTextEditor = ({ editorState, setEditorState }) => {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   const editor = React.useRef(null)
-  React.useEffect(() => editor.current.focus(), [])
 
   class StyleButton extends React.Component {
     constructor() {
