@@ -23,6 +23,7 @@
     "partnerLocation_editEntry": "Edit entry",
     "partnerLocation_entrySaved": "Entry saved",
     "partnerLocation_entryRemoved": "Entry removed",
+    "partnerLocation/entrySaveFailed": "Failed to save entry",
     "partnerLocation_Submit": "Submit",
     "partnerLocation_Discard": "Discard",
     "partnerLocation_Title": "Title",

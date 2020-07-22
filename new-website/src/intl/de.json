@@ -41,6 +41,7 @@
     "partnerLocation_editEntry": "Eintrag bearbeiten",
     "partnerLocation_entrySaved": "Eintrag gespeichert",
     "partnerLocation_entryRemoved": "Eintrag gelöscht",
+    "partnerLocation/entrySaveFailed": "Eintrag konnte nicht gespeichert werden",
     "partnerLocation_Submit": "Übernehmen",
     "partnerLocation_Discard": "Abbrechen",
     "partnerLocation_Title": "Titel",

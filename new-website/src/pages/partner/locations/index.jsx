@@ -40,7 +40,7 @@ const EditLocations = ({ location }) => {
         <Layout>
             <Protected loginUrl="/partner/login">
                 <Alert {...alert} onClose={closeAlert} />
-                <EditPage docId={editParam} errorNote={onError} />
+                <EditPage docId={editParam} onError={onError} />
             </Protected>
         </Layout>
     )

@@ -102,7 +102,7 @@ async function requestLatLng(address) {
         }
       } catch (err) {
         sentryFatal(err)
-        throw err
+        throw new Error("resolutionFailure/notFound")
       }
     }
     throw new Error("resolutionFailure/timeout")
@@ -200,6 +200,7 @@ export const EditForm = ({ docId, doc, onError }) => {
       })
     } catch (err) {
       // Block submit and prevent navigation, so the user can fix the issue.
+      sentryFatal(err)
       onError(err)
     }
   }
@@ -232,7 +233,8 @@ export const EditForm = ({ docId, doc, onError }) => {
       setExplLat(lat)
       setExplLng(lng)
     } catch (err) {
-      onError(err)
+      sentryFatal(err)
+      onError("resolutionFailure/notFound")
     }
   }
 
