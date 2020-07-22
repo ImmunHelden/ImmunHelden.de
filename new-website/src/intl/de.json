@@ -54,7 +54,7 @@
     "partnerLocation_Latitude": "Lat",
     "partnerLocation_Longitude": "Lng",
     "partnerLocation_Published": "Veröffentlicht",
-    "partnerLocation_ExplicitPinPosition": "Pin-Position korrgieren",
+    "partnerLocation_ExplicitPinPosition": "Pin-Position korrigieren",
     "partnerLocation_ExplicitDateRange": "Zeitraum einschränken",
     "partnerLocation_DateFrom": "Beginn",
     "partnerLocation_DateTo": "Ende",
