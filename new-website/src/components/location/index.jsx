@@ -32,17 +32,6 @@ export const LocationOverview = ({ state }) => {
     const { user, partnerConfigs, isLoading } = useSession()
     const { partnerIds } = user
 
-    const [locations, setLocations] = useState([])
-
-    useEffect(() => { (async function loadLocationData() {
-        const entries = []
-        const collection = firebase.firestore().collection(LOCATION_COLLECTION)
-        const query = collection.where("partnerId", "in", partnerIds)
-        const snapshot = await query.get()
-        snapshot.forEach(doc => entries.push({ ...doc.data(), id: doc.id }));
-        setLocations(entries)
-    })() }, [partnerIds])
-
     const onError = ({ code }) => {
         setAlert({
             open: true,
@@ -87,8 +76,8 @@ export const LocationOverview = ({ state }) => {
                                     isLoading={isLoading}
                                     userAllowedPartnerIds={user.partnerIds}
                                     partnerConfigs={partnerConfigs}
-                                    locations={locations}
                                     onError={onError}
+                                    onSuccess={onSuccess}
                                 />
                             </>
                         )}

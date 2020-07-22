@@ -31,6 +31,7 @@
         "gatsby-transformer-remark": "^2.7.3",
         "gatsby-transformer-sharp": "^2.4.6",
         "material-table": "^1.58.0",
+        "moment": "^2.27.0",
         "prop-types": "^15.7.2",
         "query-string": "^6.13.1",
         "react": "^16.12.0",
