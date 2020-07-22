@@ -9,6 +9,27 @@ function invalid(res, logText) {
     console.error(logText)
 }
 
+exports.all_pin_locations = function(admin, req, res) {
+  // Support cross-origin requests.
+  return cors(req, res, async () => {
+    const locationsRef = admin.firestore().collection("locations");
+    const entries = await locationsRef.where('published', '==', true).get();
+    const pins = {};
+    entries.forEach(doc => {
+      const fields = doc.data();
+      pins[doc.id] = {
+        title: fields.title,
+        type: fields.type,
+        latlng: [fields.latlng.latitude, fields.latlng.longitude],
+      };
+    });
+
+    res.json(pins).send();
+    console.log('Served', Object.keys(pins).length,
+                'locations in response to query', req.params[0]);
+  })
+}
+
 exports.pin_locations = function(admin, req, res) {
   // Apparently we have to extract the 'type' parameter from the URL manually.
   // E.g. req.params is { '0': '/maps/sample/pins' } => type is 'sample'
@@ -40,12 +61,11 @@ exports.details_html = function(admin, req, res) {
   // Apparently we have to extract the 'type' and 'id' parameters from the URL
   // manually, with req.params['0'] looking like: `/maps/type/details_html/id`
   const uri = req.params['0'];
-  const match = /\/maps\/(.*)\/details\/(.*)/.exec(uri);
-  if (!match || match.length !== 3)
+  const match = /\/maps\/.*details\/(.*)/.exec(uri);
+  if (!match || match.length !== 2)
     return invalid(res);
 
-  const type = match[1];
-  const id = match[2];
+  const id = match[1];
 
   // Support cross-origin requests.
   return cors(req, res, async () => {
@@ -57,11 +77,8 @@ exports.details_html = function(admin, req, res) {
     if (!fields.published)
       return invalid(res, `Requested doc not published: ${uri}`);
 
-    if (!fields.type || !fields.description || !fields.addendum)
+    if (!fields.description || !fields.addendum)
       console.error("Requested doc doesn't have all required fields:", uri);
-
-    if (fields.type !== type)
-      console.error("Requested doc doesn't match the required type:", uri);
 
     res.send(`
       <html>

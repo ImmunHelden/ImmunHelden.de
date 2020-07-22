@@ -54,6 +54,14 @@
         "function": "details_html"
       },
       {
+        "source": "/maps/pins",
+        "function": "all_pin_locations"
+      },
+      {
+        "source": "/maps/details/*",
+        "function": "details_html"
+      },
+      {
         "source": "/verifyHero",
         "function": "verifyHero"
       },

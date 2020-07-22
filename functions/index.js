@@ -26,6 +26,7 @@ exports.parseBlutspendenDe = toolsDataImport.parse;
 exports.renderBlutspendenDe = toolsDataImport.render;
 
 const map = require("./map.js");
+exports.all_pin_locations = functions.https.onRequest(forwardAdmin(map.all_pin_locations));
 exports.pin_locations = functions.https.onRequest(forwardAdmin(map.pin_locations));
 exports.details_html = functions.https.onRequest(forwardAdmin(map.details_html));
 exports.regions = functions.https.onRequest((req, res) => {}); // Currently unused
