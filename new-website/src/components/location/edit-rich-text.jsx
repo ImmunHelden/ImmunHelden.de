@@ -56,7 +56,7 @@ export const RichTextEditor = ({ editorState, setEditorState }) => {
     render() {
       return (
         <span className={this.props.active ? classes.activeButton : null}
-              onMouseDown={this.onToggle}>
+              onMouseDown={this.onToggle} role="button" tabIndex={0}>
           {this.props.label}
         </span>
       )
@@ -126,7 +126,8 @@ export const RichTextEditor = ({ editorState, setEditorState }) => {
           setEditorState(RichUtils.toggleInlineStyle(editorState, t))
         }} />
       </div>
-      <div onClick={() => editor.current.focus()} className={classes.text}>
+      <div onClick={() => editor.current.focus()} className={classes.text}
+           role="textbox" tabIndex={0}>
         <Editor
           ref={editor}
           editorState={editorState}

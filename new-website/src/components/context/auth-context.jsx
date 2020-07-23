@@ -44,7 +44,7 @@ const reducer = (state, { type, payload = {} }) => {
 }
 const AuthContextProvider = props => {
     const { user, initializing } = useAuth(firebase)
-    const [state, dispatch] = React.useReducer(reducer, { ...initialState, isLoading: true })
+    const [state, dispatch] = useReducer(reducer, { ...initialState, isLoading: true })
 
     useEffect(() => {
         if (initializing) {

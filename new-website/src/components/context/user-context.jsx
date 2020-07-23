@@ -80,7 +80,7 @@ const getPartnerQuery = () => {
 
 const UserContextProvider = props => {
     const authContext = useContext(AuthContext)
-    const [state, dispatch] = React.useReducer(reducer, { ...initialState })
+    const [state, dispatch] = useReducer(reducer, { ...initialState })
 
     const [userCollection, userLoading, userError] = useCollection(getUserQuery(authContext?.state?.user?.uid), {
         snapshotListenOptions: { includeMetadataChanges: true },

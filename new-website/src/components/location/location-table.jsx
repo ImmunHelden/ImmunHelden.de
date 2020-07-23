@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import firebase from "gatsby-plugin-firebase"
 import MaterialTable from "material-table"
 import { LOCATION_COLLECTION } from "."
@@ -51,7 +51,7 @@ export const LocationTable = ({
     onSuccess,
     isLoading = true,
 }) => {
-    const loadLocationData = async () => {
+    const loadLocationData = useCallback(async () => {
         const entries = []
         if (userAllowedPartnerIds && userAllowedPartnerIds.length > 0) {
             const collection = firebase.firestore().collection(LOCATION_COLLECTION)
@@ -63,7 +63,7 @@ export const LocationTable = ({
             }));
         }
         return entries
-    }
+    }, [userAllowedPartnerIds])
     const dropLocation = (id, entries) => {
         const idx = entries.findIndex(loc => loc.id === id)
         if (idx >= 0)
@@ -74,7 +74,7 @@ export const LocationTable = ({
     const [locations, setLocations] = useState([])
     useEffect(() => { (async () => {
         setLocations(await loadLocationData())
-    })() }, [userAllowedPartnerIds])
+    })() }, [loadLocationData])
 
     const { formatMessage, locale } = useIntl()
     const classes = useStyles()
@@ -158,7 +158,7 @@ export const LocationTable = ({
                 {
                     ...smallColumn,
                     title: formatMessage({ id: "locationTable_Type" }),
-                    customSort: (a, b) => a.type == b.type ? 0 : (a.type < b.type ? -1 : 1),
+                    customSort: (a, b) => a.type === b.type ? 0 : (a.type < b.type ? -1 : 1),
                     render: rowData => marker(rowData.type),
                 },
                 {

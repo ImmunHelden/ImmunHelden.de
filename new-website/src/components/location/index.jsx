@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useCallback } from "react"
 import { useSession } from "../../hooks/use-session"
 import "@material-ui/icons"
 import { Grid, Paper, Snackbar } from "@material-ui/core"
@@ -29,21 +29,21 @@ export const LocationOverview = ({ state }) => {
     const [alert, setAlert] = useState({ message: null, severity: "error", open: false })
     const { user, partnerConfigs, isLoading } = useSession()
 
-    const onError = ({ code }) => {
+    const onError = useCallback(({ code }) => {
         setAlert({
             open: true,
             message: formatMessage({ id: code }),
             severity: "error",
         })
-    }
+    }, [formatMessage])
 
-    const onSuccess = (msg) => {
+    const onSuccess = useCallback((msg) => {
         setAlert({
             open: true,
             message: formatMessage({ id: msg }),
             severity: "success",
         })
-    }
+    }, [formatMessage])
 
     React.useEffect(() => {
         if (state && state.editResult) {
@@ -54,7 +54,7 @@ export const LocationOverview = ({ state }) => {
                 onError({ code: state.editResult })
             }
         }
-    }, [])
+    }, [onError, onSuccess, state])
 
     const closeAlert = () => setAlert({ ...alert, open: false })
 

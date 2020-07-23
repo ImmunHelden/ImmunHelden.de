@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import firebase from "gatsby-plugin-firebase"
 import { useSession } from "../../hooks/use-session"
 import { EditForm } from './edit-form'
-import { Grid, Paper, Snackbar } from "@material-ui/core"
+import { Grid, Paper } from "@material-ui/core"
 import { FormattedMessage, navigate, } from "gatsby-plugin-intl"
 import { sentryWarn } from '../../util/sentry'
 import { LOCATION_COLLECTION } from "."
@@ -43,12 +43,12 @@ export const EditPage = ({ docId, onError }) => {
     const [doc, setDoc] = useState(null)
 
     // Navigate back to the overview page and report errors there.
-    const errorAbort = (err) => {
+    const errorAbort = useCallback((err) => {
       navigate("/partner/", {
         replace: true,
         state: { result: mayTrimErrorPrefix(err) },
       })
-    }
+    }, [])
 
     // Once the session is loaded, we can load the document.
     // Getting an async function to work here requires the IIFE hack.
@@ -64,7 +64,7 @@ export const EditPage = ({ docId, onError }) => {
       } catch (err) {
         errorAbort(err)
       }
-    })() }, [isLoading])
+    })() }, [isLoading, user, docId, errorAbort])
 
     return (
         <Grid container justify="center" spacing={0} style={{ height: "100%" }}>

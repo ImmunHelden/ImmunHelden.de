@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext } from "react"
 import { navigate } from "gatsby-plugin-intl"
 import { LoadingScreen } from "./loadingScreen"
 import { AuthContextProvider, AuthContext } from "./context/auth-context"
-import { useContext } from "react"
 import { UserContextProvider } from "./context/user-context"
 
 const RedirectIfNotLoggedIn = ({ children, url }) => {
