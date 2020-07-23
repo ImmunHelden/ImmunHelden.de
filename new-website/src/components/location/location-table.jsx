@@ -127,10 +127,10 @@ export const LocationTable = ({
     const onRowAdd = (event) => navigate("/partner/locations/")
 
     // Render these columns as small as possible
-    const SMALL = 1
-    const noPaddingRight = {
+    const smallColumn = {
+        width: 1,
         cellStyle: {paddingRight: 0},
-        headerStyle: {paddingRight: 0}
+        headerStyle: {paddingRight: 0},
     }
 
     return (
@@ -139,14 +139,40 @@ export const LocationTable = ({
             localization={generateI18N(locale, formatMessage)}
             isLoading={isLoading}
             columns={[
-                { title: "ID", field: "id", hidden: true, searchable: true },
-                { title: "TYPE", field: "type", hidden: true, searchable: true },
-                { title: formatMessage({ id: "locationTable_Title" }), field: "title" },
-                { title: formatMessage({ id: "locationTable_Type" }), width: SMALL, ...noPaddingRight, render: rowData => marker(rowData.type) },
-                { title: formatMessage({ id: "locationTable_Address" }), field: "address" },
-                { title: formatMessage({ id: "locationTable_Contact" }), render: rowData => compressContacts(rowData)},
-                { title: formatMessage({ id: "locationTable_Live" }), width: SMALL, ...noPaddingRight,
-                  render: rowData => permalink(rowData) },
+                {
+                    title: "ID",
+                    field: "id",
+                    hidden: true,
+                    searchable: true,
+                },
+                {
+                    title: "TYPE",
+                    field: "type",
+                    hidden: true,
+                    searchable: true,
+                },
+                {
+                    title: formatMessage({ id: "locationTable_Title" }),
+                    field: "title",
+                },
+                {
+                    ...smallColumn,
+                    title: formatMessage({ id: "locationTable_Type" }),
+                    render: rowData => marker(rowData.type),
+                },
+                {
+                    title: formatMessage({ id: "locationTable_Address" }),
+                    field: "address"
+                },
+                {
+                    title: formatMessage({ id: "locationTable_Contact" }),
+                    render: rowData => compressContacts(rowData),
+                },
+                {
+                    ...smallColumn,
+                    title: formatMessage({ id: "locationTable_Live" }),
+                    render: rowData => permalink(rowData),
+                },
             ]}
             data={locations}
             title={formatMessage({ id: "partnerLocationsTitle" })}
