@@ -131,11 +131,10 @@ export const LocationTable = ({
                 { title: formatMessage({ id: "locationTable_Live" }), width: SMALL, ...noPaddingRight, type: "boolean", field: "liveNow" },
             ]}
             data={locations}
-            title="Locations"
+            title={formatMessage({ id: "partnerLocationsTitle" })}
             options={{
                 actionsColumnIndex: 0,
                 draggable: false,
-                showTitle: false,
             }}
             actions={[
                 {

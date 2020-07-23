@@ -65,18 +65,13 @@ export const LocationOverview = ({ state }) => {
                 <Grid item xs={12} lg={10}>
                     <Paper style={{ maxWidth: "100%" }}>
                         {user.partnerIds && (
-                            <>
-                                <h1 style={{padding: 10, margin: 0}}>
-                                    <FormattedMessage id="partnerLocationsTitle" />
-                                </h1>
-                                <LocationTable
-                                    isLoading={isLoading}
-                                    userAllowedPartnerIds={user.partnerIds}
-                                    partnerConfigs={partnerConfigs}
-                                    onError={onError}
-                                    onSuccess={onSuccess}
-                                />
-                            </>
+                            <LocationTable
+                                isLoading={isLoading}
+                                userAllowedPartnerIds={user.partnerIds}
+                                partnerConfigs={partnerConfigs}
+                                onError={onError}
+                                onSuccess={onSuccess}
+                            />
                         )}
                         {!user.partnerIds && <FormattedMessage id="partnerUserNoOrga" />}
                     </Paper>
