@@ -158,6 +158,7 @@ export const LocationTable = ({
                 {
                     ...smallColumn,
                     title: formatMessage({ id: "locationTable_Type" }),
+                    customSort: (a, b) => a.type == b.type ? 0 : (a.type < b.type ? -1 : 1),
                     render: rowData => marker(rowData.type),
                 },
                 {
