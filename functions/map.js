@@ -1,12 +1,26 @@
+const moment = require("moment")
 const cors = require("cors")({
   origin: true,
 });
 
 function invalid(res, logText) {
   // TODO: How can we log it in Sentry?
-  res.status(400).send("Invalid request")
+  res.status(400).send("Invalid request");
   if (logText)
-    console.error(logText)
+    console.error(logText);
+}
+
+function isLiveNow(doc) {
+  if (!doc.published)
+      return false;
+  if (!doc.dateRangeExplicit)
+      return true;
+  const begin = moment(doc.dateRangeFrom, 'YYYY-MM-DD', true);
+  const now = moment(new Date());
+  const end = moment(doc.dateRangeTo, 'YYYY-MM-DD', true);
+  const started = begin.isValid() ? begin.isSameOrBefore(now) : true;
+  const stillRunning = end.isValid() ? end.isSameOrAfter(now) : true;
+  return started && stillRunning;
 }
 
 exports.all_pin_locations = function(admin, req, res) {
@@ -17,11 +31,13 @@ exports.all_pin_locations = function(admin, req, res) {
     const pins = {};
     entries.forEach(doc => {
       const fields = doc.data();
-      pins[doc.id] = {
-        title: fields.title,
-        type: fields.type,
-        latlng: [fields.latlng.latitude, fields.latlng.longitude],
-      };
+      if (isLiveNow(fields)) {
+        pins[doc.id] = {
+          title: fields.title,
+          type: fields.type,
+          latlng: [fields.latlng.latitude, fields.latlng.longitude],
+        };
+      }
     });
 
     res.json(pins).send();
