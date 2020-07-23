@@ -24,6 +24,7 @@
     "partnerLocation_entrySaved": "Entry saved",
     "partnerLocation_entryRemoved": "Entry removed",
     "partnerLocation/entrySaveFailed": "Failed to save entry",
+    "partnerLocation/entryNotFound": "Entry not found",
     "partnerLocation_Submit": "Submit",
     "partnerLocation_Discard": "Discard",
     "partnerLocation_Title": "Title",

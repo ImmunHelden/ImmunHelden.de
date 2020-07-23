@@ -8,9 +8,23 @@ import { sentryWarn } from '../../util/sentry'
 import { LOCATION_COLLECTION } from "."
 import { mayTrimErrorPrefix } from "../../util/errors"
 
-function fetchDoc(docId) {
+async function fetchDoc(partnerIds, docId) {
   const locations = firebase.firestore().collection(LOCATION_COLLECTION)
-  return locations.doc(docId).get()
+  const doc = await locations.doc(docId).get();
+  if (!doc.exists) {
+    sentryWarn("Attempt to access a nonexistent map entry")
+    throw new Error("partnerLocation/entryNotFound")
+  }
+
+  // Everyone could read, but write would fail. Let's just prevent people
+  // from entering the edit page for foreign locations altogether.
+  const docOwner = doc.get("partnerId")
+  if (!partnerIds.includes(docOwner)) {
+    sentryWarn("Attempt to access the map entry of another partner")
+    throw new Error("partnerId/inaccessible")
+  }
+
+  return doc
 }
 
 async function createDoc(partnerIds) {
@@ -20,7 +34,8 @@ async function createDoc(partnerIds) {
   }
 
   const locations = firebase.firestore().collection(LOCATION_COLLECTION)
-  return (await locations.add({ partnerId: partnerIds[0] })).get()
+  const docRef = await locations.add({ partnerId: partnerIds[0] })
+  return await docRef.get()
 }
 
 export const EditPage = ({ docId, onError }) => {
@@ -43,15 +58,9 @@ export const EditPage = ({ docId, onError }) => {
         return;
 
       try {
-        const doc = await ((docId === "new") ? createDoc(user.partnerIds)
-                                             : fetchDoc(docId))
-
-        // Everyone could read, but write would fail. Let's just prevent people
-        // from entering the edit page for foreign locations altogether.
-        if (!user.partnerIds.includes(doc.get("partnerId")))
-          throw new Error("partnerId/inaccessible")
-
-        setDoc(doc)
+        const doc = (docId === "new") ? createDoc(user.partnerIds)
+                                      : fetchDoc(user.partnerIds, docId)
+        setDoc(await doc)
       } catch (err) {
         errorAbort(err)
       }
