@@ -172,6 +172,7 @@ export const LocationTable = ({
                 {
                     ...smallColumn,
                     title: formatMessage({ id: "locationTable_Live" }),
+                    customSort: (a, b) => isLiveNow(a) - isLiveNow(b),
                     render: rowData => permalink(rowData),
                 },
             ]}
