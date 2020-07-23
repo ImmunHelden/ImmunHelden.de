@@ -4,7 +4,7 @@ import { useSession } from "../../hooks/use-session"
 import { EditForm } from './edit-form'
 import { Grid, Paper, Snackbar } from "@material-ui/core"
 import { FormattedMessage, navigate, } from "gatsby-plugin-intl"
-import * as Sentry from "@sentry/browser"
+import { sentryWarn } from '../../util/sentry'
 import { LOCATION_COLLECTION } from "."
 import { mayTrimErrorPrefix } from "../../util/errors"
 
@@ -15,12 +15,7 @@ function fetchDoc(docId) {
 
 async function createDoc(partnerIds) {
   if (!partnerIds || partnerIds.length === 0) {
-    Sentry.withScope(scope => {
-      scope.setLevel("warning")
-      Sentry.captureEvent({
-        message: "Attempt to create map entry without associated partner ID"
-      })
-    })
+    sentryWarn("Attempt to create map entry without associated partner ID")
     throw new Error("partnerId/unavailable")
   }
 

@@ -7,8 +7,8 @@ import firebase from "gatsby-plugin-firebase"
 import { navigate, useIntl } from "gatsby-plugin-intl"
 import SaveIcon from '@material-ui/icons/Save';
 import { LOCATION_COLLECTION } from "."
+import { sentryInfo, sentryWarn, sentryFatal } from '../../util/sentry'
 import { RichTextEditor, initFromSnapshot, makeSnapshot } from './edit-rich-text'
-import * as Sentry from "@sentry/browser"
 import MarkerIconPlasma from "../../images/marker-icon-plasma.png"
 import MarkerIconMission from "../../images/marker-icon-mission.png"
 import MarkerIconTafel from "../../images/marker-icon-tafel.png"
@@ -52,27 +52,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
   },
 }))
-
-function sentryInfo(msg) {
-  Sentry.withScope(scope => {
-    scope.setLevel("info")
-    Sentry.captureEvent({ message: msg })
-  })
-}
-
-function sentryWarn(msg) {
-  Sentry.withScope(scope => {
-    scope.setLevel("warning")
-    Sentry.captureEvent({ message: msg })
-  })
-}
-
-function sentryFatal(err) {
-  Sentry.withScope(scope => {
-    scope.setLevel("fatal")
-    Sentry.captureException(err)
-  })
-}
 
 // Resolve coordinates for given address with LocationIQ
 async function requestLatLng(address) {
