@@ -5,6 +5,7 @@ import { LOCATION_COLLECTION } from "."
 import { navigate, useIntl } from "gatsby-plugin-intl"
 import { generateI18N } from "./table-i18n"
 import Moment from "moment"
+import { Link } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import MarkerIconPlasma from "../../images/marker-icon-plasma.png"
 import MarkerIconMission from "../../images/marker-icon-mission.png"
@@ -13,10 +14,20 @@ import MarkerIconResearch from "../../images/marker-icon-research.png"
 import MarkerIconImmunhelden from "../../images/marker-icon-immunhelden.png"
 import MarkerIconNew from "../../images/marker-icon-new.png"
 
+const MAP_BASE_URL = "https://immunhelden.de/maps/all/"
+
 const useStyles = makeStyles(() => ({
     markerIcon: {
         width: 20,
         height: 26,
+    },
+    permalink: {
+        fontSize: "150%",
+        textDecoration: "none",
+        color: "#000",
+        '&:hover': {
+            textDecoration: "none",
+        }
     },
 }))
 
@@ -48,7 +59,6 @@ export const LocationTable = ({
             const snapshot = await query.get()
             snapshot.forEach(doc => entries.push({
                 ...doc.data(),
-                liveNow: isLiveNow(doc.data()),
                 id: doc.id,
             }));
         }
@@ -82,6 +92,13 @@ export const LocationTable = ({
         } else {
             return ""
         }
+    }
+    const permalink = (rowData) => {
+        if (!isLiveNow(rowData))
+            return <span className={classes.permalink}>—</span>
+
+        return <Link target="_blank" href={`${MAP_BASE_URL}#${rowData.id}`}
+                     className={classes.permalink}>✓</Link>
     }
     const compressContacts = rowData => {
         const lines = []
@@ -128,7 +145,8 @@ export const LocationTable = ({
                 { title: formatMessage({ id: "locationTable_Type" }), width: SMALL, ...noPaddingRight, render: rowData => marker(rowData.type) },
                 { title: formatMessage({ id: "locationTable_Address" }), field: "address" },
                 { title: formatMessage({ id: "locationTable_Contact" }), render: rowData => compressContacts(rowData)},
-                { title: formatMessage({ id: "locationTable_Live" }), width: SMALL, ...noPaddingRight, type: "boolean", field: "liveNow" },
+                { title: formatMessage({ id: "locationTable_Live" }), width: SMALL, ...noPaddingRight,
+                  render: rowData => permalink(rowData) },
             ]}
             data={locations}
             title={formatMessage({ id: "partnerLocationsTitle" })}
