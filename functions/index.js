@@ -1,6 +1,9 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const fs = require("fs");
+const util = require('util');
+
+const readFile = util.promisify(fs.readFile);
 
 admin.initializeApp(functions.config().firebase);
 
@@ -214,19 +217,42 @@ exports.addImmuneHeroEU = functions.https.onRequest(async (req, res) => {
 });
 
 exports.confirmImmuneHeroEU = functions.https.onRequest(async (req, res) => {
+  // Start concurrent I/O operation early on.
+  const zip2latlngPromise = readFile('zip2latlng.json');
+  let doc;
+
   try {
     if (req.method !== "GET" || !req.query.hasOwnProperty("id"))
       throw "Invalid request";
 
     const ref = admin.firestore().collection("heroes").doc(req.query.id);
-    const doc = await ref.get();
-    if (!doc.exists) throw `Cannot find hero with ID ${req.query.id}`;
+    doc = await ref.get();
+    if (!doc.exists)
+      throw `Cannot find hero with ID ${req.query.id}`;
 
     ref.update({ doubleOptIn: true });
     res.redirect("../?subscribe=doubleOptIn");
-  } catch (err) {
+  }
+  catch (err) {
     console.error(err);
     res.status(400).send(`Error: ${err}`);
+    return;
+  }
+
+  // TODO: Calc time since last update an resend if threshold exceeded.
+  const zip = doc.get("zipCode");
+  const zip2latlng = JSON.parse(await zip2latlngPromise);
+
+  if (zip2latlng.hasOwnProperty(zip)) {
+    const template = "/email/de/hero_updates.md";
+    await messageTemplates.sendUpdateMailToUser(admin, template, 5, 15, {
+      key: req.query.id,
+      latlng: zip2latlng[zip],
+      email: doc.get("email")
+    });
+  }
+  else {
+    console.error(`Confirmed hero ID ${req.query.id}, but ZIP code invalid`);
   }
 });
 
