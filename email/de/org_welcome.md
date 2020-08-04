@@ -11,4 +11,4 @@ Viele Grüße und willkommen an Bord!<br>
 Ihr Team von [ImmunHelden.de](https://ImmunHelden.de)
 
 --<br>
-Falls Sie sich nicht registriert haben oder Ihre Meinung ändern, können Sie diese E-Mail ignorieren oder sich hier wieder abmelden: [${link_org_login_opt_out}](${link_org_login_opt_out})
+Falls Sie sich nicht registriert haben oder Ihre Meinung ändern, können Sie diese E-Mail ignorieren oder sich [hier wieder abmelden](${link_org_login_opt_out})
