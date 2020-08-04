@@ -32,11 +32,9 @@ Für das Spenden von Rekonvaleszentenplasma ist es meist notwendig, einen Nachwe
 
 ### Welche weiteren Voraussetzungen muss ich als Blutplasmaspender:in erfüllen?
 
-Die Voraussetzungen variieren je nach Blutspendezentrum leicht. Grundsätzlich solltest Du volljährig und zum Zeitpunkt der Blutplasmaspende bei guter Gesundheit sein sowie keine schwerwiegenden Grunderkrankungen oder Autoimmunerkrankungen haben.
+Grundsätzlich solltest Du volljährig und zum Zeitpunkt der Blutplasmaspende bei guter Gesundheit sein sowie keine schwerwiegenden Grunderkrankungen oder Autoimmunerkrankungen haben.
 
-Darüber hinaus kann es weitere Voraussetzungen geben, die je nach Spendezentrum variieren. Wende Dich am besten direkt an das Zentrum deiner Wahl und kläre ab, ob Du für eine Spende infrage kommst.
-
-[Auf unserer Karte](https://immunhelden.de/maps/plasma/) findest Du Links zu Blutspendeeinrichtungen in Deiner Nähe und ganz genaue Informationen zu den verschiedenen Voraussetzungen.
+Darüber hinaus kann es weitere Voraussetzungen geben, die je nach Spendezentrum variieren. Wende Dich am besten direkt an das Zentrum deiner Wahl und kläre ab, ob Du für eine Spende infrage kommst. [Auf unserer Karte](https://immunhelden.de/maps/all/) findest Du Links zu Blutspendeeinrichtungen in Deiner Nähe und ganz genaue Informationen zu den verschiedenen Voraussetzungen.
 
 ### Was sollte ich vor einer Blutplasmaspende beachten?
 
