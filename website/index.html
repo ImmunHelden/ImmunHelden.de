@@ -103,6 +103,11 @@
         background: linear-gradient(45deg, #93672533, transparent);
         box-shadow: 0 0 15px #888;
       }
+      section#plasma a.preview {
+        background-image: url('images/map-preview.png');
+        background-position-x: center;
+        background-size: cover;
+      }
 
       section#questions * {
         box-sizing: border-box;
@@ -328,10 +333,10 @@
           padding-right: 0;
         }
 
-        section#plasma iframe {
-          border: 0;
+        section#plasma a.preview {
           height: 100%;
           min-height: 20rem;
+          margin-right: 3rem;
         }
 
         section#questions div.content {
@@ -419,10 +424,10 @@
           padding: 2rem;
           padding-top: 4rem;
         }
-        section#plasma iframe {
-          border: 0;
+        section#plasma a.preview {
           height: 20rem;
           width: 100%;
+          display: inline-table;
         }
 
         section#questions div.content {
@@ -739,10 +744,8 @@
 
       <section id="plasma">
         <div class="content">
-          <div style="flex: 1;">
-            <iframe sandbox="allow-scripts allow-top-navigation allow-same-origin"
-                    src="/maps/all/?zoom=5&amp;embedded=true"></iframe>
-          </div>
+          <a href="/maps/all/" class="preview" style="flex: 1;">
+          </a>
           <div class="description" style="flex: 1;">
             <h2>
               Hier kannst du helfen
