@@ -219,6 +219,7 @@ exports.addImmuneHeroEU = functions.https.onRequest(async (req, res) => {
 exports.confirmImmuneHeroEU = functions.https.onRequest(async (req, res) => {
   // Start concurrent I/O operation early on.
   const zip2latlngPromise = readFile('zip2latlng.json');
+  let didReconfirm = false;
   let doc;
 
   try {
@@ -230,6 +231,9 @@ exports.confirmImmuneHeroEU = functions.https.onRequest(async (req, res) => {
     if (!doc.exists)
       throw `Cannot find hero with ID ${req.query.id}`;
 
+    if (doc.get("doubleOptIn") === true)
+      didReconfirm = true;
+
     ref.update({ doubleOptIn: true });
     res.redirect("../?subscribe=doubleOptIn");
   }
@@ -239,7 +243,11 @@ exports.confirmImmuneHeroEU = functions.https.onRequest(async (req, res) => {
     return;
   }
 
-  // TODO: Calc time since last update an resend if threshold exceeded.
+  // If the confirmation link was opened again, we don't want to resend the
+  // initial "ImmunHelden Updates".
+  if (didReconfirm)
+    return;
+
   const zip = doc.get("zipCode");
   const zip2latlng = JSON.parse(await zip2latlngPromise);
 
