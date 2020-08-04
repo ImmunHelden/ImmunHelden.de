@@ -460,22 +460,36 @@ exports.deleteOrg = functions.https.onRequest(async (req, res) => {
   res.send("Subscription deleted");
 });
 
-exports.newAccountCreated = functions.auth.user().onCreate((user) => {
-  userDoc = { partner: null };
-  admin
-    .firestore()
-    .collection("users")
-    .doc(user.uid)
-    .set(userDoc)
-    .then((writeResult) => {
-      console.log("User Created result:", writeResult);
-      return;
-    })
-    .catch((err) => {
-      console.log(err);
-      return;
+exports.newAccountCreated = functions.auth.user().onCreate(async (user) => {
+  try {
+    // For now create a new partner record for each new user. The name field is
+    // currently unused, but it's good to have it as a note for us. When adding
+    // the record as new document, Firebase automatically creates a unique key
+    // for it. Basically it's a random string. We use it as partner ID.
+    const partnerRef = await admin.firestore().collection("partner").add({
+      name: user.email.split("@")[0]
     });
+
+    // Create the user record. Firebase manages the user ID and email for us,
+    // it sends confirmation emails and provides easy access to login status.
+    // What we store here is extra data that we need for our platform
+    // specifically: the reference to a registered partner organization.
+    // It allows us to have multiple accounts for one organisation and to have
+    // accounts (like our team account) to access entries created by multiple
+    // organisations.
+    const userRef = admin.firestore().collection("users").doc(user.uid);
+    userRef.set({
+      partnerIds: [ partnerRef.id ]
+    });
+
+    console.log(`Created account '${user.uid}'`,
+                `with new partner ID '${partnerRef.id}'`);
+  }
+  catch (err) {
+    console.error(err);
+  }
 });
+
 exports.accountDeleted = functions.auth.user().onDelete((user) => {
   admin
     .firestore()
