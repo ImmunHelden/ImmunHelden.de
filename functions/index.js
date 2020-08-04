@@ -119,30 +119,6 @@ exports.addImmuneHero = functions.https.onRequest(async (req, res) => {
   }
 });
 
-exports.verifyHero = functions.https.onRequest(async (req, res) => {
-  if (req.method !== "GET" || !req.query.key) {
-    res.status(400).send("Invalid request");
-    return;
-  }
-
-  const heroRef = admin.database().ref("/heroes/" + req.query.key);
-  heroRef.update({ doubleOptIn: true });
-
-  res.redirect("../generic.html");
-});
-
-exports.deleteHero = functions.https.onRequest(async (req, res) => {
-  if (req.method !== "GET" || !req.query.key) {
-    res.status(400).send("Invalid request");
-    return;
-  }
-
-  const heroRef = admin.database().ref("/heroes/" + req.query.key);
-  await heroRef.remove();
-
-  res.send("Subscription deleted");
-});
-
 exports.submitHeldenInfo = functions.https.onRequest(async (req, res) => {
   // Check for POST request
   if (req.method !== "POST") {
@@ -291,7 +267,8 @@ exports.removeImmuneHeroEU = functions.https.onRequest(async (req, res) => {
 
     const ref = admin.firestore().collection("heroes").doc(req.query.id);
     const doc = await ref.get();
-    if (!doc.exists) throw `Cannot find hero with ID ${req.query.id}`;
+    if (!doc.exists)
+      throw `Cannot find hero with ID ${req.query.id}`;
 
     ref.delete();
     res.redirect("../?subscribe=optOut");

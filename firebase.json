@@ -62,14 +62,6 @@
         "function": "details_html"
       },
       {
-        "source": "/verifyHero",
-        "function": "verifyHero"
-      },
-      {
-        "source": "/deleteHero",
-        "function": "deleteHero"
-      },
-      {
         "source": "/sendExampleMail",
         "function": "sendExampleMail"
       },
