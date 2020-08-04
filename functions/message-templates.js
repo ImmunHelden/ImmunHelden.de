@@ -67,8 +67,8 @@ exports.sendExampleMail = functions.https.onRequest(async (req, res) => {
   try {
     // Render message for preview
     const msg = await exports.render(req.query.template, {
-      link_hero_double_opt_in: 'https://immunhelden.de/verifyHero?key=test',
-      link_hero_opt_out: 'https://immunhelden.de/deleteHero?key=test',
+      link_hero_double_opt_in: 'https://immunhelden.de/confirmImmuneHero?id=test',
+      link_hero_opt_out: 'https://immunhelden.de/removeImmuneHero?id=test',
       prop_org_name: 'Test-Organisation',
       prop_org_login_first_name: 'Test-Vorname',
       link_org_login_double_opt_in: `https://immunhelden.de/verifyOrg?key=test`,
@@ -112,8 +112,8 @@ exports.doSendExampleMail = functions.https.onRequest(async (req, res) => {
     const mail = {
       to: req.body.email,
       message: await exports.render(req.body.template, {
-        link_hero_double_opt_in: 'https://immunhelden.de/verifyHero?key=test',
-        link_hero_opt_out: 'https://immunhelden.de/deleteHero?key=test'
+        link_hero_double_opt_in: 'https://immunhelden.de/confirmImmuneHero?id=test',
+        link_hero_opt_out: 'https://immunhelden.de/removeImmuneHero?id=test'
       })
     };
 
@@ -163,7 +163,7 @@ const renderUpdateMail = async function(template, updateSeries, recipient) {
     prop_hero_zip: recipient.zip,
     list_ads: contents.join('<br>'),
     link_hero_location_map: `https://immunhelden.de/maps/all/?${paramsHero}`,
-    link_hero_opt_out: `https://immunhelden.de/deleteHero?key=${recipient.key}`
+    link_hero_opt_out: `https://immunhelden.de/removeImmuneHero?id=${recipient.key}`
   });
 }
 
