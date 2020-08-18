@@ -64,7 +64,7 @@ export const EditPage = ({ docId, onError }) => {
       } catch (err) {
         errorAbort(err)
       }
-    })() }, [isLoading, user, docId, errorAbort])
+    })() }, [isLoading, user.partnerIds, docId, errorAbort])
 
     return (
         <Grid container justify="center" spacing={0} style={{ height: "100%" }}>
