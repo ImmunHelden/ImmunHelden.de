@@ -40,12 +40,45 @@ exports.regions = functions.https.onRequest((req, res) => {}); // Currently unus
 // % export GOOGLE_APPLICATION_CREDENTIALS=/Users/staefsn/.ssh/immunhelden-b4cf6fd1620c.json
 // % firebase serve
 //
+// *** Database import from static data ***
+//
 //(async () => {
 //  const baseUrl = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/data';
 //  await toolsDataImport.importJson(admin, 'locations', 'plasma', `${baseUrl}/blutspenden.de/blutspenden-clean.json`, '4u66EeNFph4dmiGkTUfg');
 //  await toolsDataImport.importJson(admin, 'locations', 'plasma', `${baseUrl}/biolife/austria.json`, '4u66EeNFph4dmiGkTUfg');
 //  await toolsDataImport.importJson(admin, 'locations', 'stadtmission', `${baseUrl}/stadtmission/de.json`, '4u66EeNFph4dmiGkTUfg');
 //  await toolsDataImport.importJson(admin, 'locations', 'tafel', `${baseUrl}/tafel/de.json`, '4u66EeNFph4dmiGkTUfg ');
+//})();
+//
+// *** Cleanup ghost entries ***
+//
+//(async () => {
+//  console.log("About to wipe ghost locations..");
+//
+//  // Ghosts are entries with no data except the partnerId field.
+//  const isGhostLocation = (data) => {
+//    const params = Object.keys(data);
+//    return (params.length == 1 && params[0] == "partnerId");
+//  };
+//
+//  let total = 0;
+//  let ghosts = 0;
+//  const locations = await admin.firestore().collection("locations").get();
+//  locations.forEach(doc => {
+//    total++;
+//    if (isGhostLocation(doc.data())) {
+//      ghosts += 1;
+//      doc.ref.delete().then(() => {
+//        console.log(`Deleted ghost location '${doc.id}'`);
+//      });
+//    }
+//  });
+//
+//  if (ghosts > 0) {
+//    console.log(`Removing ${ghosts} out of ${total} items.`);
+//  } else {
+//    console.log(`Scanned ${total} locations. No ghosts encountered.`);
+//  }
 //})();
 
 function parseBool(string) {
