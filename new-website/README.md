@@ -29,9 +29,10 @@ Partner Login is part of the [ImmunHelden.de repository](https://github.com/Immu
 > git clone https://github.com/ImmunHelden/ImmunHelden.de
 ```
 
-Now switch to the `new-website` subdirectory and install dependencies with `npm`:
+Now switch to the `new-website` subdirectory, checkout the `develop` branch and install dependencies with `npm`:
 ```
 > cd ImmunHelden.de/new-website
+> git checkout develop
 > npm install
 ```
 
