@@ -1,99 +1,73 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# ImmunHelden Partner Login
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+In our [partner login area](https://dev.immunhelden.de/en/partner), organizations can create and manage their entries [in our map](https://immunhelden.de/maps/all/). There are three major pieces of functionality:
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+* **Authentication:** register, double opt-in, login, logout
+* **Overview page:** a table lists all entries and provides features for searching, sorting, add and delete
+* **Edit page:** separate page that allows to edit all properties of a specific entry
 
-## 🚀 Quick start
+# Short intro for developers
 
-1.  **Create a Gatsby site.**
+Our frontend, backend and database are all [hosted in Google Firebase](https://console.firebase.google.com/u/0/project/immunhelden/):
+* The frontend is built with [Gatsby JS](https://www.gatsbyjs.com/), a [static site generator](https://www.gatsbyjs.com/docs/glossary/static-site-generator/) for [ReactJS](https://reactjs.org/). It makes heavy use of [Material UI](https://material-ui.com/) components.
+* The backend runs the Firebase adaption of [Node JS](https://nodejs.org/) und runs on [serverless functions](https://en.wikipedia.org/wiki/Serverless_computing). This makes it quite easy to run locally.
+* The database is a NoSQL document-based [Google Cloud Firestore](https://cloud.google.com/firestore).
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+## Requirements
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+You'll need a few tools to start developing:
 
-1.  **Start developing.**
+* We check out the sources and submit patches with `git`: https://git-scm.com/downloads
+* We install dependencies and run the backend locally with `npm`: https://nodejs.org/
+* We use recent versions of both, [Firefox](https://www.mozilla.org/de-DE/firefox/new/) and [Chrome](https://www.google.com/chrome/) browsers to view and work with the frontend.
+* We use [Visual Studio Code](https://code.visualstudio.com/) for editing the source code.
 
-    Navigate into your new site’s directory and start it up.
+## Getting started
 
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
+Partner Login is part of the [ImmunHelden.de repository](https://github.com/ImmunHelden/ImmunHelden.de). In order to build it and run it locally, you need to checkout the sources first:
+```
+> git clone https://github.com/ImmunHelden/ImmunHelden.de
+```
 
-1.  **Open the source code and start editing!**
+Now switch to the `new-website` subdirectory and install dependencies with `npm`:
+```
+> cd ImmunHelden.de/new-website
+> npm install
+```
 
-    Your site is now running at `http://localhost:8000`!
+Next, install `yarn` and set the `GATSBY_FIREBASE_API_KEY` environment variable. Please find our actual API key in the [Firebase Project Console](https://console.firebase.google.com/u/0/project/immunhelden/settings/general/):
+```
+> npm install -g yarn
+> export GATSBY_FIREBASE_API_KEY=AIzaS...
+```
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+Run the development server:
+```
+> yarn develop
+```
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+Now open your browser and navigate to http://localhost:8000/de/partner in order to access the frontend. With Visual Studio Code you can easily view and edit the sources:
 
-## 🧐 What's inside?
+```
+> code .
+```
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+You can use the regular Firefox or Chrome developer tools for debugging and analysis in the client. For debugging in VSCode, install the [Debugger for Chrome extension](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) and use a `launch.json` configuration like this:
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Debug in Chrome",
+      "url": "http://localhost:8000/partner/",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
+```
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+## Deployment
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
-
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
-
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/gatsbyjs/gatsby-starter-default)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
+todo
