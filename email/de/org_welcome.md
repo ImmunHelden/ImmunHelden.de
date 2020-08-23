@@ -37,6 +37,3 @@ auszubauen, um noch mehr ImmunHeld:innen für das Engagement in der Coronakrise 
 Wir freuen uns über jede Kooperation und wünschen viel Erfolg!
 
 Ihr Team von [ImmunHelden.de](https://ImmunHelden.de)
-
---<br>
-Falls Sie sich nicht registriert haben oder Ihre Meinung ändern, können Sie diese E-Mail ignorieren oder sich [hier wieder abmelden](${link_org_login_opt_out})
