@@ -1,6 +1,6 @@
 # ImmunHelden Account
 
-Herzlich Willkommen auf ImmunHelden.de, liebe/r${prop_org_login_first_name}!
+Herzlich Willkommen auf ImmunHelden.de, liebe/r ${prop_org_login_first_name}!
 
 Wir freuen uns über Ihre Anmeldung von ${prop_org_name} bei ImmunHelden.de! Bitte bestätigen Sie diese mit einem Klick auf diesen Link:<br>
 [${link_org_login_double_opt_in}](${link_org_login_double_opt_in})
