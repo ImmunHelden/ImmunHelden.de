@@ -524,6 +524,9 @@ exports.newAccountCreated = functions.auth.user().onCreate(async (user) => {
 
     console.log(`Created account '${user.uid}'`,
                 `with new partner ID '${partnerRef.id}'`);
+
+    messageTemplates.doSendOrgWelcomeMail(admin, user.email,
+                                          "email/de/org_welcome.md");
   }
   catch (err) {
     console.error(err);

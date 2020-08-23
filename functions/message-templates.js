@@ -129,6 +129,27 @@ exports.doSendExampleMail = async (admin, req, res) => {
   }
 }
 
+exports.doSendOrgWelcomeMail = async (admin, email, template) => {
+  if (req.method !== "POST" || !email || !template) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  try {
+    // Render message to send
+    const mail = {
+      to: email,
+      message: await exports.render(template, {})
+    };
+
+    admin.firestore().collection('mail').add(mail);
+    res.send('Ok');
+  }
+  catch (err) {
+    res.status(400).send(err.message);
+  }
+}
+
 exports.renderFaq = functions.https.onRequest(async (req, res) => {
   const url = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/markdown/faq/faq.md';
   const markdown = await rp.get({ uri: url });
