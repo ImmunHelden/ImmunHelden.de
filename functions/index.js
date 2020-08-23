@@ -8,15 +8,17 @@ const readFile = util.promisify(fs.readFile);
 admin.initializeApp(functions.config().firebase);
 
 function forwardAdmin(targetFunction) {
-  return (req, res) => targetFunction(admin, req, res)
+  return (req, res) => targetFunction(admin, req, res);
 }
 
 // Tools for finding the markdown for our email templates on GitHub, expanding
 // placeholders, formatting it as HTML and sending sample mails for tests.
 const messageTemplates = require(`./message-templates.js`);
 exports.renderFaq = messageTemplates.renderFaq;
-exports.sendExampleMail = messageTemplates.sendExampleMail;
-exports.doSendExampleMail = messageTemplates.doSendExampleMail;
+exports.sendExampleMail = functions.https.onRequest(messageTemplates.sendExampleMail);
+exports.doSendExampleMail = functions.https.onRequest(async (req, res) => {
+  return await messageTemplates.doSendExampleMail(admin, req, res);
+});
 
 exports.sendUpdateMails = functions.https.onRequest(messageTemplates.sendUpdateMails);
 exports.doSendUpdateMails = functions.https.onRequest(async (req, res) => {

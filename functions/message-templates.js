@@ -58,7 +58,7 @@ exports.render = async function(template, params) {
   };
 }
 
-exports.sendExampleMail = functions.https.onRequest(async (req, res) => {
+exports.sendExampleMail = async (req, res) => {
   if (req.method !== "GET") {
     res.status(400).send('Invalid request');
     return;
@@ -92,9 +92,9 @@ exports.sendExampleMail = functions.https.onRequest(async (req, res) => {
   catch (err) {
     res.status(400).send(err.message);
   }
-});
+}
 
-exports.doSendExampleMail = functions.https.onRequest(async (req, res) => {
+exports.doSendExampleMail = async (admin, req, res) => {
   if (req.method !== "POST" || !req.body.pass || !req.body.email || !req.body.template) {
     res.status(400).send('Invalid request');
     return;
@@ -113,7 +113,11 @@ exports.doSendExampleMail = functions.https.onRequest(async (req, res) => {
       to: req.body.email,
       message: await exports.render(req.body.template, {
         link_hero_double_opt_in: 'https://immunhelden.de/confirmImmuneHero?id=test',
-        link_hero_opt_out: 'https://immunhelden.de/removeImmuneHero?id=test'
+        link_hero_opt_out: 'https://immunhelden.de/removeImmuneHero?id=test',
+        prop_org_name: 'Test-Organisation',
+        prop_org_login_first_name: 'Test-Vorname',
+        link_org_login_double_opt_in: `https://immunhelden.de/verifyOrg?key=test`,
+        link_org_login_opt_out: `https://immunhelden.de/deleteOrg?key=test`
       })
     };
 
@@ -123,7 +127,7 @@ exports.doSendExampleMail = functions.https.onRequest(async (req, res) => {
   catch (err) {
     res.status(400).send(err.message);
   }
-});
+}
 
 exports.renderFaq = functions.https.onRequest(async (req, res) => {
   const url = 'https://raw.githubusercontent.com/ImmunHelden/ImmunHelden.de/markdown/faq/faq.md';
