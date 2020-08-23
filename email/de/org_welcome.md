@@ -1,11 +1,8 @@
 # ImmunHelden Account
 
-Herzlich Willkommen auf ImmunHelden.de, liebe/r ${prop_org_login_first_name}!
+### Herzlich Willkommen auf ImmunHelden.de!
 
-Wir freuen uns über Ihre Anmeldung von ${prop_org_name} bei ImmunHelden.de! Bitte bestätigen Sie diese mit einem Klick auf diesen Link:<br>
-[${link_org_login_double_opt_in}](${link_org_login_double_opt_in})
-
-Sie können sich jederzeit mit dem Benutzernamen und Passwort in Ihr Benutzerkonto einloggen. [Hier](https://dev.immunhelden.de/de/partner/login) gelangen Sie zur Login-Seite. Wir arbeiten kontinuierlich an der Weiterentwickung des Selbstverwaltungsbereichs, um Ihr Nutzungserlebnis zu verbessern.
+Sie erhalten eine separate E-Mail um Ihre Anmeldung zu bestätigen. Danach können Sie sich jederzeit mit dem Benutzernamen und Passwort in Ihr Benutzerkonto einloggen. [Hier](https://dev.immunhelden.de/de/partner/login) gelangen Sie zur Login-Seite. Wir arbeiten kontinuierlich an der Weiterentwickung des Selbstverwaltungsbereichs, um Ihr Nutzungserlebnis zu verbessern.
 
 Nachdem Sie Ihre Anzeige eingetragen haben, erscheint Sie auf unserer [ImmunHelden-Karte](https://immunhelden.de/maps/all/). So kann unsere wachsende Community von COVID-19-Genesenen Ihre Organisation direkt als Anlaufstelle erkennen und Sie kontaktieren.
 
