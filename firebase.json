@@ -136,6 +136,61 @@
     ]
   },
   {
+    "target": "fresh",
+    "public": "fresh",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/maps/pins",
+        "function": "all_pin_locations"
+      },
+      {
+        "source": "/maps/details/*",
+        "function": "details_html"
+      },
+      {
+        "source": "/sendExampleMail",
+        "function": "sendExampleMail"
+      },
+      {
+        "source": "/doSendExampleMail",
+        "function": "doSendExampleMail"
+      },
+      {
+        "source": "/addImmuneHero",
+        "function": "addImmuneHero"
+      },
+      {
+        "source": "/addImmuneHeroMap",
+        "function": "addImmuneHeroMap"
+      },
+      {
+        "source": "/confirmImmuneHero",
+        "function": "confirmImmuneHeroEU"
+      },
+      {
+        "source": "/removeImmuneHero",
+        "function": "removeImmuneHeroEU"
+      },
+      {
+        "source": "/sendUpdateMails",
+        "function": "sendUpdateMails"
+      },
+      {
+        "source": "/doSendUpdateMails",
+        "function": "doSendUpdateMails"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  {
     "target": "dev",
     "public": "new-website/public",
     "ignore": [

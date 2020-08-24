@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>ImmunHelden</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>It's time for a fresh look :)</h1>
+    <p>
+      Checkout the repo and serve locally:
+    </p>
+    <pre>
+      &gt; git clone https://github.com/ImmunHelden/ImmunHelden.de
+      &gt; cd ImmunHelden.de
+      &gt; git checkout fresh
+      &gt; firebase serve --only functions,hosting:fresh
+      &gt; xdg-open http://localhost:5000
+    </pre>
+    <p>
+      Deploy the repo to <a href="https://immunhelden-fresh.web.app/">https://immunhelden-fresh.web.app/</a>:
+    </p>
+    <pre>
+      &gt; firebase deploy --only hosting:fresh
+    </pre>
+  </body>
+</html>
