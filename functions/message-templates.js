@@ -130,11 +130,6 @@ exports.doSendExampleMail = async (admin, req, res) => {
 }
 
 exports.doSendOrgWelcomeMail = async (admin, email, template) => {
-  if (req.method !== "POST" || !email || !template) {
-    res.status(400).send('Invalid request');
-    return;
-  }
-
   try {
     // Render message to send
     const mail = {
@@ -143,10 +138,10 @@ exports.doSendOrgWelcomeMail = async (admin, email, template) => {
     };
 
     admin.firestore().collection('mail').add(mail);
-    res.send('Ok');
+    console.log('Sent org welcome mail');
   }
   catch (err) {
-    res.status(400).send(err.message);
+    console.log(err.message);
   }
 }
 
