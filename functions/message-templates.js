@@ -158,7 +158,6 @@ exports.renderFaq = functions.https.onRequest(async (req, res) => {
 exports.zip2latlng = async function(zip) {
   const zip2latlng = JSON.parse(await readFile('zip2latlng.json'));
   if (zip2latlng.hasOwnProperty(zip)) {
-    console.log('ZIP center is at', zip2latlng[zip]);
     return zip2latlng[zip];
   } else {
     console.log('Cannot find ZIP:', zip);
@@ -190,6 +189,11 @@ const renderUpdateMail = async function(template, updateSeries, recipient) {
 exports.sendUpdateMails = async function(req, res) {
   if (req.method !== "GET") {
     res.status(400).send('Invalid request');
+    return;
+  }
+
+  if (typeof(req.query.template) === "undefined") {
+    res.status(400).send("Invalid request: parameter 'template' is required");
     return;
   }
 
@@ -293,10 +297,12 @@ exports.doSendUpdateMails =  async function(req, res, admin) {
   const distNear = 5;
   const distFar = 15;
   for (const candidate of candidates) {
-    const facilities = await exports.doCalcDistances(admin, candidate.latlng, ['ads'], [distNear, distFar]);
+    const facilities = await exports.doCalcDistances(
+        admin, candidate.latlng, ['locations'], [distNear, distFar]);
+
     const total = Object.keys(facilities).length;
     if (total > 0) {
-      // Create subset of facilities that aare near-by.
+      // Create subset of facilities that are near-by.
       const facilitiesNearBy = {};
       for (const id in facilities) {
         if (facilities[id].hasOwnProperty(`${distNear}km`)) {
@@ -344,16 +350,15 @@ exports.doSendUpdateMails =  async function(req, res, admin) {
       });
     }
 
-    res.send(
-      `Sent updates to ${recipients.length} recipients (out of ${candidates.length} candidates)\n`
-    );
+    res.send(`Sent updates to ${recipients.length} recipients ` +
+             `(out of ${candidates.length} candidates)\n`);
   }
   catch (err) {
     res.status(400).send(err.message);
   }
 };
 
-function haversineMeters(c1, c2) {
+function haversineKiloMeters(c1, c2) {
   const R = 6371e3; // metres
   const φ1 = c1[0] * Math.PI/180; // φ, λ in radians
   const φ2 = c2[0] * Math.PI/180;
@@ -372,135 +377,65 @@ function haversineMeters(c1, c2) {
 }
 
 exports.doCalcDistances = async function(admin, fromCoord, toCollections, distRanges) {
-  try {
-    const results = {};
-    if (fromCoord) {
-      const addResult = (facility, type, range) => {
-        results[facility] = results[facility] || { collection: type };
-        if (results[facility].hasOwnProperty(range)) {
-          results[facility][range]++;
-        } else {
-          results[facility][range] = 1;
-        }
-      };
+  if (!fromCoord) {
+    console.warn(`Cannot calculate distances: no coord given`);
+    return {};
+  }
 
-      for (const type of toCollections) {
-        const collection = await admin.firestore().collection(type).get();
-        collection.forEach(doc => {
-          const geoPoint = doc.get('latlng');
-          if (geoPoint.latitude && geoPoint.longitude) {
-            console.log(fromCoord, geoPoint.latitude, geoPoint.longitude);
-            const dist = haversineMeters(fromCoord, [geoPoint.latitude, geoPoint.longitude]);
-            for (const range of distRanges) {
-              if (dist <= range) {
-                addResult(doc.id, type, range + "km");
-                break;
-              }
-            }
-          }
-        });
+  console.log("\nAbout to measure distance from", fromCoord,
+              "to all items in collections", toCollections);
+
+  const results = {};
+  const addResult = (facility, type, range) => {
+    results[facility] = results[facility] || { collection: type };
+    if (results[facility].hasOwnProperty(range)) {
+      results[facility][range]++;
+    } else {
+      results[facility][range] = 1;
+    }
+  };
+
+  const matchDistRange = (doc) => {
+    const geoPoint = doc.get('latlng');
+    if (!geoPoint || !geoPoint.latitude || !geoPoint.longitude) {
+      console.warn(`Skipping entry ${doc.id}: no geo-point available`);
+      return null;
+    }
+
+    const dist = haversineKiloMeters(fromCoord, [geoPoint.latitude, geoPoint.longitude]);
+    for (const range of distRanges) {
+      if (dist <= range) {
+        console.log(`${doc.id} [${geoPoint.latitude}, ${geoPoint.longitude}]:`,
+                    `dist = ${dist}km (within ${range}km range)`);
+        return range;
       }
     }
+
+    return null;
+  };
+
+  try {
+    let totalMatches = 0;
+    let totalLocations = 0;
+    for (const type of toCollections) {
+      const collection = await admin.firestore().collection(type).get();
+      totalLocations += collection.docs.length;
+      totalMatches += collection.docs.reduce((sum, doc) => {
+        const range = matchDistRange(doc);
+        if (range) {
+          addResult(doc.id, type, range + "km");
+          return sum + 1;
+        } else {
+          return sum;
+        }
+      }, 0);
+    }
+
+    console.log("Matched", totalMatches, "out of", totalLocations, "locations",
+                "to", distRanges.length, "ranges");
     return results;
   }
   catch (err) {
-    console.error(`Error calculating distances from ${fromCoord}:`, err);
+    console.error("Error calculating distances from", fromCoord, ":", err);
   }
-}
-
-exports.sendUpdateMailToUser = async function(admin, template, distNear,
-                                              distFar, recipient) {
-  const locations = await admin.firestore().collection('locations').get();
-
-  const facilities = exports.calcDistances(
-      recipient.latlng, locations, [distNear, distFar]);
-
-  const facilitiesTotal = facilities[distFar].length;
-  const facilitiesNearBy = facilities[distNear].length;
-
-  if (facilitiesTotal === 0) {
-    console.log(`No facilities for recipient ${recipient.key}`);
-    return 0;
-  }
-
-  // Choose which facilities to list. We list near-by facilities, if there is
-  // more than 1 or if all of them are near-by.
-  const listNearByFacilities =
-      facilitiesNearBy > 1 || (facilitiesNearBy === facilitiesTotal);
-
-  recipient.dist = listNearByFacilities ? distNear : distFar;
-  recipient.ads = [];
-
-  console.log("recipient.dist", recipient.dist)
-  for (const id of facilities[recipient.dist]) {
-    const collection = admin.firestore().collection('locations');
-    const record = await collection.doc(id).get();
-    recipient.ads.push({
-      id: id,
-      address: record.get('address'),
-      title: record.get('title')
-    });
-  }
-
-  console.log("recipient.ads", recipient.ads)
-
-  try {
-    // Render message and send
-    const mail = {
-      to: recipient.email,
-      message: await renderUpdateMail(template, 'mua', recipient)
-    };
-
-    console.log(`Send update mail: ${recipient.ads.length} locations in ` +
-                `${recipient.dist}km range`);
-    console.log(mail);
-
-    admin.firestore().collection('mail').add(mail);
-  }
-  catch (err) {
-    // TODO: Report error via Sentry
-    console.error(`Error sending double-opt-in email to newly registered user ` +
-                  `${recipient.key}:`, err);
-    return 0;
-  }
-
-  return 1;
-};
-
-exports.calcDistances = function(origin, collection, distRanges) {
-  try {
-    const results = {};
-    for (const range of distRanges)
-      results[range] = [];
-
-    collection.forEach(doc => {
-      const geoPoint = doc.get('latlng');
-      if (geoPoint.latitude && geoPoint.longitude) {
-        const dist = haversineKM(origin, [geoPoint.latitude, geoPoint.longitude]);
-        for (const range in results)
-          if (dist <= range)
-            results[range].push(doc.id);
-      }
-    });
-
-    return results;
-  }
-  catch (err) {
-    console.error(`Error calculating distances from ${origin}:`, err);
-  }
-}
-
-function haversineKM(c1, c2) {
-  const R = 6371e3; // metres
-  const φ1 = c1[0] * Math.PI/180; // φ, λ in radians
-  const φ2 = c2[0] * Math.PI/180;
-  const Δφ = (c2[0]-c1[0]) * Math.PI/180;
-  const Δλ = (c2[1]-c1[1]) * Math.PI/180;
-
-  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ/2) * Math.sin(Δλ/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-  return Math.round(R * c / 1000);
 }

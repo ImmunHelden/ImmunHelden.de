@@ -561,7 +561,7 @@ exports.calcDistances = functions.https.onRequest(async (req, res) => {
 
   for (const z of zips) {
     const fromCoord = await messageTemplates.zip2latlng(z);
-    const facilities = await messageTemplates.doCalcDistances(admin, fromCoord, ['ads'], [ 5, 15 ]);
+    const facilities = await messageTemplates.doCalcDistances(admin, fromCoord, ['locations'], [ 5, 15 ]);
 
     const zipDists = {};
     for (const f in facilities) {
