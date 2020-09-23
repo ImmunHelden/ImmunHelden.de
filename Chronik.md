@@ -103,9 +103,9 @@ Leider blieben die erhofften Zuwächse unserer Nutzerzahlen aus. Ebenfalls konnt
 
 ### Tracking von Besucherzahlen und ausgewählten Interaktionen
 
-In der Folge entschieden wir uns für eine sanfte Abkehr von unserer harten Datenschutzlinie und zeichneten fortan die Anzahl von Seitenaufrufen mit [Matomo](https://immunhelden.matomo.cloud) auf, einer kostenpflichtigen Alternative zu Google Analytics, bei der keine Daten an Dritte weitergegeben oder durch Matomo selbst weiterverarbeitet werden.
+In der Folge entschieden wir uns für eine sanfte Abkehr von unserer harten Datenschutzlinie. Wir [bauten ein Cookie Banner ein](https://github.com/ImmunHelden/ImmunHelden.de/commit/f4e5f9c842bcd310e3494d3b4cb7b0e599bd3313), um beim ersten Besuch unserer Seite über das Tracking zu informieren und zeichneten fortan die Anzahl von Seitenaufrufen mit [Matomo](https://immunhelden.matomo.cloud) auf. Dabei handelt es sich um eine kostenpflichtige Alternative zu Google Analytics, bei der keine Daten an Dritte weitergegeben oder durch Matomo selbst weiterverarbeitet werden.
 
-Dieser Kompromiss erlaubte uns außerdem fortan bestimmte Nutzerinteraktionen in unseren Update E-Mails zu zählen. In der folgenden Bildschirmaufnahme ist die Benutzeroberfläche zu sehen, in der das Versenden einer Updatecharge auszulöst wird. D.h. mit einem Klick auf *Submit Query* bekommen all unsere Nutzer eine E-Mail zu den aktuellen Angeboten in ihrer Region. Während die Seite selbst [öffentlich zugänglich](https://immunhelden.de/sendUpdateMails?template=/email/de/hero_updates.md) ist, können tatsächliche E-Mails natürlich nur nach Eingabe des korrekten Passworts versendet werden. Zu sehen ist eine Vorschau anhand von Demodaten:
+Dieser Kompromiss erlaubte es uns außerdem fortan bestimmte Nutzerinteraktionen in unseren Update E-Mails zu zählen. In der folgenden Bildschirmaufnahme ist die Benutzeroberfläche zu sehen, in der das Versenden einer Updatecharge auszulöst wird. D.h. mit einem Klick auf *Submit Query* bekommen all unsere Nutzer eine E-Mail zu den aktuellen Angeboten in ihrer Region. Während die Seite selbst [öffentlich zugänglich](https://immunhelden.de/sendUpdateMails?template=/email/de/hero_updates.md) ist, können tatsächliche E-Mails natürlich nur nach Eingabe des korrekten Passworts versendet werden. Zu sehen ist eine Vorschau anhand von Demodaten:
 
 <img src="material/email-update-links.png" alt="email-update-links" width="400">
 
@@ -157,17 +157,31 @@ Als Plattformbetreiber werden wir per E-Mail informiert, wenn neue Einträge ang
 
 ### Partnerorganisationen außerhalb der RKP-Spende
 
-Mit der Stuttgarter Tafeln e.V. und der Berliner Stadtmission e.V. konnten wir im Juni 2020 zwei Partnerorganisationen außerhalb der RKP-Spende gewinnen.
+Mit der Stuttgarter Tafeln e.V. und der Berliner Stadtmission e.V. konnten wir im Juni 2020 zwei Partnerorganisationen außerhalb der RKP-Spende gewinnen. Das gab uns die Gelegennheit die Darstellung unserer Anzeigen anhand von praktischen Beispielen weiterzuentwickeln.
 
-### Eine ImmunHelden Map für alle
+In Anzeigen zu RKP-Spenden waren Informationen zu Name, Ort und Kontakt bisher ausreichend. Für die Beschreibung von Tätigkeiten und Anforderungen kamen jedoch schnell längere Texte zusammen, die ohne Formatierung weder ansprechend aussahen noch übersichtlich waren. Im Selbstverwaltungsbereich wurde Eingabemaske zum Editieren von Anzeigen daraufhin um einfache Textformatierungen ergänzt. Für die Implementierung der Benutzeroberfläche nutzten wir die [DraftJS Komponente](https://draftjs.org/) und für die Konvertierung von Markdown nach HTML [ShowdownJS](http://showdownjs.com/). Zudem führten wir die Kategorieauswahl ein und eine Möglichkeit festzulegen in welchem Zeitraum eine Anzeige aktiv sein soll.
 
-Zusammenführung der Maps pro Kategorie, Filter in Seitenleiste als Feature, Map als eigenständige Komponente
+![map-richtext](material/map-richtext.png)
+
+Um die neuen Funktionen zu testen, legten wir die ersten Anzeigen dieser Art noch selbst an, indem wir Flyer nachahmten, die uns zur Verfügung gestellt wurden. Im weiteren Verlauf war das Ziel jedoch, Partnerorganisationen dazu zu bewegen diese Aufgabe selbst zu übernehmen. Damit waren wir leider nicht erfolgreich. Anfangs war der Anmeldeprozess noch etwas holprig, später wurde es leider von keinem unserer potentiellen Partner mehr versucht. Offenbar war die Aussicht zu gering auf diesem Weg neue Helfer anzuwerben, als dass es den Aufwand gerechtfertigt hätte sich in den Selbstverwaltungsbereich einzuarbeiten.
+
+### Eine ImmunHelden Map für alles
+
+Die Basisversion unserer interaktiven Karte [entstand bereits am Wochenende des Hackathons](https://github.com/ImmunHelden/ImmunHelden.de/commit/eaaa5288a0910fe3a285225b011eaf83aa4147b1) und wurde über den gesamten Zeitraum des Projekts weiterentwickelt. So entstanden Funktionen für verschiedene Pin-Typen, die Darstellung einer Legende, das Einbinden der Karte in andere Seiten, das Nachladen von Pin-Positionen und Anzeigendetails im Hintergrund, eine Seitenleiste mit Kategorieauswahl und Abonnement-Funktion und vieles mehr.
+
+Eine Richtungsentscheidung hatten wir mit der generalisierten API getroffen, die es ermöglichen sollte die Karte gemeinsam mit anderen Initiativen zu nutzen. Das setzte voraus, dass die Kartenkomponente basierend auf ihrer Konfiguration dynamisch verschiedene Endpoints abfragen und die resultierenden Daten darstellen konnte. Um dies ohne praktisches Beispiel zu skizzieren, hatten wir unsere eigenen Daten einfach anhand ihrer Kategorien (RPK-Spende, Tafel und Stadtmission) unterteilt und über verschiedene Endpoints zugänglich gemacht. Diese Endpoints konnten dann frei kombiniert werden, um die Implementierung der Karte zu testen.
+
+Nachdem nun einige Monate ohne Kooperationsaussichten vergangen waren und wir in der Praxis immer nur diejenige Karte nutzten, die alle Daten anzeigte, konnte das Konzept offen infrage gestellt werden. Anlass dafür bot die Beobachtung, dass mit jeder neuen Kategorie die zeitliche Verzögerung beim Laden der Karte wuchs. Zwar wurden die Pins der einzelnen Kategorien nach und nach angezeigt, doch wirklich nutzbar war die Karte erst dann wenn die Daten aller Pins angekommen waren. Die Bündelung aller Daten in einem einzigen Endpoint erwies sich natürlich als deutlich performanter und [wurde in der Folge umgesetzt](https://github.com/ImmunHelden/ImmunHelden.de/commit/a4220229bfe8756c8872f575184b2c9d7afcb54d). Eine potentielle Nutzung gemeinsam mit anderen Initiative ist damit nicht unmöglich geworden, denn noch immer bezieht die Kartenkomponente die Adressen ihrer Quell-Endpoints aus ihrer Konfiguration. Doch da das Feature nicht mehr aktiv genutzt wird, ist es sehr wahrscheinlich, dass es bei einer nachfolgenden Änderung unbemerkt zerbricht.
 
 ### ImmunHelden-Updates
 
-Mapping PLZ / Adresse -> Lat/Lng
+Ortsbasierte Update E-Mails gehören zu der Kernfunktionalität unserer Plattform. Organisationen geben dafür die Adressen ihrer Standorte an und Freiwillige ihrer Postleitzahl. Entfernungsmessungen können anhand dieser Daten jedoch nicht erfolgen. Dafür braucht es Kartenkoordinaten mit Latitude und Longitude, die sicher keiner unserer Nutzer manuell eingeben möchte.
 
-Verfahren zur Zusammenstellung der Inhalte
+Für Adressen werden Kartenkoordinaten über den [Geo-Coding Service von LocationIQ](https://locationiq.com/) ermittelt. Unser kostenloser Account ist dabei in Anfragen pro Minute begrenzt. Da wir eine Ausflösung von Adresse nach Koordinaten nur dann benötigen, wenn im Selbstverwaltungsbereich eine neue Anzeige erstellt wird, sollte dies jedoch kein Problem darstellen. Im Falle einer kurzfristigen Überschreitung des Limits kommt ein [einfaches Retry-Verfahren](https://github.com/ImmunHelden/ImmunHelden.de/blob/676915f24a1d5cc322e7d5858cd70df4a3365def/new-website/src/components/location/edit-form.jsx#L63) zum Einsatz.
+
+Postleitzahlen werden [über eine Zuordnung zu ihren Centroiden](https://github.com/ImmunHelden/ImmunHelden.de/blob/35afbc3260f7f11127098ffacbed9bd54bed29d4/functions/message-templates.js#L158) (dem Schwerpunkt des Postleitzahlbereichs) in Kartenkoordinaten überführt. Die Datengrundlage dafür wurde von [suche-postleitzahl.org](https://www.suche-postleitzahl.org/) importiert und [im Format für unsere Zwecke angepasst](https://github.com/ImmunHelden/ImmunHelden.de/blob/master/functions/zip2latlng.json).
+
+Sollen nun alle Standorte in der Nähe eines Nutzers bestimmt werden, wird zunächst der Centroid seines Postleitzahlbereichs ermittelt und davon ausgehend die [Entfernungen zu allen bekannten Standorten berechnet](https://github.com/ImmunHelden/ImmunHelden.de/blob/35afbc3260f7f11127098ffacbed9bd54bed29d4/functions/message-templates.js#L379). Für diese Berechnunng kommt die [Haversine Formel](https://en.wikipedia.org/wiki/Haversine_formula) zum Einsatz. In der Liste der Ergebnisse wird nun abgewogen: Gibt es mehr als einen Standort innerhalb einer Entfernung von 5km, fällt die Entscheidung auf diese; andernfalls werden in der Update E-Mail alle Standorte innerhalb von 15km aufgelistet. Sollte innerhalb dieser Bereiche kein einziger Standort gefunden werden, wird keine E-Mail versendet.
 
 ### Chatfunktion und Video-Ident-Verfahren
 
