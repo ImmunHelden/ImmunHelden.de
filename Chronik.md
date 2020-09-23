@@ -1,10 +1,10 @@
 # ImmunHelden: Hintergründe und Erkenntnisse
 
-Das Kernteam des Projekts *ImmunHelden* formierte sich im Zuge des [#WirVsVirus Hackathons](https://de.wikipedia.org/wiki/WirVsVirus) von 20. bis 22. März 2020 als rein virtuelle Gruppe um die Idee, dass Personen die von einer Infektion mit [Sars-CoV-2](https://de.wikipedia.org/wiki/SARS-CoV-2) genesen sind, eine Immunität gegen das Virus entwickelten und ihnen eine wichtige Rolle bei der Bewältigung der sozioökonomische Auswirkungen der Pandemie zukommen könnte.
+Das [Kernteam des Projekts *ImmunHelden*](https://devpost.com/software/immuneheros) formierte sich im Zuge des [#WirVsVirus Hackathons](https://de.wikipedia.org/wiki/WirVsVirus) von 20. bis 22. März 2020 aus Personen verschiedener Regionen Deutschlands. Die gemeinsame Idee der rein virtuellen Gruppe war, dass Personen die von einer Infektion mit [Sars-CoV-2](https://de.wikipedia.org/wiki/SARS-CoV-2) genesen sind, eine Immunität gegen das Virus entwickelten und ihnen eine wichtige Rolle bei der Bewältigung der sozioökonomischen Auswirkungen der Pandemie zukommen könnte.
 
 ## Ausgangspunkt
 
-Getrieben von der exponentiellen Zunahme der registrierten Infektionszahlen bis Anfang April 2020, lag unser Fokus auf der Lösung akuter Probleme: könnte die Ausbreitung des Virus' nicht gebremst werden, käme es bald zu Engpässen bei der Versorgung der Gesellschaft, da sich eine Vielzahl von Mitarbeitern in der [kritischen Infrastruktur](https://de.wikipedia.org/wiki/Kritische_Infrastrukturen) gleichzeitig in Quarantäne begeben müsste. Es drohten Schließungen von Supermärkten, Apothekten sowie Einrichtungen zur Energie- und Wasserversorgung, während das Gesundheitssystem durch einen Ansturm von Patienten mit einem schweren Krankheitsverlauf und einer Ausbreitung von Infektionen innerhalb des Personals doppelt belastet wäre.
+Getrieben von der exponentiellen Zunahme der registrierten Infektionszahlen bis Anfang April 2020, lag unser Fokus auf der Lösung akuter Probleme: könnte die Ausbreitung des Virus' nicht gebremst werden, käme es bald zu Engpässen bei der Versorgung der Gesellschaft, da sich eine Vielzahl von Mitarbeitern in der [kritischen Infrastruktur](https://de.wikipedia.org/wiki/Kritische_Infrastrukturen) gleichzeitig in Quarantäne begeben müsste. Es drohten Schließungen von Supermärkten, Apothekten sowie Einrichtungen zur Energie- und Wasserversorgung. Das Gesundheitssystem würde durch die Ausbreitung von Infektionen innerhalb des Personals und einen gleichzeitigen Ansturm von Patienten mit einem schweren Krankheitsverlauf doppelt belastet.
 
 Während des Hackathons und der darauf folgenden Woche entwickelten [wir eine einfache Webseite](https://immuneheroes-35036.firebaseapp.com/), die sich an zwei Gruppen richtete: Einerseits an Menschen, die davon ausgingen selbst bereits eine Coronainfektion durchgemacht zu haben; andererseits an Privatpersonen die Hilfe benötigten und Einrichtungen die unter Personalknappheit litten oder sehr kontaktintensive Aufgaben zu vergeben hatten. Unser Ziel war, diese beiden Gruppen möglichst gut miteinander zu vernetzen.
 
@@ -125,20 +125,43 @@ Bereits im Mai hatten wir gemeinsam mit der [Firma YouKnow](https://you-know.de/
 
 ### Partnerorganisationen und der Begriff der Immunität
 
-Die Kommunikation mit potentiellen Partnern war nicht immer leicht, was sich für gewöhnlich auf zwei wesentliche Punkte zurückführen ließ.
+Die Kommunikation mit potentiellen Partnern war nicht immer leicht. Es ließ sich auf zwei wesentliche Punkte zurückführen.
 
-Einserseits umfasst unsere Zielgruppe vor allem Einrichtungen im sozialen Bereich die auch im Normalbetrieb bereits oft unterbesetzt sind. Dazu kommt, dass die technische Ausrüstung oft in der Zeit der Installation stecken geblieben ist und es bei der Kompetenz im Umgang damit Schwierigkeiten gibt. Es äußerte sich darin, dass E-Mails nicht oder erst nach langer Wartezeit beantwortet und unsere Webseite im Internet Explorer der 1990er Jahre nicht korrekt dargestellt wurde. Gute und positive Rückmeldungen gab es in Telefonaten, doch die Follow-ups blieben dann oft wieder unbeantwortet und selbst die seltenen Zusagen schwammig.
+Einserseits umfasst unsere Zielgruppe vor allem Einrichtungen im sozialen Bereich die bereits im Normalbetrieb oft unterbesetzt sind. Dazu kommt, dass die technische Ausrüstung oft in der Zeit der Installation stecken geblieben ist und es bei der Kompetenz im Umgang damit Schwierigkeiten gibt. Das äußerte sich in E-Mails, die nicht oder erst nach langer Wartezeit beantwortet wurden. Oder auch in verunsicherten Nachfragen, weil unsere interaktive Karte im "Internet Explorer der 1990er Jahre" nicht korrekt dargestellt wurde. Gute und positive Rückmeldungen gab es in Telefonaten, doch die Follow-ups blieben dann oft wieder unbeantwortet und selbst die seltenen Zusagen oft schwammig.
 
 Andererseits blieb das Thema der Immunität von COVID-19 immer heikel. Zwar war es allgemein bekannt, dass das Personal innerhalb von Krankenhäusern und Seniorenheimen schon früh danach eingeteilt wurde, ob jemand bereits eine Infektion überstanden hatte oder nicht. Doch für die Kommunikation nach außen und das Anwerben von Hilfskräften konnte das nicht ohne Weiteres übernommen werden.
 
-Schließlich war in der Gesellschaft der Diskurs zu Immunitätsausweisen seit einem [Gesetzesentwurf der Bundesregierung im Mai 2020](https://de.wikipedia.org/wiki/Immunitätsausweis#Verlauf) in vollem Gange. Nach wissenschaftlichem Kenntnisstand war [eine gewisse Immunität zwar schon lange als sehr wahrscheinlich bezeichnet](https://www.ndr.de/nachrichten/info/15-Coronavirus-Update-Infizierte-werden-offenbar-immun,podcastcoronavirus136.html) worden, doch klar war auch, dass sich dies nur sehr schwierig beweisen ließ. Unter diesen Umständen setzte sich (zurecht) die sozialrechtlich getriebene Argumentation durch, dass die Wahrung der Gleichbehandlung aller Menschen gegenüber den Vorteilen einer Ausweisung von Immunität Vorrang hat.
+In der Öffentlichkeit war der Diskurs zu Immunitätsausweisen seit einem [Gesetzesentwurf der Bundesregierung im Mai 2020](https://de.wikipedia.org/wiki/Immunitätsausweis#Verlauf) in vollem Gange. Nach wissenschaftlichem Kenntnisstand wurde [eine gewisse Immunität zwar schon lange für sehr wahrscheinlich gehalten](https://www.ndr.de/nachrichten/info/15-Coronavirus-Update-Infizierte-werden-offenbar-immun,podcastcoronavirus136.html), doch klar war auch, dass sich dies nur sehr schwierig beweisen ließ. Unter diesen Umständen setzte sich (zurecht) die sozialrechtlich getriebene Argumentation durch, dass die Wahrung der Gleichbehandlung aller Menschen gegenüber den Vorteilen einer Ausweisung von Immunität Vorrang hat. Dies wurde im September 2020 letztlich durch die [Empfehlung des deutsch Ethikrats](https://www.ethikrat.org/mitteilungen/2020/deutscher-ethikrat-raet-derzeit-von-covid-19-immunitaetsbescheinigungen-ab/) offiziell bestätigt.
 
-Leider ging unser Anliegen in dieser alles-oder-nichts Abwägung unter: Während eine Immunität natürlich nicht zum persönlichen Vorteil genutzt werden sollte, könnte der Einsatz für das Gemeinwohl doch sehr wohl sinnvoll sein. In der Folgezeit war der Immunitätsbegriff jedoch derart abgewertet worden, dass sich scheinbar niemand mehr darauf einließ.
+Leider ging unser Anliegen in dieser alles-oder-nichts Abwägung etwas unter: Während eine Immunität natürlich nicht zum persönlichen Vorteil genutzt werden sollte, hätte der Einsatz für das Gemeinwohl doch sehr wohl sinnvoll sein können. Die mit der Komplexität der Thematik einhergehende Polarisierung in der Diskussion belastete den Immunitätsbegriff jedoch stark. Auf eine detaillierte Betrachtung ließ sich in der Folgezeit nur noch schwer aufbauen.
 
-### Selbstverwaltungsbreich für Partnerorganisationen
+### Selbstverwaltungsbereich für Partnerorganisationen
 
-Tafeln und Senioreneinrichtungen
-Grobüberblick Funktionalität und Implementierung
+Im Mai 2020 begannen wir an einem [Selbstverwaltungbereich](https://dev.immunhelden.de/de/partner/) zu arbeiten. Es versprach uns eine große Zeitersparnis beim Abgleich und der Eingabe von Detailinformationen und unseren Partnern einen direkten Weg ihre Anzeigen selbst zu erstellen und zu aktualisieren.
+
+Aufgrund von technischen Präferenzen im Team entschieden wir uns für das [Webframework ReactJS](https://reactjs.org/) und den Einsatz von [Material UI Komponenten](https://material-ui.com/). Die Entscheidung für einen Hosting-Anbieter war bereits während des Hackathons auf [Firebase](https://firebase.google.com/) gefallen, was gut zusammen passte, da hier serverseitig eine [NodeJS](https://nodejs.org/) Umgebung bereitgestellt wird. Nicht wirklich nötig aber interessant war der Einsatz des [Static-Page-Generators](https://www.hosteurope.de/blog/die-besten-static-website-generatoren/) [Gatsby](https://www.gatsbyjs.com/), der zur Built-Zeit fertige HTML Dateien erzeugt, die zur Laufzeit von [ReactJS wieder dynamisch ergänzt](https://www.gatsbyjs.com/docs/react-hydration/) werden. Dies trägt bei häufigen Seitenaufrufen zu einer leichten Verringerung von Wartezeiten für Nutzer und Serverlast für unser Hosting bei. Der Quellcode des Selbstverwaltungsbereichs findet sich natürlich [auf GitHub](https://github.com/ImmunHelden/ImmunHelden.de/tree/master/new-website).
+
+Die folgende Bildschirmaufnahme zeigt die Benutzeroberfläche die eine Übersicht aller Anzeigen eines Nutzers auflistet und alle nötigen Interaktionen für die Verwaltung bereitstellt: Anzeigen können erstellt, bearbeitet, gelöscht, sortiert und über einen Suchbegriff gefiltert werden:
+
+![accounts-table](material/accounts-table.png)
+
+Die Bearbeitung erfolgt über eine separate Eingabemaske. Hier können Titel, Kontaktdaten, Kategorie und andere Informationen eingeben werden. Die Adresse wird automatisch in Kartenkoordinten übertragen, die im Zweifel manuell nachjustiert werden können. Für den Beschreibungstext stehen einfache Möglichkeiten zur Formatierung bereit:
+
+![accounts-entry](material/accounts-entry.png)
+
+Sobald ein Eintrag angelegt und das Feld *Veröffentlichen* aktiviert wurde, erscheint er auf unserer interaktiven ImmunHelden Map und kann dort entweder manuell oder über einen Permalink gefunden werden. Der Eintrag im Bild oben beispielsweise kann über diesen Link erreicht werden: https://immunhelden.de/maps/all/#ovgu-expae-t-zellen-studie
+
+![map-permalink](material/map-permalink.png)
+
+Als Plattformbetreiber werden wir per E-Mail informiert, wenn neue Einträge angelegt werden. Dies dient sowohl dem Support für unsere Partnerorganisationen als auch der Vorbeugung von potentiellem Missbrauch der Plattform. Sollten wir bei einer Überprüfung irrtümliche oder fehlleitende Einträge entdecken, können wir die Autoren darüber informieren. Darüber hinaus steht uns (neben dem direkten Zugriff des Administrators auf die Datenbank) ein Administrationszugang zum Selbstverwaltungsbereich zur Verfügung, über den die Anzeigen aller Partner über die gewohnte Eingabemaske überarbeitet werden kann.
+
+### Partnerorganisationen außerhalb der RKP-Spende
+
+Mit der Stuttgarter Tafeln e.V. und der Berliner Stadtmission e.V. konnten wir im Juni 2020 zwei Partnerorganisationen außerhalb der RKP-Spende gewinnen.
+
+### Eine ImmunHelden Map für alle
+
+Zusammenführung der Maps pro Kategorie, Filter in Seitenleiste als Feature, Map als eigenständige Komponente
 
 ### ImmunHelden-Updates
 
@@ -146,6 +169,6 @@ Mapping PLZ / Adresse -> Lat/Lng
 
 Verfahren zur Zusammenstellung der Inhalte
 
-### Eine ImmunHelden Map für alle
+### Chatfunktion und Video-Ident-Verfahren
 
-Zusammenführung der Maps pro Kategorie, Filter in Seitenleiste als Feature, Map als eigenständige Komponente
+Aufgrund der weiterhin mangelnden Nachfrage Chat nicht implementiert und Jitsi nicht eingebunden.
