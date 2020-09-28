@@ -87,9 +87,9 @@ Die Nachrichten unserer Nutzer und interessierter Organisationen sind für alle 
 
 Im April 2020 kamen Diskussionen zum Potential von Rekonvaleszentenplasma (RKP) Spenden auf, einerseits für die medizinische Forschung und andererseits für Immunoglobulin-Therapien. In den USA wurde die [CoViG-19 Plasma Alliance](https://www.covig-19plasmaalliance.org/) von [Microsoft technisch unterstützt](https://blogs.microsoft.com/blog/2020/04/20/) und in Großbritannien begann der NHS [Werbung für die RKP-Spende im Internet zu platzieren](https://twitter.com/GiveBloodNHS/status/1255528788529733637). Unser Team verfolgte die Entwicklung und setzte sich ebenfalls detailliert mit der RKP-Spende auseinander. Nach einigen Telefonaten mit Unikliniken und anderen Spendeeinrichtungen beschlossen wir die Daten aller Einrichtungen in Deutschland zusammenzutragen die zur RPK-Spende berechtigt waren um damit auf unserer Webseite selbst ein initiales Angebot zu schaffen.
 
-Am 23. Mai 2020 hatten wir 136 RKP-Spendeeinrichtungen in Deutschland und Österreich verifiziert und [auf unserer Karte eingezeichnet](https://twitter.com/ImmunHelden/status/1264146588110393344), Social Media Vorschaubilder implementiert und eine gute Kompatibilität unserer interaktiven Karte für die meisten mobilen Endgeräte erreicht. Zudem hatten wir in der Zwischenzeit einen [umfangreichen Frage-Antwort-Katalog (FAQ)](https://immunhelden.de/faq/) speziell zur RKP-Spende veröffentlicht.
+Im Laufe der nächsten Wochen verifizierten wir 119 RKP-Spendeeinrichtungen in Deutschland und Österreich und [zeichneten sie auf unserer Karte ein](https://immunhelden.de/maps/all/). Zudem implementierten wir Social Media Vorschaubilder, erreichten eine gute Kompatibilität unserer interaktiven Karte für die meisten mobilen Endgeräte und veröffentlicht einen [umfangreichen Frage-Antwort-Katalog (FAQ)](https://immunhelden.de/faq/) speziell zur RKP-Spende.
 
-<img src="material/plasma-live-twitter.png" alt="plasma-live-twitter" width="400">
+<img src="material/plasma-live.png" alt="plasma-live" width="400">
 
 ## Strategische Variationen und fortschreitende Entwicklung der Pandemie
 
