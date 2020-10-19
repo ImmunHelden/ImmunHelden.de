@@ -10,6 +10,7 @@ const IndexPage = () => {
         <Layout>
             <SEO title="Home" />
             <Banner>
+                <p>Test</p>
                 <ImmuneHeroContactFrom />
             </Banner>
             <VideoLane url="https://www.youtube.com/watch?v=fyPF3RUv00A" />
