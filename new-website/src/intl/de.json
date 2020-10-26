@@ -106,5 +106,20 @@
     "404_body": "Ooops ... Die gewünschte Seite wurde leider nicht gefunden",
     "partnerUserNoOrga": "Sie sind noch keiner Organisation zugeordnet. Bitte kontaktieren Sie ...",
     "unkown_error": "Oooops ... Etwas ist schief gegangen.",
-    "somethingBroke": "Oooops ... Etwas ist schief gegangen. \n Bitte versuchen Sie die Seite neu zu laden oder kontaktieren Sie uns unter ..."
+    "somethingBroke": "Oooops ... Etwas ist schief gegangen. \n Bitte versuchen Sie die Seite neu zu laden oder kontaktieren Sie uns unter ...",
+
+    "supporters": "mit Unterstützung von starken Partnern",
+    "weare": "Wir Sind",
+    "honorary": "Ehrenamtlich",
+    "unselfish": "Uneigennützig",
+    "opensource": "Open Source",
+    "teamintro": "Ehrenamtlich und uneigennützig als Open-Source Projekt entwickelt von Euerem ImmunHelden Team",
+    "teambutton": "mehr erfahren",
+    "experteintro": "Das Sagen die experten",
+    "expertename": "Christian Torres Reyes",
+    "expertetitel": "Facharzt für Innere Medizin",
+    "expertezitat": "Als Internist behandele ich im Krankenhaus unmittelbar Patienten, die von der neuen Coronakranheit betroffen sind. Sowohl für die Betroffenen als auch für mich sind 2 Probleme besonders frustrierend:<br>- Wie wenige verlässliche Behandlungsoptionen gegen das Virus zurzeit zur Verfügung stehen<br>- Wie viel wir über diese neue Erkrankung noch nicht wissen <br> Die Immunantwort von Genesenen, die diesen Kampf bereits gewinnen konnten, beantwortet uns offene Fragen (Forschung) und bietet dringend benötigte Optionen für schwer Erkrankte auf Intensivstationen (Therapie). <br>Ich halte die Plasmaspende in diesem Sinne für eine gute Möglichkeit um als Gesellschaft gemeinsam aktiv an der Front im Kampf gegen das Virus mitzuwirken.",
+    "kontaktintro": "Du hast noch immer Fragen oder Anregungen?",
+    "kontaktbutton": "Schreib uns!"
+
 }
