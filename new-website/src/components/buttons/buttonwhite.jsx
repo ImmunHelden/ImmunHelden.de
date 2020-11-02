@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: 10,
       margin:"auto",
       fontSize: 18,
+      fontWeight: 800,
       display: "flex",
       "&:hover":{
         backgroundColor: "white"

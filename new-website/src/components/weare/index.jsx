@@ -14,6 +14,11 @@ const useStyles = makeStyles(theme => ({
       borderColor: "#FC4141",
       borderRadius: 15,
       borderStyle: "solid"
+    },
+    inline: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
     }
 
 }))
@@ -25,15 +30,15 @@ export default function Weare() {
    <Container maxWidth="md" className={classes.color}>
     <h3><FormattedMessage id="weare"/></h3>
     <Grid container spacing={3}>
-    <Grid xs={4}>
+    <Grid className={classes.inline} xs={12} sm={4}>
       <img src={team} alt="Ehrenamtlich" />
       <p><FormattedMessage id="honorary"/></p>
     </Grid>
-    <Grid xs={4}>
+    <Grid className={classes.inline} xs={12} sm={4}>
      <img src={hand} alt="Uneigennützig" />
      <p><FormattedMessage id="unselfish"/></p>
     </Grid>
-    <Grid xs={4}>
+    <Grid className={classes.inline} xs={12} sm={4}>
       <img src={schloss} alt="Open Source" />
       <p><FormattedMessage id="opensource"/></p>
     </Grid>

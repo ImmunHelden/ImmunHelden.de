@@ -18,9 +18,13 @@ const useStyles = makeStyles(theme => ({
     textTransform: "none",
     textAlign:"left"
   },
-  quote:{
+  quoteimg:{
     float: "right",
     transform: "rotate(180deg)"
+  },
+  quote:{
+    whiteSpace: "pre-line",
+    fontStyle: "italic"
   }
 }))
 
@@ -43,8 +47,8 @@ export default function Experte() {
     <Grid container>
     <Grid xs={12}>
     <img src={zitat} alt="Zitat Anführungszeichen" />
-     <p><FormattedMessage id="expertezitat"/></p>
-    <img className={classes.quote} src={zitat} alt="Zitat Anführungszeichen" />
+     <p className={classes.quote}><FormattedMessage id="expertezitat"/></p>
+    <img className={classes.quoteimg} src={zitat} alt="Zitat Anführungszeichen" />
     </Grid>
     </Grid>
     </Box>
