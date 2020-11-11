@@ -21,9 +21,9 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function Buttonwhite({ children }) {
+export default function Buttonwhite({ children, onClick = () => {} }) {
   const classes = useStyles()
   return(
-   <Button  className={classes.button}  >{children}</Button>
+   <Button onClick={onClick} className={classes.button}  >{children}</Button>
 )
 }

@@ -7,18 +7,24 @@ import team from "../../images/icons/team.png"
 
 const useStyles = makeStyles(theme => ({
     color: {
-        color: "#FC4141"
+        color: "#FC4141",
+        paddingBottom: 40
     },
     border: {
       border: 3 ,
       borderColor: "#FC4141",
       borderRadius: 15,
-      borderStyle: "solid"
+      borderStyle: "solid",
+      marginTop: 40,
+      marginBottom: 40
     },
     inline: {
       display: "flex",
       alignItems: "center",
       justifyContent: "center"
+    },
+    spacing: {
+      paddingLeft:10
     }
 
 }))
@@ -32,15 +38,15 @@ export default function Weare() {
     <Grid container spacing={3}>
     <Grid className={classes.inline} xs={12} sm={4}>
       <img src={team} alt="Ehrenamtlich" />
-      <p><FormattedMessage id="honorary"/></p>
+      <p className={classes.spacing}><FormattedMessage id="honorary"/></p>
     </Grid>
     <Grid className={classes.inline} xs={12} sm={4}>
      <img src={hand} alt="Uneigennützig" />
-     <p><FormattedMessage id="unselfish"/></p>
+     <p className={classes.spacing}><FormattedMessage id="unselfish"/></p>
     </Grid>
     <Grid className={classes.inline} xs={12} sm={4}>
       <img src={schloss} alt="Open Source" />
-      <p><FormattedMessage id="opensource"/></p>
+      <p className={classes.spacing}><FormattedMessage id="opensource"/></p>
     </Grid>
     </Grid>
    </Container>
