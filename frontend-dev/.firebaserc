@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "immunhelden"
+  },
+  "targets": {
+    "immunhelden": {
+      "hosting": {
+        "fresh": [
+          "immunhelden-fresh"
+        ]
+      }
+    }
+  }
+}

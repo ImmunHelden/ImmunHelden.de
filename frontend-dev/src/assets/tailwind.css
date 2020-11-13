@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ReactCollapse--collapse {
+  transition: height 250ms;
+}
+
+.bubble-left {
+  position: relative;
+}
+.bubble-left::before {
+  position: absolute;
+  content: '';
+  width: 420px;
+  height: 420px;
+  @apply bg-primary;
+  border-radius: 100%;
+  left: 0;
+  top: 50%;
+  z-index: -1;
+  transform: translate(-80%, -65%);
+}
+
+.bubble-right {
+  position: relative;
+}
+.bubble-right::before {
+  position: absolute;
+  content: '';
+  width: 650px;
+  height: 650px;
+  @apply bg-primary;
+  border-radius: 100%;
+  left: 100%;
+  top: 50%;
+  z-index: -1;
+  transform: translate(-25%, -55%);
+}
+
+.bubble-bottom-right {
+  position: relative;
+}
+.bubble-bottom-right::before {
+  position: absolute;
+  content: '';
+  width: 350px;
+  height: 350px;
+  @apply bg-primary;
+  border-radius: 100%;
+  left: 100%;
+  bottom: 0;
+  z-index: -1;
+  transform: translate(-25%, 55%);
+}
+
+.team-image {
+  animation: move-left 42s infinite linear;
+}
+
+@keyframes move-left {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
