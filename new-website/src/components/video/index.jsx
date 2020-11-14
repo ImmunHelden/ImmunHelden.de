@@ -3,6 +3,7 @@ import { makeStyles, Container, Box} from "@material-ui/core"
 import { FormattedMessage } from "gatsby-plugin-intl"
 import videobg from "../../images/videobg.png"
 import Buttonwhite from "../buttons/buttonwhite"
+import { ArrowRight } from "@material-ui/icons"
 
 const useStyles = makeStyles(theme => ({
     background: {
@@ -38,7 +39,7 @@ export default function Video() {
      <Container maxWidth="md" className={classes.padding}>
     <h2><FormattedMessage id="videointro"/></h2> 
     <p><FormattedMessage id="videotext"/></p>
-    <Buttonwhite onClick={() => setOverlay(false)}><FormattedMessage id="videobutton"/></Buttonwhite>
+    <Buttonwhite aria-label="home" onClick={() => setOverlay(false)}><ArrowRight fontSize="large" /><FormattedMessage id="videobutton"/></Buttonwhite>
     </Container>
    </Container>
   }

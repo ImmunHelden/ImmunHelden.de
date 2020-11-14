@@ -11,11 +11,13 @@ import Footer from "../components/footer"
 import Karte from "../components/karte"
 import Video from "../components/video"
 import Intro from "../components/intro"
+import Navigation from "../components/navigation"
 
 const IndexPage = () => {
     return (
         <Layout>
             <SEO title="Home" />
+              <Navigation/>
               <Intro/>
               <Supporters/>
               <Video/>
