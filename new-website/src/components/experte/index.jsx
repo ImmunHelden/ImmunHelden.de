@@ -6,17 +6,20 @@ import expertbg from "../../images/expertebg.png"
 import zitat from "../../images/zitat.png"
 
 const useStyles = makeStyles(theme => ({
-  image:{
-    backgroundImage: `url(${expertbg})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "100%"
+  spaceing:{
+    marginTop: "200px",
+    marginBottom: "200px"
   },
   avatar:{
     borderRadius:"50%"
   },
   text:{
     textTransform: "none",
-    textAlign:"left"
+    textAlign:"left",
+    marginBottom: "0px",
+  },
+  experttitle:{
+    marginTop: "0px",
   },
   quoteimg:{
     float: "right",
@@ -25,23 +28,55 @@ const useStyles = makeStyles(theme => ({
   quote:{
     whiteSpace: "pre-line",
     fontStyle: "italic"
-  }
+  },
+  dot1: {
+    height: 400,
+    width: 400,
+    backgroundColor: "#FC4141",
+    borderRadius: "50%",
+    position: "absolute",
+    zIndex: "-1",
+    right: "80%",
+    marginTop: "-115px",
+  },
+  dot2: {
+    height: 550,
+    width: 550,
+    backgroundColor: "#FC4141",
+    borderRadius: "50%",
+    position: "absolute",
+    zIndex: "-1",
+    left: "80%",
+    marginTop: "-275px",
+  },
+  dot3: {
+    height: 370,
+    width: 370,
+    backgroundColor: "#FC4141",
+    borderRadius: "50%",
+    position: "absolute",
+    zIndex: "-1",
+    left: "80%",
+    marginTop: "-210px",
+}
 }))
 
 export default function Experte() {
   const classes = useStyles()
   return(
-  <Box className={classes.image}>
+  <Box className={classes.spaceing}>
+    <span className={classes.dot1}></span>
+    <span className={classes.dot2}></span>
    <Container maxWidth="md">
     <h2><FormattedMessage id="experteintro"/></h2>
     <Box>
     <Grid container spacing={3}>
-    <Grid xs={3}>
+    <Grid sm={3} xs={12}>
       <img className={classes.avatar} src={expert} alt="Christian Torres Reyes" />
     </Grid>
-    <Grid xs={9}>
+    <Grid sm={9} xs={12}>
      <h3 className={classes.text}><FormattedMessage id="expertename"/></h3>
-     <p><FormattedMessage id="expertetitel"/></p>
+     <p className={classes.experttitle}><FormattedMessage id="expertetitel"/></p>
     </Grid>
     </Grid>
     <Grid container>
@@ -53,6 +88,7 @@ export default function Experte() {
     </Grid>
     </Box>
    </Container>
+   <span className={classes.dot3}></span>
    </Box>
 )
 }
