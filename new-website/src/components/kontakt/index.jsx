@@ -10,6 +10,11 @@ const useStyles = makeStyles(theme => ({
     headline: {
       color: "white",
       textAlign: "center"
+    },
+    spacing: {
+      paddingTop: 25,
+      paddingBottom: 60,
+      marginTop: 50,
     }
 }))
 
@@ -17,7 +22,7 @@ export default function Kontakt() {
   const classes = useStyles()
   return(
   <Box className={classes.bg}>
-   <Container maxWidth="md">
+   <Container maxWidth="md" className={classes.spacing} >
     <h2 className={classes.headline}><FormattedMessage id="kontaktintro"/></h2>
     <Buttonwhite><FormattedMessage id="kontaktbutton"/></Buttonwhite>
    </Container>
