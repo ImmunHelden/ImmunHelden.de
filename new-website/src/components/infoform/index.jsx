@@ -23,13 +23,20 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: "rgba(0, 0, 0, 0.1)",
       height: 70,
       borderRadius: 15,
-      paddingLeft: 15
+      paddingLeft: 15,
+      [theme.breakpoints.down('xs')]: {
+        marginTop: 10,
+        width: "97%"
+      },
     },
     dslink: {
       color: "black",
       fontSize: 16
     },
     inputcheck: {
+      marginTop: 20
+    },
+    labelspace: {
       marginTop: 20
     }
 }))
@@ -55,7 +62,9 @@ export default function Infoform() {
         <label for="ds"><FormattedMessage id="dpAgreementText" values={{
             a: (...chunks) => <Link className={classes.dslink} to="/datenschutz">{chunks}</Link>,
         }}/></label>
+        <Box className={classes.labelspace}>
           <Buttonred type="submit"><FormattedMessage id="letsGoButtonText" /></Buttonred>
+        </Box>
       </form>
     <span className={classes.info}><FormattedMessage id="forminfo"/></span>
    </Container>

@@ -11,11 +11,13 @@ const useStyles = makeStyles(theme => ({
       borderColor: "#FC4141",
       borderRadius: 15,
       borderStyle: "solid",
-      marginTop: 40,
-      marginBottom: 40,
-      marginLeft:24,
-      marginRight:24,
-      width:"auto"
+      marginTop: 80,
+      marginBottom: 80,
+      width:"auto",
+      [theme.breakpoints.down('md')]: {
+        marginLeft:24,
+        marginRight:24,
+      },
     },
     color:{
       color: "#FC4141",

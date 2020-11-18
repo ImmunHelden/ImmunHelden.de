@@ -22,56 +22,34 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+const images = [
+  { alt: `wirvsvirus`, link: `https://wirvsvirus.org/`, path: wvv},
+  { alt: `Prototype Fund`, link: `https://prototypefund.de/project/immunhelden/`, path: prototypefund},
+  { alt: `youknow`, link: `https://you-know.de/`, path: youknow},
+  { alt: `Studio von Fuchs und Lommatzsch`, link: `http://www.vonfuchsundlommatzsch.com/`, path: fuchs},
+  { alt: `Vodafone`, link: `https://www.vodafone-institut.de/events/immunhelden-everyday-life-heroes/`, path: vodafone},
+  { alt: `sdg`, link: `https://www.datenschutz-kanzlei.info/`, path: sdg},
+  { alt: `5Minds`, link: `https://www.5minds.de/`, path: minds},
+  { alt: `Bundesministerium für Bildung und Forschung`, link: `https://www.bmbf.de/de/uebersicht-der-bmbf-gefoerderten-projekte-aus-dem-hackathon-11634.html`, path: bmbf},
+  { alt: `Project Together`, link: `https://platform.projecttogether.org/public/project/jOr4TLzNn2QvVafrmU6WpoJZR5C3`, path: projecttogether},
+  { alt: `Rapid User Tests`, link: `https://rapidusertests.com/?utm_source=referral&utm_campaign=immunhelden_sponsoring&utm_medium=link`, path: rapidusertests},
+  { alt: `Silberplus`, link: `https://de.silberpuls.de/`, path: silberplus},
+]
+
 export default function Supporters() {
   const classes = useStyles()
   return(
   <Container maxWidth="lg">
   <h3><FormattedMessage id="supporters" /></h3>
-  <Grid container>
-   <Grid xs={4} sm={2}>
-    <img src={wvv} className={classes.image} alt="wirvsvirus" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={prototypefund} className={classes.image} alt="Prototype Fund" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={youknow} className={classes.image} alt="youknow" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={fuchs} className={classes.image} alt="Studio von Fuchs und Lommatzsch" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={vodafone} className={classes.image} alt="Vodafone" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={sdg} className={classes.image} alt="sdg" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={minds} className={classes.image} alt="5Minds" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={bmbf} className={classes.image} alt="5Minds" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={projecttogether} className={classes.image} alt="5Minds" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={rapidusertests} className={classes.image} alt="5Minds" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-    <img src={silberplus} className={classes.image} alt="5Minds" />
-   </Grid>
-   <Grid xs={4} sm={2}>
-   </Grid>
-  </Grid>
-
-
-
-
-
-
-
-
+    <Grid container>
+            {images.map(({ alt, link, path }) => (
+              <Grid xs={6} sm={4} md={2}>
+                <a href={link}>
+                  <img src={path} className={classes.image} alt={alt} />
+                </a> 
+               </Grid>
+            ))}
+    </Grid>
   </Container>
 )
 }

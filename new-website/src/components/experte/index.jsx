@@ -2,7 +2,6 @@ import React from "react"
 import { makeStyles, Grid, Container, Box} from "@material-ui/core"
 import { FormattedMessage } from "gatsby-plugin-intl"
 import expert from "../../images/experte.png"
-import expertbg from "../../images/expertebg.png"
 import zitat from "../../images/zitat.png"
 
 const useStyles = makeStyles(theme => ({
@@ -10,6 +9,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: "200px",
     marginBottom: "200px"
   },
+  
   avatar:{
     borderRadius:"50%"
   },

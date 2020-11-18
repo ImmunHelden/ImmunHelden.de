@@ -2,7 +2,7 @@ import React from "react"
 import { makeStyles, Container, Box, Grid} from "@material-ui/core"
 import { FormattedMessage } from "gatsby-plugin-intl"
 import introbg from "../../images/introbg.png"
-import Buttonwhite from "../buttons/buttonwhite"
+import Buttontransparent from "../buttons/buttontransparent"
 import Buttonred from "../buttons/buttonred"
 
 const useStyles = makeStyles(theme => ({
@@ -19,13 +19,17 @@ const useStyles = makeStyles(theme => ({
     padding: {
       paddingTop: "6rem",
       paddingBottom: "6rem"
+    },
+    buttonspace: {
+      [theme.breakpoints.down('md')]: {
+        marginTop: "20px"
+      }, 
     }
   }))
 
 
 export default function Intro() {
   const classes = useStyles()
-
   return(
   <Box className={classes.background}>
    <Container maxWidth="lg"  className={classes.padding}>
@@ -34,12 +38,12 @@ export default function Intro() {
       <p><FormattedMessage id="headertext"/></p>
     </Container>
     <Container maxWidth="md">
-      <Grid container spacing={3}>
-        <Grid xs={6}>
-          <Buttonwhite><FormattedMessage id="headerbuttonheld"/></Buttonwhite>
+      <Grid container>
+        <Grid xs={12} md={6} className={classes.buttonspace}>
+          <Buttonred><FormattedMessage id="headerbuttonheld"/></Buttonred>
         </Grid>
-        <Grid xs={6}>
-          <Buttonred><FormattedMessage id="headerbuttonintitut"/></Buttonred>
+        <Grid xs={12} md={6} className={classes.buttonspace}>
+          <Buttontransparent><FormattedMessage id="headerbuttoninstitut"/></Buttontransparent>
         </Grid>
      </Grid>
     </Container>

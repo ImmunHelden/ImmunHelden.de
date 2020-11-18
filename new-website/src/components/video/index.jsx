@@ -22,8 +22,26 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: "6rem"
     },
     video: {
-      display: "block",
-      margin: "auto"
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+    },
+    videocontainer: {
+      position: "relative",
+      paddingBottom: "50%",
+      paddingTop: 0,
+      height: 0,
+      overflow: "hidden"
+    },
+    space: {
+      marginBottom: "80px",
+      marginTop: "80px",
+      [theme.breakpoints.down('md')]: {
+        marginLeft:24,
+        marginRight:24,
+      },
     }
   }))
 
@@ -33,7 +51,7 @@ export default function Video() {
   const [overlay, setOverlay] = useState(true);
 
   return(
-  <Box>
+  <Box className={classes.space}>
   { overlay &&
    <Container maxWidth="lg" className={classes.background}>
      <Container maxWidth="md" className={classes.padding}>
@@ -44,7 +62,7 @@ export default function Video() {
    </Container>
   }
   { overlay ||
-   <Container maxWidth="lg">
+   <Container maxWidth="lg" className={classes.videocontainer}>
     <iframe className={classes.video} src="https://www.youtube.com/embed/fyPF3RUv00A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
    </Container>
   }
