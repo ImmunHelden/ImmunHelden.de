@@ -30,12 +30,14 @@ export default function Karte() {
      <Box className={classes.text}>
       <h2><FormattedMessage id="karteintro"/></h2>
       <p><FormattedMessage id="kartetext"/></p>
-      <Buttonred href="https://immunhelden.de/maps/all/"><FormattedMessage id="kartebutton"/></Buttonred>
+      <a href="https://immunhelden.de/maps/all/">
+      <Buttonred><FormattedMessage id="kartebutton"/></Buttonred>
+      </a>
      </Box>
     </Grid>
     
     <Grid xs={12} md={5} className={classes.img} href="https://immunhelden.de/maps/all/">
-    <a href="https://immunhelden.de/maps/all/"> </a>
+      <a href="https://immunhelden.de/maps/all/"> </a>
     </Grid>
    </Grid>
    </Box>

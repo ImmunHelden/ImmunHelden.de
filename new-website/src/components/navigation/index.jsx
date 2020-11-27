@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Hidden, IconButton, List, ListItem, ListItemText, Cont
 import { Home } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/core/styles"
 import SideDrawer from "./sideDrawer"
+import { FormattedMessage } from "gatsby-plugin-intl"
 
 const useStyles = makeStyles({
     navDisplayFlex: {
@@ -13,7 +14,8 @@ const useStyles = makeStyles({
     linkText: {
       textDecoration: `none`,
       textTransform: `uppercase`,
-      color: `white`
+      color: `white`,
+      fontWeight: "800 !important"
     },
     navbarDisplayFlex: {
         display: `flex`,
@@ -22,11 +24,11 @@ const useStyles = makeStyles({
   });
 
 const navLinks = [
-    { title: `video`, path: `/` },
-    { title: `jetzt helfen`, path: `/` },
-    { title: `expertenmeinung`, path: `/` },
-    { title: `das team`, path: `/` },
-    { title: `faq`, path: `/` },
+    { title: <FormattedMessage id="menue_video"/>, path: `/` },
+    { title: <FormattedMessage id="menue_help"/>, path: `/` },
+    { title: <FormattedMessage id="menue_expert"/>, path: `/` },
+    { title: <FormattedMessage id="menue_team"/>, path: `/` },
+    { title: <FormattedMessage id="menue_faq"/>, path: `/` },
   ]
 
 const Navigation = () => {
@@ -38,9 +40,9 @@ const Navigation = () => {
         <Hidden smDown>
           <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
             {navLinks.map(({ title, path }) => (
-             <Link to={path} key={title} className={classes.linkText}>
+             <Link to={path} key={title} >
             <ListItem button>
-             <ListItemText primary={title} />
+             <ListItemText primary={title} className={classes.linkText} />
             </ListItem>
              </Link>
               ))}

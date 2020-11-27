@@ -1,5 +1,6 @@
 import React from "react"
 import { makeStyles, Container, Box, Grid} from "@material-ui/core"
+import { Link } from "gatsby"
 import { FormattedMessage } from "gatsby-plugin-intl"
 import Buttonwhite from "../buttons/buttonwhite"
 import facebook from "../../images/icons/facebook.png"
@@ -15,7 +16,8 @@ const useStyles = makeStyles(theme => ({
     },
     inline: {
       display: "flex",
-      alignItems: "center"
+      alignItems: "center",
+      color: "white"
     },
     logoimg: {
       backgroundColor: "white",
@@ -27,7 +29,8 @@ const useStyles = makeStyles(theme => ({
       textTransform: "unset"
     },
     link: {
-      display: "block"
+      display: "block",
+      color: "white"
     },
     spacing: {
       lineHeight:"35px",
@@ -51,29 +54,29 @@ export default function Footer() {
    <Grid container spacing={3}>
     <Grid md={4} sm={5} xs={12}>
      <img className={classes.logoimg} src={immunhelden} alt="Immunhelden Logo" />
-     <a className={classes.link} href="#"><FormattedMessage id="footer_impressum"/></a>
-     <a className={classes.link} href="#"><FormattedMessage id="footer_ds"/></a>
+     <Link className={classes.link} to="/impressum"><FormattedMessage id="footer_impressum"/></Link>
+     <Link className={classes.link} to="/datenschutz"><FormattedMessage id="footer_ds"/></Link>
     </Grid>
     <Grid md={4} sm={4} xs={12} className={classes.spacinggrid}>
      <h3 className={classes.headline}>#WirVsVirus</h3>
-     <a className={classes.link} href="https://wirvsvirus.org/"><FormattedMessage id="footer_website"/></a>
-     <a className={classes.link} href="https://www.bundesregierung.de/"><FormattedMessage id="footer_br"/></a>
+     <a className={classes.link} href="https://wirvsvirus.org/" target="_blank"><FormattedMessage id="footer_website"/></a>
+     <a className={classes.link} href="https://www.bundesregierung.de/" target="_blank"><FormattedMessage id="footer_br"/></a>
     </Grid>
     <Grid md={4} sm={3} xs={12} className={classes.spacinggrid}>
      <h3 className={classes.headline}>Follow us</h3>
-     <a className={classes.inline} href="https://github.com/ImmunHelden/">
+     <a className={classes.inline} href="https://github.com/ImmunHelden/" target="_blank">
       <img className={classes.spacingimg} src={github} alt="Github" />
       Github
      </a>
-     <a className={classes.inline} href="https://twitter.com/immunhelden">
+     <a className={classes.inline} href="https://twitter.com/immunhelden" target="_blank">
       <img className={classes.spacingimg} src={twitter} alt="Twitter" />
       Twitter
      </a>
-     <a className={classes.inline} href="https://m.facebook.com/ImmunHelden">
+     <a className={classes.inline} href="https://m.facebook.com/ImmunHelden" target="_blank">
       <img className={classes.spacingimg} src={facebook} alt="Facebook" />
       Facebook
      </a>
-     <a className={classes.inline} href="https://www.instagram.com/immuneheroes/">
+     <a className={classes.inline} href="https://www.instagram.com/immuneheroes/" target="_blank">
       <img className={classes.spacingimg} src={instagram} alt="Instagram" />
       Instagram
      </a>

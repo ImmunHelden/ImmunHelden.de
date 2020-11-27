@@ -15,8 +15,9 @@ import Navigation from "../components/navigation"
 
 const IndexPage = () => {
     return (
-        <Layout>
-            <SEO title="Home" />
+      
+            <div>
+              <SEO title="Home" />
               <Navigation/>
               <Intro/>
               <Supporters/>
@@ -28,7 +29,8 @@ const IndexPage = () => {
               <Team/>
               <Kontakt/>
               <Footer/>
-        </Layout>
+            </div>
+    
     )
 }
 
