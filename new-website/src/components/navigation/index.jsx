@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { Link } from "gatsby"
+import { Link , componentDidMount} from "gatsby"
 import { AppBar, Toolbar, Hidden, List, Container } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import SideDrawer from "./sideDrawer"
@@ -33,20 +33,21 @@ const useStyles = makeStyles({
       padding: "15px",
       borderRadius: "0px 0px 20px 20px",
       height: "70px",
-      marginTop: "30px"
+      marginTop: "30px",
+      boxShadow: "0px 2px 1px rgba(0,0,0,0.2)"
     }  
   });
 
 const navLinks = [
-    { title: <FormattedMessage id="menue_video"/>, path: `/` },
-    { title: <FormattedMessage id="menue_help"/>, path: `/` },
-    { title: <FormattedMessage id="menue_expert"/>, path: `/` },
-    { title: <FormattedMessage id="menue_team"/>, path: `/` },
-    { title: <FormattedMessage id="menue_faq"/>, path: `/` },
+    { title: <FormattedMessage id="menue_video"/>, path: `#video` },
+    { title: <FormattedMessage id="menue_help"/>, path: `#infoform` },
+    { title: <FormattedMessage id="menue_expert"/>, path: `#expert` },
+    { title: <FormattedMessage id="menue_team"/>, path: `#team` },
+    { title: <FormattedMessage id="menue_faq"/>, path: `#faq` },
   ];
 
   
-
+componentDidMount()
 const Navigation = () => {
   const classes = useStyles();
   const [menue, setMenue] = useState(true);
@@ -61,7 +62,9 @@ const Navigation = () => {
   return (
     <AppBar position="fixed" className={classes.height} color={menue ?  'transparent' : 'white'} elevation={menue ?  '0' : '1'}>
       <Toolbar>
-      <img src={immunhelden} alt="Immunhelden Logo" className={classes.logo}/>
+      <Link to="/">
+        <img src={immunhelden} alt="Immunhelden Logo" className={classes.logo}/>
+      </Link>
        <Container maxWidth="md" className={classes.navbarDisplayFlex}>   
         <Hidden smDown>
           <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>

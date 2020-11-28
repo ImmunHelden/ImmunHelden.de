@@ -46,7 +46,7 @@ export default function Infoform() {
   const { register, errors, handleSubmit } = useForm();
   return(
   <Box>
-   <Container maxWidth="md">
+   <Container maxWidth="md" id="infoform">
     <h2><FormattedMessage id="introTitle"/></h2>
     <p><FormattedMessage id="introDescription"/></p>
       <form>

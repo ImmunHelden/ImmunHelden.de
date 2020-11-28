@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "gatsby"
 import { makeStyles, Container, Box, Grid} from "@material-ui/core"
 import { FormattedMessage } from "gatsby-plugin-intl"
 import introbg from "../../images/introbg.png"
@@ -40,14 +41,14 @@ export default function Intro() {
     <Container maxWidth="md">
       <Grid container>
         <Grid xs={12} md={6} className={classes.buttonspace}>
-          <a href="">
+          <Link to="#infoform">
           <Buttonred><FormattedMessage id="headerbuttonheld"/></Buttonred>
-          </a>
+          </Link>
         </Grid>
         <Grid xs={12} md={6} className={classes.buttonspace}>
-          <a href="">
+          <Link to="/partner/login">
           <Buttontransparent><FormattedMessage id="headerbuttoninstitut"/></Buttontransparent>
-          </a>
+          </Link>
         </Grid>
      </Grid>
     </Container>

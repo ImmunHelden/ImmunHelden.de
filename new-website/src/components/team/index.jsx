@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 export default function Team() {
   const classes = useStyles()
   return(
-  <Box>
+  <Box id="team">
    <Container maxWidth="md">
     <h2><FormattedMessage id="teamintro"/></h2>
    </Container>

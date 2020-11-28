@@ -36,10 +36,7 @@ const useStyles = makeStyles({
       >
         <List component="nav">
           {navLinks.map(({ title, path }) => (
-            <Link to={path} key={title} className={classes.linkText}>
-              <ListItem button>
-                <ListItemText primary={title} />
-              </ListItem>
+            <Link to={path} key={title} className={classes.linkText}>{title}
             </Link>
           ))}
         </List>

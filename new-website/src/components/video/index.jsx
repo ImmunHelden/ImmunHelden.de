@@ -51,7 +51,7 @@ export default function Video() {
   const [overlay, setOverlay] = useState(true);
 
   return(
-  <Box className={classes.space}>
+  <Box className={classes.space} id="video">
   { overlay &&
    <Container maxWidth="lg" className={classes.background}>
      <Container maxWidth="md" className={classes.padding}>
