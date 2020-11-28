@@ -1,26 +1,40 @@
-import * as React from "react"
+import React, { useState} from "react";
 import { Link } from "gatsby"
-import { AppBar, Toolbar, Hidden, IconButton, List, ListItem, ListItemText, Container } from "@material-ui/core"
-import { Home } from "@material-ui/icons"
+import { AppBar, Toolbar, Hidden, List, Container } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import SideDrawer from "./sideDrawer"
 import { FormattedMessage } from "gatsby-plugin-intl"
+import immunhelden from "../../images/logos/immunhelden.png"
 
 const useStyles = makeStyles({
-    navDisplayFlex: {
+  height: {
+      height: "60px",
+      transition: "background-color 300ms"
+    },  
+  navDisplayFlex: {
       display: `flex`,
       justifyContent: `space-between`
     },
     linkText: {
       textDecoration: `none`,
       textTransform: `uppercase`,
-      color: `white`,
-      fontWeight: "800 !important"
+      fontWeight: "800",
+      fontFamily: "Raleway",
+      paddingLeft: "20px",
+      paddingRight: "20px",
+      fontSize: "16px"
     },
     navbarDisplayFlex: {
         display: `flex`,
         justifyContent: `space-between`
-      }
+      },
+    logo: {
+      backgroundColor: "white",
+      padding: "15px",
+      borderRadius: "0px 0px 20px 20px",
+      height: "70px",
+      marginTop: "30px"
+    }  
   });
 
 const navLinks = [
@@ -29,22 +43,30 @@ const navLinks = [
     { title: <FormattedMessage id="menue_expert"/>, path: `/` },
     { title: <FormattedMessage id="menue_team"/>, path: `/` },
     { title: <FormattedMessage id="menue_faq"/>, path: `/` },
-  ]
+  ];
+
+  
 
 const Navigation = () => {
   const classes = useStyles();
+  const [menue, setMenue] = useState(true);
+
+  window.addEventListener('scroll', (event) => {
+    if (window.scrollY > 1) {
+      setMenue(false)
+    } else {
+      setMenue(true)
+    }
+  });
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" className={classes.height} color={menue ?  'transparent' : 'white'} elevation={menue ?  '0' : '1'}>
       <Toolbar>
+      <img src={immunhelden} alt="Immunhelden Logo" className={classes.logo}/>
        <Container maxWidth="md" className={classes.navbarDisplayFlex}>   
         <Hidden smDown>
           <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
             {navLinks.map(({ title, path }) => (
-             <Link to={path} key={title} >
-            <ListItem button>
-             <ListItemText primary={title} className={classes.linkText} />
-            </ListItem>
-             </Link>
+             <Link to={path} key={title} className={classes.linkText} style={{color: (menue ?  'white' : 'black')}}>{title}</Link>
               ))}
           </List>
           </Hidden>

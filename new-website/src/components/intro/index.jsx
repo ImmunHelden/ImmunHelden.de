@@ -40,10 +40,14 @@ export default function Intro() {
     <Container maxWidth="md">
       <Grid container>
         <Grid xs={12} md={6} className={classes.buttonspace}>
+          <a href="">
           <Buttonred><FormattedMessage id="headerbuttonheld"/></Buttonred>
+          </a>
         </Grid>
         <Grid xs={12} md={6} className={classes.buttonspace}>
+          <a href="">
           <Buttontransparent><FormattedMessage id="headerbuttoninstitut"/></Buttontransparent>
+          </a>
         </Grid>
      </Grid>
     </Container>
