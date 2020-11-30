@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, } from "react";
 import { Link , componentDidMount} from "gatsby"
 import { AppBar, Toolbar, Hidden, List, Container } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
@@ -6,6 +6,7 @@ import SideDrawer from "./sideDrawer"
 import { FormattedMessage } from "gatsby-plugin-intl"
 import immunhelden from "../../images/logos/immunhelden.png"
 
+export default function Navigation() {
 const useStyles = makeStyles({
   height: {
       height: "60px",
@@ -46,19 +47,20 @@ const navLinks = [
     { title: <FormattedMessage id="menue_faq"/>, path: `#faq` },
   ];
 
-  
-componentDidMount()
-const Navigation = () => {
+ 
+
   const classes = useStyles();
   const [menue, setMenue] = useState(true);
 
-  window.addEventListener('scroll', (event) => {
+    window.addEventListener('scroll', (event) => {
     if (window.scrollY > 1) {
       setMenue(false)
     } else {
       setMenue(true)
     }
-  });
+  }); 
+
+
   return (
     <AppBar position="fixed" className={classes.height} color={menue ?  'transparent' : 'white'} elevation={menue ?  '0' : '1'}>
       <Toolbar>
@@ -80,5 +82,5 @@ const Navigation = () => {
       </Toolbar>
     </AppBar>
   )
+
 }
-export default Navigation
