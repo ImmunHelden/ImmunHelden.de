@@ -51,8 +51,7 @@ const navLinks = [
 
   const classes = useStyles();
   const [menue, setMenue] = useState(true);
-
-    window.addEventListener('scroll', (event) => {
+  typeof window !== 'undefined' && window.addEventListener('scroll', (event) => {
     if (window.scrollY > 1) {
       setMenue(false)
     } else {
