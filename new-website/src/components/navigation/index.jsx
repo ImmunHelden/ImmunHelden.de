@@ -1,5 +1,5 @@
-import React, { useState, } from "react";
-import { Link , componentDidMount} from "gatsby"
+import React, { useState, useLayoutEffect} from "react";
+import { Link} from "gatsby"
 import { AppBar, Toolbar, Hidden, List, Container } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import SideDrawer from "./sideDrawer"
@@ -39,6 +39,7 @@ const useStyles = makeStyles({
     }  
   });
 
+  
 const navLinks = [
     { title: <FormattedMessage id="menue_video"/>, path: `#video` },
     { title: <FormattedMessage id="menue_help"/>, path: `#infoform` },
@@ -47,18 +48,18 @@ const navLinks = [
     { title: <FormattedMessage id="menue_faq"/>, path: `#faq` },
   ];
 
- 
-
   const classes = useStyles();
   const [menue, setMenue] = useState(true);
-  typeof window !== 'undefined' && window.addEventListener('scroll', (event) => {
-    if (window.scrollY > 1) {
-      setMenue(false)
-    } else {
-      setMenue(true)
-    }
-  }); 
 
+  useLayoutEffect(() => {
+    window.addEventListener('scroll', (event) => {
+      if (window.scrollY > 1) {
+        setMenue(false)
+      } else {
+        setMenue(true)
+      }
+    }); 
+  }, [])
 
   return (
     <AppBar position="fixed" className={classes.height} color={menue ?  'transparent' : 'white'} elevation={menue ?  '0' : '1'}>
