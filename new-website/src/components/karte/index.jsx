@@ -18,6 +18,11 @@ const useStyles = makeStyles(theme => ({
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
+      height: "100%",
+      display: "flex",
+      [theme.breakpoints.down('sm')]: {
+        height:"400px"
+      },  
     }
 }))
 
@@ -36,8 +41,8 @@ export default function Karte() {
      </Box>
     </Grid>
     
-    <Grid xs={12} md={5} className={classes.img} href="https://immunhelden.de/maps/all/">
-      <a href="https://immunhelden.de/maps/all/"> </a>
+    <Grid xs={12} md={5}>
+      <a className={classes.img}  href="https://immunhelden.de/maps/all/"></a>
     </Grid>
    </Grid>
    </Box>

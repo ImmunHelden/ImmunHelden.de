@@ -12,7 +12,15 @@ const useStyles = makeStyles({
     textDecoration: `none`,
     textTransform: `uppercase`,
     color: `black`,
+    display: "block",
+    textAlign: "center",
+    fontWeight: "800",
+    fontFamily: "Raleway",
+    paddingTop: "20px"
   },
+  iconmenue: {
+    float: "right",
+  }
 })
 
   const SideDrawer = ({ navLinks }) => {
@@ -44,7 +52,7 @@ const useStyles = makeStyles({
     );
     return (
         <React.Fragment>
-        <IconButton edge="start" aria-label="menu" onClick={toggleDrawer("right", true)}>
+        <IconButton className={classes.iconmenue} edge="start" aria-label="menu" onClick={toggleDrawer("right", true)}>
           <Menu />
         </IconButton>
         <Drawer

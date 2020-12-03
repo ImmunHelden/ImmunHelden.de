@@ -38,6 +38,10 @@ const useStyles = makeStyles(theme => ({
     zIndex: "-1",
     right: "80%",
     marginTop: "-115px",
+    position: "absolute",
+    zIndex: "-1",
+    right: "80%",
+    marginTop: "-115px",
   },
   dot2: {
     height: 550,
@@ -48,7 +52,9 @@ const useStyles = makeStyles(theme => ({
     zIndex: "-1",
     left: "80%",
     marginTop: "-275px",
+    overflow: "hidden",
   },
+
   dot3: {
     height: 370,
     width: 370,
@@ -65,8 +71,8 @@ export default function Experte() {
   const classes = useStyles()
   return(
   <Box className={classes.spaceing} id="expert">
-    <span className={classes.dot1}></span>
-    <span className={classes.dot2}></span>
+      <span className={classes.dot1}></span>
+      <span className={classes.dot2}></span>
    <Container maxWidth="md">
     <h2><FormattedMessage id="experteintro"/></h2>
     <Box>

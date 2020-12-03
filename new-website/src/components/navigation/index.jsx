@@ -13,7 +13,7 @@ const useStyles = makeStyles({
       transition: "background-color 300ms"
     },  
   navDisplayFlex: {
-      display: `flex`,
+      display: `unset`,
       justifyContent: `space-between`
     },
     linkText: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
       fontSize: "16px"
     },
     navbarDisplayFlex: {
-        display: `flex`,
+        display: `unset`,
         justifyContent: `space-between`
       },
     logo: {

@@ -1,5 +1,6 @@
 body {
     font-family: "Raleway", Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
 }
 html,
 body {
