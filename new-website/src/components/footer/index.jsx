@@ -8,6 +8,7 @@ import github from "../../images/icons/github.png"
 import instagram from "../../images/icons/instagram.png"
 import twitter from "../../images/icons/twitter.png"
 import immunhelden from "../../images/logos/immunhelden.png"
+import ds from "../../pages/datenschutzerklarung.pdf"
 
 const useStyles = makeStyles(theme => ({
     bg: {
@@ -55,7 +56,7 @@ export default function Footer() {
     <Grid md={4} sm={5} xs={12}>
      <img className={classes.logoimg} src={immunhelden} alt="Immunhelden Logo" />
      <Link className={classes.link} to="/impressum"><FormattedMessage id="footer_impressum"/></Link>
-     <Link className={classes.link} to="/datenschutz"><FormattedMessage id="footer_ds"/></Link>
+     <a className={classes.link} href={ds}><FormattedMessage id="footer_ds"/></a>
     </Grid>
     <Grid md={4} sm={4} xs={12} className={classes.spacinggrid}>
      <h3 className={classes.headline}>#WirVsVirus</h3>

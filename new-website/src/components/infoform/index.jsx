@@ -3,6 +3,7 @@ import { makeStyles, Container, Box, Grid} from "@material-ui/core"
 import { FormattedMessage, Link } from "gatsby-plugin-intl"
 import { useForm } from "react-hook-form"
 import Buttonred from "../buttons/buttonred"
+import ds from "../../pages/datenschutzerklarung.pdf"
 
 const useStyles = makeStyles(theme => ({
     image: {
@@ -60,7 +61,7 @@ export default function Infoform() {
       </Grid>
         <input className={classes.inputcheck} type="checkbox" id="ds" name="ds" />
         <label for="ds"><FormattedMessage id="dpAgreementText" values={{
-            a: (...chunks) => <Link className={classes.dslink} to="/datenschutz">{chunks}</Link>,
+            a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank">{chunks}</a>,
         }}/></label>
         <Box className={classes.labelspace}>
           <Buttonred type="submit"><FormattedMessage id="letsGoButtonText" /></Buttonred>

@@ -1,5 +1,4 @@
 import React from "react"
-import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Supporters from "../components/supporters"
 import Weare from "../components/weare"
@@ -12,6 +11,8 @@ import Karte from "../components/karte"
 import Video from "../components/video"
 import Intro from "../components/intro"
 import Navigation from "../components/navigation"
+import Faq from "../components/faq"
+import ContactFormComponent from "../components/contact-form"
 
 const IndexPage = () => {
     return (

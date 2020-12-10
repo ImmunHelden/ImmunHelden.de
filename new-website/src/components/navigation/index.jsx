@@ -45,7 +45,7 @@ const navLinks = [
     { title: <FormattedMessage id="menue_help"/>, path: `#infoform` },
     { title: <FormattedMessage id="menue_expert"/>, path: `#expert` },
     { title: <FormattedMessage id="menue_team"/>, path: `#team` },
-    { title: <FormattedMessage id="menue_faq"/>, path: `#faq` },
+    { title: <FormattedMessage id="menue_faq"/>, path: `faq` },
   ];
 
   const classes = useStyles();
