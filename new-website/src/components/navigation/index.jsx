@@ -71,7 +71,7 @@ const navLinks = [
         <Hidden smDown>
           <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
             {navLinks.map(({ title, path }) => (
-             <Link to={path} key={title} className={classes.linkText} style={{color: (menue ?  'white' : 'black')}}>{title}</Link>
+             <a href={path} key={title} className={classes.linkText} style={{color: (menue ?  'white' : 'black')}}>{title}</a>
               ))}
           </List>
           </Hidden>

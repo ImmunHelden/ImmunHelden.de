@@ -1,9 +1,6 @@
 import React from "react"
-import { makeStyles, Container, Box, Grid} from "@material-ui/core"
+import { makeStyles, Container, Box, Grid, Accordion, AccordionDetails, AccordionSummary} from "@material-ui/core"
 import { FormattedMessage, FormattedHTMLMessage } from "gatsby-plugin-intl"
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
