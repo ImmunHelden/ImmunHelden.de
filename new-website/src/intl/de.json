@@ -108,7 +108,6 @@
     "partnerUserNoOrga": "Sie sind noch keiner Organisation zugeordnet. Bitte kontaktieren Sie ...",
     "unkown_error": "Oooops ... Etwas ist schief gegangen.",
     "somethingBroke": "Oooops ... Etwas ist schief gegangen. \n Bitte versuchen Sie die Seite neu zu laden oder kontaktieren Sie uns unter ...",
-
     "menue_video": "video",
     "menue_help": "Jetzt Helfen",
     "menue_expert": "Expertenmeinung",
@@ -129,14 +128,26 @@
     "honorary": "Ehrenamtlich",
     "unselfish": "Uneigennützig",
     "opensource": "Open Source",
-
-
     "teamintro": "Ehrenamtlich und uneigennützig als Open-Source Projekt entwickelt von Euerem ImmunHelden Team",
     "teambutton": "mehr erfahren",
     "experteintro": "Das Sagen die experten",
     "expertename": "Christian Torres Reyes",
     "expertetitel": "Facharzt für Innere Medizin",
     "expertezitat": "Als Internist behandele ich im Krankenhaus unmittelbar Patienten, die von der neuen Coronakranheit betroffen sind. Sowohl für die Betroffenen als auch für mich sind 2 Probleme besonders frustrierend:\n- Wie wenige verlässliche Behandlungsoptionen gegen das Virus zurzeit zur Verfügung stehen\n- Wie viel wir über diese neue Erkrankung noch nicht wissen \n\n Die Immunantwort von Genesenen, die diesen Kampf bereits gewinnen konnten, beantwortet uns offene Fragen (Forschung) und bietet dringend benötigte Optionen für schwer Erkrankte auf Intensivstationen (Therapie). \n Ich halte die Plasmaspende in diesem Sinne für eine gute Möglichkeit um als Gesellschaft gemeinsam aktiv an der Front im Kampf gegen das Virus mitzuwirken.",
+    "faq_head": "Häufige Fragen",
+    "faq_imm_head": "FAQ zum Engagement von ImmunHeld:innen",
+    "faq_imm_1q": "Wie lange muss ich nach meiner Genesung warten, um mich als ImmunHeld:in zu engagieren?",
+    "faq_imm_1a": "Kurzgefasst: Ab 4 Wochen nach kompletter Genesung (Abklingen der Symptome von COVID-19-) oder 2 Wochen nach der letzten negativen SARS-CoV-2-PCR-Diagnostik aus einem Abstrich kannst Du als ImmunHeld:in aktiv werden! \n\n Zum Hintergrund: Wie lange man nach Symptombeginn genau ansteckend bleibt, ist bisher <a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html#doc13776792bodyText9"> nicht abschließend geklärt </a> und hängt auch von der Krankheitsschwere ab . \n\n Aktuelle Studienergebnisse haben jedoch gezeigt, dass Antikörper gegen das Coronavirus SARS-CoV-2, die für die Immunabwehr verantwortlich sind, gegen Ende der zweiten Woche nach der Infektion gebildet werden, weshalb davon auszugehen ist, dass man ab diesem Zeitpunkt immun ist (RKI, NDR, Corona-Podcast mit Christian Drosten Folge 15) und auch seine Mitmenschen nicht mehr anstecken kann (siehe „Kann ich nach einer Genesung von COVID-19 weitere Personen anstecken?“). \n\n Das Paul-Ehrlich-Institut (das deutsche Bundesinstitut für Impfstoffe und biomedizinische Arzneimittel) gibt für das Spenden von Blutplasma nach Genesung von COVID-19 vorsichtshalber die Empfehlung, Spender:innen 4 Wochen nach kompletter Genesung von COVID-19- oder 2 Wochen nach der letzten negativen SARS-CoV-2-PCR-Diagnostik aus einem Abstrich zuzulassen. \n\n Dieser Empfehlung schließen wir von ImmunHelden uns an, und zwar sowohl für die Blutplasmaspende als auch für sonstige Heldentaten: Schließlich solltest Du Dich wieder fit und erholt fühlen, bevor Du Dich engagierst!",
+    "faq_imm_2q": "Wie geht es weiter, wenn ich mich als ImmunHeld:in registriere?",
+    "faq_imm_2a": "Wenn Du Dich als ImmunHeld:in registriert hast, erhältst Du regelmäßig E-Mails mit Hilfegesuchen in Deiner Umgebung. Du kannst dann frei entscheiden, auf welche Hilfegesuche Du reagierst. Darüber hinaus kannst Du Dir auf unserer Karte auch ohne Registrierung jederzeit einen Überblick darüber verschaffen, wo Du Dich engagieren kannst. \n\n Hilfesuchende Organisationen können Dich um einen Nachweis zu Deiner Genesung bitten. Damit Ihr dafür nicht auf ein persönliches Treffen warten müsst, arbeiten wir an einem Video-Ident Verfahren, das Euch dafür einen sicheren Kommunikationskanal bietet.",
+    "faq_imm_3q": "Muss ich bei der Kontaktaufnahme zu einer hilfesuchenden Organisation angeben, dass ich über ImmunHelden.de zu ihnen gefunden habe?",
+    "faq_imm_3a": "Die Organisationen freuen sich sicher über jede Art der Hilfe, unabhängig davon, woher sie kommt. Bei der Vielzahl an Angeboten, die aktuell in der Krise entstehen, ist es aber wahrscheinlich für die Organisationen schwierig, den Überblick über alle Vermittlungsstellen zu behalten. Erwähne uns sehr gern, doch noch viel wichtiger: erwähne, dass Du genesen bist!",
+    "faq_imm_4q": "Bleibt ein Einsatz als ImmunHeld:in bei hilfesuchenden Organisationen für mich und andere riskant?",
+    "faq_imm_4a": "Wir wollen ganz ehrlich sein: Ein gewisses Restrisiko für einzelne Personen lässt sich nicht hundertprozentig ausschließen, solange es keinen sicheren Immunitätsnachweis gibt. Wir finden, dass jeder selbst entscheiden sollte, ob er oder sie bereit ist, das in Kauf zu nehmen. \n\n Eine besonders risikoarme Möglichkeit, sich nach einer Genesung von COVID-19 zu engagieren, ist die Blutplasmaspende (siehe „Warum sollte ich nach einer Genesung von COVID-19 Blutplasma spenden?“).",
+    "faq_imm_5q": "An welche Vorsichtsmaßnahmen muss ich mich als ImmunHeld:in bei meinem Einsatz für eine hilfesuchende Organisation halten?",
+    "faq_imm_5a": "Du musst Dich an dieselben Sicherheitsvorkehrungen wie alle anderen Helfer:innen halten. Dein Einsatz ist trotzdem besonders wertvoll, weil sich das Infektionsrisiko dadurch zusätzlich verringern lässt.",
+    "faq_imm_6q": "Wie geht es weiter, wenn wir uns als hilfesuchende Organisation registrieren?",
+    "faq_imm_6a": "Nach einer Registrierung als hilfesuchende Organisation erhalten ImmunHeld:innen in der Umgebung eine E-Mail mit Informationen zu Eurem Hilfegesuch und Euren Kontaktdaten. \n\n So können sich ImmunHeld:innen bei Euch melden, wenn sie Euch unterstützen können. Ihr könnt bei der Registrierung angeben, ob Euer Hilfegesuch mit Euren Kontaktdaten auch auf unserer Karte veröffentlicht werden soll. Nimmt ein:e ImmunHeld:in Kontakt zu Euch auf, könnt ihr besprechen, wie Euch geholfen werden kann und auf welche Art der oder die ImmunHeld:in ihre oder seine Genesung von COVID-19 nachweisen kann. Zu diesem Zweck bieten wir Euch ein Video-Ident-Verfahren – ganz ohne Gesundheitsdatenspeicherung.",
     "kontaktintro": "Du hast noch immer Fragen oder Anregungen?",
     "kontaktbutton": "Schreib uns!",
     "kontaktoverlayhead": "Hast du eine Frage? Dann schreib uns direkt und wir melden uns bei dir!",
@@ -148,5 +159,4 @@
     "footer_br": "Bundesregierung",
     "footer_impressum": "Impressum",
     "footer_ds":"Datenschutzerklärung"
-
 }

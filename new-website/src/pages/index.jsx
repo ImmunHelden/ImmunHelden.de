@@ -13,6 +13,7 @@ import Intro from "../components/intro"
 import Navigation from "../components/navigation"
 import Faq from "../components/faq"
 import ContactFormComponent from "../components/contact-form"
+import { ImmuneHeroContactFrom } from "../components/immune-hero/contact"
 
 const IndexPage = () => {
     return (
@@ -28,6 +29,7 @@ const IndexPage = () => {
               <Infoform/>
               <Experte/>
               <Team/>
+              <Faq/>
               <Kontakt/>
               <Footer/>
             </div>

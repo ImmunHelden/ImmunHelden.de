@@ -44,22 +44,41 @@ const useStyles = makeStyles(theme => ({
 
 export default function Infoform() {
   const classes = useStyles();
-  const { register, errors, handleSubmit } = useForm();
+  const { register} = useForm();
   return(
   <Box>
    <Container maxWidth="md" id="infoform">
     <h2><FormattedMessage id="introTitle"/></h2>
     <p><FormattedMessage id="introDescription"/></p>
-      <form>
+      <form action="/addImmuneHero" method="POST">
       <Grid container>
       <Grid xs={12} sm={4}>
-       <input className={classes.inputtext} type="text" name="firstName" placeholder="PLZ" />
+       <input 
+          className={classes.inputtext} 
+          type="text" 
+          id="postcode"
+          name="postcode"
+          ref={register({ required: true })}
+          required
+          placeholder="PLZ" />
       </Grid>
       <Grid xs={12} sm={8}>
-       <input className={classes.inputtext} type="text" name="lastName" placeholder="E-Mail" />
+       <input 
+          className={classes.inputtext} 
+          type="email" 
+          id="email"
+          name="email"
+          ref={register({ required: true })}
+          required
+          placeholder="E-Mail" />
       </Grid>
       </Grid>
-        <input className={classes.inputcheck} type="checkbox" id="ds" name="ds" />
+        <input 
+          className={classes.inputcheck} 
+          type="checkbox" 
+          id="ds" 
+          name="ds"
+          required />
         <label for="ds"><FormattedMessage id="dpAgreementText" values={{
             a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank">{chunks}</a>,
         }}/></label>
