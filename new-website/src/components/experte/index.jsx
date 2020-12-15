@@ -6,7 +6,7 @@ import zitat from "../../images/zitat.png"
 
 const useStyles = makeStyles(theme => ({
   spaceing:{
-    marginTop: "200px",
+    paddingTop: "80px",
     marginBottom: "200px"
   },
   

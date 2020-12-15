@@ -5,6 +5,9 @@ import team from "../../images/team-all.jpg"
 import Buttonred from "../buttons/buttonred"
 
 const useStyles = makeStyles(theme => ({
+    spaceTop: {
+      paddingTop: "80px"
+    },
     overflow: {
       overflow: "hidden",
       width: "100%",
@@ -49,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 export default function Team() {
   const classes = useStyles()
   return(
-  <Box id="team">
+  <Box id="team" className={classes.spaceTop}>
    <Container maxWidth="md">
     <h2><FormattedMessage id="teamintro"/></h2>
    </Container>

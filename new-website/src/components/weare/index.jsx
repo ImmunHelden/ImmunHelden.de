@@ -12,7 +12,6 @@ const useStyles = makeStyles(theme => ({
       borderRadius: 15,
       borderStyle: "solid",
       marginTop: 80,
-      marginBottom: 80,
       width:"auto",
       [theme.breakpoints.down('md')]: {
         marginLeft:24,

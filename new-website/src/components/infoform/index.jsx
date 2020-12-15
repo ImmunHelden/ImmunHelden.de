@@ -9,6 +9,9 @@ const useStyles = makeStyles(theme => ({
     image: {
       height:200
     },
+    topSpace: {
+      paddingTop:"80px"
+    },
     info: {
       color: "gray",
       textAlign: "center",
@@ -47,7 +50,7 @@ export default function Infoform() {
   const { register} = useForm();
   return(
   <Box>
-   <Container maxWidth="md" id="infoform">
+   <Container maxWidth="md" id="infoform" className={classes.topSpace} >
     <h2><FormattedMessage id="introTitle"/></h2>
     <p><FormattedMessage id="introDescription"/></p>
       <form action="/addImmuneHero" method="POST">

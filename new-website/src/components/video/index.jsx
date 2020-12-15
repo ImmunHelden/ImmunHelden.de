@@ -36,8 +36,8 @@ const useStyles = makeStyles(theme => ({
       overflow: "hidden"
     },
     space: {
-      marginBottom: "80px",
-      marginTop: "80px",
+      paddingBottom: "80px",
+      paddingTop: "80px",
       [theme.breakpoints.down('md')]: {
         marginLeft:24,
         marginRight:24,
