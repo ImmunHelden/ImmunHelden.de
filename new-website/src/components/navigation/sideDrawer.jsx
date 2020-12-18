@@ -20,6 +20,7 @@ const useStyles = makeStyles({
   },
   iconmenue: {
     float: "right",
+    backgroundColor: "white"
   }
 })
 

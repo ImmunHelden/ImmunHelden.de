@@ -17,7 +17,11 @@ const useStyles = makeStyles(theme => ({
       display: "flex",
       "&:hover":{
         backgroundColor: "white"
-      }
+      },
+      [theme.breakpoints.down('xs')]: {
+        paddingLeft: 20,
+        paddingRight: 20,
+      },  
     }
 }))
 
