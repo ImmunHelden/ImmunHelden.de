@@ -66,16 +66,17 @@ export default function Infoform() {
    <Container maxWidth="md" id="infoform" className={classes.topSpace} >
     <h2><FormattedMessage id="introTitle"/></h2>
     <p><FormattedMessage id="introDescription"/></p>
-      <form onSubmit={(event)=>handleSubmit(event)} action="#">
+      <form action="/addImmuneHero" method="POST">
       <Grid container>
+      <input type="hidden" name="countryCode" value=".de"/>
       <Grid xs={12} sm={4}>
        <input 
           className={classes.inputtext} 
           type="text" 
-          id="postcode"
-          name="postcode"
+          id="zipCode"
+          name="zipCode"
           ref={plzref}
-          
+          required
           placeholder="PLZ" />
       </Grid>
       <Grid xs={12} sm={8}>
@@ -85,21 +86,21 @@ export default function Infoform() {
           id="email"
           name="email"
           ref={mailref}
-          
+          required
           placeholder="E-Mail" />
       </Grid>
       </Grid>
         <input 
           className={classes.inputcheck} 
           type="checkbox" 
-          id="ds" 
-          name="ds"
+          id="confirmedHero" 
+          name="datenschutz"
            />
-        <label for="ds"><FormattedMessage id="dpAgreementText" values={{
+        <label for="datenschutz"><FormattedMessage id="dpAgreementText" values={{
             a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank">{chunks}</a>,
         }}/></label>
         <Box className={classes.labelspace}>
-          <Buttonred type="submit"><FormattedMessage id="letsGoButtonText" /></Buttonred>
+          <button type="submit" id="submitHero"><FormattedMessage id="letsGoButtonText" /></button>
         </Box>
       </form>
     <span className={classes.info}><FormattedMessage id="forminfo"/></span>
