@@ -42,6 +42,10 @@
         "function": "addImmuneHero"
       },
       {
+        "source": "/addImmuneHeroAsJSON",
+        "function": "addImmuneHeroAsJSON"
+      },
+      {
         "source": "/addImmuneHeroMap",
         "function": "addImmuneHeroMap"
       },
