@@ -42,10 +42,6 @@
         "function": "addImmuneHero"
       },
       {
-        "source": "/addImmuneHeroAsJSON",
-        "function": "addImmuneHeroAsJSON"
-      },
-      {
         "source": "/addImmuneHeroMap",
         "function": "addImmuneHeroMap"
       },
@@ -123,6 +119,10 @@
       {
         "source": "/addImmuneHero",
         "function": "addImmuneHero"
+      },
+      {
+        "source": "/addImmuneHeroAsJSON",
+        "function": "addImmuneHeroAsJSON"
       },
       {
         "source": "/addStakeHolder",
