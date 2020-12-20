@@ -1,9 +1,10 @@
-import React from "react"
+import React, { createRef } from "react"
 import { makeStyles, Container, Box, Grid} from "@material-ui/core"
 import { FormattedMessage, Link } from "gatsby-plugin-intl"
 import { useForm } from "react-hook-form"
 import Buttonred from "../buttons/buttonred"
 import ds from "../../pages/datenschutzerklarung.pdf"
+import { StaticQuery } from "gatsby"
 
 const useStyles = makeStyles(theme => ({
     image: {
@@ -48,12 +49,24 @@ const useStyles = makeStyles(theme => ({
 export default function Infoform() {
   const classes = useStyles();
   const { register} = useForm();
+  let plzref = createRef();
+  let mailref = createRef();
+
+  const handleSubmit = (event) => {
+    event.preventDefault ()
+    console.log("SUBMIT!", plzref.current.value, mailref.current.value );
+    fetch('/addImmuneHeroAsJSON')
+      .then(response => console.log(response))
+  }
+
+
+
   return(
   <Box>
    <Container maxWidth="md" id="infoform" className={classes.topSpace} >
     <h2><FormattedMessage id="introTitle"/></h2>
     <p><FormattedMessage id="introDescription"/></p>
-      <form action="/addImmuneHero" method="POST">
+      <form onSubmit={(event)=>handleSubmit(event)} action="#">
       <Grid container>
       <Grid xs={12} sm={4}>
        <input 
@@ -61,8 +74,8 @@ export default function Infoform() {
           type="text" 
           id="postcode"
           name="postcode"
-          ref={register({ required: true })}
-          required
+          ref={plzref}
+          
           placeholder="PLZ" />
       </Grid>
       <Grid xs={12} sm={8}>
@@ -71,8 +84,8 @@ export default function Infoform() {
           type="email" 
           id="email"
           name="email"
-          ref={register({ required: true })}
-          required
+          ref={mailref}
+          
           placeholder="E-Mail" />
       </Grid>
       </Grid>
@@ -81,7 +94,7 @@ export default function Infoform() {
           type="checkbox" 
           id="ds" 
           name="ds"
-          required />
+           />
         <label for="ds"><FormattedMessage id="dpAgreementText" values={{
             a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank">{chunks}</a>,
         }}/></label>

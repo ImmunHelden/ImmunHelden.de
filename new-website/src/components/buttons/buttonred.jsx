@@ -21,9 +21,9 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function Buttonred({ children }) {
+export default function Buttonred({ children, onClick = () => {} }) {
   const classes = useStyles()
   return(
-   <Button className={classes.button}>{children}</Button>
+   <Button type={children} onClick={onClick} className={classes.button}>{children}</Button>
 )
 }
