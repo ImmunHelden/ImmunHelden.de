@@ -50,7 +50,4 @@ Die Sensitivität gibt an, wie viel Prozent der Erkrankten korrekt als solche id
 Angaben (z.B. von Antikörpertestherstellern), die sich nur auf einen (und meist den besseren) Wert beziehen, ist hingegen nicht zu trauen.
 
 ### Sind Mutationen des Coronavirus SARS-CoV-2 gefährlich?
-
-Nach dem aktuellen Stand der Forschung hat sich das Corona-Virus zwar seit seinem erstmaligen Auftreten leicht verändert, es ist jedoch nicht gefährlicher geworden. Die Mutation eines Virus ist ein natürlicher und unbedenklicher Prozess. Problematischer wäre es gewesen, wenn das Virus sich in mehrere Stämme aufgeteilt hätte. Diese Annahme wurde jedoch durch viele Studien in verschiedenen Ländern widerlegt. Zudem mutiert das Coronavirus SARS-CoV-2 viel langsamer als gedacht. Dies zeigt der Vergleich verschiedener in Ostasien und Nordamerika sequenzierter Viren.
-
-Die Stabilität des Virus erleichtert auch die Suche nach einem geeigneten Impfstoff- zu der ImmunHeld:innen mit einer Plasmaspende einen wichtigen Beitrag leisten können.
+Das Corona-Virus hat sich seit seinem erstmaligen Auftreten mehrmals verändert (...). Problematischer wäre es gewesen, wenn das Virus sich in mehrere Stämme aufgeteilt hätte. Diese Annahme wurde jedoch durch viele Studien in verschiedenen Ländern widerlegt. Zudem mutiert das Coronavirus SARS-CoV-2 viel langsamer als gedacht. Dies zeigt der Vergleich verschiedener in Ostasien und Nordamerika sequenzierter Viren.
