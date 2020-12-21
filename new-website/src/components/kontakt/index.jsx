@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Kontakt() {
+  
   const classes = useStyles()
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -45,7 +46,7 @@ export default function Kontakt() {
         </IconButton>
         </DialogActions>
         <Modaloverlay></Modaloverlay>
-      </Dialog>
+   </Dialog>
   </Box>
 )
 }
