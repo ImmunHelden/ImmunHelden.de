@@ -54,7 +54,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Infoform() {
   const classes = useStyles();
-    
+  const [open, setOpen] = useState(false);
+
   let parameter = new URLSearchParams(typeof document !== `undefined` ? document.location.search.substring(1) : null);
   //let subscribeStatus = parameter.get("zipCode"); 
   let subscribeStatus = parameter.get("subscribe"); 
@@ -91,9 +92,9 @@ export default function Infoform() {
   return(
   <Box>
    <Container maxWidth="md" id="infoform" className={classes.topSpace} >
+   <h3>{checkParams(params.hasOwnProperty('subscribe'))}</h3>
     <h2><FormattedMessage id="introTitle"/></h2>
     <p><FormattedMessage id="introDescription"/></p>
-    <h3>{checkParams(params.hasOwnProperty('subscribe'))}</h3>
     <form action="/addImmuneHero" method="POST"> 
       <Grid container>
       <input type="hidden" name="countryCode" value=".de"/>
@@ -126,7 +127,7 @@ export default function Infoform() {
             a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank">{chunks}</a>,
         }}/></label>
         <Box className={classes.labelspace}>
-          <button type="submit" id="submitHero"><FormattedMessage id="letsGoButtonText" /></button>
+          <Buttonred type="submit" id="submitHero"><FormattedMessage id="letsGoButtonText" /></Buttonred>
         </Box>
       </form>
     <span className={classes.info}><FormattedMessage id="forminfo"/></span>
