@@ -93,7 +93,7 @@ export default function Infoform() {
    <Container maxWidth="md" id="infoform" className={classes.topSpace} >
     <h2><FormattedMessage id="introTitle"/></h2>
     <p><FormattedMessage id="introDescription"/></p>
-    <h3>{checkParams(params.hasOwnProperty('zipCode'))}</h3>
+    <h3>{checkParams(params.hasOwnProperty('subscribe'))}</h3>
     <form action="/addImmuneHero" method="POST"> 
       <Grid container>
       <input type="hidden" name="countryCode" value=".de"/>
