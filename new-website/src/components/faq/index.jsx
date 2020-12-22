@@ -1,11 +1,16 @@
-import React from "react"
-import { makeStyles, Container, Box} from "@material-ui/core"
+import React, {useState} from "react"
+import { makeStyles, Container, Box, Button} from "@material-ui/core"
 import { FormattedMessage, FormattedHTMLMessage } from "gatsby-plugin-intl"
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
+import Switch from '@material-ui/core/Switch';
+import Paper from '@material-ui/core/Paper';
+import Collapse from '@material-ui/core/Collapse';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Buttonred from "../buttons/buttonred"
 
 const faq_plasma = [
   { question: <FormattedMessage id="faq_plasma_1q"/>, answer: <FormattedHTMLMessage id="faq_plasma_1a"/>, panelid: 'faq_plasma_1' },
@@ -43,7 +48,7 @@ const faq_imm = [
 
 
 
-export default function Faq() {
+export const Faq = () => {
   
 
   const useStyles = makeStyles({
@@ -72,7 +77,13 @@ export default function Faq() {
     
   })
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+
+  const [expanded, setExpanded] = useState(false);
+  const [checked, setChecked] = useState(false);
+
+  const handleChangeDrop = () => {
+    setChecked((prev) => !prev);
+  };
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -102,6 +113,7 @@ export default function Faq() {
            </Accordion>
         ))}
 
+        <Collapse in={checked}>    
         <h3 className={classes.head}><FormattedMessage id="faq_corona_head"/></h3>
           {faq_corona.map(({ question, answer, panelid }) => (
              <Accordion  elevation = "0" expanded={expanded === panelid} onChange={handleChange(panelid)}>
@@ -137,8 +149,11 @@ export default function Faq() {
              </AccordionDetails>
            </Accordion>
         ))}
+        </Collapse>
+        <Buttonred checked={checked} onClick={handleChangeDrop}> <FormattedMessage id={(checked ? "faq_button_less" : "faq_button_more")}/></Buttonred>
       </Container>
     </Box>
   )
 }
 
+export default Faq
