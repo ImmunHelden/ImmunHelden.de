@@ -44,7 +44,7 @@ export default function Supporters() {
     <Grid container>
             {images.map(({ alt, link, path }) => (
               <Grid xs={6} sm={4} md={2}>
-                <a href={link} target="_blank">
+                <a href={link} target="_blank" rel="noreferrer">
                   <img src={path} className={classes.image} alt={alt} />
                 </a> 
                </Grid>

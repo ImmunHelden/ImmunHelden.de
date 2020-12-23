@@ -2,7 +2,6 @@ import React from "react"
 import { makeStyles, Container, Box, Grid} from "@material-ui/core"
 import { Link } from "gatsby"
 import { FormattedMessage } from "gatsby-plugin-intl"
-import Buttonwhite from "../buttons/buttonwhite"
 import facebook from "../../images/icons/facebook.png"
 import github from "../../images/icons/github.png"
 import instagram from "../../images/icons/instagram.png"
@@ -60,24 +59,24 @@ export default function Footer() {
     </Grid>
     <Grid md={4} sm={4} xs={12} className={classes.spacinggrid}>
      <h3 className={classes.headline}>#WirVsVirus</h3>
-     <a className={classes.link} href="https://wirvsvirus.org/" target="_blank"><FormattedMessage id="footer_website"/></a>
-     <a className={classes.link} href="https://www.bundesregierung.de/" target="_blank"><FormattedMessage id="footer_br"/></a>
+     <a className={classes.link} href="https://wirvsvirus.org/" target="_blank" rel="noreferrer"><FormattedMessage id="footer_website"/></a>
+     <a className={classes.link} href="https://www.bundesregierung.de/" target="_blank" rel="noreferrer"><FormattedMessage id="footer_br"/></a>
     </Grid>
     <Grid md={4} sm={3} xs={12} className={classes.spacinggrid}>
      <h3 className={classes.headline}>Follow us</h3>
-     <a className={classes.inline} href="https://github.com/ImmunHelden/" target="_blank">
+     <a className={classes.inline} href="https://github.com/ImmunHelden/" target="_blank" rel="noreferrer">
       <img className={classes.spacingimg} src={github} alt="Github" />
       Github
      </a>
-     <a className={classes.inline} href="https://twitter.com/immunhelden" target="_blank">
+     <a className={classes.inline} href="https://twitter.com/immunhelden" target="_blank" rel="noreferrer">
       <img className={classes.spacingimg} src={twitter} alt="Twitter" />
       Twitter
      </a>
-     <a className={classes.inline} href="https://m.facebook.com/ImmunHelden" target="_blank">
+     <a className={classes.inline} href="https://m.facebook.com/ImmunHelden" target="_blank" rel="noreferrer">
       <img className={classes.spacingimg} src={facebook} alt="Facebook" />
       Facebook
      </a>
-     <a className={classes.inline} href="https://www.instagram.com/immuneheroes/" target="_blank">
+     <a className={classes.inline} href="https://www.instagram.com/immuneheroes/" target="_blank" rel="noreferrer">
       <img className={classes.spacingimg} src={instagram} alt="Instagram" />
       Instagram
      </a>

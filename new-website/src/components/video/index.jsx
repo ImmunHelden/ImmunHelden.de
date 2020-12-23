@@ -63,7 +63,7 @@ export default function Video() {
   }
   { overlay ||
    <Container maxWidth="lg" className={classes.videocontainer}>
-    <iframe className={classes.video} src="https://www.youtube.com/embed/fyPF3RUv00A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe title="immunhelden_video" className={classes.video} src="https://www.youtube.com/embed/fyPF3RUv00A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
    </Container>
   }
    </Box>

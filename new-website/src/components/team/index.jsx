@@ -2,7 +2,6 @@ import React from "react"
 import { makeStyles, Container, Box} from "@material-ui/core"
 import { FormattedMessage } from "gatsby-plugin-intl"
 import team from "../../images/team-all.jpg"
-import Buttonred from "../buttons/buttonred"
 
 const useStyles = makeStyles(theme => ({
     spaceTop: {

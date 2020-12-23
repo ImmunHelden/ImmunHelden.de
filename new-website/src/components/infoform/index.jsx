@@ -1,13 +1,9 @@
-import React, { createRef, useEffect, useState } from "react"
-import { makeStyles, Container, Box, Grid, IconButton} from "@material-ui/core"
-import { FormattedMessage, Link } from "gatsby-plugin-intl"
-import { useForm } from "react-hook-form"
+import React from "react"
+import { makeStyles, Container, Box, Grid } from "@material-ui/core"
+import { FormattedMessage } from "gatsby-plugin-intl"
 import Buttonred from "../buttons/buttonred"
 import ds from "../../pages/datenschutzerklarung.pdf"
-import { StaticQuery } from "gatsby"
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import CloseIcon from '@material-ui/icons/Close';
+
 
 const useStyles = makeStyles(theme => ({
     image: {
@@ -54,7 +50,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Infoform() {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
 
   let parameter = new URLSearchParams(typeof document !== `undefined` ? document.location.search.substring(1) : null);
   //let subscribeStatus = parameter.get("zipCode"); 
@@ -67,7 +62,7 @@ export default function Infoform() {
      params[match[1]] = match[2];
    }
   function checkParams(params){
-    if (params == true) 
+    if (params === true) 
     { 
       switch(subscribeStatus) {
         case 'singleOptIn':
@@ -104,6 +99,7 @@ export default function Infoform() {
           type="text" 
           id="zipCode"
           name="zipCode"
+          maxlength="5"
           required
           placeholder="PLZ" />
       </Grid>
@@ -124,7 +120,7 @@ export default function Infoform() {
           name="datenschutz"
            />
         <label for="datenschutz"><FormattedMessage id="dpAgreementText" values={{
-            a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank">{chunks}</a>,
+            a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank" rel="noreferrer">{chunks}</a>,
         }}/></label>
         <Box className={classes.labelspace}>
           <Buttonred type="submit" id="submitHero"><FormattedMessage id="letsGoButtonText" /></Buttonred>

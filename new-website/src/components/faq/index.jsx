@@ -1,15 +1,12 @@
 import React, {useState} from "react"
-import { makeStyles, Container, Box, Button} from "@material-ui/core"
+import { makeStyles, Container, Box} from "@material-ui/core"
 import { FormattedMessage, FormattedHTMLMessage } from "gatsby-plugin-intl"
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
-import Switch from '@material-ui/core/Switch';
-import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Buttonred from "../buttons/buttonred"
 
 const faq_plasma = [
@@ -155,7 +152,7 @@ export const Faq = () => {
            </Accordion>
         ))}
 
-        <h3 className={classes.head}><FormattedMessage id="faq_quelle_head"/></h3>
+        <h3 className={classes.head}><FormattedMessage id="faq_quellen_head"/></h3>
           {faq_quellen.map(({ question, answer, panelid }) => (
              <Accordion  elevation = "0" expanded={expanded === panelid} onChange={handleChange(panelid)}>
              <AccordionSummary

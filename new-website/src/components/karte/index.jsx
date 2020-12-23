@@ -1,5 +1,5 @@
 import React from "react"
-import { makeStyles, Container, Box, Grid} from "@material-ui/core"
+import { makeStyles, Box, Grid} from "@material-ui/core"
 import { FormattedMessage } from "gatsby-plugin-intl"
 import karte from "../../images/karte.png"
 import Buttonred from "../buttons/buttonred"

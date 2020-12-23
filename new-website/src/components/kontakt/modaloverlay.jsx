@@ -1,7 +1,6 @@
 import React, {useState} from "react"
 import { makeStyles, Container, Box, Grid, Button} from "@material-ui/core"
-import { FormattedMessage, Link } from "gatsby-plugin-intl"
-import Buttonred from "../buttons/buttonred"
+import { FormattedMessage } from "gatsby-plugin-intl"
 import { useIntl } from 'react-intl';
 import ds from "../../pages/datenschutzerklarung.pdf"
 import { submitToSlack } from "../contact-form/helper"
@@ -116,7 +115,7 @@ export default function Modaloverlay() {
           name="ds"
           required />
         <label for="ds"><FormattedMessage id="kontaktAgreementText" values={{
-            a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank">{chunks}</a>,
+            a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank" rel="noreferrer">{chunks}</a>,
         }}/></label>
         <Box className={classes.labelspace}>
           <Button
