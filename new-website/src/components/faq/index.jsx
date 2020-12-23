@@ -45,6 +45,11 @@ const faq_imm = [
   { question: <FormattedMessage id="faq_imm_5q"/>, answer: <FormattedHTMLMessage id="faq_imm_5a"/>, panelid: 'faq_imm_5' },
   { question: <FormattedMessage id="faq_imm_6q"/>, answer: <FormattedHTMLMessage id="faq_imm_6a"/>, panelid: 'faq_imm_6' },
 ];
+const faq_quellen = [
+  { question: <FormattedMessage id="faq_quellen_1q"/>, answer: <FormattedHTMLMessage id="faq_quellen_1a"/>, panelid: 'faq_quellen_1' },
+  { question: <FormattedMessage id="faq_quellen_2q"/>, answer: <FormattedHTMLMessage id="faq_quellen_2a"/>, panelid: 'faq_quellen_2' },
+
+];
 
 
 
@@ -134,6 +139,24 @@ export const Faq = () => {
 
         <h3 className={classes.head}><FormattedMessage id="faq_imm_head"/></h3>
           {faq_imm.map(({ question, answer, panelid }) => (
+             <Accordion  elevation = "0" expanded={expanded === panelid} onChange={handleChange(panelid)}>
+             <AccordionSummary
+               expandIcon={<AddIcon className={classes.icon}/>}
+               aria-controls={panelid}
+               id={panelid}
+               className={classes.padding}>
+               <Typography className={classes.question} >{question}</Typography>
+             </AccordionSummary>
+             <AccordionDetails className={classes.padding}>
+               <div className={classes.answer}>
+                 {answer}
+               </div>
+             </AccordionDetails>
+           </Accordion>
+        ))}
+
+        <h3 className={classes.head}><FormattedMessage id="faq_quelle_head"/></h3>
+          {faq_quellen.map(({ question, answer, panelid }) => (
              <Accordion  elevation = "0" expanded={expanded === panelid} onChange={handleChange(panelid)}>
              <AccordionSummary
                expandIcon={<AddIcon className={classes.icon}/>}
