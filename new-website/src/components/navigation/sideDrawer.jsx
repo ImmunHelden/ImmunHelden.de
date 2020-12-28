@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
   const SideDrawer = ({ navLinks }) => {
     const classes = useStyles();
-    const [state, setState] = useState({ right: false }) // Add this
+    const [state, setState] = useState({ right: false }) 
     const toggleDrawer = (anchor, open) => (event) => {
       if (
         event.type === "keydown" &&

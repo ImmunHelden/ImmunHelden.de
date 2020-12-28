@@ -41,9 +41,9 @@ export default function Intro() {
     <Container maxWidth="md">
       <Grid container>
         <Grid xs={12} md={6} className={classes.buttonspace}>
-          <Link to="#infoform">
+          <a href="#infoform">
           <Buttonred><FormattedMessage id="headerbuttonheld"/></Buttonred>
-          </Link>
+          </a>
         </Grid>
         <Grid xs={12} md={6} className={classes.buttonspace}>
           <Link to="/partner/login">

@@ -75,7 +75,7 @@ export default function Infoform() {
             alert("✓ Dein Abonnement für die ImmunHelden Updates ist beendet. Deine Kontaktdaten wurden gelöscht.")
             return ;
         default:
-            alert("Irgendwas ist schief gelaufen! Bitte <a href=\"#questions\">schreib uns</a> und erkläre kurz was passiert ist, sodass wir den Fehler schnell beheben können!")
+            alert("Irgendwas ist schief gelaufen! Bitte schreib uns und erkläre kurz was passiert ist, sodass wir den Fehler schnell beheben können!")
             return ;          
       }
     }
@@ -118,6 +118,7 @@ export default function Infoform() {
           type="checkbox" 
           id="confirmedHero" 
           name="datenschutz"
+          required
            />
         <label for="datenschutz"><FormattedMessage id="dpAgreementText" values={{
             a: (...chunks) => <a className={classes.dslink} href={ds} target="_blank" rel="noreferrer">{chunks}</a>,
