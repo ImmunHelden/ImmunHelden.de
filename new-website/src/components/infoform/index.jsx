@@ -100,6 +100,7 @@ export default function Infoform() {
           id="zipCode"
           name="zipCode"
           maxlength="5"
+          pattern="[0-9]{5}"
           required
           placeholder="PLZ" />
       </Grid>
