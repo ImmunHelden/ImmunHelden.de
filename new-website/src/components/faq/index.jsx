@@ -80,7 +80,10 @@ export const Faq = () => {
   })
   const classes = useStyles();
 
+  // expanded ist verantwortlich für das ausklappen der einzelnen Frage
   const [expanded, setExpanded] = useState(false);
+
+  // checked ist verantwortlich für den Button um mehr FAQs anzeigen zu lassen
   const [checked, setChecked] = useState(false);
 
   const handleChangeDrop = () => {

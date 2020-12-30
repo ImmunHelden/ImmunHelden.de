@@ -50,9 +50,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Infoform() {
   const classes = useStyles();
-
-  let parameter = new URLSearchParams(typeof document !== `undefined` ? document.location.search.substring(1) : null);
-  //let subscribeStatus = parameter.get("zipCode"); 
+  // typeof ist nötig, da es sinst Probleme beim building gibg
+  let parameter = new URLSearchParams(typeof document !== `undefined` ? document.location.search.substring(1) : null); 
   let subscribeStatus = parameter.get("subscribe"); 
   
   const regex = /[?&]([^=#]+)=([^&#]*)/g;
@@ -61,6 +60,8 @@ export default function Infoform() {
      while(match = regex.exec(typeof window !== `undefined` ? window.location.href : null)) {
      params[match[1]] = match[2];
    }
+
+   // Wert in der URL wird hier geprüft
   function checkParams(params){
     if (params === true) 
     { 
@@ -81,9 +82,6 @@ export default function Infoform() {
     }
   }
  
-
-//<form action="/addImmuneHero" method="POST"> 
-//<h3>{checkParams(params.hasOwnProperty('zipCode'))}</h3>
   return(
   <Box>
    <Container maxWidth="md" id="infoform" className={classes.topSpace} >

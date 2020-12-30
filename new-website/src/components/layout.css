@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+
 body {
     font-family: "Raleway", Arial, Helvetica, sans-serif;
     overflow-x: hidden;
@@ -63,12 +66,9 @@ input::placeholder{
   transform: rotate(45deg);
 }
 
-@import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800");
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
 
-
+/*anpassen der h2 Überschriften bei einem screen kleiner 420px*/
 @media screen and (max-width:420px) {
-  /* Noch größer, noch mehr Regeln */
      h2 { 
       font-size: 26px;
       }

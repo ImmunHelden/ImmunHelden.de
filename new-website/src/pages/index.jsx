@@ -15,7 +15,6 @@ import Faq from "../components/faq"
 
 const IndexPage = () => {
     return (
-      
             <div>
               <SEO title="Home" />
               <Navigation/>
@@ -31,7 +30,6 @@ const IndexPage = () => {
               <Kontakt/>
               <Footer/>
             </div>
-    
     )
 }
 
