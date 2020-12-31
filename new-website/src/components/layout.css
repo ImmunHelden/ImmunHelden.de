@@ -73,3 +73,9 @@ input::placeholder{
       font-size: 26px;
       }
   }
+
+@media screen and (max-width: 768px) {
+    body {
+        overflow-x: hidden!important;
+    }
+}  
