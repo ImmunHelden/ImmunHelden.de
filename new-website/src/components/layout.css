@@ -5,10 +5,10 @@ body {
     font-family: "Raleway", Arial, Helvetica, sans-serif;
     overflow-x: hidden;
 }
-html,
+/*html,
 body {
     height: 100%;
-}
+}*/
 
 p, a {
    font-family: "Open Sans", Arial, Helvetica, sans-serif;
@@ -61,6 +61,7 @@ input::placeholder{
   opacity:0,3;
 }
 
+
 /*FAQ dropdown*/
 #faq .MuiAccordionSummary-expandIcon.Mui-expanded {
   transform: rotate(45deg);
@@ -73,9 +74,3 @@ input::placeholder{
       font-size: 26px;
       }
   }
-
-@media screen and (max-width: 768px) {
-    body {
-        overflow-x: hidden!important;
-    }
-}  
