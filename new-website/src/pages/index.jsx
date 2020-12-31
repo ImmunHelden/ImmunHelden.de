@@ -15,7 +15,7 @@ import Faq from "../components/faq"
 
 const IndexPage = () => {
     return (
-            <div>
+            <div id="pageImmunhelden">
               <SEO title="Home" />
               <Navigation/>
               <Intro/>

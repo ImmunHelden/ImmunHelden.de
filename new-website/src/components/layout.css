@@ -3,8 +3,12 @@
 
 body {
     font-family: "Raleway", Arial, Helvetica, sans-serif;
-    overflow-x: hidden;
 }
+
+#pageImmunhelden {
+  overflow: hidden;
+}
+
 /*html,
 body {
     height: 100%;

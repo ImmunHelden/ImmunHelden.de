@@ -13,8 +13,6 @@ body,
     height: 100%;
 }
 
-
-
 div[id="gatsby-focus-wrapper"][tabindex] {
     height: 100%;
 }
