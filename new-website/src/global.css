@@ -7,16 +7,19 @@
  * source https://dev.to/hzburki/100-height-to-all-divs-gatsby-33nd
 */
 
-/*html,
+html,
 body,
 #___gatsby {
     height: 100%;
-}*/
-
-body {
-    margin: 0px;
 }
+
+
 
 div[id="gatsby-focus-wrapper"][tabindex] {
     height: 100%;
+}
+
+
+body {
+    margin: 0px;
 }

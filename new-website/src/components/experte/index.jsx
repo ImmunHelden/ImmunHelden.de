@@ -64,15 +64,22 @@ const useStyles = makeStyles(theme => ({
     zIndex: "-1",
     left: "80%",
     marginTop: "-210px",
-}
+},
+  relative: {
+    position: "relative",
+  }
 }))
 
 export default function Experte() {
   const classes = useStyles()
   return(
   <Box className={classes.spaceing} id="expert">
+    <div className={classes.relative}>
       <span className={classes.dot1}></span>
+    </div>
+    <div className={classes.relative}>
       <span className={classes.dot2}></span>
+    </div>  
    <Container maxWidth="md">
     <h2><FormattedMessage id="experteintro"/></h2>
     <Box>
@@ -94,7 +101,9 @@ export default function Experte() {
     </Grid>
     </Box>
    </Container>
-   <span className={classes.dot3}></span>
+   <div className={classes.relative}>
+    <span className={classes.dot3}></span>
+   </div>
    </Box>
 )
 }
