@@ -69,16 +69,19 @@ export default function Infoform() {
       switch(subscribeStatus) {
         case 'singleOptIn':
             alert("✓ ImmunHelden Updates erfolgreich abonniert. Wir haben Dir eine E-Mail gesendet. Bitte schau rein und bestätige Deine E-Mail Adresse.")
-            window.history.replaceState('', '', '/'+window.location.pathname.split('/')[1]) ;
+            window.history.replaceState('', '', '/'+window.location.pathname.split('/')[1]+'/') ;
             return ;
         case 'doubleOptIn':
             alert("✓ Danke dass Du Deine E-Mail Adresse bestätigt hast. Bald werden die ersten ImmunHelden Updates in Deinem Posteingang landen.")
+            window.history.replaceState('', '', '/'+window.location.pathname.split('/')[1]+'/') ;
             return;
         case 'optOut':
             alert("✓ Dein Abonnement für die ImmunHelden Updates ist beendet. Deine Kontaktdaten wurden gelöscht.")
+            window.history.replaceState('', '', '/'+window.location.pathname.split('/')[1]+'/') ;
             return ;
         default:
             alert("Irgendwas ist schief gelaufen! Bitte schreib uns und erkläre kurz was passiert ist, sodass wir den Fehler schnell beheben können!")
+            window.history.replaceState('', '', '/'+window.location.pathname.split('/')[1]+'/') ;
             return ;          
       } 
     }
