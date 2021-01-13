@@ -69,7 +69,7 @@ export default function Infoform() {
       switch(subscribeStatus) {
         case 'singleOptIn':
             alert("✓ ImmunHelden Updates erfolgreich abonniert. Wir haben Dir eine E-Mail gesendet. Bitte schau rein und bestätige Deine E-Mail Adresse.")
-            window.history.replaceState('', '', '/de/') ;
+            window.history.replaceState('', '', '/'+window.location.pathname.split('/')[1]) ;
             return ;
         case 'doubleOptIn':
             alert("✓ Danke dass Du Deine E-Mail Adresse bestätigt hast. Bald werden die ersten ImmunHelden Updates in Deinem Posteingang landen.")
