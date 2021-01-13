@@ -1,7 +1,7 @@
 import React from "react"
 import { makeStyles, Box, Grid} from "@material-ui/core"
 import { FormattedMessage } from "gatsby-plugin-intl"
-import karte from "../../images/karte.png"
+import karte from "../../images/karte.jpg"
 import Buttonred from "../buttons/buttonred"
 
 const useStyles = makeStyles(theme => ({

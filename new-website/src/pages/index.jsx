@@ -24,7 +24,6 @@ const IndexPage = () => {
               <Karte/>
               <Weare/>
               <Infoform/>
-              <Experte/>
               <Team/>
               <Faq/>
               <Kontakt/>

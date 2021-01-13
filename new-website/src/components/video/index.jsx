@@ -19,7 +19,11 @@ const useStyles = makeStyles(theme => ({
     },
     padding: {
       paddingTop: "6rem",
-      paddingBottom: "6rem"
+      paddingBottom: "6rem",
+      [theme.breakpoints.down('md')]: {
+        paddingTop: "1rem",
+        paddingBottom: "1rem",
+      },
     },
     video: {
       position: "absolute",

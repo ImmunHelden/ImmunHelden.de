@@ -9,7 +9,7 @@ import Buttonred from "../buttons/buttonred"
 const useStyles = makeStyles(theme => ({
     background: {
       backgroundImage: `url(${introbg})`,
-      boxShadow: "inset 2000px 0 0 0 rgba(0, 0, 0, 0.5)",
+      boxShadow: "inset 20000px 0 0 0 rgba(0, 0, 0, 0.5)",
       borderColor: "rgba(0, 0, 0, 1)",  
       color: "white",  
       textAlign: "center",
