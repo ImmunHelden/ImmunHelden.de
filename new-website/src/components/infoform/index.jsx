@@ -53,6 +53,7 @@ export default function Infoform() {
   // typeof ist nötig, da es sinst Probleme beim building gibg
   let parameter = new URLSearchParams(typeof document !== `undefined` ? document.location.search.substring(1) : null); 
   let subscribeStatus = parameter.get("subscribe"); 
+  //let newUrl = typeof window !== `undefined` ? window.history.pushState('', '', '/') : null;
 
   const regex = /[?&]([^=#]+)=([^&#]*)/g;
   let params = {};
@@ -68,19 +69,16 @@ export default function Infoform() {
       switch(subscribeStatus) {
         case 'singleOptIn':
             alert("✓ ImmunHelden Updates erfolgreich abonniert. Wir haben Dir eine E-Mail gesendet. Bitte schau rein und bestätige Deine E-Mail Adresse.")
-            (typeof window !== `undefined` ? window.history.replaceState('', '', '/de/') : null);
+            window.history.replaceState('', '', '/de/') ;
             return ;
         case 'doubleOptIn':
             alert("✓ Danke dass Du Deine E-Mail Adresse bestätigt hast. Bald werden die ersten ImmunHelden Updates in Deinem Posteingang landen.")
-            (typeof window !== `undefined` ? window.history.replaceState('', '', '/de/') : null);
             return;
         case 'optOut':
             alert("✓ Dein Abonnement für die ImmunHelden Updates ist beendet. Deine Kontaktdaten wurden gelöscht.")
-            (typeof window !== `undefined` ? window.history.replaceState('', '', '/de/') : null);
             return ;
         default:
             alert("Irgendwas ist schief gelaufen! Bitte schreib uns und erkläre kurz was passiert ist, sodass wir den Fehler schnell beheben können!")
-            (typeof window !== `undefined` ? window.history.replaceState('', '', '/de/') : null);
             return ;          
       } 
     }
