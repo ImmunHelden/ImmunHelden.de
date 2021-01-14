@@ -99,6 +99,7 @@ export const Faq = () => {
     <Box id="faq" className={classes.spaceTop}>
       <Container maxWidth="md">
         <h2><FormattedMessage id="faq_head"/></h2>
+        <h4><FormattedMessage id="faq_date"/></h4>
         
         <h3 className={classes.head}><FormattedMessage id="faq_plasma_head"/></h3>
           {faq_plasma.map(({ question, answer, panelid }) => (
