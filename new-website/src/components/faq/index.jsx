@@ -27,7 +27,7 @@ const faq_plasma = [
 const faq_corona = [
   { question: <FormattedMessage id="faq_corona_1q"/>, answer: <FormattedHTMLMessage id="faq_corona_1a"/>, panelid: 'faq_corona_1' },
   { question: <FormattedMessage id="faq_corona_2q"/>, answer: <FormattedHTMLMessage id="faq_corona_2a"/>, panelid: 'faq_corona_2' },
-  { question: <FormattedMessage id="faq_corona_3q"/>, answer: <FormattedHTMLMessage id="faq_corona_3a"/>, panelid: 'faq_corona_3' },
+  /*{ question: <FormattedMessage id="faq_corona_3q"/>, answer: <FormattedHTMLMessage id="faq_corona_3a"/>, panelid: 'faq_corona_3' },*/
   { question: <FormattedMessage id="faq_corona_4q"/>, answer: <FormattedHTMLMessage id="faq_corona_4a"/>, panelid: 'faq_corona_4' },
   { question: <FormattedMessage id="faq_corona_5q"/>, answer: <FormattedHTMLMessage id="faq_corona_5a"/>, panelid: 'faq_corona_5' },
   { question: <FormattedMessage id="faq_corona_6q"/>, answer: <FormattedHTMLMessage id="faq_corona_6a"/>, panelid: 'faq_corona_6' },

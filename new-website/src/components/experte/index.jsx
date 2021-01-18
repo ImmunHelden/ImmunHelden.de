@@ -1,7 +1,7 @@
 import React from "react"
 import { makeStyles, Grid, Container, Box} from "@material-ui/core"
 import { FormattedMessage } from "gatsby-plugin-intl"
-import expert from "../../images/experte.png"
+import expert from "../../images/experte.jpg"
 import zitat from "../../images/zitat.png"
 
 const useStyles = makeStyles(theme => ({
