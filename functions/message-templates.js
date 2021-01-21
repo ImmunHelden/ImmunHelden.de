@@ -174,14 +174,14 @@ const renderUpdateMail = async function(template, updateSeries, recipient) {
 
   const contents = [];
   for (const ad of recipient.ads) {
-    contents.push(`[${ad.title}: ${ad.address}](https://immunhelden.de/maps/all/?${paramsTracking}#${ad.id})`);
+    contents.push(`[${ad.title}: ${ad.address}](https://immunhelden.de/de/maps/all/?${paramsTracking}#${ad.id})`);
   }
 
   return await exports.render(template, {
     prop_ads_distance: `${recipient.dist}km`,
     prop_hero_zip: recipient.zip,
     list_ads: contents.join('<br>'),
-    link_hero_location_map: `https://immunhelden.de/maps/all/?${paramsHero}`,
+    link_hero_location_map: `https://immunhelden.de/de/maps/all/?${paramsHero}`,
     link_hero_opt_out: `https://immunhelden.de/removeImmuneHero?id=${recipient.key}`
   });
 }
