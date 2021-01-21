@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="Du hast die COVID-19-Erkrankung schon hinter dir und möchtest dich nun gesellschaftlich engagieren? Dann mach mit und werde Immunheld:in! Wir informieren Dich, wenn es in Deiner Region Möglichkeiten gibt zu helfen." />
+  <meta name="keywords" content="Helden COVID-19 Immunreaktion Corona RPK-Plasma Spende Blutplasma WirVsVirus Community" />
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Nutze Deine Immunreaktion zum Wohle aller"/>
+  <meta property="og:description" content="Hier findest Du Einrichtungen in Deiner Nähe die Deine Hilfe brauchen."/>
+  <meta property="og:url" content="https://immunhelden.de/maps/plasma/"/>
+  <meta property="og:image" content="https://immunhelden.de/maps/plasma/images/preview_de_at.png"/>
+  <meta property="og:updated_time" content="2020-05-28T15:00:00-02:00" />
+  <meta property="og:image:width" content="800" />
+  <meta property="og:image:height" content="875" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ImmunHelden">
+  <meta name="twitter:url" content="https://immunhelden.de/maps/plasma/"/>
+  <meta name="twitter:title" content="Nutze Deine Immunreaktion zum Wohle aller">
+  <meta name="twitter:description" content="Hier findest Du Einrichtungen in Deiner Nähe die Deine Hilfe brauchen.">
+  <meta name="twitter:image" content="https://immunhelden.de/maps/plasma/images/preview_de_at.png">
+  <meta property="og:updated_time" content="2020-06-08T00:00:00-02:00" />
+  <meta property="og:image:width" content="800" />
+  <meta property="og:image:height" content="875" />
+
+  <title>ImmunHelden Map</title>
+
+  <link rel="stylesheet" href="../leaflet.css">
+  <script src="../leaflet.min.js"></script>
+  <script src="../../assets/js/jquery.min.js"></script>
+  <script src="../../assets/js/leaflet.smoothmarkerbouncing.js"></script>
+
+  <script src="WirVsVirusMap.js"></script>
+  <link rel="stylesheet" href="WirVsVirusMap.css">
+
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
+
+    body {
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
+      margin: 0;
+    }
+
+    div#osm-map {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 44px;
+      bottom: 0;
+      z-index: 10010;
+    }
+    header {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 44px;
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+    }
+    header > a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    header a:link, header a:visited, header a:hover, header a:active {
+      color: #393939;
+      text-decoration: none;
+    }
+    header a.logo {
+      min-width: 4rem;
+      margin-left: 0.75rem;
+      background: url(../images/logo_square.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: left;
+    }
+    header a.map-link h1 {
+      display: inline;
+      font-family: monospace;
+      font-weight: normal;
+      padding-right: 1rem;
+      margin: 0;
+    }
+    header a.categories {
+      flex: none;
+      min-width: 2rem;
+      margin-right: 0.75rem;
+      background: url(../images/icons8-liste-100.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: left;
+    }
+    header a.categories > span {
+      display: none;
+      margin-left: 3rem;
+    }
+    header a.subscribe {
+      flex: none;
+      min-width: 2rem;
+      margin-right: 0.75rem;
+      background: url(../images/icons8-add-reminder.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: left;
+    }
+    header a.subscribe > span {
+      display: none;
+      margin-left: 3rem;
+    }
+
+
+
+
+    input[type="email"], input[type="text"] {
+      font-family: Raleway, sans-serif; font-size: 1rem;
+      padding: 8px;
+      border: solid 1px; border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.075);
+      border-color: rgba(0, 0, 0, 0.25);
+    }
+    input[type="submit"] {
+      color: #fff; background-color: #ce1b28;
+      font-size: 1.1rem;
+      border: 0;
+      border-radius: 4px;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+
+    #categories {
+      box-sizing: border-box;
+      font-family: Raleway, sans-serif;
+      font-size: 1rem;
+      display: none;
+      padding: 20px;
+    }
+    #categories * {
+      box-sizing: border-box;
+    }
+    #categories form {
+      width: 100%;
+      text-align: center;
+    }
+    #categories form > label {
+      display: inline-block;
+      width: 10rem;
+      padding: 1rem 0;
+      background: #fff;
+      overflow: hidden;
+      text-align: center;
+      margin: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #eee;;
+    }
+    #categories form > label:hover {
+      background: #eee;
+    }
+    #categories form input[type="checkbox"] {
+      display: none;
+    }
+
+    #categories form input[type="checkbox"] + span.checkbox {
+      display: inline-block;
+      padding-top: 3rem;
+      background-size: 2rem;
+      background-position: top;
+      background-repeat: no-repeat;
+      background-blend-mode: luminosity;
+      -webkit-filter: grayscale(1);
+      opacity: 0.33;
+    }
+
+    #categories form input[type="checkbox"]:checked + span.checkbox {
+      background-blend-mode: normal;
+      -webkit-filter: none;
+      opacity: 1;
+    }
+
+    #followup {
+      box-sizing: border-box;
+      font-family: Raleway, sans-serif;
+      font-size: 1.33rem;
+      display: none;
+      margin: 0;
+      padding: 2rem;
+    }
+    #followup * {
+      box-sizing: border-box;
+    }
+    #followup > form {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    #followup > form p {
+      margin: 0 0 1rem 0;
+    }
+    #followup > form > div {
+      display: flex;
+      align-items: flex-end;
+      margin: 0 -5px;
+    }
+    #followup > form > div > div {
+      display: inline-block;
+      margin: 0 5px;
+    }
+    #followup > form input {
+      width: 100%;
+    }
+    #followup > form input[type="checkbox"] {
+      width: 1.5rem;
+    }
+    #followup > form label {
+      display: block;
+      text-align: left;
+      font-size: 0.9rem;
+      margin: 5px 0;
+    }
+    #followup > form label.datenschutz {
+      display: block;
+      margin-top: 1rem;
+      padding-left: 1.5rem;
+      font-size: 0.8rem;
+      font-weight: normal;
+    }
+    #followup > form label.datenschutz input {
+      margin-right: 0;
+      margin-left: -1.5rem;
+    }
+
+    #followup a:link, #followup a:visited,
+    #followup a:hover, #followup a:active {
+      text-decoration: none;
+      color: #ce1b28;
+      display: inline;
+    }
+
+
+    #cookieconsent {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 1rem;
+      background: #ffe886;
+      z-index: 11000;
+    }
+    #cookieconsent a:link, #cookieconsent a:visited, #cookieconsent a:hover, #cookieconsent a:active {
+      text-decoration: none;
+      font-weight: normal;
+      color: #000;
+    }
+    #cookieconsent a.cc-info:link, #cookieconsent a.cc-info:visited,
+    #cookieconsent a.cc-info:hover, #cookieconsent a.cc-info:active {
+      text-decoration: underline;
+      font-weight: normal;
+      color: #000;
+    }
+    #cookieconsent a.cc-default:link, #cookieconsent a.cc-default:visited,
+    #cookieconsent a.cc-default:hover, #cookieconsent a.cc-default:active {
+      text-decoration: none;
+      font-weight: bold;
+      color: #fff;
+      background: #3fa00f;
+    }
+    #cookieconsent div.cc-selection {
+      text-align: center;
+    }
+    #cookieconsent span.cc-description {
+      margin: 0.5rem;
+      text-align: center;
+      flex: 2;
+    }
+    #cookieconsent span.cc-description a {
+      display: inline-block;
+    }
+    #cookieconsent a.cc-option {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.5rem;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 0 15px #00000044;
+    }
+
+    @media only screen and (min-width: 600px) {
+      #cookieconsent {
+        flex-direction: row;
+      }
+      #cookieconsent span.cc-description {
+        min-width: 17rem;
+      }
+    }
+    @media only screen and (max-width: 599px) {
+      #cookieconsent {
+        flex-direction: column;
+      }
+    }
+  </style>
+
+  <!-- Matomo -->
+  <script type="text/javascript">
+    var _paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    if (window.location.href.indexOf('RapidUsertest') == -1) {
+      _paq.push(['requireConsent']);
+    }
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="https://immunhelden.matomo.cloud/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src='//cdn.matomo.cloud/immunhelden.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+</head>
+<body>
+  <div id="cookieconsent">
+    <!--googleoff: all-->
+    <span class="cc-description">
+      Wir verwenden Cookies, um unsere Website und unseren Service zu optimieren.
+      <a href="https://www.digitale-doerfer.de/cookie-richtlinie-eu/" class="cc-info">Weiterlesen</a>
+      <a href="/impressum.html" class="cc-info">Impressum</a>
+    </span>
+    <div class="cc-selection">
+      <a href="javascript:void(0)" onclick="rememberConsent('all')" class="cc-option cc-default">Alle akzeptieren</a>
+      <a href="javascript:void(0)" onclick="rememberConsent('min')" class="cc-option">Nur funktionsfähig</a>
+      <!--<a href="javascript:void(0)" class="cc-option">Einstellungen anzeigen</a>-->
+    </div>
+    <!--googleon: all-->
+  </div>
+  <script>
+    function setCookie(key, value, expiry) {
+      var expires = new Date();
+      expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+      document.cookie = key + '=' + value + ';domain=.immunhelden.de;path=/;expires=' + expires.toUTCString();
+    }
+    function getCookie(key) {
+      var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+      return keyValue ? keyValue[2] : null;
+    }
+    function applyConsent(val) {
+      if (val) {
+        $('#cookieconsent').hide();
+      }
+      if (val == 'all') {
+        _paq.push(['setConsentGiven']);
+        console.log('setConsentGiven');
+        const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
+        if (params.utm_update && params.utm_range) {
+          _paq.push(['trackEvent', params.utm_update, params.utm_range]);
+        }
+        if (params.utm_referrer && params.utm_campaign) {
+          _paq.push(['trackEvent', params.utm_referrer, params.utm_campaign]);
+        }
+      }
+    }
+    function rememberConsent(val) {
+      setCookie('cookieconsent', val, 365);
+      applyConsent(val);
+    }
+
+    applyConsent(getCookie('cookieconsent'));
+  </script>
+
+  <header>
+    <a href="../../" class="logo"></a>
+    <a href="/maps/all/" class="map-link" style="flex: auto;">
+      <svg width="100%" height="100%" viewBox="0 0 500 100" preserveAspectRatio="xMinYMid meet"
+           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <text x="0" y="65" fill="#393939" font-size="38">Hier kannst du helfen</text>
+      </svg>
+    </a>
+    <a href="#categories" onclick="followAnchor()" class="categories">
+      <span id="heading-categories">Kategorien</span>
+    </a>
+    <a href="#subscribe" onclick="followAnchor()" class="subscribe">
+      <span id="heading-subscribe">Abonnieren</span>
+    </a>
+  </header>
+
+  <div id="osm-map"></div>
+
+  <div id="followup" class="wirvsvirusmap-pane">
+    <form id="subscribe_form">
+      <p>
+        Sie vermuten an COVID-19 erkrankt und mittlerweile wieder genesen zu sein?
+        <br><br>
+        Wir informieren Sie, wenn es in Ihrer Region weitere Möglichkeiten gibt zu helfen.
+      </p>
+      <div>
+        <input type="hidden" name="countryCode" id="countryCode" value=".de">
+        <div style="flex: none; width: 5rem;">
+          <label for="zipCode">Postleitzahl</label>
+          <input type="text" name="zipCode" id="zipCode" maxlength="5" pattern="[0-9]{5}" title="Deine fünfstellige Postleitzahl" required>
+        </div>
+        <div style="flex: auto">
+          <label for="email">E-Mail</label>
+          <input type="email" name="email" id="email" maxlength="100" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Deine Email Adresse" required>
+        </div>
+        <div style="flex: none; width: 2rem;">
+          <input type="submit" id="submitHero" value="✓">
+        </div>
+      </div>
+      <div>
+        <label class="datenschutz">
+          <input type="checkbox" id="datenschutz" required>Ich habe die
+          <a href="https://immunhelden.de/assets/Datenschutzerklarung.pdf">Datenschutzerklärung</a>
+          verstanden und möchte informiert werden, wenn es in meiner Nähe Möglichkeiten gibt zu helfen.
+        </label>
+      </div>
+    </form>
+  </div>
+
+  <div id="categories" class="wirvsvirusmap-pane">
+    <form>
+      <label>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'research');" checked>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-research.png');">Forschung</span>
+      </label>
+      <label>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'plasma');" checked>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-plasma.png');">Blutplasmaspende</span>
+      </label>
+      <label>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'mission');" checked>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-mission.png');">Stadtmission</span>
+      </label>
+      <label>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'tafel');" checked>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-tafel.png');">Tafel</span>
+      </label>
+      <label>
+        <input type="checkbox" onchange="map.toggleType(this, 'ImmunHelden.de', 'new');" checked>
+        <span class="checkbox" style="background-image: url('/images/marker/marker-icon-new.png');">Neu *</span>
+      </label>
+    </form>
+  </div>
+
+  <script>
+    const iconBaseUrl = '/images/marker/';
+    function smallIcon(uri) {
+      return {
+        iconUrl: iconBaseUrl + uri,
+        iconSize: [20, 25],
+        iconAnchor: [10, 24],
+        popupAnchor: [1, -22],
+      };
+    }
+    function largeIcon(uri) {
+      return {
+        iconUrl: iconBaseUrl + uri,
+        iconSize: [30, 38],
+        iconAnchor: [15, 37],
+        popupAnchor: [1, -34],
+      };
+    }
+
+    const params = WirVsVirusMap.Utils.parseUrlParams(window.location.href);
+    const restBaseUrl = /* params.restBaseUrl || */ 'https://immunhelden.de/maps';
+
+    const settings = {
+      selectPlatformsControl: false,
+      platforms: {
+        'ImmunHelden.de': {
+          restBaseUrl: restBaseUrl,
+          types: {
+            research: { title: "Forschung", icon: largeIcon('marker-icon-research.png') },
+            plasma: { title: "Blutplasmaspende", icon: smallIcon('marker-icon-plasma.png') },
+            mission: { title: "Stadtmission", icon: largeIcon('marker-icon-mission.png') },
+            tafel: { title: "Tafel", icon: largeIcon('marker-icon-tafel.png') },
+            new: { title: "Neu", icon: largeIcon('marker-icon-new.png') },
+          }
+        }
+      },
+    };
+
+    if (params.embedded) {
+      $('header').hide();
+      $('#cookieconsent').hide();
+      $('#osm-map').css('top', 0);
+      settings.embedded = params.embedded;
+      settings.lockLink = "/maps/all/" // TODO: For now we only embed from the landing page.
+    }
+    if (params.zoom) {
+      settings.zoom = parseInt(params.zoom)
+    }
+    if (params.lat && params.lng) {
+      settings.center = [ parseFloat(params.lat), parseFloat(params.lng) ];
+    }
+
+
+    const map = new WirVsVirusMap.Instance('osm-map', settings);
+
+    function closeOverlay() {
+      $('#heading-categories').hide();
+      $('#heading-subscribe').hide();
+      $('#followup').hide();
+      $('#categories').hide();
+    }
+
+    map.onOpenDetailsPane = closeOverlay;
+    map.onCloseDetailsPane = closeOverlay;
+
+    map.onViewDetails = (id) => {
+      // This is only going through once consent was given.
+      let referredFrom = 'none';
+      if (params.utm_referrer && params.utm_campaign) {
+        referredFrom = params.utm_referrer;
+      } else if (params.utm_update && params.utm_range) {
+        referredFrom = 'email-' + utm_update;
+      }
+      _paq.push(['trackEvent', 'pin-view', referredFrom, id]);
+    }
+
+    map.oncePinsReady(() => {
+      if (!params.embedded) {
+        //const marker = map.getMarker('ovgu-expae-t-zellen-studie');
+        //marker.setBouncingOptions({
+        //  bounceHeight : 5,    // height of the bouncing
+        //  bounceSpeed  : 100,    // bouncing speed coefficient
+        //  exclusive    : false, // if this marker bouncing all others must stop
+        //});
+        //marker.bounce();
+        //marker.on('click', () => {
+        //  marker.stopBouncing();
+        //});
+      }
+    });
+
+//    map.loadGeoJson('plz-5stellig-centroid.geojson', (feature, latlng) => {
+//      if (latlng.lat > 51)
+//        return null;
+//
+//      return L.marker(latlng, {
+//        icon: L.icon({
+//          iconUrl: '/maps/all/marker-dot.png',
+//          iconSize: [1, 1],
+//          iconAnchor: [1, 1]
+//        })
+//      });
+//    });
+
+    function followAnchor() {
+      let anchor = WirVsVirusMap.Utils.parseAnchor(window.location.href);
+      if (anchor == 'subscribe') {
+        map.openDetailsPane(400);
+        $('#heading-subscribe').show();
+        $('#heading-categories').hide();
+        $('#followup').show();
+        $('#categories').hide();
+      } else if (anchor == 'categories') {
+        map.openDetailsPane(210);
+        $('#heading-categories').show();
+        $('#heading-subscribe').hide();
+        $('#followup').hide();
+        $('#categories').show();
+      }
+      else if (anchor) {
+        map.oncePinsReady(() => {
+          const marker = map.focusPin(anchor);
+          if (marker.isBouncing()) {
+            marker.stopBouncing();
+          }
+        });
+      }
+      else {
+        map.closeDetailsPane();
+      }
+    }
+
+    $(document).ready(followAnchor);
+    $(window).on('hashchange', (e) => {
+      e.preventDefault();
+      followAnchor();
+    });
+
+    $(document).on('submit', '#subscribe_form', (e) => {
+      closeOverlay();
+      e.preventDefault();
+
+      var req = {
+        type: 'POST',
+        url: '/addImmuneHeroMap',
+        data: {
+          email: $('#email').val(),
+          zipCode: $('#zipCode').val(),
+          countryCode: $('#countryCode').val(),
+          datenschutz: $('#datenschutz').val()
+        }
+      };
+
+      $.ajax(req)
+        .fail(err => {
+          console.log(err);
+          $('#followup').css('display', 'flex');
+          $('#subscribe_form').html(
+            '<b>Irgendwas ist schief gelaufen! Bitte <a href="http://immunhelden.de/#questions">schreib uns</a> ' +
+            'und erkläre kurz was passiert ist, sodass wir den Fehler schnell beheben können!</b>'
+          );
+        })
+        .done(response => {
+          $('#followup').css('display', 'flex');
+          $('#subscribe_form').html(
+            '<b>ImmunHelden Updates erfolgreich abonniert!<br>Wir haben Dir eine E-Mail gesendet. ' +
+            'Bitte schau rein und bestätige Deine E-Mail Adresse.</b>'
+          );
+        });
+    });
+  </script>
+</body>
+</html>

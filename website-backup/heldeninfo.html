@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<!--
+  Industrious by TEMPLATED
+  templated.co @templatedco
+  Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+  <head>
+    <title>ImmunHelden</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <link rel="stylesheet" href="assets/css/leaflet.css">
+    <script src="assets/js/leaflet.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+
+    <style>
+      #osm-map {
+        height: 35rem;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+      #center-marker {
+        position: absolute;
+        left: calc(50% - 12px);
+        top: calc(50% - 41px);
+        width: 25px;
+        height: 41px;
+        z-index: 9999;
+        background-image: url('images/marker-icon-2x-blue.png');
+        background-size: cover;
+      }
+      .wrapper {
+        padding: 2rem 0 2rem 0;
+      }
+      h2 {
+        margin: 0 0 0.5rem 0;
+      }
+      h3 {
+        margin-bottom: 0.5rem;
+      }
+      form {
+        margin: 0 0 1rem 0;
+      }
+      label {
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: 400;
+        margin-top: 1rem;
+      }
+      img.asterisk {
+        height: 1rem;
+        width: auto;
+      }
+      #coords {
+        width: 10rem;
+        margin: 1rem;
+      }
+      #immunStatusForm > div {
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+      #immunStatusForm > div > label {
+        font-size: 1.25rem;
+        font-weight: 300;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+
+      input[type="radio"]:disabled + label {
+        opacity: 0.75;
+      }
+    </style>
+
+    <!-- Matomo -->
+    <script type="text/javascript">
+      var _paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      if (window.location.href.indexOf('RapidUsertest') == -1) {
+        _paq.push(['requireConsent']);
+      }
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://immunhelden.matomo.cloud/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src='//cdn.matomo.cloud/immunhelden.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+  </head>
+  <body class="is-preload">
+
+    <!-- Header -->
+      <header id="header">
+        <a class="logo" href="index.html">ImmunHelden</a>
+      </header>
+
+    <!-- Main -->
+      <section id="main" class="wrapper">
+        <div class="inner">
+          <div class="content">
+            <header id="header-added">
+              <h2>Vielen Dank für Deine Anmeldung!</h2>
+              <p>
+                Eine E-Mail zur Bestätigung deiner Anmeldung ist auf dem Weg. Bitte öffne den Link darin um Deine Anmeldung abzuschließen.
+              </p>
+            </header>
+            <header id="header-edit" style="display: none;">
+              <h2>Hier kannst du deine Angaben ändern und ergänzen</h2>
+            </header>
+            <p>
+              Um unsere Angebote besser auf Dich zuzuschneiden und unseren Partnern einen genaueren Überblick zu bieten, kannst du jetzt zusätzliche Angaben machen. <b>Diese Daten werden nicht personenbezogen weitergegeben</b>, sondern nur genutzt um deine Benachrichtigungen zu filtern und statistisch darzustellen wie viele Helfer es pro Region gibt.
+            </p>
+            <form id="immunStatusForm" action="/submitHeldenInfo" method="POST">
+              <input type="hidden" id="key" name="key">
+
+              <div>
+                <label for="firstName">Vorname</label>
+                <input type="text" name="firstName" id="firstName" maxlength="40"
+                        title="Dein Vorname">
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <div>
+                <label for="lastName">Nachname</label>
+                <input type="text" name="lastName" id="lastName" maxlength="40"
+                        title="Dein Nachname">
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <div>
+                <label for="frequency">Info Mails</label>
+                <select name="frequency" id="frequency">
+                  <option value="direct">Für jedes neue Angebot</option>
+                  <option value="daily">Tägliche Zusammenfassung</option>
+                  <option value="weekly">Wöchentliche Zusammenfassung</option>
+                </select>
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <div>
+                <label for="availability">Verfügbarkeit</label>
+                <select name="availability" id="availability">
+                  <option value="unknown">Keine Angabe</option>
+                  <option value="hourly">Stundenweise von Zeit zu Zeit</option>
+                  <option value="parttime">Teilzeit (regelmäßig)</option>
+                  <option value="fulltime">Vollzeit</option>
+                </select>
+              </div>
+              <br>
+              <div>
+                <input type="checkbox" id="confirmed" onclick="allowSubmit();" style="margin-left: -2rem;">
+                <label for="confirmed" style="padding-left: 3rem; display: block; margin-top: 1rem; font-size: 1rem; font-weight: normal; text-transform: none;">
+                  Ich habe die <a target="_blank" href="https://immunhelden.de/datenschutz">Datenschutzerklärung</a> gelsen und stimme zu, dass die hiermit übermittelten Daten dafür genutzt werden dürfen, mir passgenaue Informationen zukommen zu lassen. Sie werden nicht an Dritte weitergegeben werden und können jederzeit mit Wirkung auf die Zukunft widerrufen werden.
+                </label>
+                <input type="submit" id="complete" value="Absenden" disabled>
+              </div>
+
+              <hr>
+
+              <h3 style="opacity:0.75;">Dein Immunstatus</h3>
+              <p style="opacity:0.75; margin-bottom: 1rem;">Diese Angaben werden in Zukunnft ggf. freigeschalten.</p>
+
+              <input type="radio" id="status-unknown" value="unknown" name="status" checked disabled>
+              <label for="status-unknown">
+                Keine Angabe
+              </label>
+              <input type="radio" id="status-tested-pcr" value="tested-pcr" name="status" disabled>
+              <label for="status-tested-pcr">
+                Ich habe eine Infektion mit dem Coronavirus SARS-CoV-2 hinter mir und bin inzwischen genesen. Ich kann einen <b>positiven PCR-Test</b> (Bluttest, der derzeit bei Verdacht auf das Vorliegen einer Infektion durchgeführt wird) vorlegen. Der Beginn meiner Symptome bzw. das positive Testergebnis liegt 3 Wochen oder länger zurück.
+              </label>
+              <input type="radio" id="status-tested-elisa" value="tested-elisa" name="status" disabled>
+              <label for="status-tested-elisa">
+                Meine überstandene Infektion wurde mithilfe eines <b>ELISA-Antikörpertests</b> (Antikörper-Bluttest beim Arzt oder im Krankenhaus) bestätigt. Das Testergebnis kann ich vorlegen.
+              </label>
+              <input type="radio" id="status-tested-lateral" value="tested-lateral" name="status" disabled>
+              <label for="status-tested-lateral">
+                Meine überstandene Infektion wurde mithilfe eines <b>Antikörper-Schnelltests</b> (Lateral-Flow-Test) bestätigt. Das Testergebnis kann ich vorlegen.
+              </label>
+              <input type="radio" id="status-assumed-contact" value="assumed-contact" name="status" disabled>
+              <label for="status-assumed-contact">
+                Ich kann meine überstandene Infektion nicht nachweisen, habe aber den <b>begründeten Verdacht</b>, dass ich mit SARS-CoV-2 infiziert war, weil ich mich in einem Risikogebiet (siehe Link)aufgehalten habe UND mit den Symptomen Fieber UND Husten erkrankt war. Inzwischen fühle ich mich wieder gesund und der Beginn meiner Erkrankung liegt mindestens 4 Wochen zurück. Den Aufenthalt in einem Risikogebiet kann ich nachweisen (z.B. durch ein Flugticket, meinen Wohnort o.ä.)
+              </label>
+              <input type="radio" id="status-assumed-symptoms" value="assumed-symptoms" name="status" disabled>
+              <label for="status-assumed-symptoms">
+                Ich kann meine überstandene Infektion nicht nachweisen, habe aber den <b>begründeten Verdacht</b>, dass ich mit SARS-CoV-2 infiziert war, weil ich Kontakt zu einer nachweislich infizierten Person hatte UND mit den Symptomen Fieber UND Husten erkrankt war. Inzwischen fühle ich mich wieder gesund und der Beginn meiner Erkrankung liegt mindestens 4 Wochen zurück.
+              </label>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        if (!String.prototype.format) {
+          String.prototype.format = function() {
+            var args = Array.prototype.slice.call(arguments);
+            return this.replace(/{(\d+)}/g, function(match, number) {
+              return typeof args[number] != 'undefined'
+                ? args[number]
+                : match
+              ;
+            });
+          };
+        }
+
+        function parseBool(string) {
+          if (string) {
+            switch (string.toLowerCase().trim()) {
+              case "true": case "yes": case "1": case "on": return true;
+              case "false": case "no": case "0": case "off": case null: return false;
+              default: return Boolean(string);
+            }
+          }
+          return false;
+        }
+
+        function allowSubmit() {
+          const confirmed = $('#confirmed').is(':checked');
+          $('#complete').prop('disabled', !confirmed);
+        }
+
+        function parseUrlParams(url) {
+          const regex = /[?&]([^=#]+)=([^&#]*)/g;
+          let params = {};
+          let match;
+          while(match = regex.exec(url)) {
+            params[match[1]] = decodeURIComponent(match[2]);
+          }
+          return params;
+        }
+
+        // TODO: This should be passed as POST data
+        const params = parseUrlParams(window.location.href);
+        if (params.hasOwnProperty("key")) {
+          $('#key').val(params.key);
+        } else {
+          console.error("Missing URL parameter 'key'");
+        }
+
+        // Fill in passed values
+        if (params.hasOwnProperty("status")) {
+          $('#status-' + params.status).prop('checked', true);
+        }
+        for (const prop of ["firstName", "lastName", "frequency", "availability"]) {
+          if (params.hasOwnProperty(prop)) {
+            $('#' + prop).val(params[prop]);
+          }
+        }
+
+        // Switch heading when editing
+        if (params.hasOwnProperty('edit') && parseBool(params.edit)) {
+          $('#header-added').hide();
+          $('#header-edit').show();
+        }
+      </script>
+
+    <!-- Footer -->
+      <footer id="footer">
+        <div class="inner">
+          <div class="content">
+            <section>
+              <h3>Ich bin nicht immun, wie kann ich sonst helfen?</h3>
+              <p>Werde unser PR Hero! Teile einfach diese Website mit Freunden, Familie, Kolleg:innen und Nachbar:innen. Je mehr ImmunHelden wir mit offenen Stellen vernetzen können, desto weniger Infektionen wird es geben.</p>
+            </section>
+            <section>
+              <h4>#WirVsVirus</h4>
+              <ul class="alt">
+                <li><a target="_blank" href="https://devpost.com/software/immuneheros">ImmunHelden DevPost</a>
+                <li><a target="_blank" href="https://wirvsvirushackathon.org/">Website Hackathon</a></li>
+                <li><a target="_blank" href="https://www.bundesregierung.de/breg-de/themen/coronavirus/wir-vs-virus-1731968">Bundesregierung</a></li>
+              </ul>
+            </section>
+            <section>
+              <h4>Follow us</h4>
+              <ul class="plain">
+                <li><a target="_blank" href="https://twitter.com/ImmunHelden"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+                <li><i class="icon fa-facebook">&nbsp;</i>Facebook</li>
+                <li><i class="icon fa-instagram">&nbsp;</i>Instagram</li>
+                <li><a target="_blank" href="https://github.com/weliveindetail/ImmunHelden.de"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+              </ul>
+            </section>
+          </div>
+          <div class="content">
+            <section>
+              <div class="image">
+                <a target="_blank" href="https://wirvsvirushackathon.org/">
+                  <img src="images/Logo_02_weiss.svg" alt="logo" width="400px" />
+                </a>
+              </div>
+            </section>
+          </div>
+          <div class="copyright">
+            <a href="https://immunhelden.de/assets/Datenschutzerklarung.pdf">Datenschutzerklärung</a> •
+            <a href="impressum.html">Impressum ImmunHelden.de</a>
+            <br>
+            Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+            from <a href="https://www.flaticon.com/" title="Flaticon">flaticon.com</a>
+          </div>
+        </div>
+      </footer>
+
+    <!-- Scripts -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/browser.min.js"></script>
+      <script src="assets/js/breakpoints.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <script src="assets/js/main.js"></script>
+
+  </body>
+</html>

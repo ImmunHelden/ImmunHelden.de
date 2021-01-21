@@ -1,0 +1,87 @@
+
+a, a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+  color: #393939;
+}
+
+#osm-map-canvas {
+  position: absolute;
+  z-index: 10001;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  box-shadow: 3px 2px 15px #bbb;
+}
+
+.wvvm-root a.lock {
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 10099;
+  background: transparent;
+}
+
+.wvvm-root a.lock:hover {
+  background: #0001;
+}
+
+.wvvm-root .platforms-control {
+  background-color: #fff;
+  padding: 3px 8px;
+}
+
+.wvvm-root div.pane {
+  position: absolute;
+  z-index: 9000;
+  top: 0;
+  right: 0;
+  width: 400px;
+  bottom: 0px;
+  display: none;
+  background-image: url(../../images/spin_loading.gif);
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 600px) {
+  .wvvm-root div.pane {
+    width: 100%;
+    z-index: 10011;
+    background-color: #fff;
+  }
+}
+
+.wvvm-root div.pane > iframe {
+  margin: 0;
+  border: 0;
+  width: 100%;
+  height: calc(100% - 2rem);
+  overflow: scroll;
+  background: transparent;
+}
+.wvvm-root div.pane > a {
+  display: block;
+  height: 1.75rem;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img.spin-loading {
+  width: 100%;
+  height: auto;
+}
+div.popup-pin p {
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+div.popup-pin a {
+  color: #393939;
+}
+

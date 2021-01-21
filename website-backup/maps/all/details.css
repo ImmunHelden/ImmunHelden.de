@@ -1,0 +1,61 @@
+body {
+  background: #fff;
+  font-family: monospace;
+}
+
+body * {
+  line-height: 130%;
+}
+
+body > div {
+  margin-left: 25px;
+  margin-right: 10px;
+}
+
+div > div {
+  margin-bottom: 10px;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: #931814;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  padding-inline-start: 25px;
+}
+
+div > div.email {
+  background-image: url(images/symbol-email.png);
+  background-repeat: no-repeat;
+  background-size: 1.1rem;
+  padding-left: 22px;
+}
+
+div > div.phone {
+  background-image: url(images/symbol-phone.png);
+  background-repeat: no-repeat;
+  background-size: 1.1rem;
+  padding-left: 22px;
+}
+
+div > div.url {
+  background-image: url(images/symbol-website.png);
+  background-repeat: no-repeat;
+  background-size: 1.1rem;
+  padding-left: 22px;
+}
+
+div > div.permalink {
+  background-image: url(images/symbol-permalink.png);
+  background-repeat: no-repeat;
+  background-size: 1.1rem;
+  padding-left: 22px;
+}
